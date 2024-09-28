@@ -1,0 +1,7 @@
+{
+  "files.associations": {
+    "renderer.h": "c",
+    "shader.h": "c",
+    "ratio": "c"
+  }
+}
