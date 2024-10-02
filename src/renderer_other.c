@@ -59,7 +59,7 @@ void init_bricks(Renderer* rnd) {
   memcpy(rnd->positions, positions, rnd->RENDER_QUAD_MAX_COUNT * sizeof(vec2));
 
   for (int i = 0; i < rnd->RENDER_QUAD_MAX_COUNT; ++i) {
-    printf("Instance %d: Position (%f, %f)\n", i, rnd->positions[i][0], rnd->positions[i][1]);
+    // printf("Instance %d: Position (%f, %f)\n", i, rnd->positions[i][0], rnd->positions[i][1]);
   }
 
   free(positions);

@@ -22,6 +22,7 @@ void Renderer_init(Renderer *rnd)
 void Update(Renderer *data)
 {
   // glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+  data->plr.delta_time = & data->delta_time;
   data->current_time = (float)glfwGetTime();
   data->delta_time = data->current_time - data->last_time;
   data->last_time = data->current_time;
@@ -44,6 +45,14 @@ void Update(Renderer *data)
   if(glfwGetKey(data->gameWindow->handle, GLFW_KEY_A) == GLFW_PRESS) {
     data->plr.position[0] -= data->plr.player_movement_speed * data->delta_time;
   }
+  if(glfwGetKey(data->gameWindow->handle, GLFW_KEY_SPACE) == GLFW_PRESS) {
+    if(data->plr.canJump) {
+      data->plr.canJump = false;
+      data->plr.isJumping = true;
+    }
+  }
+  player_process_jump(&data->plr);
+  player_process_fall(&data->plr);
 
   player_update_position(&data->plr);
   player_unbind(&data->plr);

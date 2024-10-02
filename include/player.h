@@ -2,6 +2,7 @@
 #define player_h
 
 #include <stdio.h>
+#include <stdbool.h>
 #include "glad/glad.h"
 #include "cglm/cglm.h"
 #include "texture.h"
@@ -10,6 +11,9 @@
 #include "layout.h"
 
 #define null NULL
+#define Y 1
+#define X 0
+#define Y_VLCTY 1.2f
 
 //const float MAX_HEALTH = 100.0f;
 
@@ -18,7 +22,13 @@ typedef struct player {
   float health;
   float player_movement_speed;
   texture_data player_texture;
+  bool canJump;
+  bool isJumping;
+  bool isFalling;
+  float maxJumpHeight;
+  float y_velocity;
 
+  float *delta_time;
   layout player_layouts;
   vrtx_buffer mesh;
   shader vertex, fragment;
@@ -35,5 +45,8 @@ void render_player(player* plr);
 void configure_projection(player* plr, float aspect_ratio);
 void player_unbind(player* plr);
 void player_update_position(player* plr);
+void player_reset_jump(player* plr);
+void player_process_jump(player* plr);
+void player_process_fall(player* plr);
 
 #endif //player_h
