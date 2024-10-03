@@ -1,6 +1,12 @@
 [
 {
   "directory": "C:/Users/User/Documents/C++/hera/build",
+  "command": "C:\\msys64\\mingw64\\bin\\gcc.exe -IC:/Users/User/Documents/C++/hera/./include -g -o CMakeFiles\\hera.dir\\src\\bricks.c.obj -c C:\\Users\\User\\Documents\\C++\\hera\\src\\bricks.c",
+  "file": "C:\\Users\\User\\Documents\\C++\\hera\\src\\bricks.c",
+  "output": "CMakeFiles\\hera.dir\\src\\bricks.c.obj"
+},
+{
+  "directory": "C:/Users/User/Documents/C++/hera/build",
   "command": "C:\\msys64\\mingw64\\bin\\gcc.exe -IC:/Users/User/Documents/C++/hera/./include -g -o CMakeFiles\\hera.dir\\src\\buff.c.obj -c C:\\Users\\User\\Documents\\C++\\hera\\src\\buff.c",
   "file": "C:\\Users\\User\\Documents\\C++\\hera\\src\\buff.c",
   "output": "CMakeFiles\\hera.dir\\src\\buff.c.obj"

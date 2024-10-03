@@ -11,6 +11,7 @@ void Renderer_init(Renderer *rnd)
 
   rnd->last_time = (float)glfwGetTime();
   create_player(&rnd->plr);
+  create_bricks(&rnd->platform);
   glEnable(GL_BLEND);
   glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 }

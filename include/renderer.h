@@ -9,6 +9,7 @@
 #include "cglm/cglm.h"
 #include "texture.h"
 #include "player.h"
+#include "bricks.h"
 
 typedef struct Renderer
 {
@@ -26,6 +27,7 @@ typedef struct Renderer
   vec2 *positions;
   float last_time, current_time, delta_time;
   player plr;
+  brick platform;
 } Renderer;
 //MAIN FUNCTIONS
 void Renderer_init(Renderer *);
@@ -33,7 +35,7 @@ void Update(Renderer *data);
 void Close(Renderer *data);
 
 //OTHERS
-static void INITIALIZE_VECTOR2(vec2 *arr, int max_n, float default_x, float default_y);
+void INITIALIZE_VECTOR2(vec2 *arr, int max_n, float default_x, float default_y);
 
 //FOR BRICKS
 void init_bricks(Renderer* rnd);

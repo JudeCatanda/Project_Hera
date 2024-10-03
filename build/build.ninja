@@ -49,6 +49,13 @@ cmake_ninja_workdir = C$:/Users/User/Documents/C++/hera/build/
 
 build cmake_object_order_depends_target_hera: phony || .
 
+build CMakeFiles/hera.dir/src/bricks.c.obj: C_COMPILER__hera_unscanned_Debug C$:/Users/User/Documents/C++/hera/src/bricks.c || cmake_object_order_depends_target_hera
+  DEP_FILE = CMakeFiles\hera.dir\src\bricks.c.obj.d
+  FLAGS = -g
+  INCLUDES = -IC:/Users/User/Documents/C++/hera/./include
+  OBJECT_DIR = CMakeFiles\hera.dir
+  OBJECT_FILE_DIR = CMakeFiles\hera.dir\src
+
 build CMakeFiles/hera.dir/src/buff.c.obj: C_COMPILER__hera_unscanned_Debug C$:/Users/User/Documents/C++/hera/src/buff.c || cmake_object_order_depends_target_hera
   DEP_FILE = CMakeFiles\hera.dir\src\buff.c.obj.d
   FLAGS = -g
@@ -134,7 +141,7 @@ build CMakeFiles/hera.dir/src/window.c.obj: C_COMPILER__hera_unscanned_Debug C$:
 #############################################
 # Link the executable hera.exe
 
-build hera.exe: C_EXECUTABLE_LINKER__hera_Debug CMakeFiles/hera.dir/src/buff.c.obj CMakeFiles/hera.dir/src/glad.c.obj CMakeFiles/hera.dir/src/layout.c.obj CMakeFiles/hera.dir/src/main.c.obj CMakeFiles/hera.dir/src/player.c.obj CMakeFiles/hera.dir/src/renderer.c.obj CMakeFiles/hera.dir/src/renderer_other.c.obj CMakeFiles/hera.dir/src/shader.c.obj CMakeFiles/hera.dir/src/stb_image.c.obj CMakeFiles/hera.dir/src/texture.c.obj CMakeFiles/hera.dir/src/window.c.obj
+build hera.exe: C_EXECUTABLE_LINKER__hera_Debug CMakeFiles/hera.dir/src/bricks.c.obj CMakeFiles/hera.dir/src/buff.c.obj CMakeFiles/hera.dir/src/glad.c.obj CMakeFiles/hera.dir/src/layout.c.obj CMakeFiles/hera.dir/src/main.c.obj CMakeFiles/hera.dir/src/player.c.obj CMakeFiles/hera.dir/src/renderer.c.obj CMakeFiles/hera.dir/src/renderer_other.c.obj CMakeFiles/hera.dir/src/shader.c.obj CMakeFiles/hera.dir/src/stb_image.c.obj CMakeFiles/hera.dir/src/texture.c.obj CMakeFiles/hera.dir/src/window.c.obj
   FLAGS = -g
   LINK_LIBRARIES = -lopengl32  -lglfw3  -lcglm  -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   LINK_PATH = -LC:/Users/User/Documents/C++/hera/./lib
