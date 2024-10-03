@@ -1,0 +1,29 @@
+#ifndef bricks_h
+#define bricks_h
+//#DEFAULT INCLUDES
+#include <stdio.h>
+#include <stdbool.h>
+#include "glad/glad.h"
+#include "cglm/cglm.h"
+#include "texture.h"
+#include "buff.h"
+#include "shader.h"
+#include "layout.h"
+
+typedef struct brick {
+  //DONT CHANGE!! USED BY MEMCPY()!
+  int BRICKS_COUNT;
+  int maximum_brick_x, maximum_brick_y;
+  vec2* brick_individual_positions;
+  vrtx_buffer instanced_positions_buffer, mesh_vbo;
+  layout _default;
+  shader vertex_, fragment_;
+  float ASPECT_RATIO;
+  mat4 projection;
+  texture_data atlas;
+  shader_program _default_p;
+} brick;
+
+void create_bricks(brick* THE_BRICKS);
+
+#endif 

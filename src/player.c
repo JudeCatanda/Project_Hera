@@ -29,7 +29,7 @@ void create_player(player *plr)
   plr->mesh.unbind(&plr->mesh);
   layout_unbind(&plr->player_layouts);
 
-  plr->player_movement_speed = Y_VLCTY;
+  plr->player_movement_speed = 0.8;
   player_reset_jump(plr);
 }
 
@@ -67,18 +67,18 @@ void player_reset_jump(player *plr)
   plr->canJump = true;
   plr->isFalling = false;
   plr->isJumping = false;
-  plr->maxJumpHeight = 0.11f;
+  plr->maxJumpHeight = 0.02f;
+  plr->gravity = -0.3f;
   plr->y_velocity = Y_VLCTY;
 }
 
-void player_process_jump(player *plr)
-{
-  if (plr->isJumping)
-  {
+void player_process_jump(player *plr) {
+  if (plr->isJumping) {
+    plr->y_velocity -= 0.05f * *plr->delta_time;
     plr->position[Y] += plr->y_velocity * *plr->delta_time;
     player_update_position(plr);
-    if (plr->position[1] > plr->maxJumpHeight)
-    {
+
+    if (plr->position[1] > plr->maxJumpHeight) {
       plr->isJumping = false;
       plr->isFalling = true;
       plr->y_velocity = -plr->y_velocity; // set to negative
@@ -89,8 +89,11 @@ void player_process_jump(player *plr)
 void player_process_fall(player *plr) {
   float tolerance = 0.01f;
   if (plr->isFalling && !plr->isJumping) {
+    plr->y_velocity += plr->gravity * *plr->delta_time;
     plr->position[1] += plr->y_velocity * *plr->delta_time;
     player_update_position(plr);
+
+
     if (plr->position[1] <= -0.5f + tolerance && plr->position[1] >= -0.5f - tolerance) {
       plr->canJump = true;
       plr->isJumping = false;

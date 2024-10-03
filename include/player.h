@@ -13,7 +13,7 @@
 #define null NULL
 #define Y 1
 #define X 0
-#define Y_VLCTY 1.2f
+#define Y_VLCTY 1.7f
 
 //const float MAX_HEALTH = 100.0f;
 
@@ -27,6 +27,7 @@ typedef struct player {
   bool isFalling;
   float maxJumpHeight;
   float y_velocity;
+  float gravity;
 
   float *delta_time;
   layout player_layouts;
