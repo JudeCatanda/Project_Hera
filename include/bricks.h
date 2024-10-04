@@ -16,14 +16,16 @@ typedef struct brick {
   int maximum_brick_x, maximum_brick_y;
   vec2* brick_individual_positions;
   vrtx_buffer instanced_positions_buffer, mesh_vbo;
-  layout _default;
+  layout layout_default;
   shader vertex_, fragment_;
   float ASPECT_RATIO;
   mat4 projection;
   texture_data atlas;
-  shader_program _default_p;
+  shader_program program;
 } brick;
 
 void create_bricks(brick* THE_BRICKS);
+void render_bricks(brick* THE_BRICKS);
+void bricks_unbind(brick* THE_BRICKS);
 
 #endif 

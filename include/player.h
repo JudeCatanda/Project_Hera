@@ -38,7 +38,8 @@ typedef struct player {
 
   //DONOT OVERIDE!!
   mat4 projection;
-  float aspect_ratio;
+  float aspect_ratio, screen_w, screen_h;
+  mat4 view;
 } player;
 
 void create_player(player* plr);
@@ -49,5 +50,7 @@ void player_update_position(player* plr);
 void player_reset_jump(player* plr);
 void player_process_jump(player* plr);
 void player_process_fall(player* plr);
+void player_update_camera(player* plr);
+void player_camera_set_vandp(player* plr);
 
 #endif //player_h

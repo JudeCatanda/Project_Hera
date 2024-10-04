@@ -32,22 +32,23 @@ void create_player(player *plr)
   plr->player_movement_speed = 0.8;
   player_reset_jump(plr);
 }
-
 void render_player(player *plr)
 {
   plr->player_texture.Bind(&plr->player_texture);
   plr->program.UseProgram(&plr->program);
-  configure_projection(plr, plr->aspect_ratio);
   layout_bind(&plr->player_layouts);
+  configure_projection(plr, plr->aspect_ratio);
   glDrawArrays(GL_TRIANGLES, 0, 6);
 }
-
-void configure_projection(player *plr, float aspect_ratio)
-{
-  glm_ortho(-aspect_ratio, aspect_ratio, -1.0f, 1.0f, -1.0f, 1.0f, plr->projection);
-  glUniformMatrix4fv(glGetUniformLocation(plr->program.handle, "projection"), 1, GL_FALSE, (float *)plr->projection);
+void configure_projection(player *plr, float aspect_ratio) {
+  glm_ortho(-aspect_ratio * 2, aspect_ratio * 2, -2.0f, 2.0f, -1.0f, 1.0f, plr->projection); //works! but not changing camera pos
 }
-
+void player_camera_set_vandp(player* plr) {
+  player_update_camera(plr);
+  mat4 vp_matrix;
+  glm_mat4_mul(plr->projection, plr->view, vp_matrix);
+  glUniformMatrix4fv(glGetUniformLocation(plr->program.handle, "vp_mat"), 1, GL_FALSE, (float*)vp_matrix);
+}
 void player_unbind(player *plr)
 {
   layout_unbind(&plr->player_layouts);
@@ -59,9 +60,7 @@ void player_update_position(player *plr)
 {
   plr->POSITION_UNIFORM_LOCATION = glGetUniformLocation(plr->program.handle, "new_pos");
   glUniform2fv(plr->POSITION_UNIFORM_LOCATION, 1, (float *)plr->position);
-  // printf("UPDATED POSITION: (%f, %f)\n", plr->position[0], plr->position[1]);
 }
-
 void player_reset_jump(player *plr)
 {
   plr->canJump = true;
@@ -85,7 +84,6 @@ void player_process_jump(player *plr) {
     }
   }
 }
-
 void player_process_fall(player *plr) {
   float tolerance = 0.01f;
   if (plr->isFalling && !plr->isJumping) {
@@ -101,4 +99,8 @@ void player_process_fall(player *plr) {
       plr->y_velocity = Y_VLCTY;
     }
   }
+}
+void player_update_camera(player *plr) {
+  glm_mat4_identity(plr->view);
+  glm_translate(plr->view, (vec3){ -plr->position[0], -plr->position[1], 0.0f });
 }
