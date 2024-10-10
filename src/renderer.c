@@ -14,6 +14,7 @@ void Renderer_init(Renderer *rnd)
 void Update(Renderer *data)
 {
   // glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+  glfwGetWindowSize(data->gameWindow->handle, &data->window_size_x, &data->window_size_y);
   data->plr.delta_time = & data->delta_time;
   data->current_time = (float)glfwGetTime();
   data->delta_time = data->current_time - data->last_time;
@@ -37,10 +38,16 @@ void Update(Renderer *data)
       data->plr.isJumping = true;
     }
   }
+  glfwGetCursorPos(data->gameWindow->handle, &data->cursor_x, &data->cursor_y);
+  printf("CURSOR MOVED %f, %f\n", data->cursor_x, data->cursor_y);
+  printf("PLAYER POSITION %f, %f\n", data->plr.position[0], data->plr.position[1]);
   player_process_jump(&data->plr);
   player_process_fall(&data->plr);
   player_update_position(&data->plr);
+  data->plr.position[0] = (float)data->cursor_x / (float)data->window_size_x;
+  data->plr.position[1] = -(float)data->cursor_y / (float)data->window_size_y;
   player_update_camera(&data->plr);
+  player_camera_set_vandp(&data->plr);
   player_unbind(&data->plr);
   glfwSwapBuffers(data->gameWindow->handle);
   glfwPollEvents();

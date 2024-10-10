@@ -45,9 +45,9 @@ void configure_projection(player *plr, float aspect_ratio) {
 }
 void player_camera_set_vandp(player* plr) {
   player_update_camera(plr);
-  mat4 vp_matrix;
-  glm_mat4_mul(plr->projection, plr->view, vp_matrix);
-  glUniformMatrix4fv(glGetUniformLocation(plr->program.handle, "vp_mat"), 1, GL_FALSE, (float*)vp_matrix);
+  // mat4 vp_matrix;
+  // glm_mat4_mul(plr->projection, plr->view, vp_matrix);
+  glUniformMatrix4fv(glGetUniformLocation(plr->program.handle, "projection"), 1, GL_FALSE, (float*)plr->projection);
 }
 void player_unbind(player *plr)
 {

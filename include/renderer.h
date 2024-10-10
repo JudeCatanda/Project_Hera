@@ -2,6 +2,7 @@
 #define renderer_h
 
 #include <stdio.h>
+#include <stdbool.h>
 #include "window.h"
 #include "layout.h"
 #include "shader.h"
@@ -18,6 +19,8 @@ typedef struct Renderer
   float last_time, current_time, delta_time;
   player plr;
   brick platform;
+  double cursor_x, cursor_y;
+  int window_size_x, window_size_y;
 } Renderer;
 //MAIN FUNCTIONS
 void Renderer_init(Renderer *);

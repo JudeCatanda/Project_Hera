@@ -18,3 +18,12 @@ void heraWindow_Terminate(Window* win) {
   glfwDestroyWindow(win->handle);
   glfwTerminate();
 }
+
+
+
+float *heraWindow_GetSize(Window *wnd) {
+  int maxx, maxy;
+  glfwGetWindowSize(wnd->handle, &maxx, &maxy);
+  float sizes[2] = { (float)maxx, (float)maxy };
+  return sizes;
+}

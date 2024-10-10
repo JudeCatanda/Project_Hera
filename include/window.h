@@ -16,5 +16,6 @@ typedef struct Window {
 
 void heraWindow_Create(Window*, char*, Window_Size_Dimension);
 void heraWindow_Terminate(Window*);
+float* heraWindow_GetSize(Window* wnd);
 
 #endif
