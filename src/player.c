@@ -6,14 +6,25 @@ void create_player(player *plr)
   float TEXTURE_CELL_SIZE = 16;
   float IMAGE_SIZE = 32;
 
-  float mesh[24] = {
-      -0.2f, -0.2f, TEXTURE_X * TEXTURE_CELL_SIZE / IMAGE_SIZE, TEXTURE_Y * TEXTURE_CELL_SIZE / IMAGE_SIZE,
-      0.2f, -0.2f, (TEXTURE_X + 1) * TEXTURE_CELL_SIZE / IMAGE_SIZE, TEXTURE_Y * TEXTURE_CELL_SIZE / IMAGE_SIZE,
-      0.2f, 0.2f, (TEXTURE_X + 1) * TEXTURE_CELL_SIZE / IMAGE_SIZE, (TEXTURE_Y + 1) * TEXTURE_CELL_SIZE / IMAGE_SIZE,
+  // float mesh[24] = {
+  //     -0.2f, -0.2f, TEXTURE_X * TEXTURE_CELL_SIZE / IMAGE_SIZE, TEXTURE_Y * TEXTURE_CELL_SIZE / IMAGE_SIZE,
+  //     0.2f, -0.2f, (TEXTURE_X + 1) * TEXTURE_CELL_SIZE / IMAGE_SIZE, TEXTURE_Y * TEXTURE_CELL_SIZE / IMAGE_SIZE,
+  //     0.2f, 0.2f, (TEXTURE_X + 1) * TEXTURE_CELL_SIZE / IMAGE_SIZE, (TEXTURE_Y + 1) * TEXTURE_CELL_SIZE / IMAGE_SIZE,
 
-      -0.2f, -0.2f, TEXTURE_X * TEXTURE_CELL_SIZE / IMAGE_SIZE, TEXTURE_Y * TEXTURE_CELL_SIZE / IMAGE_SIZE,
-      -0.2f, 0.2f, TEXTURE_X * TEXTURE_CELL_SIZE / IMAGE_SIZE, (TEXTURE_Y + 1) * TEXTURE_CELL_SIZE / IMAGE_SIZE,
-      0.2f, 0.2f, (TEXTURE_X + 1) * TEXTURE_CELL_SIZE / IMAGE_SIZE, (TEXTURE_Y + 1) * TEXTURE_CELL_SIZE / IMAGE_SIZE};
+  //     -0.2f, -0.2f, TEXTURE_X * TEXTURE_CELL_SIZE / IMAGE_SIZE, TEXTURE_Y * TEXTURE_CELL_SIZE / IMAGE_SIZE,
+  //     -0.2f, 0.2f, TEXTURE_X * TEXTURE_CELL_SIZE / IMAGE_SIZE, (TEXTURE_Y + 1) * TEXTURE_CELL_SIZE / IMAGE_SIZE,
+  //     0.2f, 0.2f, (TEXTURE_X + 1) * TEXTURE_CELL_SIZE / IMAGE_SIZE, (TEXTURE_Y + 1) * TEXTURE_CELL_SIZE / IMAGE_SIZE
+  // };
+
+  float mesh[24] = {
+     -0.1f, -0.1f, 0.0f, 0.0f,
+      0.1f, -0.1f, 1.0f, .0f,
+      0.1f,  0.1f,  1.0f, 1.0f,
+
+     -0.1f, -0.1f, 0.0f, 0.0f,
+     -0.1f,  0.1f, 0.0, 1.0f,
+      0.1f,  0.1f, 1.0f, 1.0f
+  };
   // TODO: LOAD SHADERs
   shader_create(&plr->vertex, "./shader.player.vert", GL_VERTEX_SHADER);
   shader_create(&plr->fragment, "./shader.player.frag", GL_FRAGMENT_SHADER);
@@ -24,7 +35,7 @@ void create_player(player *plr)
   layout_enable_and_set_vertex_attrib_pointer(0, 2, GL_FLOAT, sizeof(vec4), (void *)0);
   layout_enable_and_set_vertex_attrib_pointer(1, 2, GL_FLOAT, sizeof(vec4), (void *)(sizeof(vec2)));
 
-  texture_create(&plr->player_texture, "./atlas.png", GL_RGBA, GL_RGBA);
+  texture_create(&plr->player_texture, "./arrow.png", GL_RGBA, GL_RGBA);
 
   plr->mesh.unbind(&plr->mesh);
   layout_unbind(&plr->player_layouts);
@@ -40,14 +51,16 @@ void render_player(player *plr)
   configure_projection(plr, plr->aspect_ratio);
   glDrawArrays(GL_TRIANGLES, 0, 6);
 }
-void configure_projection(player *plr, float aspect_ratio) {
-  glm_ortho(-aspect_ratio * 2, aspect_ratio * 2, -2.0f, 2.0f, -1.0f, 1.0f, plr->projection); //works! but not changing camera pos
+void configure_projection(player *plr, float aspect_ratio)
+{
+  glm_ortho(-aspect_ratio, aspect_ratio, -1.0f, 1.0f, -1.0f, 1.0f, plr->projection); // works! but not changing camera pos
 }
-void player_camera_set_vandp(player* plr) {
+void player_camera_set_vandp(player *plr)
+{
   player_update_camera(plr);
   // mat4 vp_matrix;
   // glm_mat4_mul(plr->projection, plr->view, vp_matrix);
-  glUniformMatrix4fv(glGetUniformLocation(plr->program.handle, "projection"), 1, GL_FALSE, (float*)plr->projection);
+  glUniformMatrix4fv(glGetUniformLocation(plr->program.handle, "projection"), 1, GL_FALSE, (float *)plr->projection);
 }
 void player_unbind(player *plr)
 {
@@ -71,28 +84,33 @@ void player_reset_jump(player *plr)
   plr->y_velocity = Y_VLCTY;
 }
 
-void player_process_jump(player *plr) {
-  if (plr->isJumping) {
+void player_process_jump(player *plr)
+{
+  if (plr->isJumping)
+  {
     plr->y_velocity -= 0.05f * *plr->delta_time;
     plr->position[Y] += plr->y_velocity * *plr->delta_time;
     player_update_position(plr);
 
-    if (plr->position[1] > plr->maxJumpHeight) {
+    if (plr->position[1] > plr->maxJumpHeight)
+    {
       plr->isJumping = false;
       plr->isFalling = true;
       plr->y_velocity = -plr->y_velocity; // set to negative
     }
   }
 }
-void player_process_fall(player *plr) {
+void player_process_fall(player *plr)
+{
   float tolerance = 0.01f;
-  if (plr->isFalling && !plr->isJumping) {
+  if (plr->isFalling && !plr->isJumping)
+  {
     plr->y_velocity += plr->gravity * *plr->delta_time;
     plr->position[1] += plr->y_velocity * *plr->delta_time;
     player_update_position(plr);
 
-
-    if (plr->position[1] <= -0.5f + tolerance && plr->position[1] >= -0.5f - tolerance) {
+    if (plr->position[1] <= -0.5f + tolerance && plr->position[1] >= -0.5f - tolerance)
+    {
       plr->canJump = true;
       plr->isJumping = false;
       plr->isFalling = false;
@@ -100,7 +118,8 @@ void player_process_fall(player *plr) {
     }
   }
 }
-void player_update_camera(player *plr) {
+void player_update_camera(player *plr)
+{
   glm_mat4_identity(plr->view);
-  glm_translate(plr->view, (vec3){ -plr->position[0], -plr->position[1], 0.0f });
+  glm_translate(plr->view, (vec3){-plr->position[0], -plr->position[1], 0.0f});
 }

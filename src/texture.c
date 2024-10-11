@@ -37,6 +37,7 @@ void texture_create(texture_data *img, const char *filename, GLint internalForma
   glTexImage2D(GL_TEXTURE_2D, 0, internalFormat, img->img_width, img->img_height, 0, Format, GL_UNSIGNED_BYTE, img->img_data);
   glGenerateMipmap(GL_TEXTURE_2D);
 
+  
   private_texture_free(img);
   glBindTexture(GL_TEXTURE_2D, 0);
 }

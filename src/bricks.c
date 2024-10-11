@@ -13,9 +13,9 @@ void create_bricks(brick *THE_BRICKS)
   fprintf(logs, "BRICKS_COUNT: %d\nmaximum_brick_x: %d\nmaximum_brick_y: %d\n",
           THE_BRICKS->BRICKS_COUNT, THE_BRICKS->maximum_brick_x, THE_BRICKS->maximum_brick_y);
   fclose(logs);
-  float TEXTURE_X = 0, TEXTURE_Y = 1;
+  float TEXTURE_X = 2, TEXTURE_Y = 15;
   float TEXTURE_CELL_SIZE = 16;
-  float IMAGE_SIZE = 32;
+  float IMAGE_SIZE = 256;
 
   float DEFAULT_QUAD_MESH[24] = {
       -0.2f, -0.2f, TEXTURE_X * TEXTURE_CELL_SIZE / IMAGE_SIZE, TEXTURE_Y * TEXTURE_CELL_SIZE / IMAGE_SIZE,
@@ -66,6 +66,7 @@ void create_bricks(brick *THE_BRICKS)
   THE_BRICKS->brick_individual_positions = calloc(THE_BRICKS->BRICKS_COUNT, sizeof(vec2));
   memcpy(THE_BRICKS->brick_individual_positions, positions, THE_BRICKS->BRICKS_COUNT * sizeof(vec2));
   free(positions);
+  printf("texture size %d x %d\n", THE_BRICKS->atlas.img_width, THE_BRICKS->atlas.img_height);
 }
 void render_bricks(brick *THE_BRICKS)
 {

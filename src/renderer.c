@@ -10,6 +10,12 @@ void Renderer_init(Renderer *rnd)
   create_bricks(&rnd->platform);
   glEnable(GL_BLEND);
   glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+  glfwGetCursorPos(rnd->gameWindow->handle, &rnd->cursor_x, &rnd->cursor_y);
+  rnd->plr.position[0] = (float)rnd->cursor_x;
+  rnd->plr.position[1] = (float)rnd->cursor_y;
+  player_update_position(&rnd->plr);
+  glfwSetCursorPos(rnd->gameWindow->handle, 800/2, 600/2);
+  glfwSetInputMode(rnd->gameWindow->handle, GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
 }
 void Update(Renderer *data)
 {
@@ -39,13 +45,14 @@ void Update(Renderer *data)
     }
   }
   glfwGetCursorPos(data->gameWindow->handle, &data->cursor_x, &data->cursor_y);
-  printf("CURSOR MOVED %f, %f\n", data->cursor_x, data->cursor_y);
-  printf("PLAYER POSITION %f, %f\n", data->plr.position[0], data->plr.position[1]);
+  // printf("CURSOR MOVED %f, %f\n", data->cursor_x, data->cursor_y);
+  // printf("PLAYER POSITION %f, %f\n", data->plr.position[0], data->plr.position[1]);
+  // printf("WINDOW SIZE %f, %f\n", (float)data->window_size_x, (float)data->window_size_y);
   player_process_jump(&data->plr);
   player_process_fall(&data->plr);
   player_update_position(&data->plr);
-  data->plr.position[0] = (float)data->cursor_x / (float)data->window_size_x;
-  data->plr.position[1] = -(float)data->cursor_y / (float)data->window_size_y;
+  data->plr.position[0] = data->aspect_ratio * (2 * ((float)data->cursor_x / (float)data->window_size_x) - 1);
+  data->plr.position[1] = (1 - 2 * ((float)data->cursor_y / (float)data->window_size_y));
   player_update_camera(&data->plr);
   player_camera_set_vandp(&data->plr);
   player_unbind(&data->plr);
