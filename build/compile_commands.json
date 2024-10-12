@@ -13,6 +13,12 @@
 },
 {
   "directory": "C:/Users/User/Documents/C++/hera/build",
+  "command": "C:\\msys64\\mingw64\\bin\\gcc.exe -IC:/Users/User/Documents/C++/hera/./include -g -o CMakeFiles\\hera.dir\\src\\collider.c.obj -c C:\\Users\\User\\Documents\\C++\\hera\\src\\collider.c",
+  "file": "C:\\Users\\User\\Documents\\C++\\hera\\src\\collider.c",
+  "output": "CMakeFiles\\hera.dir\\src\\collider.c.obj"
+},
+{
+  "directory": "C:/Users/User/Documents/C++/hera/build",
   "command": "C:\\msys64\\mingw64\\bin\\gcc.exe -IC:/Users/User/Documents/C++/hera/./include -g -o CMakeFiles\\hera.dir\\src\\glad.c.obj -c C:\\Users\\User\\Documents\\C++\\hera\\src\\glad.c",
   "file": "C:\\Users\\User\\Documents\\C++\\hera\\src\\glad.c",
   "output": "CMakeFiles\\hera.dir\\src\\glad.c.obj"

@@ -11,6 +11,7 @@
 #include "texture.h"
 #include "player.h"
 #include "bricks.h"
+#include "collider.h"
 
 typedef struct Renderer
 {
@@ -21,6 +22,7 @@ typedef struct Renderer
   brick platform;
   double cursor_x, cursor_y;
   int window_size_x, window_size_y;
+  AABB_collider_rect platform_aabb_rect;
 } Renderer;
 //MAIN FUNCTIONS
 void Renderer_init(Renderer *);

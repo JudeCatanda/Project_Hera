@@ -1,0 +1,3 @@
+BRICKS_COUNT: 20
+maximum_brick_x: 10
+maximum_brick_y: 2

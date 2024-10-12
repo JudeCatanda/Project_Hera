@@ -9,6 +9,7 @@
 #include "buff.h"
 #include "shader.h"
 #include "layout.h"
+#include "collider.h"
 
 #define null NULL
 #define Y 1
@@ -40,6 +41,7 @@ typedef struct player {
   mat4 projection;
   float aspect_ratio, screen_w, screen_h;
   mat4 view;
+  AABB_collider_rect player_rect;
 } player;
 
 void create_player(player* plr);
@@ -49,7 +51,7 @@ void player_unbind(player* plr);
 void player_update_position(player* plr);
 void player_reset_jump(player* plr);
 void player_process_jump(player* plr);
-void player_process_fall(player* plr);
+void player_process_fall(player* plr, AABB_collider_rect floor);
 void player_update_camera(player* plr);
 void player_camera_set_vandp(player* plr);
 

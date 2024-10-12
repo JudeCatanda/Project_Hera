@@ -7,7 +7,6 @@ int main() {
   Renderer mainRenderer = { .gameWindow = &gameWindow };
   Renderer_init(&mainRenderer);
   while (!glfwWindowShouldClose(gameWindow.handle)) {
-    //change win viewport
     int maxx, maxy;
     glfwGetWindowSize(gameWindow.handle, &maxx, &maxy);
     glViewport(0, 0, maxx, maxy);

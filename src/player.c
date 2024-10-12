@@ -2,29 +2,29 @@
 
 void create_player(player *plr)
 {
-  float TEXTURE_X = 0, TEXTURE_Y = 0;
+  float TEXTURE_X = 7, TEXTURE_Y = 8;
   float TEXTURE_CELL_SIZE = 16;
-  float IMAGE_SIZE = 32;
-
-  // float mesh[24] = {
-  //     -0.2f, -0.2f, TEXTURE_X * TEXTURE_CELL_SIZE / IMAGE_SIZE, TEXTURE_Y * TEXTURE_CELL_SIZE / IMAGE_SIZE,
-  //     0.2f, -0.2f, (TEXTURE_X + 1) * TEXTURE_CELL_SIZE / IMAGE_SIZE, TEXTURE_Y * TEXTURE_CELL_SIZE / IMAGE_SIZE,
-  //     0.2f, 0.2f, (TEXTURE_X + 1) * TEXTURE_CELL_SIZE / IMAGE_SIZE, (TEXTURE_Y + 1) * TEXTURE_CELL_SIZE / IMAGE_SIZE,
-
-  //     -0.2f, -0.2f, TEXTURE_X * TEXTURE_CELL_SIZE / IMAGE_SIZE, TEXTURE_Y * TEXTURE_CELL_SIZE / IMAGE_SIZE,
-  //     -0.2f, 0.2f, TEXTURE_X * TEXTURE_CELL_SIZE / IMAGE_SIZE, (TEXTURE_Y + 1) * TEXTURE_CELL_SIZE / IMAGE_SIZE,
-  //     0.2f, 0.2f, (TEXTURE_X + 1) * TEXTURE_CELL_SIZE / IMAGE_SIZE, (TEXTURE_Y + 1) * TEXTURE_CELL_SIZE / IMAGE_SIZE
-  // };
+  float IMAGE_SIZE =  256;
 
   float mesh[24] = {
-     -0.1f, -0.1f, 0.0f, 0.0f,
-      0.1f, -0.1f, 1.0f, .0f,
-      0.1f,  0.1f,  1.0f, 1.0f,
+      -0.2f, -0.2f, TEXTURE_X * TEXTURE_CELL_SIZE / IMAGE_SIZE, TEXTURE_Y * TEXTURE_CELL_SIZE / IMAGE_SIZE,
+      0.2f, -0.2f, (TEXTURE_X + 1) * TEXTURE_CELL_SIZE / IMAGE_SIZE, TEXTURE_Y * TEXTURE_CELL_SIZE / IMAGE_SIZE,
+      0.2f, 0.2f, (TEXTURE_X + 1) * TEXTURE_CELL_SIZE / IMAGE_SIZE, (TEXTURE_Y + 1) * TEXTURE_CELL_SIZE / IMAGE_SIZE,
 
-     -0.1f, -0.1f, 0.0f, 0.0f,
-     -0.1f,  0.1f, 0.0, 1.0f,
-      0.1f,  0.1f, 1.0f, 1.0f
+      -0.2f, -0.2f, TEXTURE_X * TEXTURE_CELL_SIZE / IMAGE_SIZE, TEXTURE_Y * TEXTURE_CELL_SIZE / IMAGE_SIZE,
+      -0.2f, 0.2f, TEXTURE_X * TEXTURE_CELL_SIZE / IMAGE_SIZE, (TEXTURE_Y + 1) * TEXTURE_CELL_SIZE / IMAGE_SIZE,
+      0.2f, 0.2f, (TEXTURE_X + 1) * TEXTURE_CELL_SIZE / IMAGE_SIZE, (TEXTURE_Y + 1) * TEXTURE_CELL_SIZE / IMAGE_SIZE
   };
+
+  // float mesh[24] = {
+  //    -0.1f, -0.1f, 0.0f, 0.0f,
+  //     0.1f, -0.1f, 1.0f, .0f,
+  //     0.1f,  0.1f,  1.0f, 1.0f,
+
+  //    -0.1f, -0.1f, 0.0f, 0.0f,
+  //    -0.1f,  0.1f, 0.0, 1.0f,
+  //     0.1f,  0.1f, 1.0f, 1.0f
+  // };
   // TODO: LOAD SHADERs
   shader_create(&plr->vertex, "./shader.player.vert", GL_VERTEX_SHADER);
   shader_create(&plr->fragment, "./shader.player.frag", GL_FRAGMENT_SHADER);
@@ -35,7 +35,7 @@ void create_player(player *plr)
   layout_enable_and_set_vertex_attrib_pointer(0, 2, GL_FLOAT, sizeof(vec4), (void *)0);
   layout_enable_and_set_vertex_attrib_pointer(1, 2, GL_FLOAT, sizeof(vec4), (void *)(sizeof(vec2)));
 
-  texture_create(&plr->player_texture, "./arrow.png", GL_RGBA, GL_RGBA);
+  texture_create(&plr->player_texture, "./atlas.png", GL_RGBA, GL_RGBA);
 
   plr->mesh.unbind(&plr->mesh);
   layout_unbind(&plr->player_layouts);
@@ -73,13 +73,18 @@ void player_update_position(player *plr)
 {
   plr->POSITION_UNIFORM_LOCATION = glGetUniformLocation(plr->program.handle, "new_pos");
   glUniform2fv(plr->POSITION_UNIFORM_LOCATION, 1, (float *)plr->position);
+  plr->player_rect.min_y = 0.2f;
+  plr->player_rect.max_y = plr->position[1];
+  plr->player_rect.max_x = plr->position[0];
+  plr->player_rect.min_x = -0.2f;
+  printf("BEFORE SUBTRACT Y %f\nAFTER SUBTRACT Y %f\nBEFORE SUBTRACT X %f\n", plr->position[1], plr->position[1] - plr->position[1], plr->position[0]);
 }
 void player_reset_jump(player *plr)
 {
   plr->canJump = true;
   plr->isFalling = false;
   plr->isJumping = false;
-  plr->maxJumpHeight = 0.02f;
+  plr->maxJumpHeight = 1.0f;
   plr->gravity = -0.3f;
   plr->y_velocity = Y_VLCTY;
 }
@@ -100,7 +105,7 @@ void player_process_jump(player *plr)
     }
   }
 }
-void player_process_fall(player *plr)
+void player_process_fall(player *plr, AABB_collider_rect floor)
 {
   float tolerance = 0.01f;
   if (plr->isFalling && !plr->isJumping)
@@ -109,7 +114,7 @@ void player_process_fall(player *plr)
     plr->position[1] += plr->y_velocity * *plr->delta_time;
     player_update_position(plr);
 
-    if (plr->position[1] <= -0.5f + tolerance && plr->position[1] >= -0.5f - tolerance)
+    if (plr->position[1] <= floor.min_y + tolerance && plr->position[1] >= -0.5f - tolerance)
     {
       plr->canJump = true;
       plr->isJumping = false;
