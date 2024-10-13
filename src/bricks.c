@@ -26,8 +26,8 @@ void create_bricks(brick *THE_BRICKS)
       -0.2f, 0.2f, TEXTURE_X * TEXTURE_CELL_SIZE / IMAGE_SIZE, (TEXTURE_Y + 1) * TEXTURE_CELL_SIZE / IMAGE_SIZE,
       0.2f, 0.2f, (TEXTURE_X + 1) * TEXTURE_CELL_SIZE / IMAGE_SIZE, (TEXTURE_Y + 1) * TEXTURE_CELL_SIZE / IMAGE_SIZE};
 
-  shader_create(&THE_BRICKS->vertex_, "./shader.vert", GL_VERTEX_SHADER);
-  shader_create(&THE_BRICKS->fragment_, "./shader.frag", GL_FRAGMENT_SHADER);
+  shader_create(&THE_BRICKS->vertex_, "./assets/shaders/shader.brick.vert", GL_VERTEX_SHADER);
+  shader_create(&THE_BRICKS->fragment_, "./assets/shaders/shader.brick.frag", GL_FRAGMENT_SHADER);
   program_create(&THE_BRICKS->program, &THE_BRICKS->vertex_, &THE_BRICKS->fragment_);
   layout_create_and_bind(&THE_BRICKS->layout_default);
 
@@ -39,7 +39,7 @@ void create_bricks(brick *THE_BRICKS)
   layout_enable_and_set_vertex_attrib_pointer(0, 2, GL_FLOAT, sizeof(vec4), (void *)0);
   layout_enable_and_set_vertex_attrib_pointer(2, 2, GL_FLOAT, sizeof(vec4), (void *)(sizeof(vec2)));
 
-  texture_create(&THE_BRICKS->atlas, "./atlas.png", GL_RGBA, GL_RGBA);
+  texture_create(&THE_BRICKS->atlas, "./assets/textures/atlas.png", GL_RGBA, GL_RGBA);
 
   THE_BRICKS->mesh_vbo.unbind(&THE_BRICKS->mesh_vbo);
   THE_BRICKS->instanced_positions_buffer.unbind(&THE_BRICKS->instanced_positions_buffer);

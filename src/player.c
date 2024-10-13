@@ -26,8 +26,8 @@ void create_player(player *plr)
   //     0.1f,  0.1f, 1.0f, 1.0f
   // };
   // TODO: LOAD SHADERs
-  shader_create(&plr->vertex, "./shader.player.vert", GL_VERTEX_SHADER);
-  shader_create(&plr->fragment, "./shader.player.frag", GL_FRAGMENT_SHADER);
+  shader_create(&plr->vertex, "./assets/shaders/shader.player.vert", GL_VERTEX_SHADER);
+  shader_create(&plr->fragment, "./assets/shaders/shader.player.frag", GL_FRAGMENT_SHADER);
   program_create(&plr->program, &plr->vertex, &plr->fragment);
 
   layout_create_and_bind(&plr->player_layouts);
@@ -35,7 +35,7 @@ void create_player(player *plr)
   layout_enable_and_set_vertex_attrib_pointer(0, 2, GL_FLOAT, sizeof(vec4), (void *)0);
   layout_enable_and_set_vertex_attrib_pointer(1, 2, GL_FLOAT, sizeof(vec4), (void *)(sizeof(vec2)));
 
-  texture_create(&plr->player_texture, "./atlas.png", GL_RGBA, GL_RGBA);
+  texture_create(&plr->player_texture, "./assets/textures/atlas.png", GL_RGBA, GL_RGBA);
 
   plr->mesh.unbind(&plr->mesh);
   layout_unbind(&plr->player_layouts);
@@ -77,7 +77,7 @@ void player_update_position(player *plr)
   plr->player_rect.max_y = plr->position[1];
   plr->player_rect.max_x = plr->position[0];
   plr->player_rect.min_x = -0.2f;
-  printf("BEFORE SUBTRACT Y %f\nAFTER SUBTRACT Y %f\nBEFORE SUBTRACT X %f\n", plr->position[1], plr->position[1] - plr->position[1], plr->position[0]);
+  // printf("BEFORE SUBTRACT Y %f\nAFTER SUBTRACT Y %f\nBEFORE SUBTRACT X %f\n", plr->position[1], plr->position[1] - plr->position[1], plr->position[0]);
 }
 void player_reset_jump(player *plr)
 {
