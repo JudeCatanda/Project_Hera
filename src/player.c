@@ -40,7 +40,7 @@ void create_player(player *plr)
   plr->mesh.unbind(&plr->mesh);
   layout_unbind(&plr->player_layouts);
 
-  plr->player_movement_speed = 0.8;
+  plr->player_movement_speed = 1.0;
   player_reset_jump(plr);
 }
 void render_player(player *plr)

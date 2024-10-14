@@ -16,3 +16,5 @@
 61	1078	7504251208878342	CMakeFiles/hera.dir/src/collider.c.obj	9564ee758a23af95
 52	167	7505180614928845	CMakeFiles/hera.dir/src/game_states.c.obj	f41e56715351380e
 25	509	7505216465578738	CMakeFiles/hera.dir/src/UI.c.obj	92e9f3b438a2468f
+7	280	7505220945344205	CMakeFiles/hera.dir/src/player.c.obj	d9e328ce5ebedb1
+282	505	7505220948121705	hera.exe	63ebac89621a24c7
