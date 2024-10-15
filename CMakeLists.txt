@@ -10,4 +10,4 @@ add_executable(hera ${sources})
 
 target_include_directories(hera PUBLIC "./include")
 target_link_directories(hera PUBLIC "./lib")
-target_link_libraries(hera PUBLIC opengl32 glfw3 cglm)
+target_link_libraries(hera PUBLIC opengl32 glfw3 cglm freetype)

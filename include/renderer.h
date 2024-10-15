@@ -26,6 +26,14 @@ typedef struct Renderer
   int window_size_x, window_size_y;
   AABB_collider_rect platform_aabb_rect;
   cursor default_cursor;
+
+  //for ui
+  layout ui_layout;
+  vrtx_buffer ui_buffer;
+  shader_program ui_shader_program;
+  shader ui_vertex_shader, ui_fragment_shader;
+
+  mat4 ui_projection;
 } Renderer;
 //MAIN FUNCTIONS
 void Renderer_init(Renderer *);

@@ -9,6 +9,20 @@ void Renderer_init(Renderer *rnd)
   create_player(&rnd->plr);
   create_bricks(&rnd->platform);
   create_cursor(&rnd->default_cursor);
+
+  shader_create(&rnd->ui_vertex_shader, "./assets/shaders/shader.ui.text.vert", GL_VERTEX_SHADER);
+  shader_create(&rnd->ui_fragment_shader, "./assets/shaders/shader.ui.text.frag", GL_FRAGMENT_SHADER);
+  program_create(&rnd->ui_shader_program, &rnd->ui_vertex_shader, &rnd->ui_fragment_shader);
+
+  load_font("./assets/fonts/arial.ttf");
+
+  layout_create_and_bind(&rnd->ui_layout);
+  vrtxbuffer_create(&rnd->ui_buffer, sizeof(float) * 6 * 4, NULL, GL_DYNAMIC_DRAW);
+  layout_enable_and_set_vertex_attrib_pointer(0, 4, GL_FLOAT, 4 * sizeof(float), (void*)0);
+
+  rnd->ui_buffer.unbind(&rnd->ui_buffer);
+  layout_unbind(&rnd->ui_layout);
+
   glEnable(GL_BLEND);
   glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
   glfwGetCursorPos(rnd->gameWindow->handle, &rnd->cursor_x, &rnd->cursor_y);
@@ -77,6 +91,16 @@ void Update(Renderer *data)
   data->default_cursor.cursor_position[0] = data->aspect_ratio * (2 * ((float)data->cursor_x / (float)data->window_size_x) - 1);
   data->default_cursor.cursor_position[1] = (1 - 2 * ((float)data->cursor_y / (float)data->window_size_y));
   cursor_unbind(&data->default_cursor);
+
+  data->ui_shader_program.UseProgram(&data->ui_shader_program);
+  layout_bind(&data->ui_layout);
+  glm_ortho(0.0f, data->window_size_x, 0.0f, data->window_size_y, -1.0f, 1.0f, data->ui_projection); // works! but not changing camera pos
+  glUniformMatrix4fv(glGetUniformLocation(data->ui_shader_program.handle, "projection"), 1, GL_FALSE, (float*)data->ui_projection);
+
+  render_text("Hera - with text rendering", 800.0f/2.0f, 600.0/2.0f, 1.0f, data->ui_layout.handle, data->ui_buffer.handle, data->ui_shader_program.handle);
+  
+  layout_unbind(&data->ui_layout);
+  data->ui_shader_program.Unbind(&data->ui_shader_program);
 
   glfwSwapBuffers(data->gameWindow->handle);
   glfwPollEvents();

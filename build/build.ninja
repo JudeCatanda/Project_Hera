@@ -157,7 +157,7 @@ build CMakeFiles/hera.dir/src/window.c.obj: C_COMPILER__hera_unscanned_Debug C$:
 
 build hera.exe: C_EXECUTABLE_LINKER__hera_Debug CMakeFiles/hera.dir/src/UI.c.obj CMakeFiles/hera.dir/src/bricks.c.obj CMakeFiles/hera.dir/src/buff.c.obj CMakeFiles/hera.dir/src/collider.c.obj CMakeFiles/hera.dir/src/glad.c.obj CMakeFiles/hera.dir/src/layout.c.obj CMakeFiles/hera.dir/src/main.c.obj CMakeFiles/hera.dir/src/player.c.obj CMakeFiles/hera.dir/src/renderer.c.obj CMakeFiles/hera.dir/src/renderer_other.c.obj CMakeFiles/hera.dir/src/shader.c.obj CMakeFiles/hera.dir/src/stb_image.c.obj CMakeFiles/hera.dir/src/texture.c.obj CMakeFiles/hera.dir/src/window.c.obj
   FLAGS = -g
-  LINK_LIBRARIES = -lopengl32  -lglfw3  -lcglm  -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
+  LINK_LIBRARIES = -lopengl32  -lglfw3  -lcglm  -lfreetype  -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   LINK_PATH = -LC:/Users/User/Documents/C++/hera/./lib
   OBJECT_DIR = CMakeFiles\hera.dir
   POST_BUILD = cd .

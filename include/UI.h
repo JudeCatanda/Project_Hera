@@ -1,6 +1,8 @@
 #ifndef UI_H
 #define UI_H
 
+#include <ft2build.h>
+#include FT_FREETYPE_H
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 #include <stdio.h>
@@ -37,5 +39,14 @@ void cursor_unbind(cursor* cur);
 typedef struct ui_text_label {
   //EMPTY!
 } ui_text_label;
+
+typedef struct {
+    GLuint textureID;
+    int width, height;
+    int bearingX, bearingY;
+    GLuint advance;
+} Character;
+void load_font(const char* font_path);
+void render_text(const char* text, float x, float y, float scale, GLuint VAO, GLuint VBO, GLuint shader);
 
 #endif// UI_H
