@@ -125,7 +125,7 @@ void load_font(const char* font_path) {
 void render_text(const char* text, float x, float y, float scale, GLuint VAO, GLuint VBO, GLuint shader) {
     // Activate corresponding render state
     glUseProgram(shader);
-    glUniform3f(glGetUniformLocation(shader, "textColor"), 1.0f, 1.0f, 1.0f); // Set text color (white)
+    glUniform3f(glGetUniformLocation(shader, "textColor"), 0.0f, 0.0f, 0.0f); // Set text color (white)
 
     // Bind the VAO
     glBindVertexArray(VAO);
@@ -166,5 +166,7 @@ void render_text(const char* text, float x, float y, float scale, GLuint VAO, GL
     }
 
     // Unbind the VAO
+    glBindBuffer(GL_ARRAY_BUFFER, 0);
     glBindVertexArray(0);
+    glUseProgram(0);
 };

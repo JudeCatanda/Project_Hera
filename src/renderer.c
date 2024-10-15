@@ -87,20 +87,23 @@ void Update(Renderer *data)
   player_camera_set_vandp(&data->plr);
   player_unbind(&data->plr);
 
-  render_cursor(&data->default_cursor);
-  data->default_cursor.cursor_position[0] = data->aspect_ratio * (2 * ((float)data->cursor_x / (float)data->window_size_x) - 1);
-  data->default_cursor.cursor_position[1] = (1 - 2 * ((float)data->cursor_y / (float)data->window_size_y));
-  cursor_unbind(&data->default_cursor);
-
   data->ui_shader_program.UseProgram(&data->ui_shader_program);
   layout_bind(&data->ui_layout);
   glm_ortho(0.0f, data->window_size_x, 0.0f, data->window_size_y, -1.0f, 1.0f, data->ui_projection); // works! but not changing camera pos
   glUniformMatrix4fv(glGetUniformLocation(data->ui_shader_program.handle, "projection"), 1, GL_FALSE, (float*)data->ui_projection);
 
-  render_text("Hera - with text rendering", 800.0f/2.0f, 600.0/2.0f, 1.0f, data->ui_layout.handle, data->ui_buffer.handle, data->ui_shader_program.handle);
+  char print_text[5];
+  itoa(data->window_size_x, print_text, 10);
+  render_text("Developer's Build of Hera do not redistribute!", 0.0f, 0.0f, 0.6f, data->ui_layout.handle, data->ui_buffer.handle, data->ui_shader_program.handle);
+  render_text("experiments - no collision = 1;", 0.0f, 550.0f, 0.6f, data->ui_layout.handle, data->ui_buffer.handle, data->ui_shader_program.handle);
   
   layout_unbind(&data->ui_layout);
   data->ui_shader_program.Unbind(&data->ui_shader_program);
+
+  render_cursor(&data->default_cursor);
+  data->default_cursor.cursor_position[0] = data->aspect_ratio * (2 * ((float)data->cursor_x / (float)data->window_size_x) - 1);
+  data->default_cursor.cursor_position[1] = (1 - 2 * ((float)data->cursor_y / (float)data->window_size_y));
+  cursor_unbind(&data->default_cursor);
 
   glfwSwapBuffers(data->gameWindow->handle);
   glfwPollEvents();
