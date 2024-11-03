@@ -94,7 +94,7 @@ void player_process_jump(player *plr)
   if (plr->isJumping)
   {
     plr->y_velocity -= 0.05f * *plr->delta_time;
-    plr->position[Y] += plr->y_velocity * *plr->delta_time;
+    plr->position[Y_pos] += plr->y_velocity * *plr->delta_time;
     player_update_position(plr);
 
     if (plr->position[1] > plr->maxJumpHeight)

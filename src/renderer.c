@@ -1,7 +1,7 @@
 #include "renderer.h"
 void Renderer_init(Renderer *rnd)
 {
-  heraWindow_Create(rnd->gameWindow, "Hera - BETA", (Window_Size_Dimension){ 800, 600 });
+  heraWindow_Create(rnd->gameWindow, "Hera - test build 1", (Window_Size_Dimension){ 800, 600 });
   printf("Title: %s\n", rnd->gameWindow->title);
   rnd->last_time = (float)glfwGetTime();
   rnd->platform.maximum_brick_x = 10;
@@ -31,7 +31,16 @@ void Renderer_init(Renderer *rnd)
   player_update_position(&rnd->plr);
   glfwSetCursorPos(rnd->gameWindow->handle, 800/2, 600/2); //center positions;
   glfwSetInputMode(rnd->gameWindow->handle, GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
-  
+  Level_Details details;
+  details.win = rnd->gameWindow->handle;
+  init_level_data(&details);
+
+
+  layout dt;
+  layout_init(&dt);
+  dt.create_and_bind(self(dt));
+
+  dt.unbind(self(dt));
 }
 void Update(Renderer *data)
 {
@@ -94,16 +103,21 @@ void Update(Renderer *data)
 
   char print_text[5];
   itoa(data->window_size_x, print_text, 10);
-  render_text("Developer's Build of Hera do not redistribute!", 0.0f, 0.0f, 0.6f, data->ui_layout.handle, data->ui_buffer.handle, data->ui_shader_program.handle);
+  //render_text("Developer's Build of Hera do not redistribute!", 0.0f, 0.0f, 0.6f, data->ui_layout.handle, data->ui_buffer.handle, data->ui_shader_program.handle);
   render_text("experiments - no collision = 1;", 0.0f, 550.0f, 0.6f, data->ui_layout.handle, data->ui_buffer.handle, data->ui_shader_program.handle);
   
   layout_unbind(&data->ui_layout);
   data->ui_shader_program.Unbind(&data->ui_shader_program);
 
-  render_cursor(&data->default_cursor);
-  data->default_cursor.cursor_position[0] = data->aspect_ratio * (2 * ((float)data->cursor_x / (float)data->window_size_x) - 1);
-  data->default_cursor.cursor_position[1] = (1 - 2 * ((float)data->cursor_y / (float)data->window_size_y));
-  cursor_unbind(&data->default_cursor);
+  if(glfwGetWindowAttrib(data->gameWindow->handle, GLFW_FOCUSED)) {
+    render_cursor(&data->default_cursor);
+    data->default_cursor.cursor_position[0] = data->aspect_ratio * (2 * ((float)data->cursor_x / (float)data->window_size_x) - 1);
+    data->default_cursor.cursor_position[1] = (1 - 2 * ((float)data->cursor_y / (float)data->window_size_y));
+    cursor_unbind(&data->default_cursor);
+  } else {
+    Beep(750, 300);
+    Sleep(100);
+  }
 
   glfwSwapBuffers(data->gameWindow->handle);
   glfwPollEvents();

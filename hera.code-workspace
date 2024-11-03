@@ -1,0 +1,16 @@
+{
+	"folders": [
+		{
+			"path": "."
+		}
+  ],
+  "settings": {
+    "files.associations": {
+      "renderer.h": "c",
+      "shader.h": "c",
+      "ratio": "c",
+      "window.h": "c",
+      "stdio.h": "c"
+    }
+  }
+}

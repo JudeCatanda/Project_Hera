@@ -14,6 +14,7 @@
 #include "collider.h"
 // #include "game_states.h"
 #include "UI.h"
+#include "levels.h"
 
 typedef struct Renderer
 {

@@ -19,6 +19,12 @@
 },
 {
   "directory": "C:/Users/User/Documents/C++/hera/build",
+  "command": "C:\\msys64\\mingw64\\bin\\gcc.exe -IC:/Users/User/Documents/C++/hera/./include -g -o CMakeFiles\\hera.dir\\src\\camera.c.obj -c C:\\Users\\User\\Documents\\C++\\hera\\src\\camera.c",
+  "file": "C:\\Users\\User\\Documents\\C++\\hera\\src\\camera.c",
+  "output": "CMakeFiles\\hera.dir\\src\\camera.c.obj"
+},
+{
+  "directory": "C:/Users/User/Documents/C++/hera/build",
   "command": "C:\\msys64\\mingw64\\bin\\gcc.exe -IC:/Users/User/Documents/C++/hera/./include -g -o CMakeFiles\\hera.dir\\src\\collider.c.obj -c C:\\Users\\User\\Documents\\C++\\hera\\src\\collider.c",
   "file": "C:\\Users\\User\\Documents\\C++\\hera\\src\\collider.c",
   "output": "CMakeFiles\\hera.dir\\src\\collider.c.obj"
@@ -34,6 +40,12 @@
   "command": "C:\\msys64\\mingw64\\bin\\gcc.exe -IC:/Users/User/Documents/C++/hera/./include -g -o CMakeFiles\\hera.dir\\src\\layout.c.obj -c C:\\Users\\User\\Documents\\C++\\hera\\src\\layout.c",
   "file": "C:\\Users\\User\\Documents\\C++\\hera\\src\\layout.c",
   "output": "CMakeFiles\\hera.dir\\src\\layout.c.obj"
+},
+{
+  "directory": "C:/Users/User/Documents/C++/hera/build",
+  "command": "C:\\msys64\\mingw64\\bin\\gcc.exe -IC:/Users/User/Documents/C++/hera/./include -g -o CMakeFiles\\hera.dir\\src\\levels.c.obj -c C:\\Users\\User\\Documents\\C++\\hera\\src\\levels.c",
+  "file": "C:\\Users\\User\\Documents\\C++\\hera\\src\\levels.c",
+  "output": "CMakeFiles\\hera.dir\\src\\levels.c.obj"
 },
 {
   "directory": "C:/Users/User/Documents/C++/hera/build",

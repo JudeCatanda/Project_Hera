@@ -13,8 +13,8 @@ typedef struct vrtx_buffer {
   GLvoid* data;
   GLenum usage;
 
-  void(*bind)(struct vrtx_buffer* self);
-  void(*unbind)(struct vrtx_buffer* self);
+  void(*bind)(struct vrtx_buffer* );
+  void(*unbind)(struct vrtx_buffer* );
 } vrtx_buffer;
 
 //TIP: automatically gets bound

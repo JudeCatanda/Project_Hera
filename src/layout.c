@@ -1,5 +1,15 @@
 #include "layout.h"
 
+void layout_init(layout* lyt) {
+    lyt->self = lyt;
+    lyt->create_and_bind = layout_create_and_bind;
+    lyt->create = layout_create;
+    lyt->bind = layout_bind;
+    lyt->unbind = layout_unbind;
+
+    printf("inited a layout of self %p\n", &lyt);
+}
+
 void layout_create_and_bind(layout *lyt) {
     glGenVertexArrays(1, &lyt->handle);
     glBindVertexArray(lyt->handle);

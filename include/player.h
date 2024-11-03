@@ -12,8 +12,8 @@
 #include "collider.h"
 
 #define null NULL
-#define Y 1
-#define X 0
+#define Y_pos 1
+#define X_pos 0
 #define Y_VLCTY 1.7f
 
 //const float MAX_HEALTH = 100.0f;
