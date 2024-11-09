@@ -8,7 +8,6 @@ static void proc_vbuffer_bind(vrtx_buffer* self) {
 static void proc_vbuffer_unbind(vrtx_buffer* self) {
   glBindBuffer(GL_ARRAY_BUFFER, 0);
 }
-
 void vrtxbuffer_create(vrtx_buffer *buff, GLsizeiptr size, GLvoid *data, GLenum usage) {
   buff->bind = proc_vbuffer_bind;
   buff->unbind = proc_vbuffer_unbind;
@@ -20,11 +19,9 @@ void vrtxbuffer_create(vrtx_buffer *buff, GLsizeiptr size, GLvoid *data, GLenum 
   buff->size = size;
   buff->usage = usage;
 }
-
 void vrtxbuffer_generate(vrtx_buffer *buff) {
   glGenBuffers(1, &buff->handle);
 }
-
 void vrtxbuffer_setdata(vrtx_buffer *buff, GLintptr offset, GLsizei size, const void *data) {
   buff->bind(buff);
   glBufferSubData(GL_ARRAY_BUFFER, offset, size, data);

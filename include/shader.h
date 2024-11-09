@@ -20,7 +20,7 @@ typedef struct shader_program {
 } shader_program;
 
 static void shader_read_file(shader* shdr, const char* title);
-static void shader_check_errors(unsigned int handle, GLenum pname, const char* msg);
+void shader_check_errors(unsigned int handle, GLenum pname, const char* msg);
 void shader_create(shader* shdr, const char* filename, GLenum type);
 
 void program_create(shader_program* program, shader* vertex, shader* fragment);

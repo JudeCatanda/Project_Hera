@@ -1,4 +1,5 @@
 #include "renderer.h"
+
 void Renderer_init(Renderer *rnd)
 {
   heraWindow_Create(rnd->gameWindow, "Hera - test build 1", (Window_Size_Dimension){ 800, 600 });
@@ -34,13 +35,6 @@ void Renderer_init(Renderer *rnd)
   Level_Details details;
   details.win = rnd->gameWindow->handle;
   init_level_data(&details);
-
-
-  layout dt;
-  layout_init(&dt);
-  dt.create_and_bind(self(dt));
-
-  dt.unbind(self(dt));
 }
 void Update(Renderer *data)
 {
@@ -90,7 +84,7 @@ void Update(Renderer *data)
   player_update_position(&data->plr);
   // data->plr.position[0] = data->aspect_ratio * (2 * ((float)data->cursor_x / (float)data->window_size_x) - 1);
   // data->plr.position[1] = (1 - 2 * ((float)data->cursor_y / (float)data->window_size_y));
-  _Bool isColliding = AABB_collider_check(&data->plr.player_rect, &data->platform_aabb_rect);
+  bool isColliding = AABB_collider_check(&data->plr.player_rect, &data->platform_aabb_rect);
   // printf("Collision = %d\n", isColliding);
   player_update_camera(&data->plr);
   player_camera_set_vandp(&data->plr);

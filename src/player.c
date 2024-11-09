@@ -30,6 +30,8 @@ void create_player(player *plr)
   shader_create(&plr->fragment, "./assets/shaders/shader.player.frag", GL_FRAGMENT_SHADER);
   program_create(&plr->program, &plr->vertex, &plr->fragment);
 
+  camera_init(&plr->cam);
+
   layout_create_and_bind(&plr->player_layouts);
   vrtxbuffer_create(&plr->mesh, sizeof(mesh), mesh, GL_STATIC_DRAW);
   layout_enable_and_set_vertex_attrib_pointer(0, 2, GL_FLOAT, sizeof(vec4), (void *)0);
@@ -43,12 +45,14 @@ void create_player(player *plr)
   plr->player_movement_speed = 1.0;
   player_reset_jump(plr);
 }
-void render_player(player *plr)
-{
+//SECTION: RENDER THE PLAYER
+void render_player(player *plr) {
+  plr->cam.set_aspect_ratio_ptr(plr->cam.self, &plr->aspect_ratio);
   plr->player_texture.Bind(&plr->player_texture);
   plr->program.UseProgram(&plr->program);
   layout_bind(&plr->player_layouts);
-  configure_projection(plr, plr->aspect_ratio);
+  //configure_projection(plr, plr->aspect_ratio);
+  plr->cam.bind_camera(plr->cam.self, &plr->program);
   glDrawArrays(GL_TRIANGLES, 0, 6);
 }
 void configure_projection(player *plr, float aspect_ratio)

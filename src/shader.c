@@ -25,7 +25,7 @@ static void shader_read_file(shader* shdr, const char* title) {
   //memset(shdr->source, , sizeof(source));
 };
 
-static void shader_check_errors(unsigned int handle, GLenum pname, const char* msg) {
+void shader_check_errors(unsigned int handle, GLenum pname, const char* msg) {
   int success;
   char error_msg[512];
   glGetShaderiv(handle, pname, &success);

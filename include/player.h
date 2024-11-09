@@ -10,6 +10,7 @@
 #include "shader.h"
 #include "layout.h"
 #include "collider.h"
+#include "camera.h"
 
 #define null NULL
 #define Y_pos 1
@@ -42,6 +43,7 @@ typedef struct player {
   float aspect_ratio, screen_w, screen_h;
   mat4 view;
   AABB_collider_rect player_rect;
+  camera cam;
 } player;
 
 void create_player(player* plr);
