@@ -5,8 +5,8 @@ void Renderer_init(Renderer *rnd)
   heraWindow_Create(rnd->gameWindow, "Hera - test (Level Data) + (Universal Projection And View Matrix)", (Window_Size_Dimension){ 800, 600 });
   printf("Title: %s\n", rnd->gameWindow->title);
   rnd->last_time = (float)glfwGetTime();
-  rnd->platform.maximum_brick_x = 10;
-  rnd->platform.maximum_brick_y = 2;
+  rnd->platform.maximum_brick_x = 5;
+  rnd->platform.maximum_brick_y = 1;
   create_player(&rnd->plr);
   create_bricks(&rnd->platform);
   create_cursor(&rnd->default_cursor);
@@ -15,7 +15,7 @@ void Renderer_init(Renderer *rnd)
   shader_create(&rnd->ui_fragment_shader, "./assets/shaders/shader.ui.text.frag", GL_FRAGMENT_SHADER);
   program_create(&rnd->ui_shader_program, &rnd->ui_vertex_shader, &rnd->ui_fragment_shader);
 
-  load_font("./assets/fonts/arial.ttf");
+  load_font("./assets/fonts/IosevkaTermNerdFont-Regular.ttf");
 
   layout_create_and_bind(&rnd->ui_layout);
   vrtxbuffer_create(&rnd->ui_buffer, sizeof(float) * 6 * 4, NULL, GL_DYNAMIC_DRAW);
@@ -100,6 +100,9 @@ void Update(Renderer *data)
   itoa(data->window_size_x, print_text, 10);
   //render_text("Developer's Build of Hera do not redistribute!", 0.0f, 0.0f, 0.6f, data->ui_layout.handle, data->ui_buffer.handle, data->ui_shader_program.handle);
   render_text("experiments - no collision = 1;", 0.0f, 550.0f, 0.6f, data->ui_layout.handle, data->ui_buffer.handle, data->ui_shader_program.handle);
+  if(data->plr.position[0] <= -1.0f || data->plr.position[0] >= 1.0f) {
+    render_text("PLAYER OUT OF THE BOUNDS!", 0.0f, 495.0f, 0.6f, data->ui_layout.handle, data->ui_buffer.handle, data->ui_shader_program.handle);
+  }
   
   layout_unbind(&data->ui_layout);
   data->ui_shader_program.Unbind(&data->ui_shader_program);

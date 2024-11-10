@@ -55,9 +55,6 @@ void render_player(player *plr) {
   plr->cam.bind_camera(plr->cam.self, &plr->program);
   //plr->cam.position = (vec3){ plr->position[0], plr->position[1], 0.0f };
   memcpy(plr->cam.position, (vec3){ plr->position[0], plr->position[1], 0.0f }, sizeof(vec3));
-  if(plr->position[0] <= -1.0f) {
-    printf("Out of Bounds\n");
-  }
   glDrawArrays(GL_TRIANGLES, 0, 6);
 }
 void configure_projection(player *plr, float aspect_ratio)
