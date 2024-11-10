@@ -6,7 +6,7 @@ void camera_bind_camera(camera *cam_struct, shader_program *program) {
   cam_struct->proj = glms_ortho(-*cam_struct->aspect_ratio, *cam_struct->aspect_ratio, -1.0f, 1.0, -1.0f, 1.0f);
 
   glm_mat4_identity(cam_struct->view);
-  glm_translate(cam_struct->view, (vec3){ 1.0f, 0.0f, 0.0f });
+  glm_translate(cam_struct->view, cam_struct->position);
 
   cam_struct->view_location = glGetUniformLocation(program->handle, "view");
   cam_struct->projection_location = glGetUniformLocation(program->handle, "projection");

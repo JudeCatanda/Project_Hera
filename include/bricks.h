@@ -22,6 +22,7 @@ typedef struct brick {
   mat4 projection;
   texture_data atlas;
   shader_program program;
+  shader_program player_program;
 } brick;
 
 void create_bricks(brick* THE_BRICKS);

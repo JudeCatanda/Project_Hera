@@ -53,6 +53,11 @@ void render_player(player *plr) {
   layout_bind(&plr->player_layouts);
   //configure_projection(plr, plr->aspect_ratio);
   plr->cam.bind_camera(plr->cam.self, &plr->program);
+  //plr->cam.position = (vec3){ plr->position[0], plr->position[1], 0.0f };
+  memcpy(plr->cam.position, (vec3){ plr->position[0], plr->position[1], 0.0f }, sizeof(vec3));
+  if(plr->position[0] <= -1.0f) {
+    printf("Out of Bounds\n");
+  }
   glDrawArrays(GL_TRIANGLES, 0, 6);
 }
 void configure_projection(player *plr, float aspect_ratio)
@@ -81,7 +86,7 @@ void player_update_position(player *plr)
   plr->player_rect.max_y = plr->position[1];
   plr->player_rect.max_x = plr->position[0];
   plr->player_rect.min_x = -0.2f;
-  // printf("BEFORE SUBTRACT Y %f\nAFTER SUBTRACT Y %f\nBEFORE SUBTRACT X %f\n", plr->position[1], plr->position[1] - plr->position[1], plr->position[0]);
+  // printf("BEFORE SUBTRACT Y %f\nAFTEt SUBTRACT Y %f\nBEFORE SUBTRACT X %f\n", plr->position[1], plr->position[1] - plr->position[1], plr->position[0]);
 }
 void player_reset_jump(player *plr)
 {

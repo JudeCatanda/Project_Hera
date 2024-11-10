@@ -2,7 +2,7 @@
 
 void Renderer_init(Renderer *rnd)
 {
-  heraWindow_Create(rnd->gameWindow, "Hera - test build 1", (Window_Size_Dimension){ 800, 600 });
+  heraWindow_Create(rnd->gameWindow, "Hera - test (Level Data) + (Universal Projection And View Matrix)", (Window_Size_Dimension){ 800, 600 });
   printf("Title: %s\n", rnd->gameWindow->title);
   rnd->last_time = (float)glfwGetTime();
   rnd->platform.maximum_brick_x = 10;
@@ -57,6 +57,7 @@ void Update(Renderer *data)
   data->platform_aabb_rect.max_y = data->platform.brick_individual_positions[data->platform.BRICKS_COUNT - 1][1];
   data->platform_aabb_rect.min_x = data->platform.brick_individual_positions[0][0];
   data->platform_aabb_rect.max_x = data->platform.brick_individual_positions[data->platform.BRICKS_COUNT - 1][0];
+  data->platform.player_program = data->plr.program;
 
 
   glClear(GL_COLOR_BUFFER_BIT);

@@ -9,7 +9,8 @@ uniform mat4 view;
 uniform vec2 new_pos;
 uniform mat4 vp_mat;
 
+
 void main() {
-  gl_Position = projection* view * vec4(pos + new_pos, 0.0, 1.0);
+  gl_Position = projection * view * vec4(pos + new_pos, 0.0, 1.0);
   out_texture_position = texture_position;
 };
