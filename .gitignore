@@ -1,3 +1,7 @@
 build/.cache
 build/.cmake
 build/.CMakeFiles
+
+build-debug/.cache
+build-debug/.cmake
+build-debug/.CMakeFiles

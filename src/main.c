@@ -16,7 +16,7 @@ int main() {
     Update(&mainRenderer);
   } 
   if (glfwWindowShouldClose(gameWindow.handle)) {
-    Close(&mainRenderer);
+    //Close(&mainRenderer);
   };
   return 0;
 }

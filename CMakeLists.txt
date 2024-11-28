@@ -5,6 +5,16 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 project(hera VERSION 1.0 LANGUAGES C)
 
+if(CMAKE_BUILD_TYPE STREQUAL Debug)
+  message("-- Debug Mode")
+  set(CMAKE_C_FLAGS "-Wall -Wextra")
+  set(CMAKE_C_FLAGS_DEBUG "-g")
+else()
+  message("-- Release Mode")
+  set(CMAKE_C_FLAGS "-Wall -Wextra")
+  set(CMAKE_C_FLAGS_RELEASE "-O3")
+endif()
+
 file(GLOB_RECURSE sources "src/*.c")
 add_executable(hera ${sources})
 

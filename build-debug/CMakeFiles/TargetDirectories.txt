@@ -1,0 +1,3 @@
+C:/Users/User/Documents/C++/hera/build-debug/CMakeFiles/hera.dir
+C:/Users/User/Documents/C++/hera/build-debug/CMakeFiles/edit_cache.dir
+C:/Users/User/Documents/C++/hera/build-debug/CMakeFiles/rebuild_cache.dir

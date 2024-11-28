@@ -1,0 +1,18 @@
+# ninja log v6
+57	549	7544940571171604	CMakeFiles/hera.dir/src/collider.c.obj	e4f6d70090f76946
+43	600	7544940571015369	CMakeFiles/hera.dir/src/buff.c.obj	c902c37ac0c77b05
+33	709	7544940570859066	CMakeFiles/hera.dir/src/bricks.c.obj	daf9904d1d306d11
+27	824	7544940570859066	CMakeFiles/hera.dir/src/UI.c.obj	521cfa828e36181c
+49	943	7544940571015369	CMakeFiles/hera.dir/src/camera.c.obj	5bf90efee3fd08c6
+557	1089	7544940576437371	CMakeFiles/hera.dir/src/layout.c.obj	908eaaf5b6f0df16
+848	1866	7544940579249843	CMakeFiles/hera.dir/src/player.c.obj	d169d8c7f715c25f
+1926	3146	7544940589874848	CMakeFiles/hera.dir/src/shader.c.obj	f0dd8eb4b369dc61
+621	3886	7544940576749860	CMakeFiles/hera.dir/src/levels.c.obj	91379ca4f78c4632
+63	4241	7544940571171604	CMakeFiles/hera.dir/src/glad.c.obj	852bd42ad456ac3e
+718	4817	7544940578312356	CMakeFiles/hera.dir/src/main.c.obj	6f599038255e9afa
+3929	4929	7544940609874819	CMakeFiles/hera.dir/src/texture.c.obj	832150791c7b57c3
+946	4997	7544940580031061	CMakeFiles/hera.dir/src/renderer.c.obj	19000a92aee5049f
+4379	5007	7544940615187467	CMakeFiles/hera.dir/src/window.c.obj	c19e287ef3785aaa
+1118	5035	7544940582062382	CMakeFiles/hera.dir/src/renderer_other.c.obj	674a5ffe9ac30167
+3168	5786	7544940604093627	CMakeFiles/hera.dir/src/stb_image.c.obj	87be0d34b057ec1e
+5787	6068	7544940628468559	hera.exe	57a19bf01adb0eab

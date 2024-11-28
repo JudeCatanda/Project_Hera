@@ -57,7 +57,7 @@ void render_player(player *plr) {
   //plr->cam.position = (vec3){ plr->position[0], plr->position[1], 0.0f };
   printf("\r");
   memcpy(plr->cam.position, (vec3){ plr->position[0], plr->position[1], 0.0f }, sizeof(vec3));
-  printf("camera and player pos: { %9f, %9f }\n", plr->cam.position[0], plr->cam.position[1]);
+  //printf("camera and player pos: { %9f, %9f }\n", plr->cam.position[0], plr->cam.position[1]);
   fflush(stdout);
   glDrawArrays(GL_TRIANGLES, 0, 6);
 }

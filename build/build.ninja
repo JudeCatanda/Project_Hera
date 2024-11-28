@@ -12,7 +12,7 @@
 
 # =============================================================================
 # Project: hera
-# Configurations: Debug
+# Configurations: Release
 # =============================================================================
 
 #############################################
@@ -24,7 +24,7 @@ ninja_required_version = 1.5
 #############################################
 # Set configuration variable for custom commands.
 
-CONFIGURATION = Debug
+CONFIGURATION = Release
 # =============================================================================
 # Include auxiliary files.
 
@@ -49,114 +49,114 @@ cmake_ninja_workdir = C$:/Users/User/Documents/C++/hera/build/
 
 build cmake_object_order_depends_target_hera: phony || .
 
-build CMakeFiles/hera.dir/src/UI.c.obj: C_COMPILER__hera_unscanned_Debug C$:/Users/User/Documents/C++/hera/src/UI.c || cmake_object_order_depends_target_hera
+build CMakeFiles/hera.dir/src/UI.c.obj: C_COMPILER__hera_unscanned_Release C$:/Users/User/Documents/C++/hera/src/UI.c || cmake_object_order_depends_target_hera
   DEP_FILE = CMakeFiles\hera.dir\src\UI.c.obj.d
-  FLAGS = -g
+  FLAGS = -Wall -Wextra -O3
   INCLUDES = -IC:/Users/User/Documents/C++/hera/./include
   OBJECT_DIR = CMakeFiles\hera.dir
   OBJECT_FILE_DIR = CMakeFiles\hera.dir\src
 
-build CMakeFiles/hera.dir/src/bricks.c.obj: C_COMPILER__hera_unscanned_Debug C$:/Users/User/Documents/C++/hera/src/bricks.c || cmake_object_order_depends_target_hera
+build CMakeFiles/hera.dir/src/bricks.c.obj: C_COMPILER__hera_unscanned_Release C$:/Users/User/Documents/C++/hera/src/bricks.c || cmake_object_order_depends_target_hera
   DEP_FILE = CMakeFiles\hera.dir\src\bricks.c.obj.d
-  FLAGS = -g
+  FLAGS = -Wall -Wextra -O3
   INCLUDES = -IC:/Users/User/Documents/C++/hera/./include
   OBJECT_DIR = CMakeFiles\hera.dir
   OBJECT_FILE_DIR = CMakeFiles\hera.dir\src
 
-build CMakeFiles/hera.dir/src/buff.c.obj: C_COMPILER__hera_unscanned_Debug C$:/Users/User/Documents/C++/hera/src/buff.c || cmake_object_order_depends_target_hera
+build CMakeFiles/hera.dir/src/buff.c.obj: C_COMPILER__hera_unscanned_Release C$:/Users/User/Documents/C++/hera/src/buff.c || cmake_object_order_depends_target_hera
   DEP_FILE = CMakeFiles\hera.dir\src\buff.c.obj.d
-  FLAGS = -g
+  FLAGS = -Wall -Wextra -O3
   INCLUDES = -IC:/Users/User/Documents/C++/hera/./include
   OBJECT_DIR = CMakeFiles\hera.dir
   OBJECT_FILE_DIR = CMakeFiles\hera.dir\src
 
-build CMakeFiles/hera.dir/src/camera.c.obj: C_COMPILER__hera_unscanned_Debug C$:/Users/User/Documents/C++/hera/src/camera.c || cmake_object_order_depends_target_hera
+build CMakeFiles/hera.dir/src/camera.c.obj: C_COMPILER__hera_unscanned_Release C$:/Users/User/Documents/C++/hera/src/camera.c || cmake_object_order_depends_target_hera
   DEP_FILE = CMakeFiles\hera.dir\src\camera.c.obj.d
-  FLAGS = -g
+  FLAGS = -Wall -Wextra -O3
   INCLUDES = -IC:/Users/User/Documents/C++/hera/./include
   OBJECT_DIR = CMakeFiles\hera.dir
   OBJECT_FILE_DIR = CMakeFiles\hera.dir\src
 
-build CMakeFiles/hera.dir/src/collider.c.obj: C_COMPILER__hera_unscanned_Debug C$:/Users/User/Documents/C++/hera/src/collider.c || cmake_object_order_depends_target_hera
+build CMakeFiles/hera.dir/src/collider.c.obj: C_COMPILER__hera_unscanned_Release C$:/Users/User/Documents/C++/hera/src/collider.c || cmake_object_order_depends_target_hera
   DEP_FILE = CMakeFiles\hera.dir\src\collider.c.obj.d
-  FLAGS = -g
+  FLAGS = -Wall -Wextra -O3
   INCLUDES = -IC:/Users/User/Documents/C++/hera/./include
   OBJECT_DIR = CMakeFiles\hera.dir
   OBJECT_FILE_DIR = CMakeFiles\hera.dir\src
 
-build CMakeFiles/hera.dir/src/glad.c.obj: C_COMPILER__hera_unscanned_Debug C$:/Users/User/Documents/C++/hera/src/glad.c || cmake_object_order_depends_target_hera
+build CMakeFiles/hera.dir/src/glad.c.obj: C_COMPILER__hera_unscanned_Release C$:/Users/User/Documents/C++/hera/src/glad.c || cmake_object_order_depends_target_hera
   DEP_FILE = CMakeFiles\hera.dir\src\glad.c.obj.d
-  FLAGS = -g
+  FLAGS = -Wall -Wextra -O3
   INCLUDES = -IC:/Users/User/Documents/C++/hera/./include
   OBJECT_DIR = CMakeFiles\hera.dir
   OBJECT_FILE_DIR = CMakeFiles\hera.dir\src
 
-build CMakeFiles/hera.dir/src/layout.c.obj: C_COMPILER__hera_unscanned_Debug C$:/Users/User/Documents/C++/hera/src/layout.c || cmake_object_order_depends_target_hera
+build CMakeFiles/hera.dir/src/layout.c.obj: C_COMPILER__hera_unscanned_Release C$:/Users/User/Documents/C++/hera/src/layout.c || cmake_object_order_depends_target_hera
   DEP_FILE = CMakeFiles\hera.dir\src\layout.c.obj.d
-  FLAGS = -g
+  FLAGS = -Wall -Wextra -O3
   INCLUDES = -IC:/Users/User/Documents/C++/hera/./include
   OBJECT_DIR = CMakeFiles\hera.dir
   OBJECT_FILE_DIR = CMakeFiles\hera.dir\src
 
-build CMakeFiles/hera.dir/src/levels.c.obj: C_COMPILER__hera_unscanned_Debug C$:/Users/User/Documents/C++/hera/src/levels.c || cmake_object_order_depends_target_hera
+build CMakeFiles/hera.dir/src/levels.c.obj: C_COMPILER__hera_unscanned_Release C$:/Users/User/Documents/C++/hera/src/levels.c || cmake_object_order_depends_target_hera
   DEP_FILE = CMakeFiles\hera.dir\src\levels.c.obj.d
-  FLAGS = -g
+  FLAGS = -Wall -Wextra -O3
   INCLUDES = -IC:/Users/User/Documents/C++/hera/./include
   OBJECT_DIR = CMakeFiles\hera.dir
   OBJECT_FILE_DIR = CMakeFiles\hera.dir\src
 
-build CMakeFiles/hera.dir/src/main.c.obj: C_COMPILER__hera_unscanned_Debug C$:/Users/User/Documents/C++/hera/src/main.c || cmake_object_order_depends_target_hera
+build CMakeFiles/hera.dir/src/main.c.obj: C_COMPILER__hera_unscanned_Release C$:/Users/User/Documents/C++/hera/src/main.c || cmake_object_order_depends_target_hera
   DEP_FILE = CMakeFiles\hera.dir\src\main.c.obj.d
-  FLAGS = -g
+  FLAGS = -Wall -Wextra -O3
   INCLUDES = -IC:/Users/User/Documents/C++/hera/./include
   OBJECT_DIR = CMakeFiles\hera.dir
   OBJECT_FILE_DIR = CMakeFiles\hera.dir\src
 
-build CMakeFiles/hera.dir/src/player.c.obj: C_COMPILER__hera_unscanned_Debug C$:/Users/User/Documents/C++/hera/src/player.c || cmake_object_order_depends_target_hera
+build CMakeFiles/hera.dir/src/player.c.obj: C_COMPILER__hera_unscanned_Release C$:/Users/User/Documents/C++/hera/src/player.c || cmake_object_order_depends_target_hera
   DEP_FILE = CMakeFiles\hera.dir\src\player.c.obj.d
-  FLAGS = -g
+  FLAGS = -Wall -Wextra -O3
   INCLUDES = -IC:/Users/User/Documents/C++/hera/./include
   OBJECT_DIR = CMakeFiles\hera.dir
   OBJECT_FILE_DIR = CMakeFiles\hera.dir\src
 
-build CMakeFiles/hera.dir/src/renderer.c.obj: C_COMPILER__hera_unscanned_Debug C$:/Users/User/Documents/C++/hera/src/renderer.c || cmake_object_order_depends_target_hera
+build CMakeFiles/hera.dir/src/renderer.c.obj: C_COMPILER__hera_unscanned_Release C$:/Users/User/Documents/C++/hera/src/renderer.c || cmake_object_order_depends_target_hera
   DEP_FILE = CMakeFiles\hera.dir\src\renderer.c.obj.d
-  FLAGS = -g
+  FLAGS = -Wall -Wextra -O3
   INCLUDES = -IC:/Users/User/Documents/C++/hera/./include
   OBJECT_DIR = CMakeFiles\hera.dir
   OBJECT_FILE_DIR = CMakeFiles\hera.dir\src
 
-build CMakeFiles/hera.dir/src/renderer_other.c.obj: C_COMPILER__hera_unscanned_Debug C$:/Users/User/Documents/C++/hera/src/renderer_other.c || cmake_object_order_depends_target_hera
+build CMakeFiles/hera.dir/src/renderer_other.c.obj: C_COMPILER__hera_unscanned_Release C$:/Users/User/Documents/C++/hera/src/renderer_other.c || cmake_object_order_depends_target_hera
   DEP_FILE = CMakeFiles\hera.dir\src\renderer_other.c.obj.d
-  FLAGS = -g
+  FLAGS = -Wall -Wextra -O3
   INCLUDES = -IC:/Users/User/Documents/C++/hera/./include
   OBJECT_DIR = CMakeFiles\hera.dir
   OBJECT_FILE_DIR = CMakeFiles\hera.dir\src
 
-build CMakeFiles/hera.dir/src/shader.c.obj: C_COMPILER__hera_unscanned_Debug C$:/Users/User/Documents/C++/hera/src/shader.c || cmake_object_order_depends_target_hera
+build CMakeFiles/hera.dir/src/shader.c.obj: C_COMPILER__hera_unscanned_Release C$:/Users/User/Documents/C++/hera/src/shader.c || cmake_object_order_depends_target_hera
   DEP_FILE = CMakeFiles\hera.dir\src\shader.c.obj.d
-  FLAGS = -g
+  FLAGS = -Wall -Wextra -O3
   INCLUDES = -IC:/Users/User/Documents/C++/hera/./include
   OBJECT_DIR = CMakeFiles\hera.dir
   OBJECT_FILE_DIR = CMakeFiles\hera.dir\src
 
-build CMakeFiles/hera.dir/src/stb_image.c.obj: C_COMPILER__hera_unscanned_Debug C$:/Users/User/Documents/C++/hera/src/stb_image.c || cmake_object_order_depends_target_hera
+build CMakeFiles/hera.dir/src/stb_image.c.obj: C_COMPILER__hera_unscanned_Release C$:/Users/User/Documents/C++/hera/src/stb_image.c || cmake_object_order_depends_target_hera
   DEP_FILE = CMakeFiles\hera.dir\src\stb_image.c.obj.d
-  FLAGS = -g
+  FLAGS = -Wall -Wextra -O3
   INCLUDES = -IC:/Users/User/Documents/C++/hera/./include
   OBJECT_DIR = CMakeFiles\hera.dir
   OBJECT_FILE_DIR = CMakeFiles\hera.dir\src
 
-build CMakeFiles/hera.dir/src/texture.c.obj: C_COMPILER__hera_unscanned_Debug C$:/Users/User/Documents/C++/hera/src/texture.c || cmake_object_order_depends_target_hera
+build CMakeFiles/hera.dir/src/texture.c.obj: C_COMPILER__hera_unscanned_Release C$:/Users/User/Documents/C++/hera/src/texture.c || cmake_object_order_depends_target_hera
   DEP_FILE = CMakeFiles\hera.dir\src\texture.c.obj.d
-  FLAGS = -g
+  FLAGS = -Wall -Wextra -O3
   INCLUDES = -IC:/Users/User/Documents/C++/hera/./include
   OBJECT_DIR = CMakeFiles\hera.dir
   OBJECT_FILE_DIR = CMakeFiles\hera.dir\src
 
-build CMakeFiles/hera.dir/src/window.c.obj: C_COMPILER__hera_unscanned_Debug C$:/Users/User/Documents/C++/hera/src/window.c || cmake_object_order_depends_target_hera
+build CMakeFiles/hera.dir/src/window.c.obj: C_COMPILER__hera_unscanned_Release C$:/Users/User/Documents/C++/hera/src/window.c || cmake_object_order_depends_target_hera
   DEP_FILE = CMakeFiles\hera.dir\src\window.c.obj.d
-  FLAGS = -g
+  FLAGS = -Wall -Wextra -O3
   INCLUDES = -IC:/Users/User/Documents/C++/hera/./include
   OBJECT_DIR = CMakeFiles\hera.dir
   OBJECT_FILE_DIR = CMakeFiles\hera.dir\src
@@ -169,8 +169,8 @@ build CMakeFiles/hera.dir/src/window.c.obj: C_COMPILER__hera_unscanned_Debug C$:
 #############################################
 # Link the executable hera.exe
 
-build hera.exe: C_EXECUTABLE_LINKER__hera_Debug CMakeFiles/hera.dir/src/UI.c.obj CMakeFiles/hera.dir/src/bricks.c.obj CMakeFiles/hera.dir/src/buff.c.obj CMakeFiles/hera.dir/src/camera.c.obj CMakeFiles/hera.dir/src/collider.c.obj CMakeFiles/hera.dir/src/glad.c.obj CMakeFiles/hera.dir/src/layout.c.obj CMakeFiles/hera.dir/src/levels.c.obj CMakeFiles/hera.dir/src/main.c.obj CMakeFiles/hera.dir/src/player.c.obj CMakeFiles/hera.dir/src/renderer.c.obj CMakeFiles/hera.dir/src/renderer_other.c.obj CMakeFiles/hera.dir/src/shader.c.obj CMakeFiles/hera.dir/src/stb_image.c.obj CMakeFiles/hera.dir/src/texture.c.obj CMakeFiles/hera.dir/src/window.c.obj
-  FLAGS = -g
+build hera.exe: C_EXECUTABLE_LINKER__hera_Release CMakeFiles/hera.dir/src/UI.c.obj CMakeFiles/hera.dir/src/bricks.c.obj CMakeFiles/hera.dir/src/buff.c.obj CMakeFiles/hera.dir/src/camera.c.obj CMakeFiles/hera.dir/src/collider.c.obj CMakeFiles/hera.dir/src/glad.c.obj CMakeFiles/hera.dir/src/layout.c.obj CMakeFiles/hera.dir/src/levels.c.obj CMakeFiles/hera.dir/src/main.c.obj CMakeFiles/hera.dir/src/player.c.obj CMakeFiles/hera.dir/src/renderer.c.obj CMakeFiles/hera.dir/src/renderer_other.c.obj CMakeFiles/hera.dir/src/shader.c.obj CMakeFiles/hera.dir/src/stb_image.c.obj CMakeFiles/hera.dir/src/texture.c.obj CMakeFiles/hera.dir/src/window.c.obj
+  FLAGS = -Wall -Wextra -O3
   LINK_LIBRARIES = -lopengl32  -lglfw3  -lcglm  -lfreetype  -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   LINK_PATH = -LC:/Users/User/Documents/C++/hera/./lib
   OBJECT_DIR = CMakeFiles\hera.dir
