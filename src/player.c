@@ -52,9 +52,13 @@ void render_player(player *plr) {
   plr->program.UseProgram(&plr->program);
   layout_bind(&plr->player_layouts);
   //configure_projection(plr, plr->aspect_ratio);
+  glm_vec3_copy((vec3){ plr->position[0], plr->position[1], 0.0f }, plr->cam.position);
   plr->cam.bind_camera(plr->cam.self, &plr->program);
   //plr->cam.position = (vec3){ plr->position[0], plr->position[1], 0.0f };
+  printf("\r");
   memcpy(plr->cam.position, (vec3){ plr->position[0], plr->position[1], 0.0f }, sizeof(vec3));
+  printf("camera and player pos: { %9f, %9f }\n", plr->cam.position[0], plr->cam.position[1]);
+  fflush(stdout);
   glDrawArrays(GL_TRIANGLES, 0, 6);
 }
 void configure_projection(player *plr, float aspect_ratio)
@@ -125,7 +129,7 @@ void player_process_fall(player *plr, AABB_collider_rect floor)
       plr->canJump = true;
       plr->isJumping = false;
       plr->isFalling = false;
-      plr->y_velocity = Y_VLCTY;
+      plr->y_velocity = Y_VLCTY;//false
     }
   }
 }

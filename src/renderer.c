@@ -1,8 +1,11 @@
 #include "renderer.h"
+#include <windows.h>
+
+DWORD WINAPI can_quit_mltithread(LPVOID rnd);
 
 void Renderer_init(Renderer *rnd)
 {
-  heraWindow_Create(rnd->gameWindow, "Hera - test (Level Data) + (Universal Projection And View Matrix)", (Window_Size_Dimension){ 800, 600 });
+  heraWindow_Create(rnd->gameWindow, "Hera - test (Level Data) + (Universal Projection And View Matrix) + (rr command at quit)", (Window_Size_Dimension){ 800, 600 });
   printf("Title: %s\n", rnd->gameWindow->title);
   rnd->last_time = (float)glfwGetTime();
   rnd->platform.maximum_brick_x = 5;
@@ -15,7 +18,7 @@ void Renderer_init(Renderer *rnd)
   shader_create(&rnd->ui_fragment_shader, "./assets/shaders/shader.ui.text.frag", GL_FRAGMENT_SHADER);
   program_create(&rnd->ui_shader_program, &rnd->ui_vertex_shader, &rnd->ui_fragment_shader);
 
-  load_font("./assets/fonts/IosevkaTermNerdFont-Regular.ttf");
+  load_font("./assets/fonts/arial.ttf");
 
   layout_create_and_bind(&rnd->ui_layout);
   vrtxbuffer_create(&rnd->ui_buffer, sizeof(float) * 6 * 4, NULL, GL_DYNAMIC_DRAW);
@@ -35,6 +38,11 @@ void Renderer_init(Renderer *rnd)
   Level_Details details;
   details.win = rnd->gameWindow->handle;
   init_level_data(&details);
+  // HANDLE thread = CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)can_quit_mltithread, (LPVOID)rnd, 0, NULL);
+  // if(thread != NULL)
+  //   printf("handling thread\n");
+  // if(SetThreadPriority(thread, THREAD_PRIORITY_HIGHEST) != 0)
+  //   printf("highest\n");
 }
 void Update(Renderer *data)
 {
@@ -58,7 +66,6 @@ void Update(Renderer *data)
   data->platform_aabb_rect.min_x = data->platform.brick_individual_positions[0][0];
   data->platform_aabb_rect.max_x = data->platform.brick_individual_positions[data->platform.BRICKS_COUNT - 1][0];
   data->platform.player_program = data->plr.program;
-
 
   glClear(GL_COLOR_BUFFER_BIT);
   glClearColor(0.2, 0.5, 0.9, 1.0);
@@ -107,14 +114,12 @@ void Update(Renderer *data)
   layout_unbind(&data->ui_layout);
   data->ui_shader_program.Unbind(&data->ui_shader_program);
 
-  if(glfwGetWindowAttrib(data->gameWindow->handle, GLFW_FOCUSED)) {
-    render_cursor(&data->default_cursor);
-    data->default_cursor.cursor_position[0] = data->aspect_ratio * (2 * ((float)data->cursor_x / (float)data->window_size_x) - 1);
-    data->default_cursor.cursor_position[1] = (1 - 2 * ((float)data->cursor_y / (float)data->window_size_y));
+  data->default_cursor.cursor_position[0] = data->aspect_ratio * (2 * ((float)data->cursor_x / (float)data->window_size_x) - 1);
+  data->default_cursor.cursor_position[1] = (1 - 2 * ((float)data->cursor_y / (float)data->window_size_y));
+  if(!glfwGetWindowAttrib(data->gameWindow->handle, GLFW_FOCUSED)) {
     cursor_unbind(&data->default_cursor);
   } else {
-    Beep(750, 300);
-    Sleep(100);
+    render_cursor(&data->default_cursor);
   }
 
   glfwSwapBuffers(data->gameWindow->handle);
@@ -124,7 +129,19 @@ void Close(Renderer *data)
 {
   printf("Exiting!\n");
   heraWindow_Terminate(data->gameWindow);
-
   glDeleteTextures(1, &data->plr.player_texture.handle);
   glDeleteBuffers(1, &data->plr.mesh.handle);
 };
+
+DWORD WINAPI can_quit_mltithread(LPVOID rnd) {
+  Renderer* data = (Renderer*)rnd;
+  while(TRUE) {
+    if(glfwGetKey(data->gameWindow->handle, GLFW_KEY_ESCAPE) == GLFW_PRESS) {
+      Close(data);
+    }
+    if(GetAsyncKeyState(VK_ESCAPE)) {
+      Close(data);
+    }
+  }
+  return 0;
+}

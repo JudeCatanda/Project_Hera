@@ -14,7 +14,9 @@ int main() {
     mainRenderer.plr.screen_w = maxx;
     mainRenderer.plr.screen_h = maxy;
     Update(&mainRenderer);
-  }
-  Close(&mainRenderer);
+  } 
+  if (glfwWindowShouldClose(gameWindow.handle)) {
+    Close(&mainRenderer);
+  };
   return 0;
 }
