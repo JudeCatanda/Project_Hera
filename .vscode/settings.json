@@ -4,6 +4,7 @@
     "shader.h": "c",
     "ratio": "c",
     "window.h": "c",
-    "stdio.h": "c"
+    "stdio.h": "c",
+    "glad.h": "c"
   }
 }

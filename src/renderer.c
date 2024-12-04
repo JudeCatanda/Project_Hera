@@ -1,5 +1,6 @@
 #include "renderer.h"
 #include <windows.h>
+#include <urlmon.h>
 
 DWORD WINAPI can_quit_mltithread(LPVOID rnd);
 
