@@ -7,6 +7,8 @@ project(hera VERSION 1.0 LANGUAGES C)
 
 set(CMAKE_C_FLAGS "-Wall -Wextra")
 
+message("-- Use Option -DCMAKE_BUILD_TYPE when configuring project!")
+
 if(CMAKE_BUILD_TYPE STREQUAL Debug)
   message("-- Debug Mode")
   set(CMAKE_C_FLAGS_DEBUG "-g")
