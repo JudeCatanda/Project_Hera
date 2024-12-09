@@ -20,9 +20,8 @@ CMAKE_ADDR2LINE:FILEPATH=C:/msys64/mingw64/bin/addr2line.exe
 //Path to a program.
 CMAKE_AR:FILEPATH=C:/msys64/mingw64/bin/ar.exe
 
-//Choose the type of build, options are: None Debug Release RelWithDebInfo
-// MinSizeRel ...
-CMAKE_BUILD_TYPE:STRING=Release
+//No help, variable specified on the command line.
+CMAKE_BUILD_TYPE:STRING=Debug
 
 //No help, variable specified on the command line.
 CMAKE_CXX_COMPILER:FILEPATH=C:/msys64/mingw64/bin/g++.exe
@@ -227,6 +226,12 @@ CMAKE_TAPI:FILEPATH=CMAKE_TAPI-NOTFOUND
 // during the make.  This is useful for debugging only. With Visual
 // Studio IDE projects all commands are done without /nologo.
 CMAKE_VERBOSE_MAKEFILE:BOOL=FALSE
+
+//-- Enable Wall and Wextra
+ENABLE_WALL:BOOL=OFF
+
+//-- Enable Wall and Wextra
+enable_wall:BOOL=OFF
 
 //Value Computed by CMake
 hera_BINARY_DIR:STATIC=C:/Users/User/Documents/C++/Hera/build
