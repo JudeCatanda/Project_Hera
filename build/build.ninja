@@ -39,7 +39,7 @@ include CMakeFiles/rules.ninja
 #############################################
 # Logical path to working directory; prefix for absolute paths.
 
-cmake_ninja_workdir = C$:/Users/User/Documents/C++/hera/build/
+cmake_ninja_workdir = C$:/Users/User/Documents/C++/Hera/build/
 # =============================================================================
 # Object build statements for EXECUTABLE target hera
 
@@ -49,131 +49,131 @@ cmake_ninja_workdir = C$:/Users/User/Documents/C++/hera/build/
 
 build cmake_object_order_depends_target_hera: phony || .
 
-build CMakeFiles/hera.dir/src/UI.c.obj: C_COMPILER__hera_unscanned_Debug C$:/Users/User/Documents/C++/hera/src/UI.c || cmake_object_order_depends_target_hera
+build CMakeFiles/hera.dir/src/UI.c.obj: C_COMPILER__hera_unscanned_Debug C$:/Users/User/Documents/C++/Hera/src/UI.c || cmake_object_order_depends_target_hera
   DEFINES = -DDBG_MODE
   DEP_FILE = CMakeFiles\hera.dir\src\UI.c.obj.d
   FLAGS = -Wall -Wextra -g
-  INCLUDES = -IC:/Users/User/Documents/C++/hera/./include
+  INCLUDES = -IC:/Users/User/Documents/C++/Hera/./include
   OBJECT_DIR = CMakeFiles\hera.dir
   OBJECT_FILE_DIR = CMakeFiles\hera.dir\src
 
-build CMakeFiles/hera.dir/src/bricks.c.obj: C_COMPILER__hera_unscanned_Debug C$:/Users/User/Documents/C++/hera/src/bricks.c || cmake_object_order_depends_target_hera
+build CMakeFiles/hera.dir/src/bricks.c.obj: C_COMPILER__hera_unscanned_Debug C$:/Users/User/Documents/C++/Hera/src/bricks.c || cmake_object_order_depends_target_hera
   DEFINES = -DDBG_MODE
   DEP_FILE = CMakeFiles\hera.dir\src\bricks.c.obj.d
   FLAGS = -Wall -Wextra -g
-  INCLUDES = -IC:/Users/User/Documents/C++/hera/./include
+  INCLUDES = -IC:/Users/User/Documents/C++/Hera/./include
   OBJECT_DIR = CMakeFiles\hera.dir
   OBJECT_FILE_DIR = CMakeFiles\hera.dir\src
 
-build CMakeFiles/hera.dir/src/buff.c.obj: C_COMPILER__hera_unscanned_Debug C$:/Users/User/Documents/C++/hera/src/buff.c || cmake_object_order_depends_target_hera
+build CMakeFiles/hera.dir/src/buff.c.obj: C_COMPILER__hera_unscanned_Debug C$:/Users/User/Documents/C++/Hera/src/buff.c || cmake_object_order_depends_target_hera
   DEFINES = -DDBG_MODE
   DEP_FILE = CMakeFiles\hera.dir\src\buff.c.obj.d
   FLAGS = -Wall -Wextra -g
-  INCLUDES = -IC:/Users/User/Documents/C++/hera/./include
+  INCLUDES = -IC:/Users/User/Documents/C++/Hera/./include
   OBJECT_DIR = CMakeFiles\hera.dir
   OBJECT_FILE_DIR = CMakeFiles\hera.dir\src
 
-build CMakeFiles/hera.dir/src/camera.c.obj: C_COMPILER__hera_unscanned_Debug C$:/Users/User/Documents/C++/hera/src/camera.c || cmake_object_order_depends_target_hera
+build CMakeFiles/hera.dir/src/camera.c.obj: C_COMPILER__hera_unscanned_Debug C$:/Users/User/Documents/C++/Hera/src/camera.c || cmake_object_order_depends_target_hera
   DEFINES = -DDBG_MODE
   DEP_FILE = CMakeFiles\hera.dir\src\camera.c.obj.d
   FLAGS = -Wall -Wextra -g
-  INCLUDES = -IC:/Users/User/Documents/C++/hera/./include
+  INCLUDES = -IC:/Users/User/Documents/C++/Hera/./include
   OBJECT_DIR = CMakeFiles\hera.dir
   OBJECT_FILE_DIR = CMakeFiles\hera.dir\src
 
-build CMakeFiles/hera.dir/src/collider.c.obj: C_COMPILER__hera_unscanned_Debug C$:/Users/User/Documents/C++/hera/src/collider.c || cmake_object_order_depends_target_hera
+build CMakeFiles/hera.dir/src/collider.c.obj: C_COMPILER__hera_unscanned_Debug C$:/Users/User/Documents/C++/Hera/src/collider.c || cmake_object_order_depends_target_hera
   DEFINES = -DDBG_MODE
   DEP_FILE = CMakeFiles\hera.dir\src\collider.c.obj.d
   FLAGS = -Wall -Wextra -g
-  INCLUDES = -IC:/Users/User/Documents/C++/hera/./include
+  INCLUDES = -IC:/Users/User/Documents/C++/Hera/./include
   OBJECT_DIR = CMakeFiles\hera.dir
   OBJECT_FILE_DIR = CMakeFiles\hera.dir\src
 
-build CMakeFiles/hera.dir/src/glad.c.obj: C_COMPILER__hera_unscanned_Debug C$:/Users/User/Documents/C++/hera/src/glad.c || cmake_object_order_depends_target_hera
+build CMakeFiles/hera.dir/src/glad.c.obj: C_COMPILER__hera_unscanned_Debug C$:/Users/User/Documents/C++/Hera/src/glad.c || cmake_object_order_depends_target_hera
   DEFINES = -DDBG_MODE
   DEP_FILE = CMakeFiles\hera.dir\src\glad.c.obj.d
   FLAGS = -Wall -Wextra -g
-  INCLUDES = -IC:/Users/User/Documents/C++/hera/./include
+  INCLUDES = -IC:/Users/User/Documents/C++/Hera/./include
   OBJECT_DIR = CMakeFiles\hera.dir
   OBJECT_FILE_DIR = CMakeFiles\hera.dir\src
 
-build CMakeFiles/hera.dir/src/layout.c.obj: C_COMPILER__hera_unscanned_Debug C$:/Users/User/Documents/C++/hera/src/layout.c || cmake_object_order_depends_target_hera
+build CMakeFiles/hera.dir/src/layout.c.obj: C_COMPILER__hera_unscanned_Debug C$:/Users/User/Documents/C++/Hera/src/layout.c || cmake_object_order_depends_target_hera
   DEFINES = -DDBG_MODE
   DEP_FILE = CMakeFiles\hera.dir\src\layout.c.obj.d
   FLAGS = -Wall -Wextra -g
-  INCLUDES = -IC:/Users/User/Documents/C++/hera/./include
+  INCLUDES = -IC:/Users/User/Documents/C++/Hera/./include
   OBJECT_DIR = CMakeFiles\hera.dir
   OBJECT_FILE_DIR = CMakeFiles\hera.dir\src
 
-build CMakeFiles/hera.dir/src/levels.c.obj: C_COMPILER__hera_unscanned_Debug C$:/Users/User/Documents/C++/hera/src/levels.c || cmake_object_order_depends_target_hera
+build CMakeFiles/hera.dir/src/levels.c.obj: C_COMPILER__hera_unscanned_Debug C$:/Users/User/Documents/C++/Hera/src/levels.c || cmake_object_order_depends_target_hera
   DEFINES = -DDBG_MODE
   DEP_FILE = CMakeFiles\hera.dir\src\levels.c.obj.d
   FLAGS = -Wall -Wextra -g
-  INCLUDES = -IC:/Users/User/Documents/C++/hera/./include
+  INCLUDES = -IC:/Users/User/Documents/C++/Hera/./include
   OBJECT_DIR = CMakeFiles\hera.dir
   OBJECT_FILE_DIR = CMakeFiles\hera.dir\src
 
-build CMakeFiles/hera.dir/src/main.c.obj: C_COMPILER__hera_unscanned_Debug C$:/Users/User/Documents/C++/hera/src/main.c || cmake_object_order_depends_target_hera
+build CMakeFiles/hera.dir/src/main.c.obj: C_COMPILER__hera_unscanned_Debug C$:/Users/User/Documents/C++/Hera/src/main.c || cmake_object_order_depends_target_hera
   DEFINES = -DDBG_MODE
   DEP_FILE = CMakeFiles\hera.dir\src\main.c.obj.d
   FLAGS = -Wall -Wextra -g
-  INCLUDES = -IC:/Users/User/Documents/C++/hera/./include
+  INCLUDES = -IC:/Users/User/Documents/C++/Hera/./include
   OBJECT_DIR = CMakeFiles\hera.dir
   OBJECT_FILE_DIR = CMakeFiles\hera.dir\src
 
-build CMakeFiles/hera.dir/src/player.c.obj: C_COMPILER__hera_unscanned_Debug C$:/Users/User/Documents/C++/hera/src/player.c || cmake_object_order_depends_target_hera
+build CMakeFiles/hera.dir/src/player.c.obj: C_COMPILER__hera_unscanned_Debug C$:/Users/User/Documents/C++/Hera/src/player.c || cmake_object_order_depends_target_hera
   DEFINES = -DDBG_MODE
   DEP_FILE = CMakeFiles\hera.dir\src\player.c.obj.d
   FLAGS = -Wall -Wextra -g
-  INCLUDES = -IC:/Users/User/Documents/C++/hera/./include
+  INCLUDES = -IC:/Users/User/Documents/C++/Hera/./include
   OBJECT_DIR = CMakeFiles\hera.dir
   OBJECT_FILE_DIR = CMakeFiles\hera.dir\src
 
-build CMakeFiles/hera.dir/src/renderer.c.obj: C_COMPILER__hera_unscanned_Debug C$:/Users/User/Documents/C++/hera/src/renderer.c || cmake_object_order_depends_target_hera
+build CMakeFiles/hera.dir/src/renderer.c.obj: C_COMPILER__hera_unscanned_Debug C$:/Users/User/Documents/C++/Hera/src/renderer.c || cmake_object_order_depends_target_hera
   DEFINES = -DDBG_MODE
   DEP_FILE = CMakeFiles\hera.dir\src\renderer.c.obj.d
   FLAGS = -Wall -Wextra -g
-  INCLUDES = -IC:/Users/User/Documents/C++/hera/./include
+  INCLUDES = -IC:/Users/User/Documents/C++/Hera/./include
   OBJECT_DIR = CMakeFiles\hera.dir
   OBJECT_FILE_DIR = CMakeFiles\hera.dir\src
 
-build CMakeFiles/hera.dir/src/renderer_other.c.obj: C_COMPILER__hera_unscanned_Debug C$:/Users/User/Documents/C++/hera/src/renderer_other.c || cmake_object_order_depends_target_hera
+build CMakeFiles/hera.dir/src/renderer_other.c.obj: C_COMPILER__hera_unscanned_Debug C$:/Users/User/Documents/C++/Hera/src/renderer_other.c || cmake_object_order_depends_target_hera
   DEFINES = -DDBG_MODE
   DEP_FILE = CMakeFiles\hera.dir\src\renderer_other.c.obj.d
   FLAGS = -Wall -Wextra -g
-  INCLUDES = -IC:/Users/User/Documents/C++/hera/./include
+  INCLUDES = -IC:/Users/User/Documents/C++/Hera/./include
   OBJECT_DIR = CMakeFiles\hera.dir
   OBJECT_FILE_DIR = CMakeFiles\hera.dir\src
 
-build CMakeFiles/hera.dir/src/shader.c.obj: C_COMPILER__hera_unscanned_Debug C$:/Users/User/Documents/C++/hera/src/shader.c || cmake_object_order_depends_target_hera
+build CMakeFiles/hera.dir/src/shader.c.obj: C_COMPILER__hera_unscanned_Debug C$:/Users/User/Documents/C++/Hera/src/shader.c || cmake_object_order_depends_target_hera
   DEFINES = -DDBG_MODE
   DEP_FILE = CMakeFiles\hera.dir\src\shader.c.obj.d
   FLAGS = -Wall -Wextra -g
-  INCLUDES = -IC:/Users/User/Documents/C++/hera/./include
+  INCLUDES = -IC:/Users/User/Documents/C++/Hera/./include
   OBJECT_DIR = CMakeFiles\hera.dir
   OBJECT_FILE_DIR = CMakeFiles\hera.dir\src
 
-build CMakeFiles/hera.dir/src/stb_image.c.obj: C_COMPILER__hera_unscanned_Debug C$:/Users/User/Documents/C++/hera/src/stb_image.c || cmake_object_order_depends_target_hera
+build CMakeFiles/hera.dir/src/stb_image.c.obj: C_COMPILER__hera_unscanned_Debug C$:/Users/User/Documents/C++/Hera/src/stb_image.c || cmake_object_order_depends_target_hera
   DEFINES = -DDBG_MODE
   DEP_FILE = CMakeFiles\hera.dir\src\stb_image.c.obj.d
   FLAGS = -Wall -Wextra -g
-  INCLUDES = -IC:/Users/User/Documents/C++/hera/./include
+  INCLUDES = -IC:/Users/User/Documents/C++/Hera/./include
   OBJECT_DIR = CMakeFiles\hera.dir
   OBJECT_FILE_DIR = CMakeFiles\hera.dir\src
 
-build CMakeFiles/hera.dir/src/texture.c.obj: C_COMPILER__hera_unscanned_Debug C$:/Users/User/Documents/C++/hera/src/texture.c || cmake_object_order_depends_target_hera
+build CMakeFiles/hera.dir/src/texture.c.obj: C_COMPILER__hera_unscanned_Debug C$:/Users/User/Documents/C++/Hera/src/texture.c || cmake_object_order_depends_target_hera
   DEFINES = -DDBG_MODE
   DEP_FILE = CMakeFiles\hera.dir\src\texture.c.obj.d
   FLAGS = -Wall -Wextra -g
-  INCLUDES = -IC:/Users/User/Documents/C++/hera/./include
+  INCLUDES = -IC:/Users/User/Documents/C++/Hera/./include
   OBJECT_DIR = CMakeFiles\hera.dir
   OBJECT_FILE_DIR = CMakeFiles\hera.dir\src
 
-build CMakeFiles/hera.dir/src/window.c.obj: C_COMPILER__hera_unscanned_Debug C$:/Users/User/Documents/C++/hera/src/window.c || cmake_object_order_depends_target_hera
+build CMakeFiles/hera.dir/src/window.c.obj: C_COMPILER__hera_unscanned_Debug C$:/Users/User/Documents/C++/Hera/src/window.c || cmake_object_order_depends_target_hera
   DEFINES = -DDBG_MODE
   DEP_FILE = CMakeFiles\hera.dir\src\window.c.obj.d
   FLAGS = -Wall -Wextra -g
-  INCLUDES = -IC:/Users/User/Documents/C++/hera/./include
+  INCLUDES = -IC:/Users/User/Documents/C++/Hera/./include
   OBJECT_DIR = CMakeFiles\hera.dir
   OBJECT_FILE_DIR = CMakeFiles\hera.dir\src
 
@@ -188,7 +188,7 @@ build CMakeFiles/hera.dir/src/window.c.obj: C_COMPILER__hera_unscanned_Debug C$:
 build hera.exe: C_EXECUTABLE_LINKER__hera_Debug CMakeFiles/hera.dir/src/UI.c.obj CMakeFiles/hera.dir/src/bricks.c.obj CMakeFiles/hera.dir/src/buff.c.obj CMakeFiles/hera.dir/src/camera.c.obj CMakeFiles/hera.dir/src/collider.c.obj CMakeFiles/hera.dir/src/glad.c.obj CMakeFiles/hera.dir/src/layout.c.obj CMakeFiles/hera.dir/src/levels.c.obj CMakeFiles/hera.dir/src/main.c.obj CMakeFiles/hera.dir/src/player.c.obj CMakeFiles/hera.dir/src/renderer.c.obj CMakeFiles/hera.dir/src/renderer_other.c.obj CMakeFiles/hera.dir/src/shader.c.obj CMakeFiles/hera.dir/src/stb_image.c.obj CMakeFiles/hera.dir/src/texture.c.obj CMakeFiles/hera.dir/src/window.c.obj
   FLAGS = -Wall -Wextra -g
   LINK_LIBRARIES = -lopengl32  -lglfw3  -lcglm  -lfreetype  -lUrlmon  -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
-  LINK_PATH = -LC:/Users/User/Documents/C++/hera/./lib
+  LINK_PATH = -LC:/Users/User/Documents/C++/Hera/./lib
   OBJECT_DIR = CMakeFiles\hera.dir
   POST_BUILD = cd .
   PRE_LINK = cd .
@@ -201,7 +201,7 @@ build hera.exe: C_EXECUTABLE_LINKER__hera_Debug CMakeFiles/hera.dir/src/UI.c.obj
 # Utility command for edit_cache
 
 build CMakeFiles/edit_cache.util: CUSTOM_COMMAND
-  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\Users\User\Documents\C++\hera\build && "C:\Program Files\CMake\bin\cmake-gui.exe" -SC:\Users\User\Documents\C++\hera -BC:\Users\User\Documents\C++\hera\build"
+  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\Users\User\Documents\C++\Hera\build && "C:\Program Files\CMake\bin\cmake-gui.exe" -SC:\Users\User\Documents\C++\Hera -BC:\Users\User\Documents\C++\Hera\build"
   DESC = Running CMake cache editor...
   pool = console
   restat = 1
@@ -213,7 +213,7 @@ build edit_cache: phony CMakeFiles/edit_cache.util
 # Utility command for rebuild_cache
 
 build CMakeFiles/rebuild_cache.util: CUSTOM_COMMAND
-  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\Users\User\Documents\C++\hera\build && "C:\Program Files\CMake\bin\cmake.exe" --regenerate-during-build -SC:\Users\User\Documents\C++\hera -BC:\Users\User\Documents\C++\hera\build"
+  COMMAND = C:\WINDOWS\system32\cmd.exe /C "cd /D C:\Users\User\Documents\C++\Hera\build && "C:\Program Files\CMake\bin\cmake.exe" --regenerate-during-build -SC:\Users\User\Documents\C++\Hera -BC:\Users\User\Documents\C++\Hera\build"
   DESC = Running CMake to regenerate build system...
   pool = console
   restat = 1
@@ -231,7 +231,7 @@ build hera: phony hera.exe
 # =============================================================================
 
 #############################################
-# Folder: C:/Users/User/Documents/C++/hera/build
+# Folder: C:/Users/User/Documents/C++/Hera/build
 
 build all: phony hera.exe
 
@@ -242,14 +242,14 @@ build all: phony hera.exe
 #############################################
 # Re-run CMake if any of its inputs changed.
 
-build build.ninja: RERUN_CMAKE | C$:/Program$ Files/CMake/share/cmake-3.30/Modules/CMakeCInformation.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/CMakeCommonLanguageInclude.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/CMakeGenericSystem.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/CMakeInitializeConfigs.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/CMakeLanguageInformation.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/CMakeRCInformation.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/CMakeSystemSpecificInformation.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/CMakeSystemSpecificInitialize.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/Compiler/CMakeCommonCompilerMacros.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/Compiler/GNU-C.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/Compiler/GNU.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/Platform/Windows-GNU-C-ABI.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/Platform/Windows-GNU-C.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/Platform/Windows-GNU.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/Platform/Windows-Initialize.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/Platform/Windows-windres.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/Platform/Windows.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/Platform/WindowsPaths.cmake C$:/Users/User/Documents/C++/hera/CMakeLists.txt CMakeCache.txt CMakeFiles/3.30.2/CMakeCCompiler.cmake CMakeFiles/3.30.2/CMakeRCCompiler.cmake CMakeFiles/3.30.2/CMakeSystem.cmake
+build build.ninja: RERUN_CMAKE | C$:/Program$ Files/CMake/share/cmake-3.30/Modules/CMakeCInformation.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/CMakeCommonLanguageInclude.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/CMakeGenericSystem.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/CMakeInitializeConfigs.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/CMakeLanguageInformation.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/CMakeRCInformation.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/CMakeSystemSpecificInformation.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/CMakeSystemSpecificInitialize.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/Compiler/CMakeCommonCompilerMacros.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/Compiler/GNU-C.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/Compiler/GNU.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/Platform/Windows-GNU-C-ABI.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/Platform/Windows-GNU-C.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/Platform/Windows-GNU.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/Platform/Windows-Initialize.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/Platform/Windows-windres.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/Platform/Windows.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/Platform/WindowsPaths.cmake C$:/Users/User/Documents/C++/Hera/CMakeLists.txt CMakeCache.txt CMakeFiles/3.30.2/CMakeCCompiler.cmake CMakeFiles/3.30.2/CMakeRCCompiler.cmake CMakeFiles/3.30.2/CMakeSystem.cmake
   pool = console
 
 
 #############################################
 # A missing CMake input file is not an error.
 
-build C$:/Program$ Files/CMake/share/cmake-3.30/Modules/CMakeCInformation.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/CMakeCommonLanguageInclude.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/CMakeGenericSystem.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/CMakeInitializeConfigs.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/CMakeLanguageInformation.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/CMakeRCInformation.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/CMakeSystemSpecificInformation.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/CMakeSystemSpecificInitialize.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/Compiler/CMakeCommonCompilerMacros.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/Compiler/GNU-C.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/Compiler/GNU.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/Platform/Windows-GNU-C-ABI.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/Platform/Windows-GNU-C.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/Platform/Windows-GNU.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/Platform/Windows-Initialize.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/Platform/Windows-windres.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/Platform/Windows.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/Platform/WindowsPaths.cmake C$:/Users/User/Documents/C++/hera/CMakeLists.txt CMakeCache.txt CMakeFiles/3.30.2/CMakeCCompiler.cmake CMakeFiles/3.30.2/CMakeRCCompiler.cmake CMakeFiles/3.30.2/CMakeSystem.cmake: phony
+build C$:/Program$ Files/CMake/share/cmake-3.30/Modules/CMakeCInformation.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/CMakeCommonLanguageInclude.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/CMakeGenericSystem.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/CMakeInitializeConfigs.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/CMakeLanguageInformation.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/CMakeRCInformation.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/CMakeSystemSpecificInformation.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/CMakeSystemSpecificInitialize.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/Compiler/CMakeCommonCompilerMacros.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/Compiler/GNU-C.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/Compiler/GNU.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/Platform/Windows-GNU-C-ABI.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/Platform/Windows-GNU-C.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/Platform/Windows-GNU.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/Platform/Windows-Initialize.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/Platform/Windows-windres.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/Platform/Windows.cmake C$:/Program$ Files/CMake/share/cmake-3.30/Modules/Platform/WindowsPaths.cmake C$:/Users/User/Documents/C++/Hera/CMakeLists.txt CMakeCache.txt CMakeFiles/3.30.2/CMakeCCompiler.cmake CMakeFiles/3.30.2/CMakeRCCompiler.cmake CMakeFiles/3.30.2/CMakeSystem.cmake: phony
 
 
 #############################################

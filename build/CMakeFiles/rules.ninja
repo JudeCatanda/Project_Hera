@@ -42,7 +42,7 @@ rule CUSTOM_COMMAND
 # Rule for re-running cmake.
 
 rule RERUN_CMAKE
-  command = "C:\Program Files\CMake\bin\cmake.exe" --regenerate-during-build -SC:\Users\User\Documents\C++\hera -BC:\Users\User\Documents\C++\hera\build
+  command = "C:\Program Files\CMake\bin\cmake.exe" --regenerate-during-build -SC:\Users\User\Documents\C++\Hera -BC:\Users\User\Documents\C++\Hera\build
   description = Re-running CMake...
   generator = 1
 
