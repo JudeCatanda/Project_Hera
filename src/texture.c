@@ -4,9 +4,9 @@ void private_texture_readfile(texture_data *img, const char *filename) {
   stbi_set_flip_vertically_on_load(1);  
   img->img_data = stbi_load(filename, &img->img_width, &img->img_height, &img->img_channels, 0);
   if(img->img_data) {
-    printf("TEXTURE: %s LOADED SUCCESSFULLY\n", filename);
+    printf("[LOG] texture \"%s\" was loaded!\n", filename);
   } else {
-    fprintf(stderr, "UNABLE TO LOAD FILE: %s\n", filename);
+    fprintf(stderr, "[ERROR] texture \"%s\" failed to load\n", filename);
   }
 }
 

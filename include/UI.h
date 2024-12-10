@@ -22,7 +22,7 @@ typedef struct cursor {
   vec2 cursor_position;
   texture_data cursor_texture;
   layout layouts;
-  vrtx_buffer mesh;
+  vrtxbuffer mesh;
   shader vertex, fragment;
   shader_program program;
   unsigned int cursor_uniform_position_location;

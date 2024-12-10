@@ -30,7 +30,7 @@ typedef struct Renderer
 
   //for ui
   layout ui_layout;
-  vrtx_buffer ui_buffer;
+  vrtxbuffer ui_buffer;
   shader_program ui_shader_program;
   shader ui_vertex_shader, ui_fragment_shader;
 

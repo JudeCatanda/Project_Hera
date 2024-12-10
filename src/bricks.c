@@ -66,7 +66,7 @@ void create_bricks(brick *THE_BRICKS)
   THE_BRICKS->brick_individual_positions = calloc(THE_BRICKS->BRICKS_COUNT, sizeof(vec2));
   memcpy(THE_BRICKS->brick_individual_positions, positions, THE_BRICKS->BRICKS_COUNT * sizeof(vec2));
   // free(positions);
-  printf("texture size %d x %d\n", THE_BRICKS->atlas.img_width, THE_BRICKS->atlas.img_height);
+  // printf("texture size %d x %d\n", THE_BRICKS->atlas.img_width, THE_BRICKS->atlas.img_height);
 }
 void render_bricks(brick *THE_BRICKS)
 {

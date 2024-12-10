@@ -15,9 +15,9 @@ typedef struct Window {
     char* title;   
     GLFWwindow* handle;
 } Window;
-void heraWindow_Create(Window*, char*, Window_Size_Dimension);
-void heraWindow_Terminate(Window*);
-float* heraWindow_GetSize(Window* wnd);
+void window_create(Window*, char*, Window_Size_Dimension);
+void window_terminate(Window*);
+//deprecated: float* heraWindow_GetSize(Window* wnd);
 #ifdef __cplusplus
 }
 #endif

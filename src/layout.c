@@ -13,7 +13,7 @@ void layout_init(layout* lyt) {
 void layout_create_and_bind(layout *lyt) {
     glGenVertexArrays(1, &lyt->handle);
     glBindVertexArray(lyt->handle);
-    printf("LAYOUT BOUND!\n");
+    //printf("LAYOUT BOUND!\n");
 }
 
 void layout_create(layout *lyt) {

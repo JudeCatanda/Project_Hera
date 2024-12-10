@@ -17,3 +17,12 @@
 2194	2507	7554462770005050	hera.exe	198c0f1eeb47aa51
 491	3889	7554462496503872	CMakeFiles/hera.dir/src/levels.c.obj	1e414e573068b74e
 35	853	7554462491953355	CMakeFiles/hera.dir/src/camera.c.obj	337160c65caf598f
+22	691	7555300486890814	CMakeFiles/hera.dir/src/buff.c.obj	df519ae8cc3801ec
+16	849	7555300486734494	CMakeFiles/hera.dir/src/bricks.c.obj	ebe3e956eceeadec
+77	736	7555301058801291	CMakeFiles/hera.dir/src/window.c.obj	a94cd74cab551d79
+29	985	7555301058332507	CMakeFiles/hera.dir/src/UI.c.obj	995e8a0d5bd10431
+40	1054	7555301058332507	CMakeFiles/hera.dir/src/player.c.obj	ef22ead0df3b00f9
+32	2358	7555301462565568	CMakeFiles/hera.dir/src/main.c.obj	9b10eeed86b3cbd9
+45	2388	7555301462565568	CMakeFiles/hera.dir/src/renderer_other.c.obj	ef849cb5b04bba3d
+39	2416	7555301462565568	CMakeFiles/hera.dir/src/renderer.c.obj	2e955a748277a03f
+2417	2999	7555301486300546	hera.exe	198c0f1eeb47aa51

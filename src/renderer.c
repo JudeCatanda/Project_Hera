@@ -6,8 +6,7 @@ DWORD WINAPI can_quit_mltithread(LPVOID rnd);
 
 void Renderer_init(Renderer *rnd)
 {
-  heraWindow_Create(rnd->gameWindow, "Hera - test (Level Data) + (Universal Projection And View Matrix) + (rr command at quit)", (Window_Size_Dimension){ 800, 600 });
-  printf("Title: %s\n", rnd->gameWindow->title);
+  window_create(rnd->gameWindow, "Hera - Scenes Test!", (Window_Size_Dimension){ 800, 600 });
   rnd->last_time = (float)glfwGetTime();
   rnd->platform.maximum_brick_x = 5;
   rnd->platform.maximum_brick_y = 1;
@@ -129,7 +128,7 @@ void Update(Renderer *data)
 void Close(Renderer *data)
 {
   printf("Exiting!\n");
-  heraWindow_Terminate(data->gameWindow);
+  window_terminate(data->gameWindow);
   glDeleteTextures(1, &data->plr.player_texture.handle);
   glDeleteBuffers(1, &data->plr.mesh.handle);
 };

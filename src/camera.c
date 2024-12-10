@@ -26,7 +26,7 @@ void camera_init(camera *cam) {
   cam->set_aspect_ratio_ptr = camera_set_aspect_ration_ptr;
 
   if(cam->bind_camera != NULL) {
-    printf("Camera Attached\n");
+    // printf("Camera Attached\n");
   }
   if(cam->set_aspect_ratio_ptr == NULL) {
     printf("Did not bound (camera_set_aspect_ration_ptr()) \n");
