@@ -43,4 +43,5 @@ void Close(Renderer *data);
 
 //OTHERS
 void INITIALIZE_VECTOR2(vec2 *arr, int max_n, float default_x, float default_y);
+static inline void set_mesh(float *mesh_array, float x, float y);
 #endif

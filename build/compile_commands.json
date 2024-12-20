@@ -73,6 +73,12 @@
 },
 {
   "directory": "C:/Users/User/Documents/C++/Hera/build",
+  "command": "C:\\msys64\\mingw64\\bin\\gcc.exe -DDBG_MODE -IC:/Users/User/Documents/C++/Hera/./include -g -g -o CMakeFiles\\hera.dir\\src\\scene.c.obj -c C:\\Users\\User\\Documents\\C++\\Hera\\src\\scene.c",
+  "file": "C:\\Users\\User\\Documents\\C++\\Hera\\src\\scene.c",
+  "output": "CMakeFiles\\hera.dir\\src\\scene.c.obj"
+},
+{
+  "directory": "C:/Users/User/Documents/C++/Hera/build",
   "command": "C:\\msys64\\mingw64\\bin\\gcc.exe -DDBG_MODE -IC:/Users/User/Documents/C++/Hera/./include -g -g -o CMakeFiles\\hera.dir\\src\\shader.c.obj -c C:\\Users\\User\\Documents\\C++\\Hera\\src\\shader.c",
   "file": "C:\\Users\\User\\Documents\\C++\\Hera\\src\\shader.c",
   "output": "CMakeFiles\\hera.dir\\src\\shader.c.obj"
