@@ -16,15 +16,12 @@ void create_cursor(cursor *cur) {
   program_create(&cur->program, &cur->vertex, &cur->fragment);
 
   layout_create_and_bind(&cur->layouts);
-  vrtxbuffer_create(&cur->mesh, sizeof(cursor_data), cursor_data, GL_STATIC_DRAW);
 
   layout_enable_and_set_vertex_attrib_pointer(0, 2, GL_FLOAT, sizeof(vec4), (void*)0);
   layout_enable_and_set_vertex_attrib_pointer(1, 2, GL_FLOAT, sizeof(vec4), (void*)(sizeof(vec2)));
 
   texture_create(&cur->cursor_texture, "./assets/ui/arrow.png", GL_RGBA, GL_RGBA);
 
-  cur->mesh.unbind(&cur->mesh);
-  layout_unbind(&cur->layouts);
 }
 
 void render_cursor(cursor *cur) {

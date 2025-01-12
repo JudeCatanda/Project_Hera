@@ -1,5 +1,9 @@
 #include "window.h"
 
+int window_should_close(Window* win) {
+  return glfwWindowShouldClose(win->handle);
+}
+
 void window_create(Window * win, char * title, Window_Size_Dimension wsd) {
     if(!glfwInit()) {
       perror("Cannot Initialize glfw\n");
@@ -12,6 +16,8 @@ void window_create(Window * win, char * title, Window_Size_Dimension wsd) {
       perror("Cannot Initialize OpenGL\n");
     }
     win->title = title;
+    //set the function pointer when its ready!
+    win->should_close = window_should_close;
 }
 
 void window_terminate(Window* win) {

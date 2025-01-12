@@ -31,18 +31,14 @@ void create_bricks(brick *THE_BRICKS)
   program_create(&THE_BRICKS->program, &THE_BRICKS->vertex_, &THE_BRICKS->fragment_);
   layout_create_and_bind(&THE_BRICKS->layout_default);
 
-  vrtxbuffer_create(&THE_BRICKS->instanced_positions_buffer, THE_BRICKS->BRICKS_COUNT * sizeof(vec2), NULL, GL_DYNAMIC_DRAW);
   layout_enable_and_set_vertex_attrib_pointer(1, 2, GL_FLOAT, sizeof(vec2), (void *)0);
   glVertexAttribDivisor(1, 1);
 
-  vrtxbuffer_create(&THE_BRICKS->mesh_vbo, sizeof(DEFAULT_QUAD_MESH), DEFAULT_QUAD_MESH, GL_STATIC_DRAW);
   layout_enable_and_set_vertex_attrib_pointer(0, 2, GL_FLOAT, sizeof(vec4), (void *)0);
   layout_enable_and_set_vertex_attrib_pointer(2, 2, GL_FLOAT, sizeof(vec4), (void *)(sizeof(vec2)));
 
   texture_create(&THE_BRICKS->atlas, "./assets/textures/atlas.png", GL_RGBA, GL_RGBA);
 
-  THE_BRICKS->mesh_vbo.unbind(&THE_BRICKS->mesh_vbo);
-  THE_BRICKS->instanced_positions_buffer.unbind(&THE_BRICKS->instanced_positions_buffer);
   layout_unbind(&THE_BRICKS->layout_default);
 
   vec2 *positions = calloc(THE_BRICKS->BRICKS_COUNT, sizeof(vec2));
@@ -77,7 +73,6 @@ void render_bricks(brick *THE_BRICKS)
   glUniformMatrix4fv(glGetUniformLocation(THE_BRICKS->program.handle, "projection"), 1, GL_FALSE, (float *)THE_BRICKS->projection);
 
   layout_bind(&THE_BRICKS->layout_default);
-  vrtxbuffer_setdata(&THE_BRICKS->instanced_positions_buffer, 0, THE_BRICKS->BRICKS_COUNT * sizeof(vec2), THE_BRICKS->brick_individual_positions);
   glDrawArraysInstanced(GL_TRIANGLES, 0, 6, THE_BRICKS->BRICKS_COUNT);
 }
 

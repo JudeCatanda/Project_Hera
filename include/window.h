@@ -8,13 +8,22 @@ extern "C" {
 #include <string.h>
 #include "glad/glad.h"
 #include "GLFW/glfw3.h"
+#define _s(type) type->self
+
 #define WINDOW_SIZE_X 0
 #define WINDOW_SIZE_Y 1
+
 typedef int Window_Size_Dimension[2];
+
 typedef struct Window {
-    char* title;   
-    GLFWwindow* handle;
+  struct Window* self;
+  char* title;   
+  GLFWwindow* handle;
+
+  int(*should_close)(struct Window*);
+  
 } Window;
+
 void window_create(Window*, char*, Window_Size_Dimension);
 void window_terminate(Window*);
 //deprecated: float* heraWindow_GetSize(Window* wnd);

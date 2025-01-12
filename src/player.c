@@ -33,14 +33,11 @@ void create_player(player *plr)
   camera_init(&plr->cam);
 
   layout_create_and_bind(&plr->player_layouts);
-  vrtxbuffer_create(&plr->mesh, sizeof(mesh), mesh, GL_STATIC_DRAW);
   layout_enable_and_set_vertex_attrib_pointer(0, 2, GL_FLOAT, sizeof(vec4), (void *)0);
   layout_enable_and_set_vertex_attrib_pointer(1, 2, GL_FLOAT, sizeof(vec4), (void *)(sizeof(vec2)));
 
   texture_create(&plr->player_texture, "./assets/textures/atlas.png", GL_RGBA, GL_RGBA);
 
-  plr->mesh.unbind(&plr->mesh);
-  layout_unbind(&plr->player_layouts);
 
   plr->player_movement_speed = 1.0;
   player_reset_jump(plr);
