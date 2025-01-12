@@ -71,5 +71,8 @@
     "thread": "cpp",
     "typeinfo": "cpp",
     "variant": "cpp"
+  },
+  "cmake.debugConfig": {
+    "cwd": "${workspaceFolder}/build-debug",
   }
 }
