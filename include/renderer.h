@@ -16,8 +16,7 @@
 #include "UI.h"
 #include "levels.h"
 
-typedef struct Renderer
-{
+typedef struct Renderer {
   Window *window;
   float aspect_ratio;
   float last_time, current_time, delta_time;

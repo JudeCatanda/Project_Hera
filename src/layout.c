@@ -1,6 +1,6 @@
 #include "layout.h"
 
-void layout_init(layout* lyt) {
+void layout_init(Layout* lyt) {
     lyt->self = lyt;
     lyt->create_and_bind = layout_create_and_bind;
     lyt->create = layout_create;
@@ -10,21 +10,21 @@ void layout_init(layout* lyt) {
     printf("inited a layout of self %p\n", &lyt);
 }
 
-void layout_create_and_bind(layout *lyt) {
+void layout_create_and_bind(Layout *lyt) {
     glGenVertexArrays(1, &lyt->handle);
     glBindVertexArray(lyt->handle);
     //printf("LAYOUT BOUND!\n");
 }
 
-void layout_create(layout *lyt) {
+void layout_create(Layout *lyt) {
     glGenVertexArrays(0, &lyt->handle);
 }
 
-void layout_bind(layout *lyt) {
+void layout_bind(Layout *lyt) {
     glBindVertexArray(lyt->handle);
 }
 
-void layout_unbind(layout *lyt) {
+void layout_unbind(Layout *lyt) {
     glBindVertexArray(0);
 }
 

@@ -15,8 +15,8 @@ typedef struct shader {
 typedef struct shader_program {
   unsigned int handle;
 
-  void(*UseProgram)(struct shader_program* self);
-  void(*Unbind)(struct shader_program* self);
+  void(*use_program)(struct shader_program* self);
+  void(*unbind)(struct shader_program* self);
 } shader_program;
 
 static void shader_read_file(shader* shdr, const char* title);

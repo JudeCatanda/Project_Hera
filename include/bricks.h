@@ -15,8 +15,8 @@ typedef struct brick {
   int BRICKS_COUNT;
   int maximum_brick_x, maximum_brick_y;
   vec2* brick_individual_positions;
-  vrtxbuffer instanced_positions_buffer, mesh_vbo;
-  layout layout_default;
+  Buffer instanced_positions_buffer, mesh_vbo;
+  Layout layout_default;
   shader vertex_, fragment_;
   float ASPECT_RATIO;
   mat4 projection;

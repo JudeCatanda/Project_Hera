@@ -20,8 +20,8 @@ typedef struct Scene_Node {
   OBJECT_TYPE type;
   vec2 position;
 
-  layout node_layout;
-  vrtxbuffer node_mesh;
+  Layout node_layout;
+  Buffer node_mesh;
   texture_data node_texture;
 
   int vertex_count;

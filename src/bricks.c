@@ -67,7 +67,7 @@ void create_bricks(brick *THE_BRICKS)
 void render_bricks(brick *THE_BRICKS)
 {
   THE_BRICKS->atlas.Bind(&THE_BRICKS->atlas);
-  THE_BRICKS->program.UseProgram(&THE_BRICKS->program);
+  THE_BRICKS->program.use_program(&THE_BRICKS->program);
 
   glm_ortho(-THE_BRICKS->ASPECT_RATIO, THE_BRICKS->ASPECT_RATIO, -1.0f, 1.0f, -1.0f, 1.0f, THE_BRICKS->projection);
   glUniformMatrix4fv(glGetUniformLocation(THE_BRICKS->program.handle, "projection"), 1, GL_FALSE, (float *)THE_BRICKS->projection);
@@ -79,6 +79,6 @@ void render_bricks(brick *THE_BRICKS)
 void bricks_unbind(brick *THE_BRICKS)
 {
   layout_unbind(&THE_BRICKS->layout_default);
-  THE_BRICKS->program.Unbind(&THE_BRICKS->program);
+  THE_BRICKS->program.unbind(&THE_BRICKS->program);
   THE_BRICKS->atlas.Unbind(&THE_BRICKS->atlas);
 }

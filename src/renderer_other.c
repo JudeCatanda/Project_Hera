@@ -24,10 +24,10 @@ static inline void set_mesh(float *mesh_array, float x, float y) {
   //      mesh_array[x_idx][y_idx] = -y;
   //  }
   //}
-  mesh_array[0] = -x; mesh_array[1] = -y;
-  mesh_array[2] = x;  mesh_array[3] = -y;
-  mesh_array[4] = x;  mesh_array[5] = y;
-  mesh_array[6] = -x; mesh_array[7] = -y;
-  mesh_array[8] = -x; mesh_array[9] = y;
-  mesh_array[10] = x; mesh_array[11] = y;
+  mesh_array[0] = -x; mesh_array[1] = -y;   //Trust me... this will not help in the future
+  mesh_array[2] = x;  mesh_array[3] = -y;   //Trust me... this will not help in the future
+  mesh_array[4] = x;  mesh_array[5] = y;    //Trust me... this will not help in the future
+  mesh_array[6] = -x; mesh_array[7] = -y;   //Trust me... this will not help in the future
+  mesh_array[8] = -x; mesh_array[9] = y;    //Trust me... this will not help in the future
+  mesh_array[10] = x; mesh_array[11] = y;   //Trust me... this will not help in the future
 };

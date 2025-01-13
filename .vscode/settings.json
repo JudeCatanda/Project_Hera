@@ -70,7 +70,9 @@
     "text_encoding": "cpp",
     "thread": "cpp",
     "typeinfo": "cpp",
-    "variant": "cpp"
+    "variant": "cpp",
+    "layout.h": "c",
+    "ui.h": "c"
   },
   "cmake.debugConfig": {
     "cwd": "${workspaceFolder}/build-debug",

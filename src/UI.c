@@ -31,7 +31,7 @@ void render_cursor(cursor *cur) {
   // configure_projection(plr, plr->aspect_ratio);
   // glDrawArrays(GL_TRIANGLES, 0, 6);
   cur->cursor_texture.Bind(&cur->cursor_texture);
-  cur->program.UseProgram(&cur->program);
+  cur->program.use_program(&cur->program);
   layout_bind(&cur->layouts);
 
   glm_ortho(-cur->aspect_ratio, cur->aspect_ratio, -1.0f, 1.0f, -1.0f, 1.0f, cur->projection); // works! but not changing camera pos
@@ -46,7 +46,7 @@ void render_cursor(cursor *cur) {
 
 void cursor_unbind(cursor* cur) {
   layout_unbind(&cur->layouts);
-  cur->program.Unbind(&cur->program);
+  cur->program.unbind(&cur->program);
   cur->cursor_texture.Unbind(&cur->cursor_texture);
 }
 

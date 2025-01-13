@@ -1,7 +1,7 @@
 #include "camera.h"
 
 void camera_bind_camera(camera *cam_struct, shader_program *program) {
-  program->UseProgram(program);
+  program->use_program(program);
 
   cam_struct->proj = glms_ortho(-*cam_struct->aspect_ratio, *cam_struct->aspect_ratio, -1.0f, 1.0, -1.0f, 1.0f);
   glm_mat4_identity(cam_struct->view);

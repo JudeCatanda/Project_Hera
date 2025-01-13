@@ -4,26 +4,26 @@
 #include "glad/glad.h"
 #include <stdio.h>
 
-typedef struct layout {
-    unsigned int handle;
+typedef struct Layout {
+  unsigned int handle;
 
-    void(*create_and_bind)(struct layout* );
-    void(*create)(struct layout* );
-    void(*bind)(struct layout* );
-    void(*unbind)(struct layout* );
+  void(*create_and_bind)(struct Layout* );
+  void(*create)(struct Layout* );
+  void(*bind)(struct Layout* );
+  void(*unbind)(struct Layout* );
 
-    struct layout* self;
-} layout;
+  struct Layout* self;
+} Layout;
 
 #define pself(type) type->self
 #define self(type) type.self
 
-void layout_init(layout* lyt);
+void layout_init(Layout* lyt);
 
-void layout_create_and_bind(layout* lyt);
-void layout_create(layout* lyt);
-void layout_bind(layout* lyt);
-void layout_unbind(layout* lyt);
+void layout_create_and_bind(Layout* lyt);
+void layout_create(Layout* lyt);
+void layout_bind(Layout* lyt);
+void layout_unbind(Layout* lyt);
 
 /** @brief enables an index in a layout
 *   @param index the index to enable

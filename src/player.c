@@ -46,7 +46,7 @@ void create_player(player *plr)
 void render_player(player *plr) {
   plr->cam.set_aspect_ratio_ptr(plr->cam.self, &plr->aspect_ratio);
   plr->player_texture.Bind(&plr->player_texture);
-  plr->program.UseProgram(&plr->program);
+  plr->program.use_program(&plr->program);
   layout_bind(&plr->player_layouts);
   //configure_projection(plr, plr->aspect_ratio);
   glm_vec3_copy((vec3){ plr->position[0], plr->position[1], 0.0f }, plr->cam.position);
@@ -72,7 +72,7 @@ void player_camera_set_vandp(player *plr)
 void player_unbind(player *plr)
 {
   layout_unbind(&plr->player_layouts);
-  plr->program.Unbind(&plr->program);
+  plr->program.unbind(&plr->program);
   plr->player_texture.Unbind(&plr->player_texture);
 }
 

@@ -32,8 +32,8 @@ typedef struct player {
   float gravity;
 
   float *delta_time;
-  layout player_layouts;
-  vrtxbuffer mesh;
+  Layout player_layouts;
+  Buffer mesh;
   shader vertex, fragment;
   shader_program program;
   unsigned int POSITION_UNIFORM_LOCATION;

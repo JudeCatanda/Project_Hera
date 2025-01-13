@@ -2,6 +2,9 @@
 #define null NULL
 
 static void shader_read_file(shader* shdr, const char* title) {
+
+  //SHADER reading code was stolen btw... not mine!
+
   //memset(shdr->source, 0, sizeof(*shdr->source));
   //memcpy(shdr->source, "", sizeof(shdr->source));
   FILE *shader_file = fopen(title, "rb");
@@ -59,6 +62,6 @@ void program_create(shader_program *program, shader *vertex, shader *fragment) {
 
   glDeleteShader(vertex->handle);
   glDeleteShader(fragment->handle);
-  program->UseProgram = proc_shaderprogram_useprogram;
-  program->Unbind = proc_unbind_shader_program;
+  program->use_program = proc_shaderprogram_useprogram;
+  program->unbind = proc_unbind_shader_program;
 };
