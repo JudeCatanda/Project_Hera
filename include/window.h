@@ -20,9 +20,11 @@ typedef struct Window {
 
   char* title;   
   GLFWwindow* handle;
+  int size_x, size_y;
 
   int(*should_close)(struct Window*);
-  void(*get_size)(struct Window*, int* width, int* height);
+  void(*get_size_raw)(struct Window*, int* width, int* height);
+  void(*get_size)(struct Window*);
   
 } Window;
 

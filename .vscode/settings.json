@@ -72,7 +72,12 @@
     "typeinfo": "cpp",
     "variant": "cpp",
     "layout.h": "c",
-    "ui.h": "c"
+    "ui.h": "c",
+    "cglm.h": "c",
+    "buff.h": "c",
+    "stdbool.h": "c",
+    "player.h": "c",
+    "texture.h": "c"
   },
   "cmake.debugConfig": {
     "cwd": "${workspaceFolder}/build-debug",

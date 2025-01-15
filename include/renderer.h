@@ -18,10 +18,16 @@
 
 typedef struct Renderer {
   Window *window;
+
   float aspect_ratio;
   float last_time, current_time, delta_time;
   double cursor_x, cursor_y;
   int window_size_x, window_size_y;
+
+  Layout triangle_vao;
+  Buffer triangle_mesh_vbo;
+  Shader triangle_vertex_shdr, triangle_fragment_shdr;
+  ShaderProgram triangle_shdr_program;
 
   mat4 ui_projection;
 } Renderer;

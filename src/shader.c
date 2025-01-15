@@ -1,7 +1,7 @@
 #include "shader.h"
 #define null NULL
 
-static void shader_read_file(shader* shdr, const char* title) {
+static void shader_read_file(Shader* shdr, const char* title) {
 
   //SHADER reading code was stolen btw... not mine!
 
@@ -37,7 +37,7 @@ void shader_check_errors(unsigned int handle, GLenum pname, const char* msg) {
     fprintf(stderr, "Shader Error:\n%s", error_msg);
   }
 };
-void shader_create(shader* shdr, const char* filename, GLenum type) {
+void shader_create(Shader* shdr, const char* filename, GLenum type) {
   shader_read_file(shdr, filename);
   shdr->handle = glCreateShader(type);
   glShaderSource(shdr->handle, 1, (const GLchar* const*)&shdr->source, null);
@@ -46,13 +46,13 @@ void shader_create(shader* shdr, const char* filename, GLenum type) {
 }
 
 // void(*UseProgram)(struct shader_program* self);
-static void proc_shaderprogram_useprogram(shader_program* self) {
+static void proc_shaderprogram_useprogram(ShaderProgram* self) {
   glUseProgram(self->handle);
 };
-static void proc_unbind_shader_program(shader_program* self) {
+static void proc_unbind_shader_program(ShaderProgram* self) {
   glUseProgram(0);
 }
-void program_create(shader_program *program, shader *vertex, shader *fragment) {
+void program_create(ShaderProgram *program, Shader *vertex, Shader *fragment) {
   program->handle = glCreateProgram();
   glAttachShader(program->handle, vertex->handle);
   glAttachShader(program->handle, fragment->handle);

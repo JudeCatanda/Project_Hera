@@ -34,8 +34,8 @@ typedef struct player {
   float *delta_time;
   Layout player_layouts;
   Buffer mesh;
-  shader vertex, fragment;
-  shader_program program;
+  Shader vertex, fragment;
+  ShaderProgram program;
   unsigned int POSITION_UNIFORM_LOCATION;
 
   //DONOT OVERIDE!!

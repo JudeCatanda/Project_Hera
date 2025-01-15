@@ -20,7 +20,7 @@ typedef struct camera {
   //@brief binds the camera and changing its position
   //@param cam_struct use cam.self
   //@param program the shader program which the uniforms is located
-  void(*bind_camera)(struct camera* cam_struct, shader_program* program);
+  void(*bind_camera)(struct camera* cam_struct, ShaderProgram* program);
   //@brief sets the aspect ration member from the struct with the ptr supplied
   //@param cam_struct use cam.self
   //@param ptr the ptr to the aspect ratio (float)

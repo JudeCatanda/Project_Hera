@@ -6,24 +6,24 @@
 #include <stdlib.h>
 #include "glad/glad.h"
 
-typedef struct shader {
+typedef struct Shader {
   unsigned int handle;
   char* source;
   GLenum type;
-} shader;
+} Shader;
 
-typedef struct shader_program {
+typedef struct ShaderProgram {
   unsigned int handle;
 
-  void(*use_program)(struct shader_program* self);
-  void(*unbind)(struct shader_program* self);
-} shader_program;
+  void(*use_program)(struct ShaderProgram* self);
+  void(*unbind)(struct ShaderProgram* self);
+} ShaderProgram;
 
-static void shader_read_file(shader* shdr, const char* title);
+static void shader_read_file(Shader* shdr, const char* title);
 void shader_check_errors(unsigned int handle, GLenum pname, const char* msg);
-void shader_create(shader* shdr, const char* filename, GLenum type);
+void shader_create(Shader* shdr, const char* filename, GLenum type);
 
-void program_create(shader_program* program, shader* vertex, shader* fragment);
+void program_create(ShaderProgram* program, Shader* vertex, Shader* fragment);
 
 
 #endif

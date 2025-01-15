@@ -1,18 +1,6 @@
 [
 {
   "directory": "C:/Users/User/Documents/C++/Hera/build-debug",
-  "command": "C:\\msys64\\mingw64\\bin\\gcc.exe -DDBG_MODE -IC:/Users/User/Documents/C++/Hera/./include -g -g -o CMakeFiles\\hera.dir\\src\\UI.c.obj -c C:\\Users\\User\\Documents\\C++\\Hera\\src\\UI.c",
-  "file": "C:\\Users\\User\\Documents\\C++\\Hera\\src\\UI.c",
-  "output": "CMakeFiles\\hera.dir\\src\\UI.c.obj"
-},
-{
-  "directory": "C:/Users/User/Documents/C++/Hera/build-debug",
-  "command": "C:\\msys64\\mingw64\\bin\\gcc.exe -DDBG_MODE -IC:/Users/User/Documents/C++/Hera/./include -g -g -o CMakeFiles\\hera.dir\\src\\bricks.c.obj -c C:\\Users\\User\\Documents\\C++\\Hera\\src\\bricks.c",
-  "file": "C:\\Users\\User\\Documents\\C++\\Hera\\src\\bricks.c",
-  "output": "CMakeFiles\\hera.dir\\src\\bricks.c.obj"
-},
-{
-  "directory": "C:/Users/User/Documents/C++/Hera/build-debug",
   "command": "C:\\msys64\\mingw64\\bin\\gcc.exe -DDBG_MODE -IC:/Users/User/Documents/C++/Hera/./include -g -g -o CMakeFiles\\hera.dir\\src\\buff.c.obj -c C:\\Users\\User\\Documents\\C++\\Hera\\src\\buff.c",
   "file": "C:\\Users\\User\\Documents\\C++\\Hera\\src\\buff.c",
   "output": "CMakeFiles\\hera.dir\\src\\buff.c.obj"
@@ -52,12 +40,6 @@
   "command": "C:\\msys64\\mingw64\\bin\\gcc.exe -DDBG_MODE -IC:/Users/User/Documents/C++/Hera/./include -g -g -o CMakeFiles\\hera.dir\\src\\main.c.obj -c C:\\Users\\User\\Documents\\C++\\Hera\\src\\main.c",
   "file": "C:\\Users\\User\\Documents\\C++\\Hera\\src\\main.c",
   "output": "CMakeFiles\\hera.dir\\src\\main.c.obj"
-},
-{
-  "directory": "C:/Users/User/Documents/C++/Hera/build-debug",
-  "command": "C:\\msys64\\mingw64\\bin\\gcc.exe -DDBG_MODE -IC:/Users/User/Documents/C++/Hera/./include -g -g -o CMakeFiles\\hera.dir\\src\\player.c.obj -c C:\\Users\\User\\Documents\\C++\\Hera\\src\\player.c",
-  "file": "C:\\Users\\User\\Documents\\C++\\Hera\\src\\player.c",
-  "output": "CMakeFiles\\hera.dir\\src\\player.c.obj"
 },
 {
   "directory": "C:/Users/User/Documents/C++/Hera/build-debug",

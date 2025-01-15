@@ -7,7 +7,7 @@ void layout_init(Layout* lyt) {
     lyt->bind = layout_bind;
     lyt->unbind = layout_unbind;
 
-    printf("inited a layout of self %p\n", &lyt);
+    printf("[DEBUG] Layout was create at %p\n", &lyt);
 }
 
 void layout_create_and_bind(Layout *lyt) {

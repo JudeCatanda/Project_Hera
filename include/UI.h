@@ -23,8 +23,8 @@ typedef struct cursor {
   texture_data cursor_texture;
   Layout layouts;
   Buffer mesh;
-  shader vertex, fragment;
-  shader_program program;
+  Shader vertex, fragment;
+  ShaderProgram program;
   unsigned int cursor_uniform_position_location;
   float aspect_ratio;
   int window_size_x, window_size_y;

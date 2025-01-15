@@ -21,3 +21,7 @@ void buffer_setdata(Buffer *buff, GLintptr offset, GLsizeiptr size, GLvoid *data
   glBufferSubData(buff->type, offset, size, data);
   buff->unbind(buff);
 }
+
+void buffer_destroy(Buffer *buff) {
+  glDeleteBuffers(DEFAULT_NUMBER_OF_BUFFER_USE, &buff->handle);
+}
