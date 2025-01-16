@@ -77,7 +77,8 @@
     "buff.h": "c",
     "stdbool.h": "c",
     "player.h": "c",
-    "texture.h": "c"
+    "texture.h": "c",
+    "windows.h": "c"
   },
   "cmake.debugConfig": {
     "cwd": "${workspaceFolder}/build-debug",

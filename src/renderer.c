@@ -8,12 +8,19 @@ void Init(Renderer *data) {
 
   Layout* layout = &data->triangle_vao; //DRY!
   Buffer* triangle_vbo = &data->triangle_mesh_vbo;
+  Shader *vertex_shdr = &data->triangle_vertex_shdr, *fragment_shdr = &data->triangle_fragment_shdr;
+  ShaderProgram* program = &data->triangle_shdr_program;
 
   float Triangle[6] = {
     -0.5, -0.5,
     -0.5,  0.5,
     0.5, -0.5
   };
+
+  shader_create(vertex_shdr, "./assets/test_build/main.vert", GL_VERTEX_SHADER);
+  shader_create(fragment_shdr, "./assets/test_build/main.frag", GL_FRAGMENT_SHADER);
+  program_create(program, vertex_shdr, fragment_shdr);
+  program->unbind(program);
 
   layout_init(layout);
   layout->create_and_bind(layout);
@@ -26,6 +33,7 @@ void Update(Renderer *data) {
   Window* window_ptr = data->window;
   Layout* layout = &data->triangle_vao; //DRY!
   Buffer* triangle_vbo = &data->triangle_mesh_vbo;
+  ShaderProgram* program = &data->triangle_shdr_program;
 
   while(!window_ptr->should_close(window_ptr)) {
 
@@ -39,6 +47,8 @@ void Update(Renderer *data) {
     glClear(GL_COLOR_BUFFER_BIT);
     glClearColor(0.2, 0.5, 0.9, 1.0);
 
+
+    program->use_program(program);
     layout->bind(layout);
     glDrawArrays(GL_TRIANGLES, 0, 3);
 
@@ -52,6 +62,9 @@ void Close(Renderer *data) {
   printf("[LOG] Exiting!\n");
 
   window_terminate(data->window);
+  shader_destroy(&data->triangle_vertex_shdr);
+  shader_destroy(&data->triangle_fragment_shdr);
+  program_destroy(&data->triangle_shdr_program);
   buffer_destroy(&data->triangle_mesh_vbo);
 
   free(data->window);
