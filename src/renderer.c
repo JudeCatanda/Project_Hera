@@ -39,8 +39,8 @@ void Update(Renderer *data) {
   Buffer* triangle_vbo = &data->triangle_mesh_vbo;
   ShaderProgram* program = &data->triangle_shdr_program;
 
-  const float target_color = 1.0f;
-  float start_color = 0.1f;
+  const float target_color = 0.0f;
+  float start_color = 1.0f;
   float get_val = 0.0;
 
   printf("[DEBUG] time is %f\n", (float)glfwGetTime());
@@ -61,11 +61,14 @@ void Update(Renderer *data) {
     layout->bind(layout);
 
     unsigned int lerp_location = glGetUniformLocation(program->handle, "lerp_value");
-    float lerp_result = lerp(start_color, target_color, 0.5 * data->delta_time);
+    float lerp_result = lerp(start_color, target_color, 0.2 * data->delta_time);
     glUniform1fv(lerp_location, 1, &lerp_result);
     glGetUniformfv(program->handle, lerp_location, &get_val);
     // printf("[DEBUG] Uniform Value %f\n", get_val); //for debug ofcourse
     start_color = lerp_result;
+
+    unsigned int time_location = glGetUniformLocation(program->handle, "u_time");
+    glUniform1f(time_location, data->current_time);
 
     glDrawArrays(GL_TRIANGLES, 0, 6);
 
