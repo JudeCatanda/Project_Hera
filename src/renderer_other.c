@@ -31,3 +31,7 @@ static inline void set_mesh(float *mesh_array, float x, float y) {
   mesh_array[8] = -x; mesh_array[9] = y;    //Trust me... this will not help in the future
   mesh_array[10] = x; mesh_array[11] = y;   //Trust me... this will not help in the future
 };
+
+float lerp(float start, float end, float percentage) {
+  return start + (end - start) * percentage;
+}

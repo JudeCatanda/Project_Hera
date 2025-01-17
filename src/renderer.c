@@ -2,19 +2,23 @@
 #include <windows.h>
 
 void Init(Renderer *data) {
-  data->window = (Window*)malloc(sizeof(Window*)); //alocate this shit so no seg fault!
+  data->window = (Window*)malloc(sizeof(Window)); //alocate this shit so no seg fault!
   window_create(data->window, "Hera - Refactor!", (Window_Size_Dimension){ 800, 600 });
   data->last_time = (float)glfwGetTime();
 
-  Layout* layout = &data->triangle_vao; //DRY!
+  Layout* layout = &data->triangle_vao; //DRY! principle
   Buffer* triangle_vbo = &data->triangle_mesh_vbo;
   Shader *vertex_shdr = &data->triangle_vertex_shdr, *fragment_shdr = &data->triangle_fragment_shdr;
   ShaderProgram* program = &data->triangle_shdr_program;
 
-  float Triangle[6] = {
-    -0.5, -0.5,
-    -0.5,  0.5,
-    0.5, -0.5
+  float Triangle[12] = {
+    -2.0, -2.0,
+    -2.0,  2.0,
+    2.0, -2.0,
+
+    2.0, -2.0,
+    2.0, 2.0,
+    -2.0,  2.0
   };
 
   shader_create(vertex_shdr, "./assets/test_build/main.vert", GL_VERTEX_SHADER);
@@ -35,6 +39,12 @@ void Update(Renderer *data) {
   Buffer* triangle_vbo = &data->triangle_mesh_vbo;
   ShaderProgram* program = &data->triangle_shdr_program;
 
+  const float target_color = 1.0f;
+  float start_color = 0.1f;
+  float get_val = 0.0;
+
+  printf("[DEBUG] time is %f\n", (float)glfwGetTime());
+
   while(!window_ptr->should_close(window_ptr)) {
 
     window_ptr->get_size(window_ptr);
@@ -47,10 +57,17 @@ void Update(Renderer *data) {
     glClear(GL_COLOR_BUFFER_BIT);
     glClearColor(0.2, 0.5, 0.9, 1.0);
 
-
     program->use_program(program);
     layout->bind(layout);
-    glDrawArrays(GL_TRIANGLES, 0, 3);
+
+    unsigned int lerp_location = glGetUniformLocation(program->handle, "lerp_value");
+    float lerp_result = lerp(start_color, target_color, 0.5 * data->delta_time);
+    glUniform1fv(lerp_location, 1, &lerp_result);
+    glGetUniformfv(program->handle, lerp_location, &get_val);
+    // printf("[DEBUG] Uniform Value %f\n", get_val); //for debug ofcourse
+    start_color = lerp_result;
+
+    glDrawArrays(GL_TRIANGLES, 0, 6);
 
     glfwSwapBuffers(data->window->handle);
     glfwPollEvents();
