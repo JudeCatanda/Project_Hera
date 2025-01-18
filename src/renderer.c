@@ -11,15 +11,8 @@ void Init(Renderer *data) {
   Shader *vertex_shdr = &data->triangle_vertex_shdr, *fragment_shdr = &data->triangle_fragment_shdr;
   ShaderProgram* program = &data->triangle_shdr_program;
 
-  float Triangle[] = {
-    -0.5, -0.5,
-    -0.5,  0.5,
-     0.5, -0.5,
-
-     0.5, -0.5,
-     0.5, 0.5,
-    -0.5,  0.5
-  };
+  float Triangle[12];
+  set_mesh(Triangle, 0.5, 0.5);
 
   shader_create(vertex_shdr, "./assets/test_build/main.vert", GL_VERTEX_SHADER);
   shader_create(fragment_shdr, "./assets/test_build/main.frag", GL_FRAGMENT_SHADER);

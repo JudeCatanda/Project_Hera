@@ -10,7 +10,7 @@ void INITIALIZE_VECTOR2(vec2* arr, int max_n, float default_x, float default_y) 
     arr[positions_in_arr][1] = default_y;
   }
 };
-static inline void set_mesh(float *mesh_array, float x, float y) {
+void set_mesh(float *mesh_array, float x, float y) {
   //to Ez?
   //const int vertex_count = 6;
   //for(int y_idx = 0; y < 5; y_idx++) {
