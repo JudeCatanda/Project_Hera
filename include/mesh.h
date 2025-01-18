@@ -7,15 +7,22 @@
 #include "layout.h"
 #include "cglm/cglm.h"
 
+typedef struct Vertex {
+  vec2 position;
+  vec3 color;
+} Vertex;
+
 typedef struct Mesh {
   //vertex datas
-  float* positions;
+  Vertex* vertices;
+
   Buffer pos_buffer;
   Shader vertex_shader, fragment_shader;
   ShaderProgram program;
   Layout vao;
+  GLsizeiptr buffer_size;
 
-  void(*create)(); //implement soon!
+  void(*create)(struct Mesh* msh, Vertex* in_vertices); //implement soon!
 
 } Mesh;
 
