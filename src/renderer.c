@@ -12,13 +12,13 @@ void Init(Renderer *data) {
   ShaderProgram* program = &data->triangle_shdr_program;
 
   float Triangle[12] = {
-    -2.0, -2.0,
-    -2.0,  2.0,
-    2.0, -2.0,
+    -0.5, -0.5,
+    -0.5,  0.5,
+    0.5, -0.5,
 
-    2.0, -2.0,
-    2.0, 2.0,
-    -2.0,  2.0
+    0.5, -0.5,
+    0.5, 0.5,
+    -0.5,  0.5
   };
 
   shader_create(vertex_shdr, "./assets/test_build/main.vert", GL_VERTEX_SHADER);
@@ -39,8 +39,8 @@ void Update(Renderer *data) {
   Buffer* triangle_vbo = &data->triangle_mesh_vbo;
   ShaderProgram* program = &data->triangle_shdr_program;
 
-  const float target_color = 0.0f;
-  float start_color = 1.0f;
+  const float target_color = 1.0f;
+  float start_color = 0.0f;
   float get_val = 0.0;
 
   printf("[DEBUG] time is %f\n", (float)glfwGetTime());

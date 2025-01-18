@@ -43,6 +43,12 @@
 },
 {
   "directory": "C:/Users/User/Documents/C++/Hera/build-debug",
+  "command": "C:\\msys64\\mingw64\\bin\\gcc.exe -DDBG_MODE -IC:/Users/User/Documents/C++/Hera/./include -g -g -o CMakeFiles\\hera.dir\\src\\mesh.c.obj -c C:\\Users\\User\\Documents\\C++\\Hera\\src\\mesh.c",
+  "file": "C:\\Users\\User\\Documents\\C++\\Hera\\src\\mesh.c",
+  "output": "CMakeFiles\\hera.dir\\src\\mesh.c.obj"
+},
+{
+  "directory": "C:/Users/User/Documents/C++/Hera/build-debug",
   "command": "C:\\msys64\\mingw64\\bin\\gcc.exe -DDBG_MODE -IC:/Users/User/Documents/C++/Hera/./include -g -g -o CMakeFiles\\hera.dir\\src\\renderer.c.obj -c C:\\Users\\User\\Documents\\C++\\Hera\\src\\renderer.c",
   "file": "C:\\Users\\User\\Documents\\C++\\Hera\\src\\renderer.c",
   "output": "CMakeFiles\\hera.dir\\src\\renderer.c.obj"
