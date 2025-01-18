@@ -11,13 +11,13 @@ void Init(Renderer *data) {
   Shader *vertex_shdr = &data->triangle_vertex_shdr, *fragment_shdr = &data->triangle_fragment_shdr;
   ShaderProgram* program = &data->triangle_shdr_program;
 
-  float Triangle[12] = {
+  float Triangle[] = {
     -0.5, -0.5,
     -0.5,  0.5,
-    0.5, -0.5,
+     0.5, -0.5,
 
-    0.5, -0.5,
-    0.5, 0.5,
+     0.5, -0.5,
+     0.5, 0.5,
     -0.5,  0.5
   };
 
