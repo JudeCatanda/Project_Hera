@@ -6,6 +6,13 @@ void mesh_proc_create(Mesh* msh, Vertex* in_vertices) {
   //use pointers to avoid reapeating myself!
   Layout* vao = &msh->vao;
   Buffer* vbo = &msh->pos_buffer;
+  Shader* vertex_shdr = &msh->vertex_shader, *fragment_shdr = &msh->fragment_shader;
+  ShaderProgram* program = &msh->program;
+
+  shader_create(vertex_shdr, "", GL_VERTEX_SHADER);
+  shader_create(fragment_shdr, "", GL_FRAGMENT_SHADER);
+  program_create(program, vertex_shdr, fragment_shdr);
+  program->unbind(program);
 
   layout_init(vao);
   vao->create_and_bind(vao);

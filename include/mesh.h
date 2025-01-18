@@ -23,6 +23,7 @@ typedef struct Mesh {
   GLsizeiptr buffer_size;
 
   void(*create)(struct Mesh* msh, Vertex* in_vertices); //implement soon!
+  void(*draw)(struct Mesh* msh);
 
 } Mesh;
 
