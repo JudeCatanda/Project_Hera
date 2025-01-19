@@ -30,7 +30,7 @@ void mesh_proc_draw(Mesh* msh) {
 
   program->use_program(program);
   vao->bind(vao);
-  glDrawArrays(GL_TRIANGLES, 0, (unsigned int)(sizeof(msh->vertices) / sizeof(Vertex))); //idk if its right but ok
+  glDrawArrays(GL_TRIANGLES, 0, msh->vertex_count); //idk if its right but ok
   vao->unbind(vao);
   program->unbind(program);
 };

@@ -21,6 +21,7 @@ typedef struct Mesh {
   ShaderProgram program;
   Layout vao;
   GLsizeiptr buffer_size;
+  unsigned int vertex_count;
 
   void(*create)(struct Mesh* msh, Vertex* in_vertices); //implement soon!
   void(*draw)(struct Mesh* msh);
