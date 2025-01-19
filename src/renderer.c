@@ -6,31 +6,39 @@ void Init(Renderer *data) {
   window_create(data->window, "Hera - Refactor!", (Window_Size_Dimension){ 800, 600 });
   data->last_time = (float)glfwGetTime();
 
-  Layout* layout = &data->triangle_vao; //DRY! principle
-  Buffer* triangle_vbo = &data->triangle_mesh_vbo;
-  Shader *vertex_shdr = &data->triangle_vertex_shdr, *fragment_shdr = &data->triangle_fragment_shdr;
-  ShaderProgram* program = &data->triangle_shdr_program;
+  // Layout* layout = &data->triangle_vao; //DRY! principle
+  // Buffer* triangle_vbo = &data->triangle_mesh_vbo;
+  // Shader *vertex_shdr = &data->triangle_vertex_shdr, *fragment_shdr = &data->triangle_fragment_shdr;
+  // ShaderProgram* program = &data->triangle_shdr_program;
+  Mesh* quad = &data->quad;
+  mesh_init(quad);
 
-  float Triangle[12];
-  set_mesh(Triangle, 0.5, 0.5);
+  Vertex vertices[3] = {
+    (Vertex){ -0.5, -0.5, 1.0, 0.0, 0.0 }, 
+    (Vertex){ -0.5,  0.5, 0.0, 1.0, 0.0 },
+    (Vertex){  0.5, -0.5, 0.0, 0.0, 1.0 }
+  };
 
-  shader_create(vertex_shdr, "./assets/test_build/main.vert", GL_VERTEX_SHADER);
-  shader_create(fragment_shdr, "./assets/test_build/main.frag", GL_FRAGMENT_SHADER);
-  program_create(program, vertex_shdr, fragment_shdr);
-  program->unbind(program);
+  quad->create(quad, vertices);
 
-  layout_init(layout);
-  layout->create_and_bind(layout);
-  buffer_create(triangle_vbo, sizeof(Triangle), Triangle, GL_STATIC_DRAW, GL_ARRAY_BUFFER);
-  layout_enable_and_set_vertex_attrib_pointer(0, 2, GL_FLOAT, 2 * sizeof(float), (const void*)0);
-  layout->unbind(layout);
+  // shader_create(vertex_shdr, "./assets/test_build/main.vert", GL_VERTEX_SHADER);
+  // shader_create(fragment_shdr, "./assets/test_build/main.frag", GL_FRAGMENT_SHADER);
+  // program_create(program, vertex_shdr, fragment_shdr);
+  // program->unbind(program);
+
+  // layout_init(layout);
+  // layout->create_and_bind(layout);
+  // buffer_create(triangle_vbo, sizeof(Triangle), Triangle, GL_STATIC_DRAW, GL_ARRAY_BUFFER);
+  // layout_enable_and_set_vertex_attrib_pointer(0, 2, GL_FLOAT, 2 * sizeof(float), (const void*)0);
+  // layout->unbind(layout);
 }
 
 void Update(Renderer *data) {
   Window* window_ptr = data->window;
-  Layout* layout = &data->triangle_vao; //DRY!
-  Buffer* triangle_vbo = &data->triangle_mesh_vbo;
-  ShaderProgram* program = &data->triangle_shdr_program;
+  // Layout* layout = &data->triangle_vao; //DRY!
+  // Buffer* triangle_vbo = &data->triangle_mesh_vbo;
+  // ShaderProgram* program = &data->triangle_shdr_program;
+  Mesh* quad = &data->quad;
 
   const float target_color = 1.0f;
   float start_color = 0.0f;
@@ -50,20 +58,21 @@ void Update(Renderer *data) {
     glClear(GL_COLOR_BUFFER_BIT);
     glClearColor(0.2, 0.5, 0.9, 1.0);
 
-    program->use_program(program);
-    layout->bind(layout);
 
-    unsigned int lerp_location = glGetUniformLocation(program->handle, "lerp_value");
-    float lerp_result = lerp(start_color, target_color, 0.2 * data->delta_time);
-    glUniform1fv(lerp_location, 1, &lerp_result);
-    glGetUniformfv(program->handle, lerp_location, &get_val);
-    // printf("[DEBUG] Uniform Value %f\n", get_val); //for debug ofcourse
-    start_color = lerp_result;
+    // unsigned int lerp_location = glGetUniformLocation(program->handle, "lerp_value");
+    // float lerp_result = lerp(start_color, target_color, 0.2 * data->delta_time);
+    // glUniform1fv(lerp_location, 1, &lerp_result);
+    // glGetUniformfv(program->handle, lerp_location, &get_val);
+    // // printf("[DEBUG] Uniform Value %f\n", get_val); //for debug ofcourse
+    // start_color = lerp_result;
 
-    unsigned int time_location = glGetUniformLocation(program->handle, "u_time");
-    glUniform1f(time_location, data->current_time);
+    // unsigned int time_location = glGetUniformLocation(program->handle, "u_time");
+    // glUniform1f(time_location, data->current_time);
 
-    glDrawArrays(GL_TRIANGLES, 0, 6);
+    quad->vertex_count = 3;
+    quad->draw(quad);
+
+    // glDrawArrays(GL_TRIANGLES, 0, 6);
 
     glfwSwapBuffers(data->window->handle);
     glfwPollEvents();

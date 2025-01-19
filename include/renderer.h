@@ -15,6 +15,7 @@
 // #include "game_states.h"
 #include "UI.h"
 #include "levels.h"
+#include "mesh.h"
 
 typedef struct Renderer {
   Window *window;
@@ -28,6 +29,7 @@ typedef struct Renderer {
   Buffer triangle_mesh_vbo;
   Shader triangle_vertex_shdr, triangle_fragment_shdr;
   ShaderProgram triangle_shdr_program;
+  Mesh quad;
 
   mat4 ui_projection;
 } Renderer;
