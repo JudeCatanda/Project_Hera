@@ -69,7 +69,7 @@ void Update(Renderer *data) {
     // unsigned int time_location = glGetUniformLocation(program->handle, "u_time");
     // glUniform1f(time_location, data->current_time);
 
-    quad->vertex_count = 3;
+    quad->vertex_count = 6;
     quad->draw(quad);
 
     // glDrawArrays(GL_TRIANGLES, 0, 6);
