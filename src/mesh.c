@@ -9,8 +9,8 @@ void mesh_proc_create(Mesh* msh, Vertex* in_vertices) {
   Shader* vertex_shdr = &msh->vertex_shader, *fragment_shdr = &msh->fragment_shader;
   ShaderProgram* program = &msh->program;
 
-  shader_create(vertex_shdr, "", GL_VERTEX_SHADER);
-  shader_create(fragment_shdr, "", GL_FRAGMENT_SHADER);
+  shader_create(vertex_shdr, "./assets/test_build/main.vert", GL_VERTEX_SHADER);
+  shader_create(fragment_shdr, "./assets/test_build/main.frag", GL_FRAGMENT_SHADER);
   program_create(program, vertex_shdr, fragment_shdr);
   program->unbind(program);
 
