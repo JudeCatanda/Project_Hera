@@ -6,7 +6,10 @@
 #include <stdlib.h>
 #include "glad/glad.h"
 
+#define uniform_location(prog, str_name) glGetUniformLocation(prog, str_name)
+#define uniform_send_float_once(prog, str_name, component, data) glUniform##component##f(uniform_location(prog, str_name), data);
 #define uniform_send_float(loc, component, data) glUniform##component##f(loc, data);
+#define uniform_send_float_once_v(prog, str_name, component, data) glUniform##component##fv(uniform_location(prog, str_name), 1, data);
 #define uniform_send_float_v(loc, component, data) glUniform##component##fv(loc, 1, data);
 
 typedef struct Shader {

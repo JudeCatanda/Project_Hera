@@ -32,3 +32,17 @@
 37	3074	7590713567767580	CMakeFiles/hera.dir/src/renderer_other.c.obj	ef849cb5b04bba3d
 14	1716	7590713983946480	CMakeFiles/hera.dir/src/renderer.c.obj	2e955a748277a03f
 1717	2189	7590714000918769	hera.exe	a4a8790602e69941
+47	968	7590719192319145	CMakeFiles/hera.dir/src/shader.c.obj	fdb3de9aa0d08d3e
+29	1355	7590719192142314	CMakeFiles/hera.dir/src/mesh.c.obj	f5a69d4a38185210
+13	1526	7590719191988308	CMakeFiles/hera.dir/src/camera.c.obj	337160c65caf598f
+24	3429	7590719192082367	CMakeFiles/hera.dir/src/main.c.obj	9b10eeed86b3cbd9
+42	3480	7590719192259195	CMakeFiles/hera.dir/src/renderer_other.c.obj	ef849cb5b04bba3d
+36	3498	7590719192209125	CMakeFiles/hera.dir/src/renderer.c.obj	2e955a748277a03f
+3498	3854	7590719226818992	hera.exe	a4a8790602e69941
+41	921	7590721541365222	CMakeFiles/hera.dir/src/shader.c.obj	fdb3de9aa0d08d3e
+26	1028	7590721541262797	CMakeFiles/hera.dir/src/mesh.c.obj	f5a69d4a38185210
+12	1128	7590721541066852	CMakeFiles/hera.dir/src/camera.c.obj	337160c65caf598f
+30	3396	7590721541302801	CMakeFiles/hera.dir/src/renderer.c.obj	2e955a748277a03f
+36	3413	7590721541365222	CMakeFiles/hera.dir/src/renderer_other.c.obj	ef849cb5b04bba3d
+20	3641	7590721541202817	CMakeFiles/hera.dir/src/main.c.obj	9b10eeed86b3cbd9
+3642	4023	7590721577408453	hera.exe	a4a8790602e69941
