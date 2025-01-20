@@ -29,5 +29,6 @@ typedef struct Mesh {
 } Mesh;
 
 void mesh_init(Mesh* mesh);
+void mesh_destroy(Mesh* mesh);
 
 #endif

@@ -6,10 +6,6 @@ void Init(Renderer *data) {
   window_create(data->window, "Hera - Refactor!", (Window_Size_Dimension){ 800, 600 });
   data->last_time = (float)glfwGetTime();
 
-  // Layout* layout = &data->triangle_vao; //DRY! principle
-  // Buffer* triangle_vbo = &data->triangle_mesh_vbo;
-  // Shader *vertex_shdr = &data->triangle_vertex_shdr, *fragment_shdr = &data->triangle_fragment_shdr;
-  // ShaderProgram* program = &data->triangle_shdr_program;
   Mesh* quad = &data->quad;
   mesh_init(quad);
 
@@ -20,24 +16,10 @@ void Init(Renderer *data) {
   };
 
   quad->create(quad, vertices);
-
-  // shader_create(vertex_shdr, "./assets/test_build/main.vert", GL_VERTEX_SHADER);
-  // shader_create(fragment_shdr, "./assets/test_build/main.frag", GL_FRAGMENT_SHADER);
-  // program_create(program, vertex_shdr, fragment_shdr);
-  // program->unbind(program);
-
-  // layout_init(layout);
-  // layout->create_and_bind(layout);
-  // buffer_create(triangle_vbo, sizeof(Triangle), Triangle, GL_STATIC_DRAW, GL_ARRAY_BUFFER);
-  // layout_enable_and_set_vertex_attrib_pointer(0, 2, GL_FLOAT, 2 * sizeof(float), (const void*)0);
-  // layout->unbind(layout);
 }
 
 void Update(Renderer *data) {
-  Window* window_ptr = data->window;
-  // Layout* layout = &data->triangle_vao; //DRY!
-  // Buffer* triangle_vbo = &data->triangle_mesh_vbo;
-  // ShaderProgram* program = &data->triangle_shdr_program;
+  Window* window = data->window;
   Mesh* quad = &data->quad;
 
   const float target_color = 1.0f;
@@ -46,10 +28,10 @@ void Update(Renderer *data) {
 
   printf("[DEBUG] time is %f\n", (float)glfwGetTime());
 
-  while(!window_ptr->should_close(window_ptr)) {
+  while(!window->should_close(window)) {
 
-    window_ptr->get_size(window_ptr);
-    glViewport(0, 0, window_ptr->size_x, window_ptr->size_y);
+    window->get_size(window);
+    glViewport(0, 0, window->size_x, window->size_y);
 
     data->current_time = (float)glfwGetTime();
     data->delta_time = data->current_time - data->last_time;
@@ -58,21 +40,8 @@ void Update(Renderer *data) {
     glClear(GL_COLOR_BUFFER_BIT);
     glClearColor(0.2, 0.5, 0.9, 1.0);
 
-
-    // unsigned int lerp_location = glGetUniformLocation(program->handle, "lerp_value");
-    // float lerp_result = lerp(start_color, target_color, 0.2 * data->delta_time);
-    // glUniform1fv(lerp_location, 1, &lerp_result);
-    // glGetUniformfv(program->handle, lerp_location, &get_val);
-    // // printf("[DEBUG] Uniform Value %f\n", get_val); //for debug ofcourse
-    // start_color = lerp_result;
-
-    // unsigned int time_location = glGetUniformLocation(program->handle, "u_time");
-    // glUniform1f(time_location, data->current_time);
-
     quad->vertex_count = 6;
     quad->draw(quad);
-
-    // glDrawArrays(GL_TRIANGLES, 0, 6);
 
     glfwSwapBuffers(data->window->handle);
     glfwPollEvents();
@@ -82,13 +51,7 @@ void Update(Renderer *data) {
 
 void Close(Renderer *data) {
   printf("[LOG] Exiting!\n");
-
-  window_terminate(data->window);
-  shader_destroy(&data->triangle_vertex_shdr);
-  shader_destroy(&data->triangle_fragment_shdr);
-  program_destroy(&data->triangle_shdr_program);
-  buffer_destroy(&data->triangle_mesh_vbo);
-
+  mesh_destroy(&data->quad);
   free(data->window);
   data->window = NULL;
 };
