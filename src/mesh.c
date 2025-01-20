@@ -28,16 +28,31 @@ void mesh_proc_draw(Mesh* msh) {
   Layout* vao = &msh->vao;
   ShaderProgram* program = &msh->program;
 
-  program->use_program(program);
-  vao->bind(vao);
-  glDrawArrays(GL_TRIANGLES, 0, msh->vertex_count); //idk if its right but ok
-  vao->unbind(vao);
-  program->unbind(program);
+  msh->bind_all(msh);
+  msh->draw_call(msh);
+  msh->unbind_all(msh);
 };
+// void(*bind_all)(struct Mesh* msh);
+void mesh_proc_bind_all(Mesh* msh) {
+  msh->program.use_program(&msh->program);
+  msh->vao.bind(&msh->vao);
+}
+// void(*unbind_all)(struct Mesh* msh);
+void mesh_proc_unbind_all(Mesh* msh) {
+  msh->vao.unbind(&msh->vao);
+  msh->program.use_program(&msh->program);
+};
+// void(*draw_call)(struct Mesh* msh);
+void mesh_proc_draw_call(Mesh* msh) {
+  glDrawArrays(GL_TRIANGLES, 0, msh->vertex_count);
+}
 
 void mesh_init(Mesh *mesh) {
   mesh->create = mesh_proc_create;
   mesh->draw = mesh_proc_draw;
+  mesh->draw_call = mesh_proc_draw_call;
+  mesh->bind_all = mesh_proc_bind_all;
+  mesh->unbind_all = mesh_proc_unbind_all;
 }
 
 void mesh_destroy(Mesh *mesh) {

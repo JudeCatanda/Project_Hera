@@ -23,8 +23,16 @@ typedef struct Mesh {
   GLsizeiptr buffer_size;
   unsigned int vertex_count;
 
-  void(*create)(struct Mesh* msh, Vertex* in_vertices); //implement soon!
+  /// @brief creates the required resources and binds them
+  void(*create)(struct Mesh* msh, Vertex* in_vertices);
+  /// @brief draws the mesh. with the required resources bounded
   void(*draw)(struct Mesh* msh);
+  /// @brief bounds all required resources
+  void(*bind_all)(struct Mesh* msh);
+  /// @brief un-binds all required resources
+  void(*unbind_all)(struct Mesh* msh);
+  /// @brief the glDrawArraysCall with no required resources bounded [please bind them first]
+  void(*draw_call)(struct Mesh* msh);
 
 } Mesh;
 
