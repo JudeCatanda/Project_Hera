@@ -3,7 +3,6 @@
 layout (location = 0) in vec2 input_positions;
 layout (location = 1) in vec3 input_color;
 
-uniform float lerp_value;
 uniform float u_time;
 
 out vec2 output_positions;

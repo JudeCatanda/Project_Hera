@@ -42,7 +42,7 @@ void Update(Renderer *data) {
 
     quad->vertex_count = 6;
     quad->bind_all(quad);
-    uniform_send_float(1, 1, 1.0f);
+    uniform_send_float_once(quad->program.handle, "u_time", 1, data->current_time);
 
     quad->draw_call(quad);
     quad->unbind_all(quad);
