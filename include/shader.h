@@ -6,6 +6,9 @@
 #include <stdlib.h>
 #include "glad/glad.h"
 
+#define uniform_send_float(loc, component, data) glUniform##component##f(loc, data);
+#define uniform_send_float_v(loc, component, data) glUniform##component##fv(loc, 1, data);
+
 typedef struct Shader {
   unsigned int handle;
   char* source;

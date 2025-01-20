@@ -41,7 +41,11 @@ void Update(Renderer *data) {
     glClearColor(0.2, 0.5, 0.9, 1.0);
 
     quad->vertex_count = 6;
-    quad->draw(quad);
+    quad->bind_all(quad);
+    uniform_send_float(1, 1, 1.0f);
+
+    quad->draw_call(quad);
+    quad->unbind_all(quad);
 
     glfwSwapBuffers(data->window->handle);
     glfwPollEvents();
