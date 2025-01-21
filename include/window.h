@@ -16,7 +16,6 @@ extern "C" {
 typedef int Window_Size_Dimension[2];
 
 typedef struct Window {
-  struct Window* self; //use when you type as lazy as fuck
 
   char* title;   
   GLFWwindow* handle;

@@ -12,7 +12,6 @@ typedef struct Layout {
   void(*bind)(struct Layout* );
   void(*unbind)(struct Layout* );
 
-  struct Layout* self;
 } Layout;
 
 #define pself(type) type->self

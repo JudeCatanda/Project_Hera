@@ -8,7 +8,6 @@
 #define DEFAULT_NUMBER_OF_BUFFER_USE 1
 
 typedef struct Buffer {
-  struct Buffer* self;
   unsigned int handle;
 
   GLsizeiptr size;
