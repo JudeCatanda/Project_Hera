@@ -78,7 +78,8 @@
     "stdbool.h": "c",
     "player.h": "c",
     "texture.h": "c",
-    "windows.h": "c"
+    "windows.h": "c",
+    "mesh.h": "c"
   },
   "cmake.debugConfig": {
     "cwd": "${workspaceFolder}/build-debug",

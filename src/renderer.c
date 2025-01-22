@@ -42,7 +42,14 @@ void Update(Renderer *data) {
 
     quad->vertex_count = 6;
     quad->bind_all(quad);
+
+    float lerp_result = lerp(start_color, target_color, 0.2);
     uniform_send_float_once(quad->program.handle, "u_time", 1, data->current_time);
+    uniform_send_float_once(quad->program.handle, "lerp_value", 1, lerp_result)
+    start_color = lerp_result;
+
+    if(glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
+      break;
 
     quad->draw_call(quad);
     quad->unbind_all(quad);
@@ -57,5 +64,4 @@ void Close(Renderer *data) {
   printf("[LOG] Exiting!\n");
   mesh_destroy(&data->quad);
   free(data->window);
-  data->window = NULL;
 };

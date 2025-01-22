@@ -20,7 +20,6 @@ typedef struct Mesh {
   Shader vertex_shader, fragment_shader;
   ShaderProgram program;
   Layout vao;
-  GLsizeiptr buffer_size;
   unsigned int vertex_count;
 
   /// @brief creates the required resources and binds them
@@ -38,5 +37,21 @@ typedef struct Mesh {
 
 void mesh_init(Mesh* mesh);
 void mesh_destroy(Mesh* mesh);
+
+typedef struct InstancedMesh {
+  Vertex* vertices;
+
+  Buffer pos_buffer;
+  Shader vertex_shader, fragment_shader;
+  ShaderProgram program;
+  Layout vao;
+
+  int render_count;
+  vec2* individual_pos;
+
+  void(*create)(struct InstancedMesh* imsh, Vertex* in_vertices, vec2* in_individual_pos);
+} InstancedMesh;
+
+void instanced_mesh_init(InstancedMesh* imsh);
 
 #endif
