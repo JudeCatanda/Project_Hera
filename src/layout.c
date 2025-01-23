@@ -1,7 +1,6 @@
 #include "layout.h"
 
 void layout_init(Layout* lyt) {
-    lyt->self = lyt;
     lyt->create_and_bind = layout_create_and_bind;
     lyt->create = layout_create;
     lyt->bind = layout_bind;
