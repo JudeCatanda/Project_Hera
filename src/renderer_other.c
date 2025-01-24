@@ -36,6 +36,11 @@ float lerp(float start, float end, float percentage) {
   return start + (end - start) * percentage;
 }
 
-void set_mesh_(float *mesh_array, float x, float y) {
-  
+void set_mesh_(float *mesh_array, float x, float y, float scale) {
+  size_t last_access = sizeof(mesh_array) / sizeof(mesh_array[0]) * sizeof(float); //again idk
+  //hard codes :(
+  mesh_array[last_access + 1] = x;
+  mesh_array[last_access + 2] = y;
+  mesh_array[last_access + 3] = y + scale;
+  mesh_array[last_access + 4] = x + scale;
 }

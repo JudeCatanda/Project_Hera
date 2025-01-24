@@ -1,7 +1,7 @@
 #include "renderer.h"
 #include <windows.h>
 
-#define BATCH_RENDER_COUNT 10 * 2 * 4
+#define BATCH_RENDER_COUNT 10 * 2 * 3
 
 void Init(Renderer *data) {
   data->window = (Window*)malloc(sizeof(Window)); //alocate this shit so no seg fault!
@@ -41,7 +41,7 @@ void Update(Renderer *data) {
   ShaderProgram* program = &data->shdr_program;
   Mesh* quad = &data->quad;
 
-  Vertex vertices[BATCH_RENDER_COUNT];
+  float vertices[BATCH_RENDER_COUNT];
   int last_write = 0;
 
   float size = 0.5f;
@@ -72,6 +72,8 @@ void Update(Renderer *data) {
     // start_color = lerp_result;
     // quad->draw_call(quad);
     // quad->unbind_all(quad);
+    set_mesh_(vertices, -0.5, -0.5, 0.5);
+    set_mesh_(vertices, -0.5, 0.5, 0.5);
 
     buffer_setdata(vbo, 0, BATCH_RENDER_COUNT, vertices);
 
