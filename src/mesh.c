@@ -61,3 +61,10 @@ void mesh_destroy(Mesh *mesh) {
   shader_destroy(&mesh->vertex_shader);
   shader_destroy(&mesh->fragment_shader);
 }
+
+void instanced_mesh_init(InstancedMesh *imsh) {
+  Layout* vao = &imsh->vao;
+  Buffer* vbo = &imsh->pos_buffer;
+  Shader* vertex_shdr = &imsh->vertex_shader, *fragment_shdr = &imsh->fragment_shader;
+  ShaderProgram* program = &imsh->program;
+}

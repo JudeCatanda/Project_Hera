@@ -35,3 +35,7 @@ void set_mesh(float *mesh_array, float x, float y) {
 float lerp(float start, float end, float percentage) {
   return start + (end - start) * percentage;
 }
+
+void set_mesh_(float *mesh_array, float x, float y) {
+  
+}

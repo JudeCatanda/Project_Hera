@@ -25,10 +25,10 @@ typedef struct Renderer {
   double cursor_x, cursor_y;
   int window_size_x, window_size_y;
 
-  Layout triangle_vao;
-  Buffer triangle_mesh_vbo;
-  Shader triangle_vertex_shdr, triangle_fragment_shdr;
-  ShaderProgram triangle_shdr_program;
+  Layout vao;
+  Buffer vbo;
+  Shader vertex, fragment;
+  ShaderProgram shdr_program;
   Mesh quad;
 
   mat4 ui_projection;
@@ -42,4 +42,9 @@ void Close(Renderer *data);
 void INITIALIZE_VECTOR2(vec2 *arr, int max_n, float default_x, float default_y);
 void set_mesh(float *mesh_array, float x, float y);
 float lerp(float start, float end, float percentage);
+void set_mesh_(float* mesh_array, float x, float y); //i want std::vector!
+
+//cooked if 0
+#define arr_pushback(array, data) array[sizeof(array) / sizeof(array[0]) + 1] = data
+
 #endif

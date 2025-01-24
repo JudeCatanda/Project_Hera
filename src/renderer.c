@@ -1,26 +1,50 @@
 #include "renderer.h"
 #include <windows.h>
 
+#define BATCH_RENDER_COUNT 10 * 2 * 4
+
 void Init(Renderer *data) {
   data->window = (Window*)malloc(sizeof(Window)); //alocate this shit so no seg fault!
   window_create(data->window, "Hera - Refactor!", (Window_Size_Dimension){ 800, 600 });
   data->last_time = (float)glfwGetTime();
 
   Mesh* quad = &data->quad;
+  Layout* vao = &data->vao;
+  Buffer* vbo = &data->vbo;
+  Shader *vertex = &data->vertex, *fragment = &data->fragment;
+  ShaderProgram* program = &data->shdr_program;
   mesh_init(quad);
 
-  Vertex vertices[3] = {
-    (Vertex){ -0.5, -0.5, 1.0, 0.0, 0.0 }, 
-    (Vertex){ -0.5,  0.5, 0.0, 1.0, 0.0 },
-    (Vertex){  0.5, -0.5, 0.0, 0.0, 1.0 }
-  };
+  // Vertex vertices[3] = {
+  //   (Vertex){ -0.5, -0.5, 1.0, 0.0, 0.0 }, 
+  //   (Vertex){ -0.5,  0.5, 0.0, 1.0, 0.0 },
+  //   (Vertex){  0.5, -0.5, 0.0, 0.0, 1.0 }
+  // };
+  shader_create(vertex, "./assets/test_build/main.vert", GL_VERTEX_SHADER);
+  shader_create(fragment, "./assets/test_build/main.frag", GL_FRAGMENT_SHADER);
+  program_create(program, vertex, fragment);
 
-  quad->create(quad, vertices);
+  layout_init(vao);
+  vao->create_and_bind(vao);
+
+  buffer_create(vbo, BATCH_RENDER_COUNT, NULL, GL_DYNAMIC_DRAW, GL_ARRAY_BUFFER);
+  layout_enable_and_set_vertex_attrib_pointer(0, 2, GL_FLOAT, 2 * sizeof(float), (const void*)0);
+  // layout_enable_and_set_vertex_attrib_pointer(1, 3, GL_FLOAT, 5 * sizeof(float), (const void*)(2 * sizeof(float)));
+  vao->unbind(vao);
+  // quad->create(quad, vertices);
 }
 
 void Update(Renderer *data) {
   Window* window = data->window;
+  Layout* vao = &data->vao;
+  Buffer* vbo = &data->vbo;
+  ShaderProgram* program = &data->shdr_program;
   Mesh* quad = &data->quad;
+
+  Vertex vertices[BATCH_RENDER_COUNT];
+  int last_write = 0;
+
+  float size = 0.5f;
 
   const float target_color = 1.0f;
   float start_color = 0.0f;
@@ -40,19 +64,24 @@ void Update(Renderer *data) {
     glClear(GL_COLOR_BUFFER_BIT);
     glClearColor(0.2, 0.5, 0.9, 1.0);
 
-    quad->vertex_count = 6;
-    quad->bind_all(quad);
+    // quad->vertex_count = 6;
+    // quad->bind_all(quad);
+    // float lerp_result = lerp(start_color, target_color, 0.4 * data->delta_time);
+    // uniform_send_float_once(quad->program.handle, "u_time", 1, data->current_time);
+    // uniform_send_float_once(quad->program.handle, "lerp_value", 1, lerp_result)
+    // start_color = lerp_result;
+    // quad->draw_call(quad);
+    // quad->unbind_all(quad);
 
-    float lerp_result = lerp(start_color, target_color, 0.4 * data->delta_time);
-    uniform_send_float_once(quad->program.handle, "u_time", 1, data->current_time);
-    uniform_send_float_once(quad->program.handle, "lerp_value", 1, lerp_result)
-    start_color = lerp_result;
+    buffer_setdata(vbo, 0, BATCH_RENDER_COUNT, vertices);
+
+    program->use_program(program);
+    vao->bind(vao);
+    glDrawArrays(GL_TRIANGLES, 0, BATCH_RENDER_COUNT); //idk maygbe works?
+    vao->unbind(vao);
 
     if(glfwGetKey(window->handle, GLFW_KEY_ESCAPE) == GLFW_PRESS)
       break;
-
-    quad->draw_call(quad);
-    quad->unbind_all(quad);
 
     glfwSwapBuffers(data->window->handle);
     glfwPollEvents();
