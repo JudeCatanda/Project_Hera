@@ -42,7 +42,7 @@ void Close(Renderer *data);
 void INITIALIZE_VECTOR2(vec2 *arr, int max_n, float default_x, float default_y);
 void set_mesh(float *mesh_array, float x, float y);
 float lerp(float start, float end, float percentage);
-void set_mesh_(float* mesh_array, float x, float y, float scale); //i want std::vector!
+void set_mesh_(float **mesh_array, size_t *size, float x, float y, float scale);
 
 //cooked if 0
 #define arr_pushback(array, data) array[sizeof(array) / sizeof(array[0]) + 1] = data

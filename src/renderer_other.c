@@ -36,11 +36,24 @@ float lerp(float start, float end, float percentage) {
   return start + (end - start) * percentage;
 }
 
-void set_mesh_(float *mesh_array, float x, float y, float scale) {
-  size_t last_access = sizeof(mesh_array) / sizeof(mesh_array[0]) * sizeof(float); //again idk
-  //hard codes :(
-  mesh_array[last_access + 1] = x;
-  mesh_array[last_access + 2] = y;
-  mesh_array[last_access + 3] = y + scale;
-  mesh_array[last_access + 4] = x + scale;
+void set_mesh_(float **mesh_array, size_t *size, float x, float y, float scale) {
+    // Reallocate memory to make space for 4 new elements (for x, y, y+scale, x+scale)
+    mesh_array = realloc(mesh_array, (*size + 4) * sizeof(float));
+
+    if (mesh_array == NULL) {
+        // Handle memory allocation failure
+        printf("Memory allocation failed\n");
+        return;
+    }
+
+    // Append the new values to the array
+    mesh_array[*size] = x;
+    mesh_array[*size + 1] = y;
+    mesh_array[*size + 2] = y + scale;
+    mesh_array[*size + 3] = x + scale;
+
+    // Update the size of the array
+    *size += 4;
+
+    // Note: the pointer was modified, but the calling function must receive the new pointer
 }

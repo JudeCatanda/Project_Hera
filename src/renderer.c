@@ -8,12 +8,12 @@ void Init(Renderer *data) {
   window_create(data->window, "Hera - Refactor!", (Window_Size_Dimension){ 800, 600 });
   data->last_time = (float)glfwGetTime();
 
-  Mesh* quad = &data->quad;
+  // Mesh* quad = &data->quad;
   Layout* vao = &data->vao;
   Buffer* vbo = &data->vbo;
   Shader *vertex = &data->vertex, *fragment = &data->fragment;
   ShaderProgram* program = &data->shdr_program;
-  mesh_init(quad);
+  // mesh_init(quad);
 
   // Vertex vertices[3] = {
   //   (Vertex){ -0.5, -0.5, 1.0, 0.0, 0.0 }, 
@@ -39,9 +39,10 @@ void Update(Renderer *data) {
   Layout* vao = &data->vao;
   Buffer* vbo = &data->vbo;
   ShaderProgram* program = &data->shdr_program;
-  Mesh* quad = &data->quad;
+  // Mesh* quad = &data->quad;
 
-  float vertices[BATCH_RENDER_COUNT];
+  // float vertices[BATCH_RENDER_COUNT];
+  float *vertices;
   int last_write = 0;
 
   float size = 0.5f;
@@ -72,8 +73,9 @@ void Update(Renderer *data) {
     // start_color = lerp_result;
     // quad->draw_call(quad);
     // quad->unbind_all(quad);
-    set_mesh_(vertices, -0.5, -0.5, 0.5);
-    set_mesh_(vertices, -0.5, 0.5, 0.5);
+    size_t size = 0;
+    set_mesh_(&vertices, &size, -0.5, -0.5, 0.5);
+    set_mesh_(&vertices, &size, -0.5, 0.5, 0.5);
 
     buffer_setdata(vbo, 0, BATCH_RENDER_COUNT, vertices);
 
@@ -93,6 +95,6 @@ void Update(Renderer *data) {
 
 void Close(Renderer *data) {
   printf("[LOG] Exiting!\n");
-  mesh_destroy(&data->quad);
+  // mesh_destroy(&data->quad);
   free(data->window);
 };
