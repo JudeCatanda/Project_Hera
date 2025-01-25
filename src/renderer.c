@@ -1,7 +1,7 @@
 #include "renderer.h"
 #include <windows.h>
 
-#define BATCH_RENDER_COUNT 10 * 2 * 3
+#define BATCH_RENDER_COUNT 6 * 2 * 3
 
 void Init(Renderer *data) {
   data->window = (Window*)malloc(sizeof(Window)); //alocate this shit so no seg fault!
@@ -75,12 +75,16 @@ void Update(Renderer *data) {
     // quad->unbind_all(quad);
     set_mesh_(&vertices, &last_write, -0.5, -0.5, 0.5);
     set_mesh_(&vertices, &last_write, 0.5, -0.5, 0.5);
+    set_mesh_(&vertices, &last_write, 0.5, 0.5, 0.2);
+    set_mesh_(&vertices, &last_write, 0.5, -0.5, 0.2);
+    set_mesh_(&vertices, &last_write, -0.5, 0.0, 0.3);
+    set_mesh_(&vertices, &last_write, -0.5, 0.0, 0.3);
 
     buffer_setdata(vbo, 0, BATCH_RENDER_COUNT, vertices);
 
     program->use_program(program);
     vao->bind(vao);
-    glDrawArrays(GL_TRIANGLES, 0, 6); //idk maygbe works?
+    glDrawArrays(GL_TRIANGLES, 0, BATCH_RENDER_COUNT); //idk maygbe works?
     vao->unbind(vao);
 
     if(glfwGetKey(window->handle, GLFW_KEY_ESCAPE) == GLFW_PRESS)
