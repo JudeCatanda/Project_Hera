@@ -84,7 +84,7 @@ void Update(Renderer *data) {
 
     program->use_program(program);
     vao->bind(vao);
-    glDrawArrays(GL_TRIANGLES, 0, BATCH_RENDER_COUNT); //idk maygbe works?
+    glDrawArrays(GL_TRIANGLES, 0, 18); //idk maygbe works?
     vao->unbind(vao);
 
     if(glfwGetKey(window->handle, GLFW_KEY_ESCAPE) == GLFW_PRESS)
