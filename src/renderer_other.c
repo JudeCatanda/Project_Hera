@@ -36,24 +36,26 @@ float lerp(float start, float end, float percentage) {
   return start + (end - start) * percentage;
 }
 
-void set_mesh_(float **mesh_array, size_t *size, float x, float y, float scale) {
-    // Reallocate memory to make space for 4 new elements (for x, y, y+scale, x+scale)
-    mesh_array = realloc(mesh_array, (*size + 4) * sizeof(float));
+void set_mesh_(float** vertices, int* vertex_count, float x, float y, float scale) {
+    // Define the base triangle (local coordinates)
+    float triangle[6] = {
+        -0.5f * scale + x, -0.5f * scale + y, // Bottom-left
+         0.5f * scale + x, -0.5f * scale + y, // Bottom-right
+         0.0f * scale + x,  0.5f * scale + y  // Top-center
+    };
 
-    if (mesh_array == NULL) {
-        // Handle memory allocation failure
-        printf("Memory allocation failed\n");
-        return;
+    // Reallocate memory to append the new vertices
+    *vertices = realloc(*vertices, (*vertex_count + 6) * sizeof(float));
+    if (!(*vertices)) {
+        fprintf(stderr, "Failed to allocate memory.\n");
+        exit(1);
     }
 
-    // Append the new values to the array
-    mesh_array[*size] = x;
-    mesh_array[*size + 1] = y;
-    mesh_array[*size + 2] = y + scale;
-    mesh_array[*size + 3] = x + scale;
+    // Copy the new triangle vertices to the end of the array
+    for (int i = 0; i < 6; i++) {
+        (*vertices)[*vertex_count + i] = triangle[i];
+    }
 
-    // Update the size of the array
-    *size += 4;
-
-    // Note: the pointer was modified, but the calling function must receive the new pointer
+    // Update the vertex count
+    *vertex_count += 6;
 }

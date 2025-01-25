@@ -42,7 +42,7 @@ void Update(Renderer *data) {
   // Mesh* quad = &data->quad;
 
   // float vertices[BATCH_RENDER_COUNT];
-  float *vertices;
+  float *vertices = NULL;
   int last_write = 0;
 
   float size = 0.5f;
@@ -73,23 +73,26 @@ void Update(Renderer *data) {
     // start_color = lerp_result;
     // quad->draw_call(quad);
     // quad->unbind_all(quad);
-    size_t size = 0;
-    set_mesh_(&vertices, &size, -0.5, -0.5, 0.5);
-    set_mesh_(&vertices, &size, -0.5, 0.5, 0.5);
+    set_mesh_(&vertices, &last_write, -0.5, -0.5, 0.5);
+    set_mesh_(&vertices, &last_write, 0.5, -0.5, 0.5);
 
     buffer_setdata(vbo, 0, BATCH_RENDER_COUNT, vertices);
 
     program->use_program(program);
     vao->bind(vao);
-    glDrawArrays(GL_TRIANGLES, 0, BATCH_RENDER_COUNT); //idk maygbe works?
+    glDrawArrays(GL_TRIANGLES, 0, 6); //idk maygbe works?
     vao->unbind(vao);
 
     if(glfwGetKey(window->handle, GLFW_KEY_ESCAPE) == GLFW_PRESS)
       break;
+    if(glfwGetKey(window->handle, GLFW_KEY_F3) == GLFW_PRESS) {
+      glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+    }
 
     glfwSwapBuffers(data->window->handle);
     glfwPollEvents();
   }
+  free(vertices);
   Close(data);
 };
 
