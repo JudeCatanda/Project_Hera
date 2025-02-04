@@ -9,7 +9,7 @@ out vec2 output_positions;
 // out vec3 output_color;
 
 void main() {
-  gl_Position = vec4(input_positions, 0.0, 1.0);
+  gl_Position = vec4(input_positions, 0.0, 0.3);
   output_positions = input_positions;
   // output_color = input_color;
 }

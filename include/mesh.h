@@ -6,10 +6,11 @@
 #include "shader.h"
 #include "layout.h"
 #include "cglm/cglm.h"
+#include "cglm/struct.h"
 
 typedef struct Vertex {
-  vec2 position;
-  vec3 color;
+  vec2s Position;
+  // vec3 color;
 } Vertex;
 
 typedef struct Mesh {

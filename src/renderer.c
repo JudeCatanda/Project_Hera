@@ -1,7 +1,6 @@
 #include "renderer.h"
-#include <windows.h>
 
-#define BATCH_RENDER_COUNT 6 * 2 * 3
+const int BATCH_RENDER_COUNT = 100;
 
 void Init(Renderer *data) {
   data->window = (Window*)malloc(sizeof(Window)); //alocate this shit so no seg fault!
@@ -27,8 +26,8 @@ void Init(Renderer *data) {
   layout_init(vao);
   vao->create_and_bind(vao);
 
-  buffer_create(vbo, BATCH_RENDER_COUNT, NULL, GL_DYNAMIC_DRAW, GL_ARRAY_BUFFER);
-  layout_enable_and_set_vertex_attrib_pointer(0, 2, GL_FLOAT, 2 * sizeof(float), (const void*)0);
+  buffer_create(vbo, BATCH_RENDER_COUNT * sizeof(Vertex), NULL, GL_DYNAMIC_DRAW, GL_ARRAY_BUFFER);
+  layout_enable_and_set_vertex_attrib_pointer(0, 2, GL_FLOAT, sizeof(Vertex), (const void*)offsetof(Vertex, Position));
   // layout_enable_and_set_vertex_attrib_pointer(1, 3, GL_FLOAT, 5 * sizeof(float), (const void*)(2 * sizeof(float)));
   vao->unbind(vao);
   // quad->create(quad, vertices);
@@ -42,7 +41,8 @@ void Update(Renderer *data) {
   // Mesh* quad = &data->quad;
 
   // float vertices[BATCH_RENDER_COUNT];
-  float *vertices = NULL;
+  Vertex *vertices = (Vertex*)calloc(BATCH_RENDER_COUNT, sizeof(Vertex));
+  vertices = vertex_create(vertices, -0.6f, -0.3f, 0.03f);
   int last_write = 0;
 
   float size = 0.5f;
@@ -73,24 +73,24 @@ void Update(Renderer *data) {
     // start_color = lerp_result;
     // quad->draw_call(quad);
     // quad->unbind_all(quad);
-    set_mesh_(&vertices, &last_write, -0.5, -0.5, 0.5);
-    set_mesh_(&vertices, &last_write, 0.5, -0.5, 0.5);
-    set_mesh_(&vertices, &last_write, 0.5, 0.5, 0.2);
-    set_mesh_(&vertices, &last_write, 0.5, -0.5, 0.2);
-    set_mesh_(&vertices, &last_write, -0.5, 0.0, 0.3);
-    set_mesh_(&vertices, &last_write, -0.5, 0.0, 0.3);
 
-    buffer_setdata(vbo, 0, BATCH_RENDER_COUNT, vertices);
+
+
+    buffer_setdata(vbo, 0, BATCH_RENDER_COUNT * sizeof(Vertex), &vertices);
 
     program->use_program(program);
     vao->bind(vao);
-    glDrawArrays(GL_TRIANGLES, 0, 18); //idk maygbe works?
+    glDrawArrays(GL_TRIANGLES, 0, 1000); //idk maygbe works?
     vao->unbind(vao);
 
     if(glfwGetKey(window->handle, GLFW_KEY_ESCAPE) == GLFW_PRESS)
       break;
     if(glfwGetKey(window->handle, GLFW_KEY_F3) == GLFW_PRESS) {
       glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+    } else {
+
+    }
+    if(glfwGetKey(window->handle, GLFW_KEY_F4) == GLFW_PRESS) {
     }
 
     glfwSwapBuffers(data->window->handle);
