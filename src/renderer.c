@@ -41,8 +41,9 @@ void Update(Renderer *data) {
   // Mesh* quad = &data->quad;
 
   // float vertices[BATCH_RENDER_COUNT];
-  Vertex *vertices = (Vertex*)calloc(BATCH_RENDER_COUNT, sizeof(Vertex));
+  Vertex *vertices = calloc(BATCH_RENDER_COUNT, sizeof(Vertex));
   vertices = vertex_create(vertices, -0.6f, -0.3f, 0.03f);
+
   int last_write = 0;
 
   float size = 0.5f;
