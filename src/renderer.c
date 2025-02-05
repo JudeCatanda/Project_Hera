@@ -1,6 +1,6 @@
 #include "renderer.h"
 
-const int BATCH_RENDER_COUNT = 100;
+const int BATCH_RENDER_COUNT = 1;
 
 void Init(Renderer *data) {
   data->window = (Window*)malloc(sizeof(Window)); //alocate this shit so no seg fault!
@@ -41,8 +41,15 @@ void Update(Renderer *data) {
   // Mesh* quad = &data->quad;
 
   // float vertices[BATCH_RENDER_COUNT];
-  Vertex *vertices = calloc(BATCH_RENDER_COUNT, sizeof(Vertex));
-  vertices = vertex_create(vertices, -0.6f, -0.3f, 0.03f);
+  Vertex vertices[BATCH_RENDER_COUNT * 3];
+  // Vertex *vertices = malloc(BATCH_RENDER_COUNT * sizeof(Vertex) * 3);
+  memset(vertices, 0, sizeof(vertices));
+  Vertex* pVertices = vertices;
+
+  pVertices = vertex_create(pVertices, -0.6f, -0.3f, 0.03f);
+  for (int i = 0; i < 3; i++) {
+    printf("Vertex %d: (%f, %f)\n", i, vertices[i].Position.x, vertices[i].Position.y);
+  }
 
   int last_write = 0;
 
@@ -77,11 +84,11 @@ void Update(Renderer *data) {
 
 
 
-    buffer_setdata(vbo, 0, BATCH_RENDER_COUNT * sizeof(Vertex), &vertices);
+    buffer_setdata(vbo, 0, BATCH_RENDER_COUNT * sizeof(Vertex), vertices);
 
     program->use_program(program);
     vao->bind(vao);
-    glDrawArrays(GL_TRIANGLES, 0, 1000); //idk maygbe works?
+    glDrawArrays(GL_TRIANGLES, 0, 3); //idk maygbe works?
     vao->unbind(vao);
 
     if(glfwGetKey(window->handle, GLFW_KEY_ESCAPE) == GLFW_PRESS)
