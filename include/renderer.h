@@ -34,23 +34,19 @@ typedef struct Renderer {
 
   mat4 ui_projection;
 } Renderer;
-//MAIN FUNCTIONS
+
+
+/*                  MAIN GAME FUNCTIONS: functions is defined here but contains in render.c                     */
 void Init(Renderer *data);
 void Update(Renderer *data);
 void Close(Renderer *data);
 
-//OTHERS
+
+/*                  UTIL FUNCTIONS: functions is defined here but contains in render_other.c                    */
 void INITIALIZE_VECTOR2(vec2 *arr, int max_n, float default_x, float default_y);
 void set_mesh(float *mesh_array, float x, float y);
 float lerp(float start, float end, float percentage);
-
-typedef struct Vector_Descriptor {
-  int elements;
-  int last;
-  void* data;
-} Vector_Descriptor;
-
-/*                  UTIL FUNCTIONS: functions is defined here but contains in render_other.c                    */
 Vertex* vertex_create(Vertex* vertices, float x, float y, float scale);
+unsigned int* ebo_add_index(unsigned int* array, int index_offset);
 
 #endif

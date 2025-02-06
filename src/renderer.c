@@ -50,6 +50,7 @@ void Update(Renderer *data) {
   Window* window = data->window;
   Layout* vao = &data->vao;
   Buffer* vbo = &data->vbo;
+  Buffer* ebo = &data->ebo;
   ShaderProgram* program = &data->shdr_program;
   // Mesh* quad = &data->quad;
 
@@ -57,9 +58,13 @@ void Update(Renderer *data) {
   Vertex* pVertices = vertices;
   pVertices = vertex_create(pVertices, 0.0f, 0.0f, 0.2f);
   pVertices = vertex_create(pVertices, -0.2f, 0.0f, 0.2f);
-  // for (int i = 0; i < BATCH_VERTICES_COUNT_IN_INT; i++) {
-  //   printf("Vertex %d: (%f, %f)\n", i, vertices[i].Position.x, vertices[i].Position.y);
-  // }
+
+  unsigned int ebo_a[BATCH_TOTAL_INDEX_COUNT];
+  unsigned int* pEbo = ebo_a;
+
+  for(int i = 0; i < BATCH_RENDER_QUAD_COUNT; i++) {
+    pEbo = ebo_add_index(pEbo, i * 4);
+  }
 
   const float target_color = 1.0f;
   float start_color = 0.0f;
@@ -89,9 +94,12 @@ void Update(Renderer *data) {
     // quad->unbind_all(quad);
 
     buffer_setdata(vbo, 0, BATCH_VERTEX_BUFFER_SIZE, &vertices);
+    buffer_setdata(ebo, 0, BATCH_INDEX_BUFFER_SIZE, &ebo_a);
+
     program->use_program(program);
     vao->bind(vao);
-    glDrawArrays(GL_TRIANGLES, 0, BATCH_TOTAL_VERTEX_COUNT); //idk maygbe works?
+    // glDrawArrays(GL_TRIANGLES, 0, BATCH_TOTAL_VERTEX_COUNT); //idk maygbe works?
+    glDrawElements(GL_TRIANGLES, BATCH_TOTAL_INDEX_COUNT, GL_UNSIGNED_INT, 0);
     vao->unbind(vao);
 
     if(glfwGetKey(window->handle, GLFW_KEY_ESCAPE) == GLFW_PRESS)

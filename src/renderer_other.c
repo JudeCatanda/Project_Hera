@@ -50,3 +50,18 @@ Vertex* vertex_create(Vertex *vertices, float x, float y, float scale) {
   vertices += 1;
   return vertices;
 }
+
+unsigned int* ebo_add_index(unsigned int* array, int index_offset) {
+    // First triangle: (0, 1, 2)
+    *array++ = index_offset;
+    *array++ = index_offset + 1;
+    *array++ = index_offset + 2;
+
+    // Second triangle: (2, 3, 0)
+    *array++ = index_offset + 2;
+    *array++ = index_offset + 3;
+    *array++ = index_offset;
+
+    return array;  // Return updated pointer
+}
+
