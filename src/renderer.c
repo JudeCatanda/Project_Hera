@@ -1,15 +1,27 @@
 #include "renderer.h"
 
-const int BATCH_RENDER_COUNT = 1;
+const int BATCH_RENDER_QUAD_COUNT = 2;  // Number of quads
+const int POINTS_PER_QUAD = 4;          // Each quad has 4 vertices
+const int INDICES_PER_QUAD = 6;         // Each quad needs 6 indices
+
+// Total vertex and index counts
+const int BATCH_TOTAL_VERTEX_COUNT = BATCH_RENDER_QUAD_COUNT * POINTS_PER_QUAD;
+const int BATCH_TOTAL_INDEX_COUNT = BATCH_RENDER_QUAD_COUNT * INDICES_PER_QUAD;
+
+// Buffer sizes
+const int BATCH_VERTEX_BUFFER_SIZE = BATCH_TOTAL_VERTEX_COUNT * sizeof(Vertex);
+const int BATCH_INDEX_BUFFER_SIZE = BATCH_TOTAL_INDEX_COUNT * sizeof(unsigned int);
+
 
 void Init(Renderer *data) {
-  data->window = (Window*)malloc(sizeof(Window)); //alocate this shit so no seg fault!
+  data->window = malloc(sizeof(Window)); //alocate this shit so no seg fault! actually you dont need to cast to Window* because it does it auto
   window_create(data->window, "Hera - Refactor!", (Window_Size_Dimension){ 800, 600 });
   data->last_time = (float)glfwGetTime();
 
   // Mesh* quad = &data->quad;
   Layout* vao = &data->vao;
   Buffer* vbo = &data->vbo;
+  Buffer* ebo = &data->ebo;
   Shader *vertex = &data->vertex, *fragment = &data->fragment;
   ShaderProgram* program = &data->shdr_program;
   // mesh_init(quad);
@@ -26,7 +38,8 @@ void Init(Renderer *data) {
   layout_init(vao);
   vao->create_and_bind(vao);
 
-  buffer_create(vbo, BATCH_RENDER_COUNT * sizeof(Vertex), NULL, GL_DYNAMIC_DRAW, GL_ARRAY_BUFFER);
+  buffer_create(vbo, BATCH_VERTEX_BUFFER_SIZE, NULL, GL_DYNAMIC_DRAW, GL_ARRAY_BUFFER);
+  buffer_create(ebo, BATCH_INDEX_BUFFER_SIZE, NULL, GL_DYNAMIC_DRAW, GL_ELEMENT_ARRAY_BUFFER);
   layout_enable_and_set_vertex_attrib_pointer(0, 2, GL_FLOAT, sizeof(Vertex), (const void*)offsetof(Vertex, Position));
   // layout_enable_and_set_vertex_attrib_pointer(1, 3, GL_FLOAT, 5 * sizeof(float), (const void*)(2 * sizeof(float)));
   vao->unbind(vao);
@@ -40,20 +53,13 @@ void Update(Renderer *data) {
   ShaderProgram* program = &data->shdr_program;
   // Mesh* quad = &data->quad;
 
-  // float vertices[BATCH_RENDER_COUNT];
-  Vertex vertices[BATCH_RENDER_COUNT * 3];
-  // Vertex *vertices = malloc(BATCH_RENDER_COUNT * sizeof(Vertex) * 3);
-  memset(vertices, 0, sizeof(vertices));
+  Vertex vertices[BATCH_TOTAL_VERTEX_COUNT];
   Vertex* pVertices = vertices;
-
-  pVertices = vertex_create(pVertices, -0.6f, -0.3f, 0.03f);
-  for (int i = 0; i < 3; i++) {
-    printf("Vertex %d: (%f, %f)\n", i, vertices[i].Position.x, vertices[i].Position.y);
-  }
-
-  int last_write = 0;
-
-  float size = 0.5f;
+  pVertices = vertex_create(pVertices, 0.0f, 0.0f, 0.2f);
+  pVertices = vertex_create(pVertices, -0.2f, 0.0f, 0.2f);
+  // for (int i = 0; i < BATCH_VERTICES_COUNT_IN_INT; i++) {
+  //   printf("Vertex %d: (%f, %f)\n", i, vertices[i].Position.x, vertices[i].Position.y);
+  // }
 
   const float target_color = 1.0f;
   float start_color = 0.0f;
@@ -82,29 +88,20 @@ void Update(Renderer *data) {
     // quad->draw_call(quad);
     // quad->unbind_all(quad);
 
-
-
-    buffer_setdata(vbo, 0, BATCH_RENDER_COUNT * sizeof(Vertex), vertices);
-
+    buffer_setdata(vbo, 0, BATCH_VERTEX_BUFFER_SIZE, &vertices);
     program->use_program(program);
     vao->bind(vao);
-    glDrawArrays(GL_TRIANGLES, 0, 3); //idk maygbe works?
+    glDrawArrays(GL_TRIANGLES, 0, BATCH_TOTAL_VERTEX_COUNT); //idk maygbe works?
     vao->unbind(vao);
 
     if(glfwGetKey(window->handle, GLFW_KEY_ESCAPE) == GLFW_PRESS)
       break;
-    if(glfwGetKey(window->handle, GLFW_KEY_F3) == GLFW_PRESS) {
+    if(glfwGetKey(window->handle, GLFW_KEY_F3) == GLFW_PRESS)
       glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-    } else {
 
-    }
-    if(glfwGetKey(window->handle, GLFW_KEY_F4) == GLFW_PRESS) {
-    }
-
-    glfwSwapBuffers(data->window->handle);
+    glfwSwapBuffers(window->handle);
     glfwPollEvents();
   }
-  free(vertices);
   Close(data);
 };
 

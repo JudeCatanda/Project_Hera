@@ -27,7 +27,7 @@ typedef struct Renderer {
   int window_size_x, window_size_y;
 
   Layout vao;
-  Buffer vbo;
+  Buffer vbo, ebo;
   Shader vertex, fragment;
   ShaderProgram shdr_program;
   Mesh quad;
@@ -50,12 +50,7 @@ typedef struct Vector_Descriptor {
   void* data;
 } Vector_Descriptor;
 
-void set_mesh_(float* vertices, int* vertex_count, float x, float y, float scale);
+/*                  UTIL FUNCTIONS: functions is defined here but contains in render_other.c                    */
 Vertex* vertex_create(Vertex* vertices, float x, float y, float scale);
-
-void vector_push(Vector_Descriptor* vdesc, float* arr, float x, float y, float scale);
-
-//cooked if 0
-#define arr_pushback(array, data) array[sizeof(array) / sizeof(array[0]) + 1] = data
 
 #endif

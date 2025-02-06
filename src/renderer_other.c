@@ -36,46 +36,17 @@ float lerp(float start, float end, float percentage) {
   return start + (end - start) * percentage;
 }
 
-void set_mesh_(float* vertices, int* vertex_count, float x, float y, float scale) {
-    // Define the base triangle (local coordinates)
-    float triangle[6] = {
-        -0.5f * scale + x, -0.5f * scale + y, // Bottom-left
-         0.5f * scale + x, -0.5f * scale + y, // Bottom-right
-         0.0f * scale + x,  0.5f * scale + y  // Top-center
-    };
-
-    // Reallocate memory to append the new vertices
-    vertices = realloc(vertices, (*vertex_count + 6) * sizeof(Vertex));
-    if (!(*vertices)) {
-        fprintf(stderr, "Failed to allocate memory.\n");
-        exit(1);
-    }
-
-    // Copy the new triangle vertices to the end of the array
-    for (int i = 0; i < 6; i++) {
-        (vertices)[*vertex_count + i] = triangle[i];
-    }
-
-    // Update the vertex count
-    *vertex_count += 6;
-}
-
 Vertex* vertex_create(Vertex *vertices, float x, float y, float scale) {
-  vertices->Position.x = x;
-  vertices->Position.y = y;
-  vertices++;
+  vertices->Position = (vec2s){ .x = x, .y = y };
+  vertices += 1;
 
-  vertices->Position.x  = x + scale;
-  vertices->Position.y  = y;
-  vertices++;
+  vertices->Position = (vec2s){ .x = x + scale, .y = y };
+  vertices += 1;
 
-  vertices->Position.x = x + scale;
-  vertices->Position.y = y + scale;
-  vertices++;
+  vertices->Position = (vec2s){ .x = x + scale, .y = y + scale };
+  vertices += 1;
 
+  vertices->Position = (vec2s){ .x = x, .y = y + scale };
+  vertices += 1;
   return vertices;
-}
-
-void vector_push(Vector_Descriptor *vdesc, float *arr, float x, float y, float scale) {
-
 }
