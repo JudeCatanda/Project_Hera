@@ -1,6 +1,6 @@
-build/.cache
-build/.cmake
-build/.CMakeFiles
+build-release/.cache
+build-release/.cmake
+build-release/.CMakeFiles
 
 build-debug/.cache
 build-debug/.cmake
