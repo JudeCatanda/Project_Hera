@@ -1,6 +1,6 @@
 #include "renderer.h"
 
-const int BATCH_RENDER_QUAD_COUNT = 2;  // Number of quads
+const int BATCH_RENDER_QUAD_COUNT = 3;  // Number of quads
 const int POINTS_PER_QUAD = 4;          // Each quad has 4 vertices
 const int INDICES_PER_QUAD = 6;         // Each quad needs 6 indices
 
@@ -11,7 +11,6 @@ const int BATCH_TOTAL_INDEX_COUNT = BATCH_RENDER_QUAD_COUNT * INDICES_PER_QUAD;
 // Buffer sizes
 const int BATCH_VERTEX_BUFFER_SIZE = BATCH_TOTAL_VERTEX_COUNT * sizeof(Vertex);
 const int BATCH_INDEX_BUFFER_SIZE = BATCH_TOTAL_INDEX_COUNT * sizeof(unsigned int);
-
 
 void Init(Renderer *data) {
   data->window = malloc(sizeof(Window)); //alocate this shit so no seg fault! actually you dont need to cast to Window* because it does it auto
@@ -56,8 +55,9 @@ void Update(Renderer *data) {
 
   Vertex vertices[BATCH_TOTAL_VERTEX_COUNT];
   Vertex* pVertices = vertices;
-  pVertices = vertex_create(pVertices, 0.0f, 0.0f, 0.2f);
-  pVertices = vertex_create(pVertices, -0.2f, 0.0f, 0.2f);
+  pVertices = vertex_create(pVertices, 0.0f, 0.0f, 0.1f);
+  pVertices = vertex_create(pVertices, -0.2f, 0.0f, 0.1f);
+  pVertices = vertex_create(pVertices, 0.0f, -0.3f, 0.1f);
 
   unsigned int ebo_a[BATCH_TOTAL_INDEX_COUNT];
   unsigned int* pEbo = ebo_a;

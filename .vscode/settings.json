@@ -79,7 +79,10 @@
     "player.h": "c",
     "texture.h": "c",
     "windows.h": "c",
-    "mesh.h": "c"
+    "mesh.h": "c",
+    "bricks.h": "c",
+    "string.h": "c",
+    "glfw3.h": "c"
   },
   "cmake.debugConfig": {
     "cwd": "${workspaceFolder}/build-debug",
