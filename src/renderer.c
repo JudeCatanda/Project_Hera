@@ -57,7 +57,7 @@ void Update(Renderer *data) {
   Vertex* pVertices = vertices;
   pVertices = vertex_create(pVertices, 0.0f, 0.0f, 0.1f);
   pVertices = vertex_create(pVertices, -0.2f, 0.0f, 0.1f);
-  pVertices = vertex_create(pVertices, 0.0f, -0.3f, 0.1f);
+  pVertices = vertex_create(pVertices, 0.0f, -0.2f, 0.1f);
 
   unsigned int ebo_a[BATCH_TOTAL_INDEX_COUNT];
   unsigned int* pEbo = ebo_a;
