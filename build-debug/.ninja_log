@@ -12,11 +12,9 @@
 34	5533	7583756135783503	CMakeFiles/hera.dir/src/glad.c.obj	2c38c546287027bf
 44	3103	7605396079203503	CMakeFiles/hera.dir/src/main.c.obj	9b10eeed86b3cbd9
 5586	6214	7583756191267914	CMakeFiles/hera.dir/src/texture.c.obj	868dea866f10ff46
-43	1768	7606335953195838	CMakeFiles/hera.dir/src/renderer.c.obj	2e955a748277a03f
+28	6156	7607052203163086	CMakeFiles/hera.dir/src/renderer.c.obj	2e955a748277a03f
 28	405	7593255168073252	CMakeFiles/hera.dir/src/window.c.obj	a94cd74cab551d79
 56	3105	7605396079359737	CMakeFiles/hera.dir/src/renderer_other.c.obj	ef849cb5b04bba3d
 5533	7657	7583756190667586	CMakeFiles/hera.dir/src/stb_image.c.obj	6a174c30cf650ea0
 100	1030	7603751353939731	CMakeFiles/hera.dir/src/mesh.c.obj	f5a69d4a38185210
-1769	2035	7606335970455739	hera.exe	a4a8790602e69941
-28	6156	7607052203163086	CMakeFiles/hera.dir/src/renderer.c.obj	2e955a748277a03f
 6158	6746	7607052264474153	hera.exe	a4a8790602e69941
