@@ -65,6 +65,7 @@ void mesh_destroy(Mesh *mesh) {
 void instanced_mesh_init(InstancedMesh *imsh) {
   Layout* vao = &imsh->vao;
   Buffer* vbo = &imsh->pos_buffer;
+  Buffer* instanced_pos_buffer = &imsh->pos_buffer;
   Shader* vertex_shdr = &imsh->vertex_shader, *fragment_shdr = &imsh->fragment_shader;
   ShaderProgram* program = &imsh->program;
 
@@ -76,6 +77,11 @@ void instanced_mesh_init(InstancedMesh *imsh) {
   layout_init(vao);
   vao->create_and_bind(vao);
 
+  buffer_create(instanced_pos_buffer, sizeof(vec2s) * imsh->render_count, NULL, GL_DYNAMIC_DRAW, GL_ARRAY_BUFFER);
+  layout_enable_and_set_vertex_attrib_pointer(1, 2, GL_FLOAT, sizeof(Vertex), (const void*)0);
+
   buffer_create(vbo, sizeof(imsh->vertices) * sizeof(Vertex), imsh->vertices, GL_STATIC_DRAW, GL_ARRAY_BUFFER);
   layout_enable_and_set_vertex_attrib_pointer(0, 2, GL_FLOAT, sizeof(Vertex), (const void*)offsetof(Vertex, Position));
+
+  vao->unbind(vao);
 }
