@@ -7,18 +7,14 @@
 typedef struct Layout {
   unsigned int handle;
 
-  void(*create_and_bind)(struct Layout* );
-  void(*create)(struct Layout* );
-  void(*bind)(struct Layout* );
-  void(*unbind)(struct Layout* );
+  void(*create_and_bind)(struct Layout* self);
+  void(*create)(struct Layout* self);
+  void(*bind)(struct Layout* self);
+  void(*unbind)(struct Layout* self);
 
 } Layout;
 
-#define pself(type) type->self
-#define self(type) type.self
-
 void layout_init(Layout* lyt);
-
 
 /** @brief enables an index in a layout
 *   @param index the index to enable
