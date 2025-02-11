@@ -62,6 +62,21 @@ void mesh_destroy(Mesh *mesh) {
   shader_destroy(&mesh->fragment_shader);
 }
 
+// void(*bind_all)(struct InstancedMesh* imsh);
+void proc_instanced_mesh_bind_all(InstancedMesh* imsh) {
+  ShaderProgram* program = &imsh->program;
+  Layout* vao = &imsh->vao;
+
+  program->use_program(program);
+  vao->bind(vao);
+};
+void proc_instanced_mesh_unbind_all(InstancedMesh* imsh) {
+  ShaderProgram* program = &imsh->program;
+  Layout* vao = &imsh->vao;
+
+  program->unbind(program);
+  vao->unbind(vao);
+};
 
 // void(*create)(struct InstancedMesh* imsh, Vertex* in_vertices, vec2* in_individual_pos);
 void proc_instanced_mesh_create(InstancedMesh* imsh, Vertex* in_vertices, vec2s* in_individual_pos) {
