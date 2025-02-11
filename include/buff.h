@@ -5,6 +5,9 @@
 #include <stdio.h>
 #include <string.h>
 
+#define GET_ASSETS_PATH(f_n) "./assets/" f_n
+#define GET_TEST_BUILD_PATH(f_n) GET_ASSETS_PATH("test_build/") f_n
+
 #define DEFAULT_NUMBER_OF_BUFFER_USE 1
 
 typedef struct Buffer {

@@ -23,6 +23,7 @@ typedef struct ShaderProgram {
 
   void(*use_program)(struct ShaderProgram* self);
   void(*unbind)(struct ShaderProgram* self);
+  void(*attach_shader)(struct ShaderProgram* self, struct Shader* shader);
 } ShaderProgram;
 
 static void shader_read_file(Shader* shdr, const char* title);

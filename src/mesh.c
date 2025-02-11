@@ -67,4 +67,15 @@ void instanced_mesh_init(InstancedMesh *imsh) {
   Buffer* vbo = &imsh->pos_buffer;
   Shader* vertex_shdr = &imsh->vertex_shader, *fragment_shdr = &imsh->fragment_shader;
   ShaderProgram* program = &imsh->program;
+
+  shader_create(vertex_shdr, GET_TEST_BUILD_PATH("instanced_mesh.vert"), GL_VERTEX_SHADER);
+  shader_create(vertex_shdr, GET_TEST_BUILD_PATH("instanced_mesh.frag"), GL_VERTEX_SHADER);
+  program_create(program, vertex_shdr, fragment_shdr);
+  program->unbind(program);
+
+  layout_init(vao);
+  vao->create_and_bind(vao);
+
+  buffer_create(vbo, sizeof(imsh->vertices) * sizeof(Vertex), imsh->vertices, GL_STATIC_DRAW, GL_ARRAY_BUFFER);
+  layout_enable_and_set_vertex_attrib_pointer(0, 2, GL_FLOAT, sizeof(Vertex), (const void*)offsetof(Vertex, Position));
 }

@@ -30,8 +30,9 @@ void Init(Renderer *data) {
   //   (Vertex){ -0.5,  0.5, 0.0, 1.0, 0.0 },
   //   (Vertex){  0.5, -0.5, 0.0, 0.0, 1.0 }
   // };
-  shader_create(vertex, "./assets/test_build/main.vert", GL_VERTEX_SHADER);
-  shader_create(fragment, "./assets/test_build/main.frag", GL_FRAGMENT_SHADER);
+  // shader_create(vertex, "./assets/test_build/main.vert", GL_VERTEX_SHADER);
+  shader_create(vertex, GET_TEST_BUILD_PATH("main.vert"), GL_VERTEX_SHADER);
+  shader_create(fragment, GET_TEST_BUILD_PATH("main.frag"), GL_FRAGMENT_SHADER);
   program_create(program, vertex, fragment);
 
   layout_init(vao);

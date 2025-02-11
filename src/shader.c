@@ -57,6 +57,9 @@ static void proc_shaderprogram_useprogram(ShaderProgram* self) {
 static void proc_unbind_shader_program(ShaderProgram* self) {
   glUseProgram(0);
 }
+void proc_program_attach_shaders(ShaderProgram* program, Shader* shader) {
+  glAttachShader(program->handle, shader->handle);
+};
 void program_create(ShaderProgram *program, Shader *vertex, Shader *fragment) {
   program->handle = glCreateProgram();
   glAttachShader(program->handle, vertex->handle);
@@ -69,6 +72,7 @@ void program_create(ShaderProgram *program, Shader *vertex, Shader *fragment) {
   glDeleteShader(fragment->handle);
   program->use_program = proc_shaderprogram_useprogram;
   program->unbind = proc_unbind_shader_program;
+  program->attach_shader = proc_program_attach_shaders;
 }
 void program_destroy(ShaderProgram *program) {
   printf("[LOG] a shader program was unbinded at deleted\n");
