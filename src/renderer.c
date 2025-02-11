@@ -78,7 +78,7 @@ void Update(Renderer *data) {
   while(!window->should_close(window)) {
 
     window->get_size(window);
-    glViewport(0, 0, window->size_x, window->size_y);
+    glViewport(0, 0, window->size.x, window->size.y);
 
     data->current_time = (float)glfwGetTime();
     data->delta_time = data->current_time - data->last_time;
