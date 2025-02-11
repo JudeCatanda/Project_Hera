@@ -6,6 +6,7 @@
 #include <stdlib.h>
 #include "glad/glad.h"
 
+/***                                  MACROS AND DEFINES                                                 */
 #define uniform_location(prog, str_name) glGetUniformLocation(prog, str_name)
 #define uniform_send_float_once(prog, str_name, component, data) glUniform##component##f(uniform_location(prog, str_name), data);
 #define uniform_send_float(loc, component, data) glUniform##component##f(loc, data);
@@ -18,6 +19,11 @@ typedef struct Shader {
   GLenum type;
 } Shader;
 
+static void shader_read_file(Shader* shdr, const char* title);
+void shader_check_errors(unsigned int handle, GLenum pname, const char* msg);
+void shader_create(Shader* shdr, const char* filename, GLenum type);
+void shader_destroy(Shader* shdr);
+
 typedef struct ShaderProgram {
   unsigned int handle;
 
@@ -25,11 +31,6 @@ typedef struct ShaderProgram {
   void(*unbind)(struct ShaderProgram* self);
   void(*attach_shader)(struct ShaderProgram* self, struct Shader* shader);
 } ShaderProgram;
-
-static void shader_read_file(Shader* shdr, const char* title);
-void shader_check_errors(unsigned int handle, GLenum pname, const char* msg);
-void shader_create(Shader* shdr, const char* filename, GLenum type);
-void shader_destroy(Shader* shdr);
 
 void program_create(ShaderProgram* program, Shader* vertex, Shader* fragment);
 void program_destroy(ShaderProgram* program);
