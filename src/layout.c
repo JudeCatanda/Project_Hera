@@ -1,15 +1,5 @@
 #include "layout.h"
 
-void layout_init(Layout *lyt)
-{
-  lyt->create_and_bind = layout_create_and_bind;
-  lyt->create = layout_create;
-  lyt->bind = layout_bind;
-  lyt->unbind = layout_unbind;
-
-  printf("[DEBUG] Layout was create at %p\n", &lyt);
-}
-
 static void layout_create_and_bind(Layout *lyt)
 {
   glGenVertexArrays(1, &lyt->handle);
@@ -31,6 +21,16 @@ static void layout_unbind(Layout *lyt)
 {
   glBindVertexArray(0);
 }
+void layout_init(Layout *lyt)
+{
+  lyt->create_and_bind = layout_create_and_bind;
+  lyt->create = layout_create;
+  lyt->bind = layout_bind;
+  lyt->unbind = layout_unbind;
+
+  printf("[DEBUG] Layout was create at %p\n", &lyt);
+}
+
 
 void layout_enable_vertex_attrib_pointer(int index)
 {
