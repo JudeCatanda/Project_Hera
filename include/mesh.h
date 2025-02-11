@@ -51,6 +51,9 @@ typedef struct InstancedMesh {
   vec2s* individual_pos;
 
   void(*create)(struct InstancedMesh* imsh, Vertex* in_vertices, vec2s* in_individual_pos);
+  void(*unbind_all)(struct InstancedMesh* imsh);
+  void(*bind_all)(struct InstancedMesh* imsh);
+  void(*draw_call)(struct InstancedMesh* imsh);
 } InstancedMesh;
 
 void instanced_mesh_init(InstancedMesh* imsh);
