@@ -64,7 +64,7 @@ void mesh_destroy(Mesh *mesh) {
 
 
 // void(*create)(struct InstancedMesh* imsh, Vertex* in_vertices, vec2* in_individual_pos);
-void proc_instanced_mesh_create(InstancedMesh* imsh, Vertex* in_vertices, vec2* in_individual_pos) {
+void proc_instanced_mesh_create(InstancedMesh* imsh, Vertex* in_vertices, vec2s* in_individual_pos) {
   imsh->vertices = in_vertices;
   imsh->individual_pos = in_individual_pos;
 

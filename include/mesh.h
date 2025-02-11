@@ -48,9 +48,9 @@ typedef struct InstancedMesh {
   Layout vao;
 
   int render_count;
-  vec2* individual_pos;
+  vec2s* individual_pos;
 
-  void(*create)(struct InstancedMesh* imsh, Vertex* in_vertices, vec2* in_individual_pos);
+  void(*create)(struct InstancedMesh* imsh, Vertex* in_vertices, vec2s* in_individual_pos);
 } InstancedMesh;
 
 void instanced_mesh_init(InstancedMesh* imsh);
