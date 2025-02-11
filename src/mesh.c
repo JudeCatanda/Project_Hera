@@ -70,7 +70,7 @@ void instanced_mesh_init(InstancedMesh *imsh) {
   ShaderProgram* program = &imsh->program;
 
   shader_create(vertex_shdr, GET_TEST_BUILD_PATH("instanced_mesh.vert"), GL_VERTEX_SHADER);
-  shader_create(vertex_shdr, GET_TEST_BUILD_PATH("instanced_mesh.frag"), GL_FRAGMENT_SHADER);
+  shader_create(fragment_shdr, GET_TEST_BUILD_PATH("instanced_mesh.frag"), GL_FRAGMENT_SHADER);
   program_create(program, vertex_shdr, fragment_shdr);
   program->unbind(program);
 
