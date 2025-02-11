@@ -62,7 +62,17 @@ void mesh_destroy(Mesh *mesh) {
   shader_destroy(&mesh->fragment_shader);
 }
 
+
+// void(*create)(struct InstancedMesh* imsh, Vertex* in_vertices, vec2* in_individual_pos);
+void proc_instanced_mesh_create(InstancedMesh* imsh, Vertex* in_vertices, vec2* in_individual_pos) {
+  imsh->vertices = in_vertices;
+  imsh->individual_pos = in_individual_pos;
+}
+
 void instanced_mesh_init(InstancedMesh *imsh) {
+
+  imsh->create = proc_instanced_mesh_create;
+
   Layout* vao = &imsh->vao;
   Buffer* vbo = &imsh->pos_buffer;
   Buffer* instanced_pos_buffer = &imsh->pos_buffer;
