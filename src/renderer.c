@@ -72,6 +72,8 @@ void Update(Renderer *data) {
   float get_val = 0.0;
 
   printf("[DEBUG] time is %f\n", (float)glfwGetTime());
+  window->update_aspect_ratio(window);
+  printf("[DEBUG] aspect ratio is %f\n", window->aspect_ratio);
 
   while(!window->should_close(window)) {
 

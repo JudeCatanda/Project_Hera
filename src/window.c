@@ -9,8 +9,13 @@ void window_get_size_raw(Window* win, int* width, int* height) {
 }
 
 void window_get_size(Window* win) {
-  win->get_size_raw(win, &win->size_x, &win->size_y); //hopefully it gets the size!
+  win->get_size_raw(win, &win->size.x, &win->size.y); //hopefully it gets the size!
 }
+// void(*update_aspect_ratio)(struct Window* self);
+void window_update_aspect_ratio(Window* win) {
+  win->get_size(win);
+  win->aspect_ratio = (float)win->size.x / (float)win->size.y;
+};
 
 void window_create(Window * win, char * title, ivec2s wsd) {
   if(!glfwInit()) {
@@ -28,6 +33,7 @@ void window_create(Window * win, char * title, ivec2s wsd) {
   win->should_close = window_should_close;
   win->get_size_raw = window_get_size_raw;
   win->get_size = window_get_size;
+  win->update_aspect_ratio = window_update_aspect_ratio;
 }
 
 void window_terminate(Window* win) {

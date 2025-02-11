@@ -12,11 +12,13 @@ typedef struct Window {
 
   char* title;   
   GLFWwindow* handle;
-  int size_x, size_y;
+  ivec2s size;
+  float aspect_ratio;
 
-  int(*should_close)(struct Window*);
-  void(*get_size_raw)(struct Window*, int* width, int* height);
-  void(*get_size)(struct Window*);
+  int(*should_close)(struct Window* self);
+  void(*get_size_raw)(struct Window* self, int* width, int* height);
+  void(*get_size)(struct Window* self);
+  void(*update_aspect_ratio)(struct Window* self);
   
 } Window;
 
