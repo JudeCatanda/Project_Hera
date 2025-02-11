@@ -77,6 +77,10 @@ void proc_instanced_mesh_unbind_all(InstancedMesh* imsh) {
   program->unbind(program);
   vao->unbind(vao);
 };
+// void(*draw_call)(struct InstancedMesh* imsh);
+void proc_instanced_mesh_draw_call(InstancedMesh* imsh) {
+  glDrawArraysInstanced(GL_TRIANGLES, 0, 3, imsh->render_count);
+}
 
 // void(*create)(struct InstancedMesh* imsh, Vertex* in_vertices, vec2* in_individual_pos);
 void proc_instanced_mesh_create(InstancedMesh* imsh, Vertex* in_vertices, vec2s* in_individual_pos) {
@@ -109,5 +113,8 @@ void proc_instanced_mesh_create(InstancedMesh* imsh, Vertex* in_vertices, vec2s*
 void instanced_mesh_init(InstancedMesh *imsh) {
 
   imsh->create = proc_instanced_mesh_create;
+  imsh->bind_all = proc_instanced_mesh_bind_all;
+  imsh->unbind_all = proc_instanced_mesh_unbind_all;
+  imsh->draw_call = proc_instanced_mesh_draw_call;
 
 }
