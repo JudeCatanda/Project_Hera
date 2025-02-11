@@ -67,11 +67,6 @@ void mesh_destroy(Mesh *mesh) {
 void proc_instanced_mesh_create(InstancedMesh* imsh, Vertex* in_vertices, vec2* in_individual_pos) {
   imsh->vertices = in_vertices;
   imsh->individual_pos = in_individual_pos;
-}
-
-void instanced_mesh_init(InstancedMesh *imsh) {
-
-  imsh->create = proc_instanced_mesh_create;
 
   Layout* vao = &imsh->vao;
   Buffer* vbo = &imsh->pos_buffer;
@@ -94,4 +89,10 @@ void instanced_mesh_init(InstancedMesh *imsh) {
   layout_enable_and_set_vertex_attrib_pointer(0, 2, GL_FLOAT, sizeof(Vertex), (const void*)offsetof(Vertex, Position));
 
   vao->unbind(vao);
+}
+
+void instanced_mesh_init(InstancedMesh *imsh) {
+
+  imsh->create = proc_instanced_mesh_create;
+
 }
