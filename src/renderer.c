@@ -116,5 +116,7 @@ void Update(Renderer *data) {
 void Close(Renderer *data) {
   printf("[LOG] Exiting!\n");
   // mesh_destroy(&data->quad);
+  buffer_destroy(&data->vbo);
+  buffer_destroy(&data->ebo);
   free(data->window);
 };
