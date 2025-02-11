@@ -14,7 +14,7 @@ const int BATCH_INDEX_BUFFER_SIZE = BATCH_TOTAL_INDEX_COUNT * sizeof(unsigned in
 
 void Init(Renderer *data) {
   data->window = malloc(sizeof(Window)); //alocate this shit so no seg fault! actually you dont need to cast to Window* because it does it auto
-  window_create(data->window, "Hera - Refactor!", (Window_Size_Dimension){ 800, 600 });
+  window_create(data->window, "Hera - Refactor!", (ivec2s){.x = 800, .y = 600 });
   data->last_time = (float)glfwGetTime();
 
   // Mesh* quad = &data->quad;
