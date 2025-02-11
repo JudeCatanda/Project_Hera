@@ -19,10 +19,6 @@ typedef struct Layout {
 
 void layout_init(Layout* lyt);
 
-void layout_create_and_bind(Layout* lyt);
-void layout_create(Layout* lyt);
-void layout_bind(Layout* lyt);
-void layout_unbind(Layout* lyt);
 
 /** @brief enables an index in a layout
 *   @param index the index to enable

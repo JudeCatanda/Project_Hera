@@ -10,24 +10,24 @@ void layout_init(Layout *lyt)
   printf("[DEBUG] Layout was create at %p\n", &lyt);
 }
 
-void layout_create_and_bind(Layout *lyt)
+static void layout_create_and_bind(Layout *lyt)
 {
   glGenVertexArrays(1, &lyt->handle);
   glBindVertexArray(lyt->handle);
   // printf("LAYOUT BOUND!\n");
 }
 
-void layout_create(Layout *lyt)
+static void layout_create(Layout *lyt)
 {
   glGenVertexArrays(0, &lyt->handle);
 }
 
-void layout_bind(Layout *lyt)
+static void layout_bind(Layout *lyt)
 {
   glBindVertexArray(lyt->handle);
 }
 
-void layout_unbind(Layout *lyt)
+static void layout_unbind(Layout *lyt)
 {
   glBindVertexArray(0);
 }
