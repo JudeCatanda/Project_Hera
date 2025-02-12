@@ -7,6 +7,7 @@
 #include "GLFW/glfw3.h"
 #include "cglm/cglm.h"
 #include "cglm/struct.h"
+#include <stdbool.h>
 
 typedef struct Window {
 
@@ -19,6 +20,7 @@ typedef struct Window {
   void(*get_size_raw)(struct Window* self, int* width, int* height);
   void(*get_size)(struct Window* self);
   void(*update_aspect_ratio)(struct Window* self);
+  bool(*is_key_pressed)(struct Window* self, int key);
   
 } Window;
 

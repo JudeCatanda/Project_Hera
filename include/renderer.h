@@ -17,6 +17,12 @@
 #include "levels.h"
 #include "mesh.h"
 
+/*                  MAIN GAME MACROS!: macros is defined here but contains can ONLY be used in render.c                     */
+#define LOG_DEBUG(fmt, ...) printf("[DEBUG] " fmt "\n", ##__VA_ARGS__)
+#define LOG_ERROR(fmt, ...) printf("[ERROR] " fmt "\n", ##__VA_ARGS__)
+#define LOG_WARNING(fmt, ...) printf("[WARNING] " fmt "\n", ##__VA_ARGS__)
+#define LOG_INFO(fmt, ...) printf("[INFO] " fmt "\n", ##__VA_ARGS__)
+
 
 typedef struct Renderer {
   Window *window;
@@ -26,8 +32,10 @@ typedef struct Renderer {
   double cursor_x, cursor_y;
   int window_size_x, window_size_y;
 
+  vec2s player_pos;
+
   Layout vao;
-  Buffer vbo, ebo;
+  Buffer vbo, ebo, individual_pos;
   Shader vertex, fragment;
   ShaderProgram shdr_program;
   Mesh quad;

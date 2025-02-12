@@ -17,6 +17,15 @@ void window_update_aspect_ratio(Window* win) {
   win->aspect_ratio = (float)win->size.x / (float)win->size.y;
 };
 
+
+// bool(*is_key_pressed)(struct Window* self, int key);
+bool window_is_key_pressed(Window* window, int key) {
+  if(glfwGetKey(window->handle, key) == GLFW_PRESS)
+    return true;
+  else
+    return false; 
+}
+
 void window_create(Window * win, char * title, ivec2s wsd) {
   if(!glfwInit()) {
     perror("\n[ERROR] Cannot Initialize glfw\n");
@@ -34,6 +43,7 @@ void window_create(Window * win, char * title, ivec2s wsd) {
   win->get_size_raw = window_get_size_raw;
   win->get_size = window_get_size;
   win->update_aspect_ratio = window_update_aspect_ratio;
+  win->is_key_pressed = window_is_key_pressed;
 }
 
 void window_terminate(Window* win) {

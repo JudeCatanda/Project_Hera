@@ -38,6 +38,7 @@ void Init(Renderer *data) {
   layout_init(vao);
   vao->create_and_bind(vao);
 
+  buffer_create()
   buffer_create(vbo, BATCH_VERTEX_BUFFER_SIZE, NULL, GL_DYNAMIC_DRAW, GL_ARRAY_BUFFER);
   buffer_create(ebo, BATCH_INDEX_BUFFER_SIZE, NULL, GL_DYNAMIC_DRAW, GL_ELEMENT_ARRAY_BUFFER);
   layout_enable_and_set_vertex_attrib_pointer(0, 2, GL_FLOAT, sizeof(Vertex), (const void*)offsetof(Vertex, Position));
@@ -56,7 +57,10 @@ void Update(Renderer *data) {
 
   Vertex vertices[BATCH_TOTAL_VERTEX_COUNT];
   Vertex* pVertices = vertices;
-  pVertices = vertex_create(pVertices, 0.0f, 0.0f, 0.1f);
+
+  data->player_pos = (vec2s){ .x = 0.0f, .y = 0.0f };
+
+  pVertices = vertex_create(pVertices, data->player_pos.x, data->player_pos.y, 0.1f);
   pVertices = vertex_create(pVertices, -0.2f, 0.0f, 0.1f);
   pVertices = vertex_create(pVertices, 0.0f, -0.2f, 0.1f);
 
@@ -74,6 +78,8 @@ void Update(Renderer *data) {
   printf("[DEBUG] time is %f\n", (float)glfwGetTime());
   window->update_aspect_ratio(window);
   printf("[DEBUG] aspect ratio is %f\n", window->aspect_ratio);
+
+  const float PLAYER_SPEED = 0.3f;
 
   while(!window->should_close(window)) {
 
@@ -101,6 +107,12 @@ void Update(Renderer *data) {
 
     program->use_program(program);
     vao->bind(vao);
+
+    if(window->is_key_pressed(window, GLFW_KEY_D)) {
+      data->player_pos.x += PLAYER_SPEED * data->delta_time;
+      LOG_DEBUG("key was pressed");
+    }
+
     // glDrawArrays(GL_TRIANGLES, 0, BATCH_TOTAL_VERTEX_COUNT); //idk maygbe works?
     glDrawElements(GL_TRIANGLES, BATCH_TOTAL_INDEX_COUNT, GL_UNSIGNED_INT, 0);
     vao->unbind(vao);
