@@ -1,6 +1,12 @@
 #include "renderer.h"
 
-//util functions
+void init_vec2s_array(vec2s *arr, int max_n, float default_x, float default_y) {
+  for(int pos = 0; pos < max_n; pos++) {
+    arr[pos] = (vec2s){ .x = default_x, .y = default_y };
+  };
+};
+
+// util functions
 void INITIALIZE_VECTOR2(vec2* arr, int max_n, float default_x, float default_y) {
   // static int calls = 0;
   // calls++;

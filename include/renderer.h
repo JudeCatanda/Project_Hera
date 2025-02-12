@@ -51,6 +51,7 @@ void Close(Renderer *data);
 
 
 /*                  UTIL FUNCTIONS: functions is defined here but contains in render_other.c                    */
+void init_vec2s_array(vec2s* arr, int max_n, float default_x, float default_y);
 void INITIALIZE_VECTOR2(vec2 *arr, int max_n, float default_x, float default_y);
 void set_mesh(float *mesh_array, float x, float y);
 float lerp(float start, float end, float percentage);
