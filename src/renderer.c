@@ -55,6 +55,7 @@ void Update(Renderer *data) {
   Layout* vao = &data->vao;
   Buffer* vbo = &data->vbo;
   Buffer* ebo = &data->ebo;
+  Buffer* instanced_pos = &data->individual_pos;
   ShaderProgram* program = &data->shdr_program;
   // Mesh* quad = &data->quad;
 
@@ -73,6 +74,9 @@ void Update(Renderer *data) {
   for(int i = 0; i < BATCH_RENDER_QUAD_COUNT; i++) {
     pEbo = ebo_add_index(pEbo, i * 4);
   }
+
+  vec2s positions[BATCH_RENDER_QUAD_COUNT];
+  init_vec2s_array(positions, BATCH_RENDER_QUAD_COUNT, 0.0f, 0.0f);
 
   const float target_color = 1.0f;
   float start_color = 0.0f;
@@ -109,17 +113,23 @@ void Update(Renderer *data) {
 
     buffer_setdata(vbo, 0, BATCH_VERTEX_BUFFER_SIZE, &vertices);
     buffer_setdata(ebo, 0, BATCH_INDEX_BUFFER_SIZE, &ebo_a);
+    buffer_setdata(instanced_pos, 0, BATCH_RENDER_QUAD_COUNT * sizeof(vec2s), &positions);
 
     program->use_program(program);
     vao->bind(vao);
 
     if(window->is_key_pressed(window, GLFW_KEY_D)) {
-      data->player_pos.x += PLAYER_SPEED * data->delta_time;
-      LOG_DEBUG("key was pressed");
+      positions[0].x += PLAYER_SPEED * data->delta_time;
+      // LOG_DEBUG("key was pressed");
+    }
+    if(window->is_key_pressed(window, GLFW_KEY_A)) {
+      positions[0].x -= PLAYER_SPEED * data->delta_time;
+      // LOG_DEBUG("key was pressed");
     }
 
     // glDrawArrays(GL_TRIANGLES, 0, BATCH_TOTAL_VERTEX_COUNT); //idk maygbe works?
-    glDrawElements(GL_TRIANGLES, BATCH_TOTAL_INDEX_COUNT, GL_UNSIGNED_INT, 0);
+    // glDrawElements(GL_TRIANGLES, BATCH_TOTAL_INDEX_COUNT, GL_UNSIGNED_INT, 0);
+    glDrawElementsInstanced(GL_TRIANGLES, BATCH_TOTAL_INDEX_COUNT, GL_UNSIGNED_INT, 0, BATCH_RENDER_QUAD_COUNT);
     vao->unbind(vao);
 
     if(glfwGetKey(window->handle, GLFW_KEY_ESCAPE) == GLFW_PRESS)
@@ -134,7 +144,7 @@ void Update(Renderer *data) {
 };
 
 void Close(Renderer *data) {
-  printf("[LOG] Exiting!\n");
+  LOG_INFO("Exiting...");
   // mesh_destroy(&data->quad);
   buffer_destroy(&data->vbo);
   buffer_destroy(&data->ebo);
