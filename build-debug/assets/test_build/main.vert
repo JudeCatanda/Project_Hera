@@ -6,10 +6,6 @@ layout (location = 1) in vec2 positions;
 
 uniform float u_time;
 
-out VS_OUT {
-    float delta;
-} vs_out;
-
 out vec2 output_positions;
 // out vec3 output_color;
 

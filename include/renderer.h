@@ -33,6 +33,8 @@ typedef struct Renderer {
   int window_size_x, window_size_y;
 
   vec2s player_pos;
+  vec2s player_velocity;
+  float player_movement_speed;
 
   Layout vao;
   Buffer vbo, ebo, individual_pos;

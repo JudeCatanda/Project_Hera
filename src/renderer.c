@@ -14,7 +14,7 @@ const int BATCH_INDEX_BUFFER_SIZE = BATCH_TOTAL_INDEX_COUNT * sizeof(unsigned in
 
 void Init(Renderer *data) {
   data->window = malloc(sizeof(Window)); //alocate this shit so no seg fault! actually you dont need to cast to Window* because it does it auto
-  window_create(data->window, "Hera - Refactor!", (ivec2s){.x = 800, .y = 600 });
+  window_create(data->window, "Hera - Refactor!", (ivec2s){ .x = 800, .y = 600 });
   data->last_time = (float)glfwGetTime();
 
   // Mesh* quad = &data->quad;
@@ -48,6 +48,12 @@ void Init(Renderer *data) {
   // layout_enable_and_set_vertex_attrib_pointer(1, 3, GL_FLOAT, 5 * sizeof(float), (const void*)(2 * sizeof(float)));
   vao->unbind(vao);
   // quad->create(quad, vertices);
+
+  data->player_movement_speed = 0.001f;
+  data->player_velocity = (vec2s) {
+    .x = 0.0f,
+    .y = 0.0f
+  };
 }
 
 void Update(Renderer *data) {
@@ -82,6 +88,8 @@ void Update(Renderer *data) {
   float start_color = 0.0f;
   float get_val = 0.0;
 
+  window->get_size(window);
+  LOG_WARNING("The overall size: %f", (float)data->window->size.y / (float)data->window->size.y);
   LOG_DEBUG("size of float %d", sizeof(float));
   LOG_DEBUG("size of vec2s %d", sizeof(vec2s));
   LOG_DEBUG("time is %f", (float)glfwGetTime());
@@ -105,7 +113,7 @@ void Update(Renderer *data) {
     // quad->vertex_count = 6;
     // quad->bind_all(quad);
     // float lerp_result = lerp(start_color, target_color, 0.4 * data->delta_time);
-    // uniform_send_float_once(quad->program.handle, "u_time", 1, data->current_time);
+    uniform_send_float_once(program->handle, "u_time", 1, data->current_time);
     // uniform_send_float_once(quad->program.handle, "lerp_value", 1, lerp_result)
     // start_color = lerp_result;
     // quad->draw_call(quad);
@@ -118,12 +126,14 @@ void Update(Renderer *data) {
     program->use_program(program);
     vao->bind(vao);
 
+    positions[0].x += data->player_velocity.x * data->delta_time;
+    positions[1].x -= data->player_velocity.x * data->delta_time;
     if(window->is_key_pressed(window, GLFW_KEY_D)) {
-      positions[0].x += PLAYER_SPEED * data->delta_time;
+      data->player_velocity.x += data->player_movement_speed;
       // LOG_DEBUG("key was pressed");
     }
     if(window->is_key_pressed(window, GLFW_KEY_A)) {
-      positions[0].x -= PLAYER_SPEED * data->delta_time;
+      data->player_velocity.x -= data->player_movement_speed;
       // LOG_DEBUG("key was pressed");
     }
 
@@ -136,6 +146,13 @@ void Update(Renderer *data) {
       break;
     if(glfwGetKey(window->handle, GLFW_KEY_F3) == GLFW_PRESS)
       glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+    if(window->is_key_pressed(window, GLFW_KEY_F10)) {
+      data->player_velocity = (vec2s) {
+        .x = 0.0f,
+        .y = 0.0f
+      };
+      init_vec2s_array(positions, BATCH_RENDER_QUAD_COUNT, 0.0f, 0.0f);
+    }
 
     glfwSwapBuffers(window->handle);
     glfwPollEvents();
