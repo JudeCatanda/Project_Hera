@@ -20,6 +20,7 @@ void Init(Renderer *data) {
   // Mesh* quad = &data->quad;
   Layout* vao = &data->vao;
   Buffer* vbo = &data->vbo;
+  Buffer* a_buffer_in_which_we_store_positions = &data->a_buffer_in_which_we_store_positions;
   Buffer* ebo = &data->ebo;
   Shader *vertex = &data->vertex, *fragment = &data->fragment;
   ShaderProgram* program = &data->shdr_program;
@@ -38,6 +39,7 @@ void Init(Renderer *data) {
   layout_init(vao);
   vao->create_and_bind(vao);
 
+  buffer_create(a_buffer_in_which_we_store_positions, BATCH_RENDER_QUAD_COUNT, NULL, GL_DYNAMIC_DRAW, GL_ARRAY_BUFFER);
   buffer_create(vbo, BATCH_VERTEX_BUFFER_SIZE, NULL, GL_DYNAMIC_DRAW, GL_ARRAY_BUFFER);
   buffer_create(ebo, BATCH_INDEX_BUFFER_SIZE, NULL, GL_DYNAMIC_DRAW, GL_ELEMENT_ARRAY_BUFFER);
   layout_enable_and_set_vertex_attrib_pointer(0, 2, GL_FLOAT, sizeof(Vertex), (const void*)offsetof(Vertex, Position));

@@ -37,7 +37,7 @@ typedef struct Renderer {
   float player_movement_speed;
 
   Layout vao;
-  Buffer vbo, ebo;
+  Buffer vbo, ebo, a_buffer_in_which_we_store_positions;
   Shader vertex, fragment;
   ShaderProgram shdr_program;
   Mesh quad;
