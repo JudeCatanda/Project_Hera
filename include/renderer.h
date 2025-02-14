@@ -25,6 +25,7 @@ typedef struct Renderer {
   float aspect_ratio;
   float last_time, current_time, delta_time;
 
+  InstancedMesh quads;
 } Renderer;
 
 
