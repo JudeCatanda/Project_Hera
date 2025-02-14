@@ -82,7 +82,8 @@
     "mesh.h": "c",
     "bricks.h": "c",
     "string.h": "c",
-    "glfw3.h": "c"
+    "glfw3.h": "c",
+    "levels.h": "c"
   },
   "cmake.debugConfig": {
     "cwd": "${workspaceFolder}/build-debug",

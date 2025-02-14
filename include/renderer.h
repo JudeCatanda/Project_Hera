@@ -9,12 +9,7 @@
 #include "buff.h"
 #include "cglm/cglm.h"
 #include "texture.h"
-#include "player.h"
-#include "bricks.h"
 #include "collider.h"
-// #include "game_states.h"
-#include "UI.h"
-#include "levels.h"
 #include "mesh.h"
 
 /*                  MAIN GAME MACROS!: macros is defined here but contains can ONLY be used in render.c                     */
