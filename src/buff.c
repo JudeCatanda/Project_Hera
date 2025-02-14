@@ -23,6 +23,7 @@ void buffer_create(Buffer *buff, GLsizeiptr size, GLvoid *data, GLenum usage, GL
   buff->type = type;
   buff->bind = buffer_proc_bind;
   buff->unbind = buffer_proc_unbind;
+  buff->set_data = buffer_setdata;
 }
 
 void buffer_setdata(Buffer *buff, GLintptr offset, GLsizeiptr size, GLvoid *data) {

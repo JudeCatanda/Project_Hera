@@ -20,6 +20,7 @@ typedef struct Buffer {
 
   void(*bind)(struct Buffer* );
   void(*unbind)(struct Buffer* );
+  void(*set_data)(struct Buffer* , GLintptr, GLsizeiptr, GLvoid* );
 } Buffer;
 
 void buffer_generate(Buffer* buff);
