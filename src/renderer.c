@@ -2,13 +2,20 @@
 
 void Init(Renderer *data) {
   def_as_ptr(data, quads);
-
+  vec2s* positions = data->positions;
   data->window = malloc(sizeof(Window));
   window_create(data->window, "Hera - Refactor!", (ivec2s){ .x = 800, .y = 600 });
+
+  Vertex vertices[3] = {
+
+  };
+  instanced_mesh_init(quads);
+  quads->create(quads, vertices, positions);
 }
 
 void Update(Renderer *data) {
   Window* window = data->window;
+  def_as_ptr(data, quads);
   
   LOG_DEBUG("time is %f", (float)glfwGetTime());
   window->update_aspect_ratio(window);

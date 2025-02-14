@@ -18,6 +18,7 @@
 #define LOG_WARNING(fmt, ...) printf("[WARNING] " fmt "\n", ##__VA_ARGS__)
 #define LOG_INFO(fmt, ...) printf("[INFO] " fmt "\n", ##__VA_ARGS__)
 #define def_as_ptr(struct_d, name) typeof(struct_d->name)* name = &struct_d->name;
+#define def_as_ptr_to_ptr(struct_d, name) typeof(struct_d->name)* name = struct_d->name;
 
 
 typedef struct Renderer {
@@ -27,6 +28,7 @@ typedef struct Renderer {
   float last_time, current_time, delta_time;
 
   InstancedMesh quads;
+  vec2s* positions;
 } Renderer;
 
 
