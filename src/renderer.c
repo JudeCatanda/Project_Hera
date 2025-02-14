@@ -39,9 +39,6 @@ void Init(Renderer *data) {
   layout_init(vao);
   vao->create_and_bind(vao);
 
-  buffer_create(instanced_pos, BATCH_RENDER_QUAD_COUNT * sizeof(vec2s), NULL, GL_DYNAMIC_DRAW, GL_ARRAY_BUFFER);
-  layout_enable_and_set_vertex_attrib_pointer(1, 2, GL_FLOAT, sizeof(vec2s), (const void*)0);
-  glVertexAttribDivisor(1, 1);
   buffer_create(vbo, BATCH_VERTEX_BUFFER_SIZE, NULL, GL_DYNAMIC_DRAW, GL_ARRAY_BUFFER);
   buffer_create(ebo, BATCH_INDEX_BUFFER_SIZE, NULL, GL_DYNAMIC_DRAW, GL_ELEMENT_ARRAY_BUFFER);
   layout_enable_and_set_vertex_attrib_pointer(0, 2, GL_FLOAT, sizeof(Vertex), (const void*)offsetof(Vertex, Position));
