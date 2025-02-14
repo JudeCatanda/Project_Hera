@@ -21,7 +21,6 @@ void Init(Renderer *data) {
   Layout* vao = &data->vao;
   Buffer* vbo = &data->vbo;
   Buffer* ebo = &data->ebo;
-  Buffer* instanced_pos = &data->individual_pos;
   Shader *vertex = &data->vertex, *fragment = &data->fragment;
   ShaderProgram* program = &data->shdr_program;
   // mesh_init(quad);
@@ -58,7 +57,6 @@ void Update(Renderer *data) {
   Layout* vao = &data->vao;
   Buffer* vbo = &data->vbo;
   Buffer* ebo = &data->ebo;
-  Buffer* instanced_pos = &data->individual_pos;
   ShaderProgram* program = &data->shdr_program;
   // Mesh* quad = &data->quad;
 
@@ -118,7 +116,6 @@ void Update(Renderer *data) {
 
     buffer_setdata(vbo, 0, BATCH_VERTEX_BUFFER_SIZE, &vertices);
     buffer_setdata(ebo, 0, BATCH_INDEX_BUFFER_SIZE, &ebo_a);
-    buffer_setdata(instanced_pos, 0, BATCH_RENDER_QUAD_COUNT * sizeof(vec2s), &positions);
 
     program->use_program(program);
     vao->bind(vao);
@@ -135,8 +132,7 @@ void Update(Renderer *data) {
     }
 
     // glDrawArrays(GL_TRIANGLES, 0, BATCH_TOTAL_VERTEX_COUNT); //idk maygbe works?
-    // glDrawElements(GL_TRIANGLES, BATCH_TOTAL_INDEX_COUNT, GL_UNSIGNED_INT, 0);
-    glDrawElementsInstanced(GL_TRIANGLES, BATCH_TOTAL_INDEX_COUNT, GL_UNSIGNED_INT, 0, BATCH_RENDER_QUAD_COUNT);
+    glDrawElements(GL_TRIANGLES, BATCH_TOTAL_INDEX_COUNT, GL_UNSIGNED_INT, 0);
     vao->unbind(vao);
 
     if(glfwGetKey(window->handle, GLFW_KEY_ESCAPE) == GLFW_PRESS)
