@@ -2,15 +2,15 @@
 void Init(Renderer *data) {
   data->window = malloc(sizeof(Window));
   window_create(data->window, "Hera - Refactor!", (ivec2s){ .x = 800, .y = 600 });
-  data->last_time = (float)glfwGetTime();
 }
 
 void Update(Renderer *data) {
   Window* window = data->window;
-
+  
   LOG_DEBUG("time is %f", (float)glfwGetTime());
   window->update_aspect_ratio(window);
   LOG_DEBUG("aspect ratio is %f", window->aspect_ratio);
+  data->last_time = (float)glfwGetTime();
 
   while(!window->should_close(window)) {
     window->get_size(window);

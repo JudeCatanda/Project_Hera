@@ -29,20 +29,7 @@ typedef struct Renderer {
 
   float aspect_ratio;
   float last_time, current_time, delta_time;
-  double cursor_x, cursor_y;
-  int window_size_x, window_size_y;
 
-  vec2s player_pos;
-  vec2s player_velocity;
-  float player_movement_speed;
-
-  Layout vao;
-  Buffer vbo, ebo, a_buffer_in_which_we_store_positions;
-  Shader vertex, fragment;
-  ShaderProgram shdr_program;
-  Mesh quad;
-
-  mat4 ui_projection;
 } Renderer;
 
 
