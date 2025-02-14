@@ -13,7 +13,7 @@ const int BATCH_VERTEX_BUFFER_SIZE = BATCH_TOTAL_VERTEX_COUNT * sizeof(Vertex);
 const int BATCH_INDEX_BUFFER_SIZE = BATCH_TOTAL_INDEX_COUNT * sizeof(unsigned int);
 
 void Init(Renderer *data) {
-  data->window = malloc(sizeof(Window)); //alocate this shit so no seg fault! actually you dont need to cast to Window* because it does it auto
+  data->window = malloc(sizeof(Window));
   window_create(data->window, "Hera - Refactor!", (ivec2s){ .x = 800, .y = 600 });
   data->last_time = (float)glfwGetTime();
 
@@ -39,11 +39,13 @@ void Init(Renderer *data) {
   layout_init(vao);
   vao->create_and_bind(vao);
 
-  buffer_create(a_buffer_in_which_we_store_positions, BATCH_RENDER_QUAD_COUNT, NULL, GL_DYNAMIC_DRAW, GL_ARRAY_BUFFER);
+  buffer_create(a_buffer_in_which_we_store_positions, BATCH_RENDER_QUAD_COUNT * sizeof(vec2s), NULL, GL_DYNAMIC_DRAW, GL_ARRAY_BUFFER);
+  layout_enable_and_set_vertex_attrib_pointer(1, 2, GL_FLOAT, sizeof(vec2s), (const void*)0);
+  glVertexAttribDivisor(1, 1);
+
   buffer_create(vbo, BATCH_VERTEX_BUFFER_SIZE, NULL, GL_DYNAMIC_DRAW, GL_ARRAY_BUFFER);
   buffer_create(ebo, BATCH_INDEX_BUFFER_SIZE, NULL, GL_DYNAMIC_DRAW, GL_ELEMENT_ARRAY_BUFFER);
   layout_enable_and_set_vertex_attrib_pointer(0, 2, GL_FLOAT, sizeof(Vertex), (const void*)offsetof(Vertex, Position));
-  // layout_enable_and_set_vertex_attrib_pointer(1, 3, GL_FLOAT, 5 * sizeof(float), (const void*)(2 * sizeof(float)));
   vao->unbind(vao);
   // quad->create(quad, vertices);
 
@@ -59,6 +61,7 @@ void Update(Renderer *data) {
   Layout* vao = &data->vao;
   Buffer* vbo = &data->vbo;
   Buffer* ebo = &data->ebo;
+  Buffer* a_buffer_in_which_we_store_positions = &data->a_buffer_in_which_we_store_positions;
   ShaderProgram* program = &data->shdr_program;
   // Mesh* quad = &data->quad;
 
@@ -118,6 +121,7 @@ void Update(Renderer *data) {
 
     buffer_setdata(vbo, 0, BATCH_VERTEX_BUFFER_SIZE, &vertices);
     buffer_setdata(ebo, 0, BATCH_INDEX_BUFFER_SIZE, &ebo_a);
+    buffer_setdata(a_buffer_in_which_we_store_positions, 0, BATCH_RENDER_QUAD_COUNT* sizeof(vec2s), &positions);
 
     program->use_program(program);
     vao->bind(vao);
@@ -134,7 +138,8 @@ void Update(Renderer *data) {
     }
 
     // glDrawArrays(GL_TRIANGLES, 0, BATCH_TOTAL_VERTEX_COUNT); //idk maygbe works?
-    glDrawElements(GL_TRIANGLES, BATCH_TOTAL_INDEX_COUNT, GL_UNSIGNED_INT, 0);
+    // glDrawElements(GL_TRIANGLES, BATCH_TOTAL_INDEX_COUNT, GL_UNSIGNED_INT, 0);
+    glDrawElementsInstanced(GL_TRIANGLES, BATCH_TOTAL_INDEX_COUNT, GL_UNSIGNED_INT, 0, BATCH_RENDER_QUAD_COUNT);
     vao->unbind(vao);
 
     if(glfwGetKey(window->handle, GLFW_KEY_ESCAPE) == GLFW_PRESS)

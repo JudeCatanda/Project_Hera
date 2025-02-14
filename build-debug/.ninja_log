@@ -60,3 +60,8 @@
 66	2640	7612295787257242	CMakeFiles/hera.dir/src/renderer_other.c.obj	ef849cb5b04bba3d
 59	2682	7612295787077105	CMakeFiles/hera.dir/src/renderer.c.obj	2e955a748277a03f
 2682	2941	7612295813285688	hera.exe	a4a8790602e69941
+47	1339	7612303864860355	CMakeFiles/hera.dir/src/mesh.c.obj	f5a69d4a38185210
+61	2864	7612303865016566	CMakeFiles/hera.dir/src/renderer_other.c.obj	ef849cb5b04bba3d
+37	2885	7612303864860355	CMakeFiles/hera.dir/src/main.c.obj	9b10eeed86b3cbd9
+54	2896	7612303865016566	CMakeFiles/hera.dir/src/renderer.c.obj	2e955a748277a03f
+2896	3206	7612303893486152	hera.exe	a4a8790602e69941
