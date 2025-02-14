@@ -1,5 +1,8 @@
 #include "renderer.h"
+
 void Init(Renderer *data) {
+  InstancedMesh* quads = &data->quads;
+
   data->window = malloc(sizeof(Window));
   window_create(data->window, "Hera - Refactor!", (ivec2s){ .x = 800, .y = 600 });
 }
