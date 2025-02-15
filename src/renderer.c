@@ -14,17 +14,18 @@ void Init(Renderer *data) {
   instanced_mesh_init(quads);
   quads->render_count = 2;
   quads->individual_pos = malloc(sizeof(vec2s) * quads->render_count);
-  init_vec2s_array(quads->individual_pos, quads->render_count, 0.0f, 0.0f);
-  for (int i = 0; i < quads->render_count; i++) {
-    LOG_DEBUG("positions[%d] = (%f, %f)\n", i, positions[i].x, positions[i].y);
+  LOG_DEBUG("Before malloc: quads->individual_pos = %p", quads->individual_pos);
+  if (!quads->individual_pos) {
+    LOG_ERROR("malloc failed! Size: %zu", sizeof(vec2s) * quads->render_count);
   }
+  init_vec2s_array(quads->individual_pos, quads->render_count, 0.0f, 0.0f);
   quads->create(quads, vertices, positions);
 }
 
 void Update(Renderer *data) {
   Window* window = data->window;
-  def_as_ptr(data, quads);
-  
+  InstancedMesh* quads = &data->quads;
+
   LOG_DEBUG("time is %f", (float)glfwGetTime());
   window->update_aspect_ratio(window);
   LOG_DEBUG("aspect ratio is %f", window->aspect_ratio);
@@ -37,8 +38,9 @@ void Update(Renderer *data) {
     data->current_time = (float)glfwGetTime();
     data->delta_time = data->current_time - data->last_time;
     data->last_time = data->current_time;
+    LOG_DEBUG("Inside loop: quads->individual_pos = %p", quads->individual_pos);
 
-    quads->pos_buffer.set_data(&quads->pos_buffer, 0, quads->render_count * sizeof(vec2s), quads->individual_pos);
+    quads->pos_buffer.set_data(&quads->pos_buffer, 0, quads->render_count * sizeof(vec2s), &quads->individual_pos);
 
     glClear(GL_COLOR_BUFFER_BIT);
     glClearColor(0.2, 0.5, 0.9, 1.0);

@@ -14,7 +14,8 @@
 
 /*                  MAIN GAME MACROS!: macros is defined here but contains can ONLY be used in render.c                     */
 #define LOG_DEBUG(fmt, ...) printf("[DEBUG] " fmt "\n", ##__VA_ARGS__)
-#define LOG_ERROR(fmt, ...) printf("[ERROR] " fmt "\n", ##__VA_ARGS__)
+#define LOG_ERROR(fmt, ...) printf("[ERROR] " fmt "\n", ##__VA_ARGS__); \
+assert(0);
 #define LOG_WARNING(fmt, ...) printf("[WARNING] " fmt "\n", ##__VA_ARGS__)
 #define LOG_INFO(fmt, ...) printf("[INFO] " fmt "\n", ##__VA_ARGS__)
 #define def_as_ptr(struct_d, name) typeof(struct_d->name)* name = &struct_d->name;

@@ -101,11 +101,14 @@ void proc_instanced_mesh_create(InstancedMesh* imsh, Vertex* in_vertices, vec2s*
   layout_init(vao);
   vao->create_and_bind(vao);
 
-  buffer_create(instanced_pos_buffer, sizeof(vec2s) * imsh->render_count, NULL, GL_DYNAMIC_DRAW, GL_ARRAY_BUFFER);
-  layout_enable_and_set_vertex_attrib_pointer(1, 2, GL_FLOAT, sizeof(Vertex), (const void*)0);
+  // buffer_create(instanced_pos_buffer, sizeof(vec2s) * imsh->render_count, NULL, GL_DYNAMIC_DRAW, GL_ARRAY_BUFFER);
+  // layout_enable_and_set_vertex_attrib_pointer(1, 2, GL_FLOAT, 2 * sizeof(float), (const void*)0);
+  // glVertexAttribDivisor(1, 1);
+  buffer_create(instanced_pos_buffer, sizeof(vec2s) * imsh->render_count, imsh->individual_pos, GL_DYNAMIC_DRAW, GL_ARRAY_BUFFER);
+  layout_enable_and_set_vertex_attrib_pointer(1, 2, GL_FLOAT, 2 * sizeof(float), (const void*)0);
   glVertexAttribDivisor(1, 1);
 
-  buffer_create(vbo, 3 * sizeof(Vertex), imsh->vertices, GL_STATIC_DRAW, GL_ARRAY_BUFFER);
+  buffer_create(vbo, sizeof(Vertex) * 3, imsh->vertices, GL_STATIC_DRAW, GL_ARRAY_BUFFER);
   layout_enable_and_set_vertex_attrib_pointer(0, 2, GL_FLOAT, sizeof(Vertex), (const void*)offsetof(Vertex, Position));
 
   vao->unbind(vao);
