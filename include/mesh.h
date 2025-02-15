@@ -12,6 +12,9 @@ typedef struct Vertex {
   vec2s Position;
   // vec3 color;
   //texture index?
+} Vertex_s, Vertex_;
+typedef struct Vertex2 {
+  vec2 Position;
 } Vertex;
 
 typedef struct Mesh {

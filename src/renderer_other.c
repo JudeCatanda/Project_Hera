@@ -42,7 +42,7 @@ float lerp(float start, float end, float percentage) {
   return start + (end - start) * percentage;
 }
 
-Vertex* vertex_create(Vertex *vertices, float x, float y, float scale) {
+Vertex_s* vertex_create(Vertex_s *vertices, float x, float y, float scale) {
   vertices->Position = (vec2s){ .x = x, .y = y };
   vertices += 1;
 

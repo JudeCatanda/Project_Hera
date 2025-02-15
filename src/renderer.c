@@ -2,14 +2,19 @@
 
 void Init(Renderer *data) {
   def_as_ptr(data, quads);
-  vec2s* positions = data->positions;
+  vec2s* positions = quads->individual_pos;
   data->window = malloc(sizeof(Window));
   window_create(data->window, "Hera - Refactor!", (ivec2s){ .x = 800, .y = 600 });
 
   Vertex vertices[3] = {
-
+    [0]{ -0.5f, -0.5f },
+    [1]{  0.5f, -0.5f },
+    [2]{  0.0f,  0.5f }
   };
   instanced_mesh_init(quads);
+  quads->render_count = 2;
+  positions = malloc(sizeof(vec2s) * quads->render_count);
+  init_vec2s_array(positions, quads->render_count, 0.0f, 0.0f);
   quads->create(quads, vertices, positions);
 }
 
@@ -29,8 +34,14 @@ void Update(Renderer *data) {
     data->delta_time = data->current_time - data->last_time;
     data->last_time = data->current_time;
 
+    quads->pos_buffer.set_data(&quads->pos_buffer, 0, quads->render_count * sizeof(vec2s), &quads->individual_pos);
+
     glClear(GL_COLOR_BUFFER_BIT);
     glClearColor(0.2, 0.5, 0.9, 1.0);
+
+    quads->bind_all(quads);
+    quads->draw_call(quads);
+    quads->unbind_all(quads);
 
     if(glfwGetKey(window->handle, GLFW_KEY_ESCAPE) == GLFW_PRESS)
       break;
