@@ -8,12 +8,12 @@
 #include "cglm/cglm.h"
 #include "cglm/struct.h"
 
-typedef struct Vertex {
+typedef struct {
   vec2s Position;
   // vec3 color;
   //texture index?
-} Vertex_s, Vertex_;
-typedef struct Vertex2 {
+} Vertex_s;
+typedef struct {
   vec2 Position;
 } Vertex;
 

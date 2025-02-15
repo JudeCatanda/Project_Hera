@@ -25,7 +25,7 @@ typedef struct Buffer {
 
 void buffer_generate(Buffer* buff);
 void buffer_create(Buffer* buff, GLsizeiptr size, GLvoid* data, GLenum usage, GLenum type);
-void buffer_setdata(Buffer* buff, GLintptr offset, GLsizeiptr size, GLvoid* data);
+void buffer_setdata(Buffer* buff, GLintptr offset, GLsizeiptr size, GLvoid* data); //you can also use function pointers!
 void buffer_destroy(Buffer* buff);
 
 #endif

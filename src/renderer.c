@@ -7,14 +7,17 @@ void Init(Renderer *data) {
   window_create(data->window, "Hera - Refactor!", (ivec2s){ .x = 800, .y = 600 });
 
   Vertex vertices[3] = {
-    [0]{ -0.5f, -0.5f },
-    [1]{  0.5f, -0.5f },
-    [2]{  0.0f,  0.5f }
+    [0]{ .Position = { -0.5f, -0.5f } },
+    [1]{ .Position = {  0.5f, -0.5f } },
+    [2]{ .Position = {  0.0f,  0.5f } }
   };
   instanced_mesh_init(quads);
   quads->render_count = 2;
-  positions = malloc(sizeof(vec2s) * quads->render_count);
-  init_vec2s_array(positions, quads->render_count, 0.0f, 0.0f);
+  quads->individual_pos = malloc(sizeof(vec2s) * quads->render_count);
+  init_vec2s_array(quads->individual_pos, quads->render_count, 0.0f, 0.0f);
+  for (int i = 0; i < quads->render_count; i++) {
+    LOG_DEBUG("positions[%d] = (%f, %f)\n", i, positions[i].x, positions[i].y);
+  }
   quads->create(quads, vertices, positions);
 }
 
@@ -26,7 +29,8 @@ void Update(Renderer *data) {
   window->update_aspect_ratio(window);
   LOG_DEBUG("aspect ratio is %f", window->aspect_ratio);
   data->last_time = (float)glfwGetTime();
-
+  
+  quads->bind_all(quads);
   while(!window->should_close(window)) {
     window->get_size(window);
     glViewport(0, 0, window->size.x, window->size.y);
@@ -34,14 +38,13 @@ void Update(Renderer *data) {
     data->delta_time = data->current_time - data->last_time;
     data->last_time = data->current_time;
 
-    quads->pos_buffer.set_data(&quads->pos_buffer, 0, quads->render_count * sizeof(vec2s), &quads->individual_pos);
+    quads->pos_buffer.set_data(&quads->pos_buffer, 0, quads->render_count * sizeof(vec2s), quads->individual_pos);
 
     glClear(GL_COLOR_BUFFER_BIT);
     glClearColor(0.2, 0.5, 0.9, 1.0);
 
-    quads->bind_all(quads);
     quads->draw_call(quads);
-    quads->unbind_all(quads);
+    // quads->unbind_all(quads);
 
     if(glfwGetKey(window->handle, GLFW_KEY_ESCAPE) == GLFW_PRESS)
       break;
