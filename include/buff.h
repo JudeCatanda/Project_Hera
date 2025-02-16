@@ -11,7 +11,7 @@
 
 //DIRECTORIES
 #define CURRENT_PATH "./"
-#define ASSETS_PATH
+#define ASSETS_PATH "assets/"
 #define SHADERS_PATH "shaders/"
 #define TEST_BUILD_PATH "test_build/"
 

@@ -13,8 +13,8 @@ void platform_init(Platform *pltfrm) {
   def_as_ptr(pltfrm, program)
   def_as_ptr(pltfrm, indices_buffer)
 
-  shader_create(vertex, GET_SHADERS_PATH("platforms") V_SHADER, GL_VERTEX_SHADER);
-  shader_create(fragment, GET_SHADERS_PATH("platforms") F_SHADER, GL_FRAGMENT_SHADER);
+  shader_create(vertex, GET_SHADERS_PATH("platforms.vert"), GL_VERTEX_SHADER);
+  shader_create(fragment, GET_SHADERS_PATH("platforms.frag"), GL_FRAGMENT_SHADER);
   program_create(program, vertex, fragment);
 
   layout_init(vao);
@@ -43,7 +43,7 @@ void platform_init(Platform *pltfrm) {
 
   mesh_data->unbind(mesh_data);
   vao->unbind(vao);
-  indices_buffer->unbind(indices_buffer);
+  indices_buffer->unbind(indices_buffer); //why do we unbind it? no fucking clue
 }
 
 void platform_draw(Platform *pltfrm) {
@@ -51,7 +51,8 @@ void platform_draw(Platform *pltfrm) {
   def_as_ptr(pltfrm, positions_buffer)
   def_as_ptr(pltfrm, program)
 
-  vec2s* positions = calloc(pltfrm->count, sizeof(vec2s));
+  vec2s size = (vec2s){ .x = 0.0f, .y = 0.0f }; //since its a union of rgb, xyz, stq? maybe its a diff size so we use xyz
+  vec2s* positions = calloc(pltfrm->count, sizeof(size));
   init_vec2s_array(positions, pltfrm->count, 0.0f, 0.3f);
 
   positions_buffer->set_data(positions_buffer, 0, pltfrm->count * sizeof(vec2s), &positions);
@@ -60,7 +61,7 @@ void platform_draw(Platform *pltfrm) {
   vao->bind(vao);
 
   glDrawElementsInstanced(GL_TRIANGLES,
-    6,
+    9, //no idea why?
     GL_UNSIGNED_INT,
     0,
     pltfrm->count
