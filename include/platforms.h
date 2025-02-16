@@ -21,6 +21,6 @@ typedef struct Platform {
 } Platform;
 
 void platform_init(Platform* pltfrm);
-
+void platform_draw(Platform* pltfrm);
 
 #endif

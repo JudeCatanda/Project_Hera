@@ -10,6 +10,7 @@
 #include "cglm/cglm.h"
 #include "texture.h"
 #include "collider.h"
+#include "platforms.h"
 
 /*                  MAIN GAME MACROS!: macros is defined here but contains can ONLY be used in render.c                     */
 #define LOG_DEBUG(fmt, ...) printf("[DEBUG] " fmt "\n", ##__VA_ARGS__)
@@ -28,6 +29,7 @@ typedef struct Renderer {
   float last_time, current_time, delta_time;
 
   vec2s* positions;
+  Platform ground;
 } Renderer;
 
 

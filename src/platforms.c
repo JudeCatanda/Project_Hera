@@ -2,6 +2,8 @@
 
 #define def_as_ptr(pstruct, pname) typeof(pstruct->pname)* pname = &pstruct->pname;
 
+extern  void init_vec2s_array(vec2s* arr, int max_n, float default_x, float default_y);
+
 void platform_init(Platform *pltfrm) {
   def_as_ptr(pltfrm, vao)
   def_as_ptr(pltfrm, mesh_data)
@@ -22,15 +24,19 @@ void platform_init(Platform *pltfrm) {
   layout_enable_and_set_vertex_attrib_pointer(1, 2, GL_FLOAT, sizeof(vec2s), (const void*)0);
   glVertexAttribDivisor(1, 1);
 
-  float MESH[2 * 3] = {
-
+  float MESH[] = {
+    -0.5f, -0.5f,
+     0.5f, -0.5f,
+     0.5f,  0.5f,
+    -0.5f,  0.5f
   };
 
   buffer_create(mesh_data, sizeof(MESH), MESH, GL_STATIC_DRAW, GL_ARRAY_BUFFER);
   layout_enable_and_set_vertex_attrib_pointer(0, 2, GL_FLOAT, 2 * sizeof(float), (const void*)0);
 
   unsigned int INDICES[] = {
-
+    0, 1, 2,
+    0, 3, 2
   };
 
   buffer_create(indices_buffer, sizeof(INDICES), INDICES, GL_STATIC_DRAW, GL_ELEMENT_ARRAY_BUFFER);
@@ -39,3 +45,27 @@ void platform_init(Platform *pltfrm) {
   vao->unbind(vao);
   indices_buffer->unbind(indices_buffer);
 }
+
+void platform_draw(Platform *pltfrm) {
+  def_as_ptr(pltfrm, vao)
+  def_as_ptr(pltfrm, positions_buffer)
+  def_as_ptr(pltfrm, program)
+
+  vec2s* positions = calloc(pltfrm->count, sizeof(vec2s));
+  init_vec2s_array(positions, pltfrm->count, 0.0f, 0.3f);
+
+  positions_buffer->set_data(positions_buffer, 0, pltfrm->count * sizeof(vec2s), &positions);
+
+  program->use_program(program);
+  vao->bind(vao);
+
+  glDrawElementsInstanced(GL_TRIANGLES,
+    6,
+    GL_UNSIGNED_INT,
+    0,
+    pltfrm->count
+  );
+
+  program->unbind(program);
+  vao->unbind(vao);
+};

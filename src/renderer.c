@@ -1,12 +1,18 @@
 #include "renderer.h"
 
 void Init(Renderer *data) {
+  Platform* ground = &data->ground;
+
   data->window = malloc(sizeof(Window));
   window_create(data->window, "Hera - Refactor!", (ivec2s){ .x = 800, .y = 600 });
+
+  ground->count = 3;
+  platform_init(ground);
 }
 
 void Update(Renderer *data) {
   Window* window = data->window;
+  Platform* ground = &data->ground;
 
   LOG_DEBUG("time is %f", (float)glfwGetTime());
   window->update_aspect_ratio(window);
@@ -20,6 +26,7 @@ void Update(Renderer *data) {
     data->delta_time = data->current_time - data->last_time;
     data->last_time = data->current_time;
 
+    platform_draw(ground);
 
     glClear(GL_COLOR_BUFFER_BIT);
     glClearColor(0.2, 0.5, 0.9, 1.0);
