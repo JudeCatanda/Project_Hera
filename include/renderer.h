@@ -10,7 +10,6 @@
 #include "cglm/cglm.h"
 #include "texture.h"
 #include "collider.h"
-#include "mesh.h"
 
 /*                  MAIN GAME MACROS!: macros is defined here but contains can ONLY be used in render.c                     */
 #define LOG_DEBUG(fmt, ...) printf("[DEBUG] " fmt "\n", ##__VA_ARGS__)
@@ -28,7 +27,6 @@ typedef struct Renderer {
   float aspect_ratio;
   float last_time, current_time, delta_time;
 
-  InstancedMesh quads;
   vec2s* positions;
 } Renderer;
 
@@ -44,7 +42,7 @@ void init_vec2s_array(vec2s* arr, int max_n, float default_x, float default_y);
 void INITIALIZE_VECTOR2(vec2 *arr, int max_n, float default_x, float default_y);
 void set_mesh(float *mesh_array, float x, float y);
 float lerp(float start, float end, float percentage);
-Vertex_s* vertex_create(Vertex_s* vertices, float x, float y, float scale);
+// Vertex* vertex_create(Vertex_s* vertices, float x, float y, float scale);
 unsigned int* ebo_add_index(unsigned int* array, int index_offset);
 
 #endif

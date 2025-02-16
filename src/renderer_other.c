@@ -42,20 +42,20 @@ float lerp(float start, float end, float percentage) {
   return start + (end - start) * percentage;
 }
 
-Vertex_s* vertex_create(Vertex_s *vertices, float x, float y, float scale) {
-  vertices->Position = (vec2s){ .x = x, .y = y };
-  vertices += 1;
+// Vertex* vertex_create(Vertex *vertices, float x, float y, float scale) {
+//   vertices->Position = (vec2s){ .x = x, .y = y };
+//   vertices += 1;
 
-  vertices->Position = (vec2s){ .x = x + scale, .y = y };
-  vertices += 1;
+//   vertices->Position = (vec2s){ .x = x + scale, .y = y };
+//   vertices += 1;
 
-  vertices->Position = (vec2s){ .x = x + scale, .y = y + scale };
-  vertices += 1;
+//   vertices->Position = (vec2s){ .x = x + scale, .y = y + scale };
+//   vertices += 1;
 
-  vertices->Position = (vec2s){ .x = x, .y = y + scale };
-  vertices += 1;
-  return vertices;
-}
+//   vertices->Position = (vec2s){ .x = x, .y = y + scale };
+//   vertices += 1;
+//   return vertices;
+// }
 
 unsigned int* ebo_add_index(unsigned int* array, int index_offset) {
     // First triangle: (0, 1, 2)
