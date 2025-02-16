@@ -5,6 +5,7 @@
 extern  void init_vec2s_array(vec2s* arr, int max_n, float default_x, float default_y);
 
 void platform_init(Platform *pltfrm) {
+  printf("[DEBUG] we are rendering %d counts of quads\n", pltfrm->count);
   def_as_ptr(pltfrm, vao)
   def_as_ptr(pltfrm, mesh_data)
   def_as_ptr(pltfrm, positions_buffer)
@@ -55,13 +56,13 @@ void platform_draw(Platform *pltfrm) {
   vec2s* positions = calloc(pltfrm->count, sizeof(size));
   init_vec2s_array(positions, pltfrm->count, 0.0f, 0.3f);
 
-  positions_buffer->set_data(positions_buffer, 0, pltfrm->count * sizeof(vec2s), &positions);
+  positions_buffer->set_data(positions_buffer, 0, pltfrm->count * sizeof(vec2s), positions);
 
   program->use_program(program);
   vao->bind(vao);
 
   glDrawElementsInstanced(GL_TRIANGLES,
-    9, //no idea why?
+    6, //no idea why?
     GL_UNSIGNED_INT,
     0,
     pltfrm->count
