@@ -5,8 +5,24 @@
 #include <stdio.h>
 #include <string.h>
 
-#define GET_ASSETS_PATH(f_n) "./assets/" f_n
-#define GET_TEST_BUILD_PATH(f_n) GET_ASSETS_PATH("test_build/") f_n
+//FILE_TYPES
+#define V_SHADER ".vert"
+#define F_SHADER ".frag"
+
+//DIRECTORIES
+#define CURRENT_PATH "./"
+#define ASSETS_PATH
+#define SHADERS_PATH "shaders/"
+#define TEST_BUILD_PATH "test_build/"
+
+//SPECIAL MACROS
+
+/// @brief returns the f_n (file) in the assets folder... parent: ./
+#define GET_ASSETS_PATH(f_n) CURRENT_PATH ASSETS_PATH f_n
+/// @brief returns the f_n (file) in the test_build folder... parent: assets
+#define GET_TEST_BUILD_PATH(f_n) GET_ASSETS_PATH(TEST_BUILD_PATH) f_n
+/// @brief returns the f_n (file) in the shaders folder... parent: assets
+#define GET_SHADERS_PATH(f_n) GET_ASSETS_PATH(SHADERS_PATH) f_n
 
 #define DEFAULT_NUMBER_OF_BUFFER_USE 1
 
