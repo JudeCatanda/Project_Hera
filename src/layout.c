@@ -47,3 +47,9 @@ void layout_enable_and_set_vertex_attrib_pointer(int index, GLint size, GLenum t
   layout_enable_vertex_attrib_pointer(index);
   layout_set_vertex_attrib_pointer(index, size, type, stride, pointer);
 }
+
+int layout_is_attrib_enabled(int index) {
+  int is_enabled;
+  glGetVertexAttribiv(index, GL_VERTEX_ATTRIB_ARRAY_ENABLED, &is_enabled);
+  return is_enabled;
+}

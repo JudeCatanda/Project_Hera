@@ -5,7 +5,6 @@
 extern  void init_vec2s_array(vec2s* arr, int max_n, float default_x, float default_y);
 
 void platform_init(Platform *pltfrm) {
-  printf("[DEBUG] we are rendering %d counts of quads\n", pltfrm->count);
   def_as_ptr(pltfrm, vao)
   def_as_ptr(pltfrm, mesh_data)
   def_as_ptr(pltfrm, positions_buffer)
@@ -42,25 +41,25 @@ void platform_init(Platform *pltfrm) {
 
   buffer_create(indices_buffer, sizeof(INDICES), INDICES, GL_STATIC_DRAW, GL_ELEMENT_ARRAY_BUFFER);
 
+  indices_buffer->unbind(indices_buffer); //why do we unbind it? no fucking clue
   mesh_data->unbind(mesh_data);
   vao->unbind(vao);
-  indices_buffer->unbind(indices_buffer); //why do we unbind it? no fucking clue
 }
 
 void platform_draw(Platform *pltfrm) {
   def_as_ptr(pltfrm, vao)
   def_as_ptr(pltfrm, positions_buffer)
   def_as_ptr(pltfrm, program)
+  def_as_ptr(pltfrm, indices_buffer)
 
-  vec2s size = (vec2s){ .x = 0.0f, .y = 0.0f }; //since its a union of rgb, xyz, stq? maybe its a diff size so we use xyz
-  vec2s* positions = calloc(pltfrm->count, sizeof(size));
-  init_vec2s_array(positions, pltfrm->count, 0.0f, 0.3f);
+  pltfrm->positions = calloc(pltfrm->count, sizeof(vec2s));
+  init_vec2s_array(pltfrm->positions, pltfrm->count, 0.0f, 0.3f);
 
-  positions_buffer->set_data(positions_buffer, 0, pltfrm->count * sizeof(vec2s), positions);
+  positions_buffer->set_data(positions_buffer, 0, pltfrm->count * sizeof(vec2s), pltfrm->positions);
 
   program->use_program(program);
   vao->bind(vao);
-
+  indices_buffer->bind(indices_buffer);
   glDrawElementsInstanced(GL_TRIANGLES,
     6, //no idea why?
     GL_UNSIGNED_INT,
@@ -70,4 +69,20 @@ void platform_draw(Platform *pltfrm) {
 
   program->unbind(program);
   vao->unbind(vao);
+}
+void platfrom_destroy(Platform *pltfrm) {
+  def_as_ptr(pltfrm, vao)
+  def_as_ptr(pltfrm, mesh_data)
+  def_as_ptr(pltfrm, positions_buffer)
+  def_as_ptr(pltfrm, vertex)
+  def_as_ptr(pltfrm, fragment)
+  def_as_ptr(pltfrm, program)
+  def_as_ptr(pltfrm, indices_buffer)
+
+  buffer_destroy(mesh_data);
+  buffer_destroy(positions_buffer);
+  buffer_destroy(indices_buffer);
+  program_destroy(program);
+
+  free(pltfrm->positions);
 };

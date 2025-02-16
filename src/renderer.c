@@ -26,11 +26,10 @@ void Update(Renderer *data) {
     data->delta_time = data->current_time - data->last_time;
     data->last_time = data->current_time;
 
-    platform_draw(ground);
-
     glClear(GL_COLOR_BUFFER_BIT);
     glClearColor(0.2, 0.5, 0.9, 1.0);
-
+    platform_draw(ground);
+    
     if(glfwGetKey(window->handle, GLFW_KEY_ESCAPE) == GLFW_PRESS)
       break;
     if(glfwGetKey(window->handle, GLFW_KEY_F3) == GLFW_PRESS)
