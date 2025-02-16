@@ -43,5 +43,6 @@ void Update(Renderer *data) {
 
 void Close(Renderer *data) {
   LOG_INFO("Exiting...");
+  platfrom_destroy(&data->ground);
   free(data->window);
 };

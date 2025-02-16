@@ -44,6 +44,9 @@ void platform_init(Platform *pltfrm) {
   indices_buffer->unbind(indices_buffer); //why do we unbind it? no fucking clue
   mesh_data->unbind(mesh_data);
   vao->unbind(vao);
+
+  pltfrm->positions = calloc(pltfrm->count, sizeof(vec2s));
+  init_vec2s_array(pltfrm->positions, pltfrm->count, 0.0f, 0.3f);
 }
 
 void platform_draw(Platform *pltfrm) {
@@ -52,15 +55,13 @@ void platform_draw(Platform *pltfrm) {
   def_as_ptr(pltfrm, program)
   def_as_ptr(pltfrm, indices_buffer)
 
-  pltfrm->positions = calloc(pltfrm->count, sizeof(vec2s));
-  init_vec2s_array(pltfrm->positions, pltfrm->count, 0.0f, 0.3f);
-
   positions_buffer->set_data(positions_buffer, 0, pltfrm->count * sizeof(vec2s), pltfrm->positions);
 
   program->use_program(program);
   vao->bind(vao);
   indices_buffer->bind(indices_buffer);
-  glDrawElementsInstanced(GL_TRIANGLES,
+  glDrawElementsInstanced(
+    GL_TRIANGLES,
     6, //no idea why?
     GL_UNSIGNED_INT,
     0,
@@ -79,6 +80,7 @@ void platfrom_destroy(Platform *pltfrm) {
   def_as_ptr(pltfrm, program)
   def_as_ptr(pltfrm, indices_buffer)
 
+  layout_destoy(vao);
   buffer_destroy(mesh_data);
   buffer_destroy(positions_buffer);
   buffer_destroy(indices_buffer);

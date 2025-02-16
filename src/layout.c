@@ -53,3 +53,7 @@ int layout_is_attrib_enabled(int index) {
   glGetVertexAttribiv(index, GL_VERTEX_ATTRIB_ARRAY_ENABLED, &is_enabled);
   return is_enabled;
 }
+
+void layout_destoy(Layout *lyt) {
+  glDeleteVertexArrays(1, &lyt->handle);
+}
