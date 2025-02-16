@@ -75,7 +75,7 @@ void program_create(ShaderProgram *program, Shader *vertex, Shader *fragment) {
   program->attach_shader = proc_program_attach_shaders;
 }
 void program_destroy(ShaderProgram *program) {
-  printf("[LOG] a shader program was unbinded at deleted\n");
+  printf("[LOG] a shader program was unbinded and deleted\n");
   program->unbind(program);
   glDeleteProgram(program->handle);
 };
