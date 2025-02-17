@@ -10,6 +10,7 @@ void Init(Renderer *data) {
   platform_init(ground);
 
   camera_init(cam);
+  cam->camera_position = (vec2s){ .x = 0.0f, .y = 0.0f };
 }
 
 void Update(Renderer *data) {
@@ -33,6 +34,11 @@ void Update(Renderer *data) {
     glClearColor(0.2, 0.5, 0.9, 1.0);
 
     cam->window = window;
+
+    if(window->is_key_pressed(window, GLFW_KEY_D)) {
+      cam->camera_position.x += 0.2f * data->delta_time;
+    }
+
     cam->update(cam, &ground->program);
     platform_draw(ground);
     
