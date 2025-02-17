@@ -2,7 +2,7 @@
 
 #define def_as_ptr(pstruct, pname) typeof(pstruct->pname)* pname = &pstruct->pname;
 
-extern  void init_vec2s_array(vec2s* arr, int max_n, float default_x, float default_y);
+extern void init_vec2s_array(vec2s* arr, int max_n, float default_x, float default_y);
 
 void platform_init(Platform *pltfrm) {
   def_as_ptr(pltfrm, vao)
@@ -13,13 +13,17 @@ void platform_init(Platform *pltfrm) {
   def_as_ptr(pltfrm, program)
   def_as_ptr(pltfrm, indices_buffer)
 
+  pltfrm->max_x = 1;
+  pltfrm->max_y = 5;
+
   shader_create(vertex, GET_SHADERS_PATH("platforms.vert"), GL_VERTEX_SHADER);
   shader_create(fragment, GET_SHADERS_PATH("platforms.frag"), GL_FRAGMENT_SHADER);
   program_create(program, vertex, fragment);
-
+  
   layout_init(vao);
   vao->create_and_bind(vao);
-
+  
+  pltfrm->count = pltfrm->max_x * pltfrm->max_y; //ok!
   buffer_create(positions_buffer, pltfrm->count * sizeof(vec2s), NULL, GL_DYNAMIC_DRAW, GL_ARRAY_BUFFER);
   layout_enable_and_set_vertex_attrib_pointer(1, 2, GL_FLOAT, sizeof(vec2s), (const void*)0);
   glVertexAttribDivisor(1, 1);
