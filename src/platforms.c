@@ -53,8 +53,8 @@ void platform_init(Platform *pltfrm) {
     for(int x = 0; x < pltfrm->max_x; x++) {
       if(elem > pltfrm->count)
         break;
-      pltfrm->positions[elem].x = (float)x;
-      pltfrm->positions[elem].y = ((float)y) - 0.2;
+      pltfrm->positions[elem].x = (float)x * 0.2f;
+      pltfrm->positions[elem].y = ((float)y * 0.2f) - 0.2;
       elem++;
     }
   }
