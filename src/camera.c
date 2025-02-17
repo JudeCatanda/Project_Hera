@@ -1,17 +1,19 @@
 #include "camera.h"
 
-#undef def_as_ptr
-#define def_as_ptr(pstruct, pname) typeof(pstruct->pname)* pname = &pstruct->pname;
+#undef LOG_DEBUG 
+#define LOG_DEBUG(fmt, ...) printf("[DEBUG] " fmt "\n", ##__VA_ARGS__)
 
 // void(*send_matrices)(struct Camera* cam, ShaderProgram* program);
 void proc_camera_send_matrices(Camera* cam, ShaderProgram* program) {
-
+  Window* window = cam->window;
+  window->update_aspect_ratio(window);
+  window->get_size(window);
+  cam->orthro = glms_ortho(-window->aspect_ratio, window->aspect_ratio, -2.0f, 1.0f, -1.0f, 1.0f);
+  cam->view = glms_mat4_identity();
+  glUniformMatrix3fv(uniform_location(program->handle, "projection"), 1, GL_FALSE, (const float*)&cam->orthro.raw);
+  glUniformMatrix3fv(uniform_location(program->handle, "view"), 1, GL_FALSE, (const float*)&cam->view.raw[0][0]);
+  LOG_DEBUG("window is not null.. here have its size! %dx%d", window->size.x, window->size.y);
 };
-// void(*create_camera)(struct Camera* cam);
-void proc_camera_create(Camera* cam) {
-  cam->orthro = glms_ortho(cam->);
-};
-
 void camera_init(Camera *cam) {
-  cam->send_matrices = proc_camera_send_matrices;
+  cam->update = proc_camera_send_matrices;
 }

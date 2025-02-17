@@ -11,6 +11,7 @@
 #include "texture.h"
 #include "collider.h"
 #include "platforms.h"
+#include "camera.h"
 
 /*                  MAIN GAME MACROS!: macros is defined here but contains can ONLY be used in render.c                     */
 #define LOG_DEBUG(fmt, ...) printf("[DEBUG] " fmt "\n", ##__VA_ARGS__)
@@ -30,6 +31,7 @@ typedef struct Renderer {
 
   vec2s* positions;
   Platform ground;
+  Camera cam;
 } Renderer;
 
 

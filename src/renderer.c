@@ -2,16 +2,20 @@
 
 void Init(Renderer *data) {
   Platform* ground = &data->ground;
+  Camera* cam = &data->cam;
 
   data->window = malloc(sizeof(Window));
-  window_create(data->window, "Hera - Refactor!", (ivec2s){ .x = 800, .y = 600 });
+  window_create(data->window, "Hera - Refactor!", (ivec2s){ .x = 1133, .y = 644 });
 
   platform_init(ground);
+
+  camera_init(cam);
 }
 
 void Update(Renderer *data) {
   Window* window = data->window;
   Platform* ground = &data->ground;
+  Camera* cam = &data->cam;
 
   LOG_DEBUG("time is %f", (float)glfwGetTime());
   window->update_aspect_ratio(window);
@@ -28,6 +32,8 @@ void Update(Renderer *data) {
     glClear(GL_COLOR_BUFFER_BIT);
     glClearColor(0.2, 0.5, 0.9, 1.0);
 
+    cam->window = window;
+    cam->update(cam, &ground->program);
     platform_draw(ground);
     
     if(glfwGetKey(window->handle, GLFW_KEY_ESCAPE) == GLFW_PRESS)
