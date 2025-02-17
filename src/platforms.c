@@ -25,10 +25,10 @@ void platform_init(Platform *pltfrm) {
   glVertexAttribDivisor(1, 1);
 
   float MESH[] = {
-    -0.5f, -0.5f,
-     0.5f, -0.5f,
-     0.5f,  0.5f,
-    -0.5f,  0.5f
+    -0.2f, -0.2f,
+     0.2f, -0.2f,
+     0.2f,  0.2f,
+    -0.2f,  0.2f
   };
 
   buffer_create(mesh_data, sizeof(MESH), MESH, GL_STATIC_DRAW, GL_ARRAY_BUFFER);
@@ -47,6 +47,17 @@ void platform_init(Platform *pltfrm) {
 
   pltfrm->positions = calloc(pltfrm->count, sizeof(vec2s));
   init_vec2s_array(pltfrm->positions, pltfrm->count, 0.0f, 0.3f);
+  int elem = 0;
+
+  for(int y = 0; y < pltfrm->max_y; y++) {
+    for(int x = 0; x < pltfrm->max_x; x++) {
+      if(elem > pltfrm->count)
+        break;
+      pltfrm->positions[elem].x = (float)x;
+      pltfrm->positions[elem].y = ((float)y) - 0.2;
+      elem++;
+    }
+  }
 }
 
 void platform_draw(Platform *pltfrm) {

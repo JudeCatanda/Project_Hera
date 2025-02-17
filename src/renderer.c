@@ -6,7 +6,9 @@ void Init(Renderer *data) {
   data->window = malloc(sizeof(Window));
   window_create(data->window, "Hera - Refactor!", (ivec2s){ .x = 800, .y = 600 });
 
-  ground->count = 3;
+  ground->count = 5;
+  ground->max_x = 1;
+  ground->max_y = 5;
   platform_init(ground);
 }
 
@@ -28,6 +30,7 @@ void Update(Renderer *data) {
 
     glClear(GL_COLOR_BUFFER_BIT);
     glClearColor(0.2, 0.5, 0.9, 1.0);
+
     platform_draw(ground);
     
     if(glfwGetKey(window->handle, GLFW_KEY_ESCAPE) == GLFW_PRESS)

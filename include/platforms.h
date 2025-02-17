@@ -18,6 +18,8 @@ typedef struct Platform {
 
   vec2s* positions;
   int count;
+
+  int max_x, max_y;
 } Platform;
 
 void platform_init(Platform* pltfrm);
