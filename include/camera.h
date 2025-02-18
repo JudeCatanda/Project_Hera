@@ -12,6 +12,7 @@ typedef struct Camera {
   mat4s projection, view;
   Window* window; //get stuff like size and aspect ratio
 
+  float scale;
   vec3s camera_position;
 
   void(*update)(struct Camera* cam, ShaderProgram* program);

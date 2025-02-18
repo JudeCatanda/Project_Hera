@@ -6,9 +6,9 @@ void Init(Renderer *data) {
 
   data->window = malloc(sizeof(Window));
   window_create(data->window, "Hera - Refactor!", (ivec2s){ .x = 1133, .y = 644 });
-
   platform_init(ground);
   cam->window = data->window;
+  cam->scale = 130.0f;
   camera_init(cam);
 }
 
@@ -32,10 +32,10 @@ void Update(Renderer *data) {
     glClear(GL_COLOR_BUFFER_BIT);
     glClearColor(0.2, 0.5, 0.9, 1.0);
 
-    if(window->is_key_pressed(window, GLFW_KEY_D)) {
-      cam->camera_position.x += 0.1f * data->delta_time;
-    }
     cam->update(cam, &ground->program);
+    if(window->is_key_pressed(window, GLFW_KEY_D)) {
+      cam->camera_position.x += 1.0f * data->delta_time;
+    }
 
     platform_draw(ground);
     
