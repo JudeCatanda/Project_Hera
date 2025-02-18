@@ -16,7 +16,7 @@ typedef struct Platform {
   Shader vertex, fragment;
   ShaderProgram program;
 
-  vec2s* positions;
+  vec3s* positions;
   int count;
 
   int max_x, max_y;
