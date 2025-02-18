@@ -21,7 +21,7 @@ void camera_init(Camera *cam) {
   cam->update = proc_camera_send_matrices;
 
   cam->window->update_aspect_ratio(cam->window);
-  cam->projection = glms_perspective(glm_rad(45.0f), cam->window->aspect_ratio, 0.1f, 1.0f);
+  cam->projection = glms_perspective(glm_rad(45.0f), cam->window->aspect_ratio, 0.1f, 100.0f);
 
   cam->camera_position = (vec3s){ .x = 0.0f, .y = 0.0f, .z = 3.0f };
 }
