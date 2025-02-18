@@ -9,10 +9,10 @@
 #include "window.h"
 
 typedef struct Camera {
-  mat4s orthro, view;
+  mat4s projection, view;
   Window* window; //get stuff like size and aspect ratio
 
-  vec2s camera_position;
+  vec3s camera_position;
 
   void(*update)(struct Camera* cam, ShaderProgram* program);
 } Camera;

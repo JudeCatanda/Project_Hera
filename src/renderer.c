@@ -8,9 +8,8 @@ void Init(Renderer *data) {
   window_create(data->window, "Hera - Refactor!", (ivec2s){ .x = 1133, .y = 644 });
 
   platform_init(ground);
-
+  cam->window = data->window;
   camera_init(cam);
-  cam->camera_position = (vec2s){ .x = 0.0f, .y = 0.0f };
 }
 
 void Update(Renderer *data) {
@@ -33,13 +32,11 @@ void Update(Renderer *data) {
     glClear(GL_COLOR_BUFFER_BIT);
     glClearColor(0.2, 0.5, 0.9, 1.0);
 
-    cam->window = window;
-
     if(window->is_key_pressed(window, GLFW_KEY_D)) {
-      cam->camera_position.x += 0.2f * data->delta_time;
+      cam->camera_position.x += 0.1f * data->delta_time;
     }
-
     cam->update(cam, &ground->program);
+
     platform_draw(ground);
     
     if(glfwGetKey(window->handle, GLFW_KEY_ESCAPE) == GLFW_PRESS)
