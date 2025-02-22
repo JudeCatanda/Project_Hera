@@ -24,7 +24,7 @@ void platform_init(Platform *pltfrm) {
   vao->create_and_bind(vao);
   
   pltfrm->count = pltfrm->max_x * pltfrm->max_y;
-  buffer_create(positions_buffer, pltfrm->count * sizeof(vec3s), NULL, GL_DYNAMIC_DRAW, GL_ARRAY_BUFFER);
+  // buffer_create(positions_buffer, pltfrm->count * sizeof(vec3s), NULL, GL_DYNAMIC_DRAW, GL_ARRAY_BUFFER);
   layout_enable_and_set_vertex_attrib_pointer(1, 3, GL_FLOAT, sizeof(vec3s), (const void*)0);
   glVertexAttribDivisor(1, 1);
 

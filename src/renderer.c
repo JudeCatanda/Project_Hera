@@ -10,6 +10,7 @@ void Init(Renderer *data) {
   cam->window = data->window;
   cam->scale = 130.0f;
   camera_init(cam);
+  LOG_DEBUG("*camera issues*");
 }
 
 void Update(Renderer *data) {
@@ -39,9 +40,11 @@ void Update(Renderer *data) {
 
     platform_draw(ground);
     
-    if(glfwGetKey(window->handle, GLFW_KEY_ESCAPE) == GLFW_PRESS)
+    // if(glfwGetKey(window->handle, GLFW_KEY_ESCAPE) == GLFW_PRESS)
+    //   break;
+    if(window->is_key_pressed(window, GLFW_KEY_ESCAPE))
       break;
-    if(glfwGetKey(window->handle, GLFW_KEY_F3) == GLFW_PRESS)
+    if(window->is_key_pressed(window, GLFW_KEY_ESCAPE))
       glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
     glfwSwapBuffers(window->handle);

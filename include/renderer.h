@@ -4,12 +4,6 @@
 #include <stdio.h>
 #include <stdbool.h>
 #include "window.h"
-#include "layout.h"
-#include "shader.h"
-#include "buff.h"
-#include "cglm/cglm.h"
-#include "texture.h"
-#include "collider.h"
 #include "platforms.h"
 #include "camera.h"
 
