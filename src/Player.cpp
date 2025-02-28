@@ -21,7 +21,7 @@ void Player::create() {
   def_as_ptr(texture);
   def_as_ptr(texture_positions_buffer);
 
-  texture->create(std::string(GET_TEXTURES_PATH("character.png")), GL_TEXTURE_2D, GL_RGB, GL_RGBA);
+  texture->create(std::string(GET_TEXTURES_PATH("character.png")), GL_TEXTURE_2D, GL_RGBA, GL_RGBA);
 
   vertex->create(GET_SHADERS_PATH("main.vert.glsl"), GL_VERTEX_SHADER);
   fragment->create(GET_SHADERS_PATH("main.frag.glsl"), GL_FRAGMENT_SHADER);

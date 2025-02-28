@@ -49,7 +49,8 @@ void Game::update() {
     glm::ivec2* size = window->get_size();
     glViewport(0, 0, size->x, size->y);
     
-    glClearColor(0.2, 0.5, 0.9, 1.0);
+    // glClearColor(0.2, 0.5, 0.9, 1.0);
+    glClearColor(0.0, 0.0, 0.0, 1.0);
     glClear(GL_COLOR_BUFFER_BIT);
     
     plr->set_delta_time(&this->delta);

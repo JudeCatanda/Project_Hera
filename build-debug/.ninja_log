@@ -1,14 +1,18 @@
 # ninja log v6
 30	557	7624412259652938	CMakeFiles/hera.dir/src/RenderUtils.cpp.obj	75eb2d36e5be7ac1
-20	705	7624412259652938	CMakeFiles/hera.dir/src/Layout.cpp.obj	5552d1d55e073e7b
-7	2029	7624412259456251	CMakeFiles/hera.dir/src/Buffer.cpp.obj	e5fb3832b5cf8d6
-35	2391	7624412259814895	CMakeFiles/hera.dir/src/Shader.cpp.obj	7a2d0b38d043cc32
-705	2666	7624412266468764	CMakeFiles/hera.dir/src/Texture.cpp.obj	df4ce874c6c28e86
-559	3842	7624412264964923	CMakeFiles/hera.dir/src/Terrain.cpp.obj	2a766b5a2c3c446f
 14	4149	7624412259456251	CMakeFiles/hera.dir/src/Game.cpp.obj	6b0ac6de15fad4c9
-25	4219	7624412259652938	CMakeFiles/hera.dir/src/Player.cpp.obj	4a4de9edec821231
+20	705	7624412259652938	CMakeFiles/hera.dir/src/Layout.cpp.obj	5552d1d55e073e7b
+6227	6620	7624412321739389	hera.exe	9168e01d066344a6
+35	2391	7624412259814895	CMakeFiles/hera.dir/src/Shader.cpp.obj	7a2d0b38d043cc32
+7	2029	7624412259456251	CMakeFiles/hera.dir/src/Buffer.cpp.obj	e5fb3832b5cf8d6
+705	2666	7624412266468764	CMakeFiles/hera.dir/src/Texture.cpp.obj	df4ce874c6c28e86
 2031	4702	7624412279712889	CMakeFiles/hera.dir/src/Window.cpp.obj	da1b08ed89f673a2
+559	3842	7624412264964923	CMakeFiles/hera.dir/src/Terrain.cpp.obj	2a766b5a2c3c446f
+25	4219	7624412259652938	CMakeFiles/hera.dir/src/Player.cpp.obj	4a4de9edec821231
 2667	5639	7624412286001031	CMakeFiles/hera.dir/src/main.cpp.obj	3251ba024cf33cc7
 3842	6192	7624412297853734	CMakeFiles/hera.dir/src/stb_image.cpp.obj	c4369c80bfe56b29
 2393	6223	7624412283333070	CMakeFiles/hera.dir/src/glad.cpp.obj	e577e7833bd28f5d
-6227	6620	7624412321739389	hera.exe	9168e01d066344a6
+56	2825	7624441722970100	CMakeFiles/hera.dir/src/Player.cpp.obj	4a4de9edec821231
+2826	3579	7624441750660162	hera.exe	9168e01d066344a6
+47	1820	7624443262435787	CMakeFiles/hera.dir/src/Game.cpp.obj	6b0ac6de15fad4c9
+1821	2124	7624443280186135	hera.exe	9168e01d066344a6

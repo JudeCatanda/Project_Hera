@@ -16,3 +16,7 @@ build-debug/hera.exe
 
 assets/*
 assets/
+
+build-debug/CMakeCache.txt
+build-debug/.ninja_log
+build-debug/.ninja_deps
