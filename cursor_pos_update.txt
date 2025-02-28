@@ -1,2 +1,0 @@
-  // data->plr.position[0] = data->aspect_ratio * (2 * ((float)data->cursor_x / (float)data->window_size_x) - 1);
-  // data->plr.position[1] = (1 - 2 * ((float)data->cursor_y / (float)data->window_size_y));

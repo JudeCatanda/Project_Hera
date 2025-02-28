@@ -1,92 +1,74 @@
 [
 {
-  "directory": "C:/Users/User/Documents/C++/Hera/build-debug",
-  "command": "C:\\msys64\\mingw64\\bin\\gcc.exe -DDBG_MODE -IC:/Users/User/Documents/C++/Hera/./include -g -g -o CMakeFiles\\hera.dir\\src\\buff.c.obj -c C:\\Users\\User\\Documents\\C++\\Hera\\src\\buff.c",
-  "file": "C:\\Users\\User\\Documents\\C++\\Hera\\src\\buff.c",
-  "output": "CMakeFiles\\hera.dir\\src\\buff.c.obj"
+  "directory": "C:/Users/User/Documents/C++/Hera_/build-debug",
+  "command": "C:\\msys64\\mingw64\\bin\\g++.exe -DDBG_MODE -IC:/Users/User/Documents/C++/Hera_/./include -g -o CMakeFiles\\Hera.dir\\src\\Buffer.cpp.obj -c C:\\Users\\User\\Documents\\C++\\Hera_\\src\\Buffer.cpp",
+  "file": "C:\\Users\\User\\Documents\\C++\\Hera_\\src\\Buffer.cpp",
+  "output": "CMakeFiles\\Hera.dir\\src\\Buffer.cpp.obj"
 },
 {
-  "directory": "C:/Users/User/Documents/C++/Hera/build-debug",
-  "command": "C:\\msys64\\mingw64\\bin\\gcc.exe -DDBG_MODE -IC:/Users/User/Documents/C++/Hera/./include -g -g -o CMakeFiles\\hera.dir\\src\\camera.c.obj -c C:\\Users\\User\\Documents\\C++\\Hera\\src\\camera.c",
-  "file": "C:\\Users\\User\\Documents\\C++\\Hera\\src\\camera.c",
-  "output": "CMakeFiles\\hera.dir\\src\\camera.c.obj"
+  "directory": "C:/Users/User/Documents/C++/Hera_/build-debug",
+  "command": "C:\\msys64\\mingw64\\bin\\g++.exe -DDBG_MODE -IC:/Users/User/Documents/C++/Hera_/./include -g -o CMakeFiles\\Hera.dir\\src\\Game.cpp.obj -c C:\\Users\\User\\Documents\\C++\\Hera_\\src\\Game.cpp",
+  "file": "C:\\Users\\User\\Documents\\C++\\Hera_\\src\\Game.cpp",
+  "output": "CMakeFiles\\Hera.dir\\src\\Game.cpp.obj"
 },
 {
-  "directory": "C:/Users/User/Documents/C++/Hera/build-debug",
-  "command": "C:\\msys64\\mingw64\\bin\\gcc.exe -DDBG_MODE -IC:/Users/User/Documents/C++/Hera/./include -g -g -o CMakeFiles\\hera.dir\\src\\collider.c.obj -c C:\\Users\\User\\Documents\\C++\\Hera\\src\\collider.c",
-  "file": "C:\\Users\\User\\Documents\\C++\\Hera\\src\\collider.c",
-  "output": "CMakeFiles\\hera.dir\\src\\collider.c.obj"
+  "directory": "C:/Users/User/Documents/C++/Hera_/build-debug",
+  "command": "C:\\msys64\\mingw64\\bin\\g++.exe -DDBG_MODE -IC:/Users/User/Documents/C++/Hera_/./include -g -o CMakeFiles\\Hera.dir\\src\\Layout.cpp.obj -c C:\\Users\\User\\Documents\\C++\\Hera_\\src\\Layout.cpp",
+  "file": "C:\\Users\\User\\Documents\\C++\\Hera_\\src\\Layout.cpp",
+  "output": "CMakeFiles\\Hera.dir\\src\\Layout.cpp.obj"
 },
 {
-  "directory": "C:/Users/User/Documents/C++/Hera/build-debug",
-  "command": "C:\\msys64\\mingw64\\bin\\gcc.exe -DDBG_MODE -IC:/Users/User/Documents/C++/Hera/./include -g -g -o CMakeFiles\\hera.dir\\src\\glad.c.obj -c C:\\Users\\User\\Documents\\C++\\Hera\\src\\glad.c",
-  "file": "C:\\Users\\User\\Documents\\C++\\Hera\\src\\glad.c",
-  "output": "CMakeFiles\\hera.dir\\src\\glad.c.obj"
+  "directory": "C:/Users/User/Documents/C++/Hera_/build-debug",
+  "command": "C:\\msys64\\mingw64\\bin\\g++.exe -DDBG_MODE -IC:/Users/User/Documents/C++/Hera_/./include -g -o CMakeFiles\\Hera.dir\\src\\Player.cpp.obj -c C:\\Users\\User\\Documents\\C++\\Hera_\\src\\Player.cpp",
+  "file": "C:\\Users\\User\\Documents\\C++\\Hera_\\src\\Player.cpp",
+  "output": "CMakeFiles\\Hera.dir\\src\\Player.cpp.obj"
 },
 {
-  "directory": "C:/Users/User/Documents/C++/Hera/build-debug",
-  "command": "C:\\msys64\\mingw64\\bin\\gcc.exe -DDBG_MODE -IC:/Users/User/Documents/C++/Hera/./include -g -g -o CMakeFiles\\hera.dir\\src\\layout.c.obj -c C:\\Users\\User\\Documents\\C++\\Hera\\src\\layout.c",
-  "file": "C:\\Users\\User\\Documents\\C++\\Hera\\src\\layout.c",
-  "output": "CMakeFiles\\hera.dir\\src\\layout.c.obj"
+  "directory": "C:/Users/User/Documents/C++/Hera_/build-debug",
+  "command": "C:\\msys64\\mingw64\\bin\\g++.exe -DDBG_MODE -IC:/Users/User/Documents/C++/Hera_/./include -g -o CMakeFiles\\Hera.dir\\src\\RenderUtils.cpp.obj -c C:\\Users\\User\\Documents\\C++\\Hera_\\src\\RenderUtils.cpp",
+  "file": "C:\\Users\\User\\Documents\\C++\\Hera_\\src\\RenderUtils.cpp",
+  "output": "CMakeFiles\\Hera.dir\\src\\RenderUtils.cpp.obj"
 },
 {
-  "directory": "C:/Users/User/Documents/C++/Hera/build-debug",
-  "command": "C:\\msys64\\mingw64\\bin\\gcc.exe -DDBG_MODE -IC:/Users/User/Documents/C++/Hera/./include -g -g -o CMakeFiles\\hera.dir\\src\\levels.c.obj -c C:\\Users\\User\\Documents\\C++\\Hera\\src\\levels.c",
-  "file": "C:\\Users\\User\\Documents\\C++\\Hera\\src\\levels.c",
-  "output": "CMakeFiles\\hera.dir\\src\\levels.c.obj"
+  "directory": "C:/Users/User/Documents/C++/Hera_/build-debug",
+  "command": "C:\\msys64\\mingw64\\bin\\g++.exe -DDBG_MODE -IC:/Users/User/Documents/C++/Hera_/./include -g -o CMakeFiles\\Hera.dir\\src\\Shader.cpp.obj -c C:\\Users\\User\\Documents\\C++\\Hera_\\src\\Shader.cpp",
+  "file": "C:\\Users\\User\\Documents\\C++\\Hera_\\src\\Shader.cpp",
+  "output": "CMakeFiles\\Hera.dir\\src\\Shader.cpp.obj"
 },
 {
-  "directory": "C:/Users/User/Documents/C++/Hera/build-debug",
-  "command": "C:\\msys64\\mingw64\\bin\\gcc.exe -DDBG_MODE -IC:/Users/User/Documents/C++/Hera/./include -g -g -o CMakeFiles\\hera.dir\\src\\main.c.obj -c C:\\Users\\User\\Documents\\C++\\Hera\\src\\main.c",
-  "file": "C:\\Users\\User\\Documents\\C++\\Hera\\src\\main.c",
-  "output": "CMakeFiles\\hera.dir\\src\\main.c.obj"
+  "directory": "C:/Users/User/Documents/C++/Hera_/build-debug",
+  "command": "C:\\msys64\\mingw64\\bin\\g++.exe -DDBG_MODE -IC:/Users/User/Documents/C++/Hera_/./include -g -o CMakeFiles\\Hera.dir\\src\\Terrain.cpp.obj -c C:\\Users\\User\\Documents\\C++\\Hera_\\src\\Terrain.cpp",
+  "file": "C:\\Users\\User\\Documents\\C++\\Hera_\\src\\Terrain.cpp",
+  "output": "CMakeFiles\\Hera.dir\\src\\Terrain.cpp.obj"
 },
 {
-  "directory": "C:/Users/User/Documents/C++/Hera/build-debug",
-  "command": "C:\\msys64\\mingw64\\bin\\gcc.exe -DDBG_MODE -IC:/Users/User/Documents/C++/Hera/./include -g -g -o CMakeFiles\\hera.dir\\src\\platforms.c.obj -c C:\\Users\\User\\Documents\\C++\\Hera\\src\\platforms.c",
-  "file": "C:\\Users\\User\\Documents\\C++\\Hera\\src\\platforms.c",
-  "output": "CMakeFiles\\hera.dir\\src\\platforms.c.obj"
+  "directory": "C:/Users/User/Documents/C++/Hera_/build-debug",
+  "command": "C:\\msys64\\mingw64\\bin\\g++.exe -DDBG_MODE -IC:/Users/User/Documents/C++/Hera_/./include -g -o CMakeFiles\\Hera.dir\\src\\Texture.cpp.obj -c C:\\Users\\User\\Documents\\C++\\Hera_\\src\\Texture.cpp",
+  "file": "C:\\Users\\User\\Documents\\C++\\Hera_\\src\\Texture.cpp",
+  "output": "CMakeFiles\\Hera.dir\\src\\Texture.cpp.obj"
 },
 {
-  "directory": "C:/Users/User/Documents/C++/Hera/build-debug",
-  "command": "C:\\msys64\\mingw64\\bin\\gcc.exe -DDBG_MODE -IC:/Users/User/Documents/C++/Hera/./include -g -g -o CMakeFiles\\hera.dir\\src\\renderer.c.obj -c C:\\Users\\User\\Documents\\C++\\Hera\\src\\renderer.c",
-  "file": "C:\\Users\\User\\Documents\\C++\\Hera\\src\\renderer.c",
-  "output": "CMakeFiles\\hera.dir\\src\\renderer.c.obj"
+  "directory": "C:/Users/User/Documents/C++/Hera_/build-debug",
+  "command": "C:\\msys64\\mingw64\\bin\\g++.exe -DDBG_MODE -IC:/Users/User/Documents/C++/Hera_/./include -g -o CMakeFiles\\Hera.dir\\src\\Window.cpp.obj -c C:\\Users\\User\\Documents\\C++\\Hera_\\src\\Window.cpp",
+  "file": "C:\\Users\\User\\Documents\\C++\\Hera_\\src\\Window.cpp",
+  "output": "CMakeFiles\\Hera.dir\\src\\Window.cpp.obj"
 },
 {
-  "directory": "C:/Users/User/Documents/C++/Hera/build-debug",
-  "command": "C:\\msys64\\mingw64\\bin\\gcc.exe -DDBG_MODE -IC:/Users/User/Documents/C++/Hera/./include -g -g -o CMakeFiles\\hera.dir\\src\\renderer_other.c.obj -c C:\\Users\\User\\Documents\\C++\\Hera\\src\\renderer_other.c",
-  "file": "C:\\Users\\User\\Documents\\C++\\Hera\\src\\renderer_other.c",
-  "output": "CMakeFiles\\hera.dir\\src\\renderer_other.c.obj"
+  "directory": "C:/Users/User/Documents/C++/Hera_/build-debug",
+  "command": "C:\\msys64\\mingw64\\bin\\g++.exe -DDBG_MODE -IC:/Users/User/Documents/C++/Hera_/./include -g -o CMakeFiles\\Hera.dir\\src\\glad.cpp.obj -c C:\\Users\\User\\Documents\\C++\\Hera_\\src\\glad.cpp",
+  "file": "C:\\Users\\User\\Documents\\C++\\Hera_\\src\\glad.cpp",
+  "output": "CMakeFiles\\Hera.dir\\src\\glad.cpp.obj"
 },
 {
-  "directory": "C:/Users/User/Documents/C++/Hera/build-debug",
-  "command": "C:\\msys64\\mingw64\\bin\\gcc.exe -DDBG_MODE -IC:/Users/User/Documents/C++/Hera/./include -g -g -o CMakeFiles\\hera.dir\\src\\scene.c.obj -c C:\\Users\\User\\Documents\\C++\\Hera\\src\\scene.c",
-  "file": "C:\\Users\\User\\Documents\\C++\\Hera\\src\\scene.c",
-  "output": "CMakeFiles\\hera.dir\\src\\scene.c.obj"
+  "directory": "C:/Users/User/Documents/C++/Hera_/build-debug",
+  "command": "C:\\msys64\\mingw64\\bin\\g++.exe -DDBG_MODE -IC:/Users/User/Documents/C++/Hera_/./include -g -o CMakeFiles\\Hera.dir\\src\\main.cpp.obj -c C:\\Users\\User\\Documents\\C++\\Hera_\\src\\main.cpp",
+  "file": "C:\\Users\\User\\Documents\\C++\\Hera_\\src\\main.cpp",
+  "output": "CMakeFiles\\Hera.dir\\src\\main.cpp.obj"
 },
 {
-  "directory": "C:/Users/User/Documents/C++/Hera/build-debug",
-  "command": "C:\\msys64\\mingw64\\bin\\gcc.exe -DDBG_MODE -IC:/Users/User/Documents/C++/Hera/./include -g -g -o CMakeFiles\\hera.dir\\src\\shader.c.obj -c C:\\Users\\User\\Documents\\C++\\Hera\\src\\shader.c",
-  "file": "C:\\Users\\User\\Documents\\C++\\Hera\\src\\shader.c",
-  "output": "CMakeFiles\\hera.dir\\src\\shader.c.obj"
-},
-{
-  "directory": "C:/Users/User/Documents/C++/Hera/build-debug",
-  "command": "C:\\msys64\\mingw64\\bin\\gcc.exe -DDBG_MODE -IC:/Users/User/Documents/C++/Hera/./include -g -g -o CMakeFiles\\hera.dir\\src\\stb_image.c.obj -c C:\\Users\\User\\Documents\\C++\\Hera\\src\\stb_image.c",
-  "file": "C:\\Users\\User\\Documents\\C++\\Hera\\src\\stb_image.c",
-  "output": "CMakeFiles\\hera.dir\\src\\stb_image.c.obj"
-},
-{
-  "directory": "C:/Users/User/Documents/C++/Hera/build-debug",
-  "command": "C:\\msys64\\mingw64\\bin\\gcc.exe -DDBG_MODE -IC:/Users/User/Documents/C++/Hera/./include -g -g -o CMakeFiles\\hera.dir\\src\\texture.c.obj -c C:\\Users\\User\\Documents\\C++\\Hera\\src\\texture.c",
-  "file": "C:\\Users\\User\\Documents\\C++\\Hera\\src\\texture.c",
-  "output": "CMakeFiles\\hera.dir\\src\\texture.c.obj"
-},
-{
-  "directory": "C:/Users/User/Documents/C++/Hera/build-debug",
-  "command": "C:\\msys64\\mingw64\\bin\\gcc.exe -DDBG_MODE -IC:/Users/User/Documents/C++/Hera/./include -g -g -o CMakeFiles\\hera.dir\\src\\window.c.obj -c C:\\Users\\User\\Documents\\C++\\Hera\\src\\window.c",
-  "file": "C:\\Users\\User\\Documents\\C++\\Hera\\src\\window.c",
-  "output": "CMakeFiles\\hera.dir\\src\\window.c.obj"
+  "directory": "C:/Users/User/Documents/C++/Hera_/build-debug",
+  "command": "C:\\msys64\\mingw64\\bin\\g++.exe -DDBG_MODE -IC:/Users/User/Documents/C++/Hera_/./include -g -o CMakeFiles\\Hera.dir\\src\\stb_image.cpp.obj -c C:\\Users\\User\\Documents\\C++\\Hera_\\src\\stb_image.cpp",
+  "file": "C:\\Users\\User\\Documents\\C++\\Hera_\\src\\stb_image.cpp",
+  "output": "CMakeFiles\\Hera.dir\\src\\stb_image.cpp.obj"
 }
 ]
