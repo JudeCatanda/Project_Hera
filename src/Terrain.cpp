@@ -59,21 +59,18 @@ void Terrain::create() {
       this->pos_data.push_back(offset);
   }
   this->terrain_hbox_end_size = offset;
-  for (size_t i = 0; i < temp_array.size(); i++) {
-    LOG_DEBUG("temp_array[%zu] = (%.2f, %.2f)", i, temp_array[i].x, temp_array[i].y);
-  }
   positions_buffer->set_data(0, render_count * sizeof(glm::vec2), temp_array.data());
 
-  positions_buffer->bind();
-  void* buffer = glMapBuffer(GL_ARRAY_BUFFER, GL_READ_ONLY);
-  if(buffer) {
-    glm::vec2* gpu_data = (glm::vec2*)buffer;
-    for (size_t i = 0; i < render_count; i++) {
-      LOG_DEBUG("GPU Buffer[%zu] = (%.2f, %.2f)", i, gpu_data[i].x, gpu_data[i].y);
-    }
-    glUnmapBuffer(GL_ARRAY_BUFFER);
-  }
-  positions_buffer->unbind();
+  // positions_buffer->bind();
+  // void* buffer = glMapBuffer(GL_ARRAY_BUFFER, GL_READ_ONLY);
+  // if(buffer) {
+  //   glm::vec2* gpu_data = (glm::vec2*)buffer;
+  //   for (size_t i = 0; i < render_count; i++) {
+  //     LOG_DEBUG("GPU Buffer[%zu] = (%.2f, %.2f)", i, gpu_data[i].x, gpu_data[i].y);
+  //   }
+  //   glUnmapBuffer(GL_ARRAY_BUFFER);
+  // }
+  // positions_buffer->unbind();
 }
 
 void Terrain::draw() {

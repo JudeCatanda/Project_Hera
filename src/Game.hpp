@@ -22,6 +22,8 @@ private:
   Terrain main_world;
   
   float last, current, delta;
+  bool show_fps = false;
+
   std::chrono::high_resolution_clock::time_point last_time, current_time;
   int fps_counter; 
   float FPS;

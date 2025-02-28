@@ -41,7 +41,8 @@ void Game::update() {
 
     if(elapsed.count() >= 1.0f) {
       this->FPS = this->fps_counter / elapsed.count();
-      LOG_DEBUG("FPS: %.0f", this->FPS);
+      if(this->show_fps)
+        LOG_DEBUG("FPS: %.0f", this->FPS);
       this->fps_counter = 0;
       this->last_time = current_time;
     }

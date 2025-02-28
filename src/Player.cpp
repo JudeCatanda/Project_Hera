@@ -5,6 +5,9 @@
 #undef LOG_DEBUG
 #define LOG_DEBUG(fmt, ...) std::printf("[DEBUG] " fmt "\n", ##__VA_ARGS__)
 
+void scroll_callback(GLFWwindow* window, double xOffset, double yOffset);
+static float* zoom, *delta;
+
 typedef struct matrices_struct {
   glm::mat4 projection;
   glm::mat4 view;
@@ -72,6 +75,10 @@ void Player::create() {
   this->camera_position = glm::vec3(0.0f, 0.0f, this->cam_z);
   this->target = glm::vec3(0.0f, 0.0f, -1.0f);
   this->up_vector = glm::vec3(0.0f, 1.0f, 0.0f);
+
+  glfwSetScrollCallback(window->get_handle(), scroll_callback);
+  zoom = &this->f_counter;
+  delta = &this->delta_time;
 }
 
 void Player::draw() {
@@ -88,19 +95,22 @@ void Player::draw() {
   
   this->move();
   this->projection = glm::mat4(1.0f);
-  this->projection = glm::perspective(glm::radians(this->f_counter), *this->window->get_aspect_ratio(), 0.1f, 100.0f);
+  this->projection = glm::perspective(glm::radians(*zoom), *this->window->get_aspect_ratio(), 0.1f, 100.0f);
   this->view = glm::mat4(1.0f);
   this->camera_position = glm::vec3(this->position.x, 0.0f, this->cam_z);
   this->target = glm::vec3(this->position.x, 0.0f, -1.0f);
   this->view = glm::lookAt(this->camera_position, this->target, this->up_vector);
-
+  
   program->send_uniform_float2("position", this->position.x, this->position.y);
-
+  
   matrices_struct msturct;
   msturct.projection = this->projection;
   msturct.view = this->view;
   matrices_buffer->set_data(0, sizeof(matrices_struct), &msturct);
-  
+
+  zoom = &this->f_counter;
+  delta = &this->delta_time;
+
   glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 
   indices_buffer->unbind();
@@ -134,17 +144,6 @@ void Player::move() {
   }
   if(window->is_key_pressed(GLFW_KEY_SPACE) && this->can_jump) {
     this->velocity.y += this->gravity * this->delta_time;
-  }
-
-  if(!disable_physics) {
-    if(window->is_key_pressed(GLFW_KEY_DOWN)) {
-      // this->cam_z += 0.1 * this->delta_time;
-      this->f_counter += 10.0f * this->delta_time;
-    }
-    if(window->is_key_pressed(GLFW_KEY_UP)) {
-      // this->cam_z -= 0.1 * this->delta_time;
-      this->f_counter -= 10.0f * this->delta_time;
-    }
   }
 
   if(!disable_physics)
@@ -194,3 +193,17 @@ void Player::set_falling_point(float y) {
 void Player::disable_physics_now(bool c) {
   this->disable_physics = c;
 }
+
+void scroll_callback(GLFWwindow* window, double xOffset, double yOffset) {
+  const float max_zoom = 125.0f, min_zoom = 15.0f;
+  const float zoom_strenght = 5.0f;
+  if((float)yOffset >= 1.0f)
+    *zoom -= zoom_strenght;
+  if((float)yOffset <= -1.0f) {
+    *zoom += zoom_strenght;
+  }
+  if(*zoom <= min_zoom)
+    *zoom = min_zoom;
+  if(*zoom >= max_zoom)
+    *zoom  = max_zoom;
+};
