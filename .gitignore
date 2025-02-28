@@ -1,7 +1,14 @@
-build-release/.cache
+build-release/.cache/*
 build-release/.cmake
-build-release/.CMakeFiles
+build-release/.cmake/*
+build-release/CMakeFiles
+build-release/CMakeFiles/*
 
-build-debug/.cache
+build-debug/.cache/*
 build-debug/.cmake
-build-debug/.CMakeFiles
+build-debug/.cmake/*
+build-debug/CMakeFiles
+build-debug/CMakeFiles/*
+
+assets/*
+assets/

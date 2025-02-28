@@ -3,7 +3,7 @@ set(CXX_COMPILER g++)
 set(CMAKE_CXX_COMPILER g++)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
-project(Hera VERSION 1.0 LANGUAGES CXX)
+project(hera VERSION 1.0 LANGUAGES CXX)
 
 option(ENABLE_WALL "-- Enable Wall and Wextra" ON)
 if(ENABLE_WALL)
@@ -31,8 +31,8 @@ else()
 endif()
 
 file(GLOB sources "src/*.cpp")
-add_executable(Hera ${sources})
+add_executable(hera ${sources})
 
-target_include_directories(Hera PUBLIC "./include")
-target_link_directories(Hera PUBLIC "./lib")
-target_link_libraries(Hera PUBLIC opengl32 glfw3)# cglm freetype)
+target_include_directories(hera PUBLIC "./include")
+target_link_directories(hera PUBLIC "./lib")
+target_link_libraries(hera PUBLIC opengl32 glfw3)# cglm freetype)
