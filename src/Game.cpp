@@ -39,8 +39,7 @@ void Game::update() {
     if(main_world->is_player_collided(plr->get_position(), 0.2f * 2)){
       // plr->set_falling_point(plr->get_position()->y);
     }
-    AABB_Hitbox *plr_hitbox = plr->get_hitbox(), *ma_hi = main_world->get_hitbox();
-    if(is_collided(*plr_hitbox, *ma_hi)) {
+    if(is_collided(*plr->get_hitbox(), *main_world->get_hitbox())) {
       main_world->dbg_color = 0.0f;
     }
     main_world->draw();
