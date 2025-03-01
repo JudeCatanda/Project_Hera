@@ -7,6 +7,7 @@
 #include "Window.hpp"
 #include "Player.hpp"
 #include "Terrain.hpp"
+#include "AABB.hpp"
 
 #define LOG_DEBUG(fmt, ...) std::printf("[DEBUG] " fmt "\n", ##__VA_ARGS__)
 #define LOG_ERROR(fmt, ...) std::printf("[ERROR] " fmt "\n", ##__VA_ARGS__); \

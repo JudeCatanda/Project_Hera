@@ -111,6 +111,9 @@ void Player::draw() {
   zoom = &this->f_counter;
   delta = &this->delta_time;
 
+  hitbox.origin = this->position;
+  hitbox.size = this->size;
+
   glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 
   indices_buffer->unbind();
@@ -192,6 +195,10 @@ void Player::set_falling_point(float y) {
 
 void Player::disable_physics_now(bool c) {
   this->disable_physics = c;
+}
+
+AABB_Hitbox *Player::get_hitbox() {
+  return &this->hitbox;
 }
 
 void scroll_callback(GLFWwindow* window, double xOffset, double yOffset) {

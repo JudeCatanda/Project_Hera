@@ -1,6 +1,12 @@
 [
 {
   "directory": "C:/Users/User/Documents/C++/Hera/build-debug",
+  "command": "C:\\msys64\\mingw64\\bin\\g++.exe -DDBG_MODE -IC:/Users/User/Documents/C++/Hera/./include -g -o CMakeFiles\\hera.dir\\src\\AABB.cpp.obj -c C:\\Users\\User\\Documents\\C++\\Hera\\src\\AABB.cpp",
+  "file": "C:\\Users\\User\\Documents\\C++\\Hera\\src\\AABB.cpp",
+  "output": "CMakeFiles\\hera.dir\\src\\AABB.cpp.obj"
+},
+{
+  "directory": "C:/Users/User/Documents/C++/Hera/build-debug",
   "command": "C:\\msys64\\mingw64\\bin\\g++.exe -DDBG_MODE -IC:/Users/User/Documents/C++/Hera/./include -g -o CMakeFiles\\hera.dir\\src\\Buffer.cpp.obj -c C:\\Users\\User\\Documents\\C++\\Hera\\src\\Buffer.cpp",
   "file": "C:\\Users\\User\\Documents\\C++\\Hera\\src\\Buffer.cpp",
   "output": "CMakeFiles\\hera.dir\\src\\Buffer.cpp.obj"

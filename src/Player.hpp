@@ -11,6 +11,7 @@
 #include "Buffer.hpp"
 #include "Window.hpp"
 #include "Texture.hpp"
+#include "AABB.hpp"
 
 class Player {
 private:
@@ -33,6 +34,7 @@ private:
   float f_counter = 45.0f;
   float falling_point = -1.0f;
   glm::vec3 camera_position, target, up_vector;
+  AABB_Hitbox hitbox;
 
   bool can_jump = false;
   bool disable_physics = false;
@@ -55,4 +57,5 @@ public:
   void reset_all_stats();
   void set_falling_point(float y);
   void disable_physics_now(bool c);
+  AABB_Hitbox* get_hitbox();
 };

@@ -5,7 +5,7 @@
 #undef LOG_DEBUG
 #define LOG_DEBUG(fmt, ...) std::printf("[DEBUG] " fmt "\n", ##__VA_ARGS__)
 
-const int max_render_for_x = 10;
+const int max_render_for_x = 25;
 const int max_render_for_y = 1;
 const int render_count = max_render_for_x * max_render_for_y;
 
@@ -48,7 +48,7 @@ void Terrain::create() {
   vao->unbind();
 
   std::array<glm::vec2, render_count> temp_array = {};
-  float offset = 0.0f;
+  float offset = 1.0f;
   this->first_offset = offset;
   for (size_t i = 0; i < temp_array.size(); i++) {
     temp_array[i] = glm::vec2(offset, -0.800000012f);
@@ -83,6 +83,9 @@ void Terrain::draw() {
   vao->bind();
   indices_buffer->bind();
   positions_buffer->bind();
+
+  this->hitbox.origin = glm::vec2(this->pos_data[0], -0.800000012f);
+  this->hitbox.size = this->size;
 
   glDrawElementsInstanced(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0, render_count);
   // glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
@@ -136,4 +139,8 @@ bool Terrain::is_player_collided(glm::vec2* plr_pos, float player_hitbox_size) {
   }
   
   return false;
+}
+
+AABB_Hitbox * Terrain::get_hitbox() {
+  return &this->hitbox;
 }

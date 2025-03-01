@@ -58,9 +58,13 @@ void Game::update() {
     plr->draw();
 
     if(main_world->is_player_collided(plr->get_position(), 0.2f * 2)){
-      plr->set_falling_point(plr->get_position()->y);
+      // plr->set_falling_point(plr->get_position()->y);
     }
     main_world->draw();
+
+    if(is_collided(*plr->get_hitbox(), *main_world->get_hitbox())) {
+      LOG_DEBUG("COLLISION!");
+    }
 
     if(window->is_key_pressed(GLFW_KEY_F3)) {
       glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
@@ -71,6 +75,8 @@ void Game::update() {
       plr->disable_physics_now(true);
     if(window->is_key_pressed(GLFW_KEY_BACKSLASH))
       plr->disable_physics_now(false);
+    if(window->is_key_pressed(GLFW_KEY_TAB))
+      this->show_fps = true;
 
     glfwSwapBuffers(window->get_handle());
     glfwPollEvents();
