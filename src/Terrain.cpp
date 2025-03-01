@@ -71,6 +71,8 @@ void Terrain::create() {
   //   glUnmapBuffer(GL_ARRAY_BUFFER);
   // }
   // positions_buffer->unbind();
+  this->hitbox.origin = glm::vec2(this->pos_data[0], -0.800000012f);
+  this->hitbox.size = this->size;
 }
 
 void Terrain::draw() {
@@ -86,6 +88,8 @@ void Terrain::draw() {
 
   this->hitbox.origin = glm::vec2(this->pos_data[0], -0.800000012f);
   this->hitbox.size = this->size;
+
+  program->send_uniform_float("dbg", this->dbg_color);
 
   glDrawElementsInstanced(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0, render_count);
   // glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
@@ -109,9 +113,9 @@ void Terrain::destroy() {
   positions_buffer->destroy();
 }
 
-void Terrain::set_camera(glm::mat4 *mat) {
-  this->camera = *mat;
-}
+// void Terrain::set_camera(glm::mat4 *mat) {
+//   this->camera = *mat;
+// }
 
 bool Terrain::is_player_collided(glm::vec2* plr_pos, float player_hitbox_size) {
   // Define player's AABB (assuming plr_pos is the bottom-left corner)
@@ -143,4 +147,8 @@ bool Terrain::is_player_collided(glm::vec2* plr_pos, float player_hitbox_size) {
 
 AABB_Hitbox * Terrain::get_hitbox() {
   return &this->hitbox;
+}
+
+ShaderProgram *Terrain::get_shader_program(void) {
+  return &this->program;
 }

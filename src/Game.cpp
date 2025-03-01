@@ -60,11 +60,14 @@ void Game::update() {
     if(main_world->is_player_collided(plr->get_position(), 0.2f * 2)){
       // plr->set_falling_point(plr->get_position()->y);
     }
-    main_world->draw();
-
-    if(is_collided(*plr->get_hitbox(), *main_world->get_hitbox())) {
+    AABB_Hitbox *plr_hitbox = plr->get_hitbox(), *ma_hi = main_world->get_hitbox();
+    if(is_collided(*plr_hitbox, *ma_hi)) {
       LOG_DEBUG("COLLISION!");
+      main_world->dbg_color = 0.0f;
     }
+    main_world->draw();
+    
+    main_world->dbg_color = 1.0f;
 
     if(window->is_key_pressed(GLFW_KEY_F3)) {
       glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);

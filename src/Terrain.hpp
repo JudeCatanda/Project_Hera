@@ -27,12 +27,15 @@ private:
 
   glm::mat4 camera;
 public:
+  float dbg_color = 1.0f;
+
   Terrain() = default;
   void create();
   void draw();
   void destroy();
-  void set_camera(glm::mat4* mat);
+  // void set_camera(glm::mat4* mat);
   // bool is_player_collided(glm::vec2* plr_pos, float player_hitbox_size);
   bool is_player_collided(glm::vec2* plr_pos, float player_hitbox_size);
   AABB_Hitbox* get_hitbox();
+  ShaderProgram* get_shader_program(void);
 };
