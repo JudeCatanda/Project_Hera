@@ -93,6 +93,10 @@ void Player::draw() {
   
   this->move();
   this->projection = glm::mat4(1.0f);
+  if(!glfwGetWindowAttrib(window->get_handle(), GLFW_FOCUSED)) {
+    this->destroy();
+    return;
+  };
   this->projection = glm::perspective(glm::radians(*zoom), *this->window->get_aspect_ratio(), 0.1f, 100.0f);
   this->view = glm::mat4(1.0f);
   this->camera_position = glm::vec3(this->position.x, 0.0f, this->cam_z);
@@ -200,7 +204,7 @@ AABB_Hitbox *Player::get_hitbox() {
 }
 
 void scroll_callback(GLFWwindow* window, double xOffset, double yOffset) {
-  const float max_zoom = 125.0f, min_zoom = 15.0f;
+  const float max_zoom = 135.0f, min_zoom = 35.0f;
   const float zoom_strenght = 5.0f;
   if((float)yOffset >= 1.0f)
   *zoom -= zoom_strenght;
