@@ -4,8 +4,6 @@
 #define def_as_ptr(name) typeof(this->name)* name = &this->name
 #undef LOG_DEBUG
 #define LOG_DEBUG(fmt, ...) std::printf("[DEBUG] " fmt "\n", ##__VA_ARGS__)
-
-void scroll_callback(GLFWwindow* window, double xOffset, double yOffset);
 static float* zoom, *delta;
 
 typedef struct matrices_struct {
@@ -76,7 +74,7 @@ void Player::create() {
   this->target = glm::vec3(0.0f, 0.0f, -1.0f);
   this->up_vector = glm::vec3(0.0f, 1.0f, 0.0f);
 
-  glfwSetScrollCallback(window->get_handle(), scroll_callback);
+  glfwSetScrollCallback(window->get_handle(),  (GLFWscrollfun)scroll_callback);
   zoom = &this->f_counter;
   delta = &this->delta_time;
 }
@@ -205,12 +203,15 @@ void scroll_callback(GLFWwindow* window, double xOffset, double yOffset) {
   const float max_zoom = 125.0f, min_zoom = 15.0f;
   const float zoom_strenght = 5.0f;
   if((float)yOffset >= 1.0f)
-    *zoom -= zoom_strenght;
+  *zoom -= zoom_strenght;
   if((float)yOffset <= -1.0f) {
     *zoom += zoom_strenght;
   }
   if(*zoom <= min_zoom)
-    *zoom = min_zoom;
+  *zoom = min_zoom;
   if(*zoom >= max_zoom)
     *zoom  = max_zoom;
 };
+void Player::set_velocity(glm::vec2 velc) {
+  this->velocity = velc;
+}

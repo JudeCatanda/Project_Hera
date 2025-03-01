@@ -58,4 +58,6 @@ public:
   void set_falling_point(float y);
   void disable_physics_now(bool c);
   AABB_Hitbox* get_hitbox();
+  void set_velocity(glm::vec2 velc);
 };
+void scroll_callback(GLFWwindow* window, double xOffset, double yOffset);

@@ -41,6 +41,7 @@ void Game::update() {
     }
     if(is_collided(*plr->get_hitbox(), *main_world->get_hitbox())) {
       main_world->dbg_color = 0.0f;
+      plr->set_velocity(glm::vec2(-0.01f, -0.01f));
     }
     main_world->draw();
     main_world->dbg_color = 1.0f;
