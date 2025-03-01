@@ -20,4 +20,5 @@ public:
   void destroy();
   bool is_key_pressed(int key);
   float* get_aspect_ratio();
+  void set_viewport();
 };

@@ -41,3 +41,8 @@ float *Window::get_aspect_ratio() {
   this->aspect_ratio = (float)this->size.x / (float)this->size.y;
   return &this->aspect_ratio;
 }
+
+void Window::set_viewport() {
+  glm::ivec2* vp_size = this->get_size();
+  glViewport(0, 0, vp_size->x, vp_size->y);
+}

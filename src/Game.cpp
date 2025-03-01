@@ -5,8 +5,7 @@ Game::Game() {
   this->update();
 }
 
-void Game::create()
-{
+void Game::create() {
   def_as_ptr(window);
   def_as_ptr(plr);
   def_as_ptr(main_world);
@@ -17,11 +16,6 @@ void Game::create()
   plr->set_window(window);
   plr->create();
   main_world->create();
-
-
-  this->last_time = std::chrono::high_resolution_clock::now();
-  this->fps_counter = 0;
-  this->FPS = 0.0f;
 }
 
 void Game::update() {
@@ -30,26 +24,11 @@ void Game::update() {
   def_as_ptr(main_world);
   
   while(!window->should_close()) {
-
-    this->current_time = std::chrono::high_resolution_clock::now();
-    std::chrono::duration<float> elapsed = this->current_time - this->last_time;
-    this->fps_counter++;
-    
     this->current = (float)glfwGetTime();
     this->delta = this->current - this->last;
     this->last = this->current;
 
-    if(elapsed.count() >= 1.0f) {
-      this->FPS = this->fps_counter / elapsed.count();
-      if(this->show_fps)
-        LOG_DEBUG("FPS: %.0f", this->FPS);
-      this->fps_counter = 0;
-      this->last_time = current_time;
-    }
-    
-    glm::ivec2* size = window->get_size();
-    glViewport(0, 0, size->x, size->y);
-    
+    window->set_viewport();
     glClearColor(0.2, 0.5, 0.9, 1.0);
     // glClearColor(0.0, 0.0, 0.0, 1.0);
     glClear(GL_COLOR_BUFFER_BIT);
