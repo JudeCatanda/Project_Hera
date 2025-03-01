@@ -35,3 +35,6 @@
 55	3536	7625181201680168	CMakeFiles/hera.dir/src/Game.cpp.obj	6b0ac6de15fad4c9
 61	3762	7625181201680168	CMakeFiles/hera.dir/src/Player.cpp.obj	4a4de9edec821231
 3763	4101	7625181238687412	hera.exe	5deb0e72e27934a1
+53	1749	7625182650331423	CMakeFiles/hera.dir/src/main.cpp.obj	3251ba024cf33cc7
+48	1829	7625182650331423	CMakeFiles/hera.dir/src/Game.cpp.obj	6b0ac6de15fad4c9
+1829	2087	7625182668152033	hera.exe	5deb0e72e27934a1
