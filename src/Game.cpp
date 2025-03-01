@@ -50,8 +50,8 @@ void Game::update() {
     glm::ivec2* size = window->get_size();
     glViewport(0, 0, size->x, size->y);
     
-    // glClearColor(0.2, 0.5, 0.9, 1.0);
-    glClearColor(0.0, 0.0, 0.0, 1.0);
+    glClearColor(0.2, 0.5, 0.9, 1.0);
+    // glClearColor(0.0, 0.0, 0.0, 1.0);
     glClear(GL_COLOR_BUFFER_BIT);
     
     plr->set_delta_time(&this->delta);
@@ -62,11 +62,9 @@ void Game::update() {
     }
     AABB_Hitbox *plr_hitbox = plr->get_hitbox(), *ma_hi = main_world->get_hitbox();
     if(is_collided(*plr_hitbox, *ma_hi)) {
-      LOG_DEBUG("COLLISION!");
       main_world->dbg_color = 0.0f;
     }
     main_world->draw();
-    
     main_world->dbg_color = 1.0f;
 
     if(window->is_key_pressed(GLFW_KEY_F3)) {
