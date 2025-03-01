@@ -55,8 +55,6 @@ void Game::update() {
       plr->disable_physics_now(true);
     if(window->is_key_pressed(GLFW_KEY_BACKSLASH))
       plr->disable_physics_now(false);
-    if(window->is_key_pressed(GLFW_KEY_TAB))
-      this->show_fps = true;
 
     glfwSwapBuffers(window->get_handle());
     glfwPollEvents();
