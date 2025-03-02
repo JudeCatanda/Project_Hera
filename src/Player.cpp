@@ -115,6 +115,7 @@ void Player::draw() {
 
   hitbox.origin = this->position;
   hitbox.size = this->size;
+  hitbox.maximum = hitbox.origin + (this->size * 2);
 
   glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 
@@ -138,14 +139,14 @@ void Player::destroy() {
 void Player::move() {
   Window* window = this->window;
   
+  this->horizontal_input_vector = 0.0f;
   if(window->is_key_pressed(GLFW_KEY_D)) {
-    if(!is_collided_with_object)
-      this->velocity.x += this->speed;
-    else
-      this->velocity.x = -0.01f;
+    // this->velocity.x += this->speed;
+    this->horizontal_input_vector += 1.0f;
   };
   if(window->is_key_pressed(GLFW_KEY_A)) {
-    this->velocity.x -= this->speed;
+    // this->velocity.x -= this->speed;
+    this->horizontal_input_vector -= 1.0f;
   };
   if(!this->can_jump) {
     this->velocity.y -= this->gravity * this->delta_time;
@@ -153,13 +154,14 @@ void Player::move() {
   if(window->is_key_pressed(GLFW_KEY_SPACE) && this->can_jump) {
     this->velocity.y += this->gravity * this->delta_time;
   }
+  // LOG_DEBUG("Horizontal Input = %10.f", this->horizontal_input_vector);
 
   if(!disable_physics)
     this->process_physics();
 }
 
 void Player::process_physics() {
-  this->position.x += this->velocity.x * this->delta_time;
+  this->position.x += this->velocity.x;// * this->delta_time;
   this->position.y += this->velocity.y * this->delta_time;
 
   if(this->position.y <= this->falling_point) { //if the player is in the window and not at the maximum y (max size of window->y) then fall
@@ -170,6 +172,7 @@ void Player::process_physics() {
   if(this->position.y + this->size > this->max_jump_height)
     this->can_jump = false;
   
+  this->velocity.x = this->horizontal_input_vector * this->speed;
 }
 
 void Player::set_window(Window *window) {
@@ -182,21 +185,6 @@ void Player::set_delta_time(float *dt) {
 
 glm::vec2 *Player::get_position() {
   return &this->position;
-}
-
-
-void Player::reset_all_stats() {
-  this->position = glm::vec2(0.0f);
-  // this->velocity = glm::vec2(0.0f);
-  LOG_DEBUG("RESSETING PLAYER STATS");
-}
-
-void Player::set_falling_point(float y) {
-  this->falling_point = y;
-}
-
-void Player::disable_physics_now(bool c) {
-  this->disable_physics = c;
 }
 
 AABB_Hitbox *Player::get_hitbox() {
@@ -214,8 +202,39 @@ void scroll_callback(GLFWwindow* window, double xOffset, double yOffset) {
   if(*zoom <= min_zoom)
   *zoom = min_zoom;
   if(*zoom >= max_zoom)
-    *zoom  = max_zoom;
+  *zoom  = max_zoom;
 };
 void Player::set_velocity(glm::vec2 velc) {
   this->velocity = velc;
+}
+
+void Player::set_position(glm::vec2 pos) {
+  this->position = pos;
+  this->program.send_uniform_float2("position", this->position.x, this->position.y);
+}
+
+void Player::set_falling_point(float y) {
+  this->falling_point = y;
+}
+
+void Player::set_x_pos(float x) {
+  this->position.x = x;
+  this->program.send_uniform_float2("position", this->position.x, this->position.y);
+}
+
+void Player::set_y_pos(float y) {
+  this->position.y = y;
+  this->program.send_uniform_float2("position", this->position.x, this->position.y);
+}
+
+glm::vec2 Player::get_velocity() {
+  return this->velocity;
+}
+
+float Player::get_x_pos() {
+  return this->get_position()->x;
+}
+
+float Player::get_y_pos() {
+  return this->get_position()->y;
 }

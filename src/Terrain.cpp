@@ -73,6 +73,7 @@ void Terrain::create() {
   // positions_buffer->unbind();
   this->hitbox.origin = glm::vec2(this->pos_data[0], -0.800000012f);
   this->hitbox.size = this->size;
+  this->hitbox.maximum =  this->hitbox.origin + this->size * 2;
 }
 
 void Terrain::draw() {
