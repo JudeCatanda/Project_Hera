@@ -139,7 +139,10 @@ void Player::move() {
   Window* window = this->window;
   
   if(window->is_key_pressed(GLFW_KEY_D)) {
-    this->velocity.x += this->speed;
+    if(!is_collided_with_object)
+      this->velocity.x += this->speed;
+    else
+      this->velocity.x = -0.01f;
   };
   if(window->is_key_pressed(GLFW_KEY_A)) {
     this->velocity.x -= this->speed;
@@ -181,9 +184,6 @@ glm::vec2 *Player::get_position() {
   return &this->position;
 }
 
-glm::mat4 Player::get_camera() {
-  return this->projection * this->view;
-}
 
 void Player::reset_all_stats() {
   this->position = glm::vec2(0.0f);
