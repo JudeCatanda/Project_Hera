@@ -67,7 +67,6 @@ void Player::create() {
   vao->unbind();
 
   this->speed = 0.001f; //implicit
-  this->velocity = glm::vec2(0.0f, 0.0f);
   this->position = glm::vec2(0.0f, 0.0f);
 
   this->camera_position = glm::vec3(0.0f, 0.0f, this->cam_z);
@@ -139,40 +138,14 @@ void Player::destroy() {
 void Player::move() {
   Window* window = this->window;
   
-  this->horizontal_input_vector = 0.0f;
   if(window->is_key_pressed(GLFW_KEY_D)) {
     // this->velocity.x += this->speed;
-    this->horizontal_input_vector += 1.0f;
+    this->position.x += this->speed * this->delta_time;
   };
   if(window->is_key_pressed(GLFW_KEY_A)) {
     // this->velocity.x -= this->speed;
-    this->horizontal_input_vector -= 1.0f;
+    this->position.x -= this->speed * this->delta_time;
   };
-  if(!this->can_jump) {
-    this->velocity.y -= this->gravity * this->delta_time;
-  }
-  if(window->is_key_pressed(GLFW_KEY_SPACE) && this->can_jump) {
-    this->velocity.y += this->gravity * this->delta_time;
-  }
-  // LOG_DEBUG("Horizontal Input = %10.f", this->horizontal_input_vector);
-
-  if(!disable_physics)
-    this->process_physics();
-}
-
-void Player::process_physics() {
-  this->position.x += this->velocity.x;// * this->delta_time;
-  this->position.y += this->velocity.y * this->delta_time;
-
-  if(this->position.y <= this->falling_point) { //if the player is in the window and not at the maximum y (max size of window->y) then fall
-    this->position.y = this->falling_point;//  + this->size;
-    this->velocity.y = 0.0f;
-    this->can_jump = true;
-  }
-  if(this->position.y + this->size > this->max_jump_height)
-    this->can_jump = false;
-  
-  this->velocity.x = this->horizontal_input_vector * this->speed;
 }
 
 void Player::set_window(Window *window) {
@@ -204,17 +177,10 @@ void scroll_callback(GLFWwindow* window, double xOffset, double yOffset) {
   if(*zoom >= max_zoom)
   *zoom  = max_zoom;
 };
-void Player::set_velocity(glm::vec2 velc) {
-  this->velocity = velc;
-}
 
 void Player::set_position(glm::vec2 pos) {
   this->position = pos;
   this->program.send_uniform_float2("position", this->position.x, this->position.y);
-}
-
-void Player::set_falling_point(float y) {
-  this->falling_point = y;
 }
 
 void Player::set_x_pos(float x) {
@@ -225,10 +191,6 @@ void Player::set_x_pos(float x) {
 void Player::set_y_pos(float y) {
   this->position.y = y;
   this->program.send_uniform_float2("position", this->position.x, this->position.y);
-}
-
-glm::vec2 Player::get_velocity() {
-  return this->velocity;
 }
 
 float Player::get_x_pos() {

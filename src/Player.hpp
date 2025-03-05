@@ -37,8 +37,8 @@ private:
   glm::vec2 position;
   glm::mat4 projection;
   glm::mat4 view;
+
   void move();
-  void process_physics();
 public:
   Player() = default;
   void create();
@@ -47,19 +47,15 @@ public:
 
   void set_window(Window* window);
   void set_delta_time(float* dt);
-  void set_velocity(glm::vec2 velc);
   void set_position(glm::vec2 pos);
-  void set_falling_point(float y);
   void set_x_pos(float x);
   void set_y_pos(float y);
   
   glm::vec2* get_position();
   AABB_Hitbox* get_hitbox();
-  glm::vec2 get_velocity();
   float get_x_pos();
   float get_y_pos();
 
   void reset_all_stats();
-  void disable_physics_now(bool c);
 };
 void scroll_callback(GLFWwindow* window, double xOffset, double yOffset);

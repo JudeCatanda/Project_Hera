@@ -36,14 +36,7 @@ void Game::update() {
     plr->set_delta_time(&this->delta);
     plr->draw();
 
-    if(is_collided(*plr->get_hitbox(), *main_world->get_hitbox())) {
-      main_world->dbg_color = 0.0f;
-      // plr->set_position(glm::vec2(main_world->get_hitbox()->origin.x - 0.01, plr->get_hitbox()->origin.y));
-      plr->set_falling_point(main_world->get_hitbox()->origin.y + main_world->get_hitbox()->size * 2);
-    }
-    // plr->set_falling_point(-1.0f);
     main_world->draw();
-    main_world->dbg_color = 1.0f;
 
     if(window->is_key_pressed(GLFW_KEY_F3)) {
       glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);

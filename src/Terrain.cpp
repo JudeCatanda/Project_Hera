@@ -49,16 +49,6 @@ void Terrain::create() {
 
   std::array<glm::vec2, render_count> temp_array = {};
   float offset = 1.0f;
-  this->first_offset = offset;
-  for (size_t i = 0; i < temp_array.size(); i++) {
-    temp_array[i] = glm::vec2(offset, -0.800000012f);
-    if(i == 0)
-      this->pos_data.push_back(offset);
-    offset += this->size * 2;
-    if(i == temp_array.size() - 1)
-      this->pos_data.push_back(offset);
-  }
-  this->terrain_hbox_end_size = offset;
   positions_buffer->set_data(0, render_count * sizeof(glm::vec2), temp_array.data());
 
   // positions_buffer->bind();
@@ -71,7 +61,6 @@ void Terrain::create() {
   //   glUnmapBuffer(GL_ARRAY_BUFFER);
   // }
   // positions_buffer->unbind();
-  this->hitbox.origin = glm::vec2(this->pos_data[0], -0.800000012f);
   this->hitbox.size = this->size;
   this->hitbox.maximum =  this->hitbox.origin + this->size * 2;
 }
@@ -87,10 +76,7 @@ void Terrain::draw() {
   indices_buffer->bind();
   positions_buffer->bind();
 
-  this->hitbox.origin = glm::vec2(this->pos_data[0], -0.800000012f);
   this->hitbox.size = this->size;
-
-  program->send_uniform_float("dbg", this->dbg_color);
 
   glDrawElementsInstanced(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0, render_count);
   // glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
@@ -112,44 +98,4 @@ void Terrain::destroy() {
   mesh_buffer->destroy();
   indices_buffer->destroy();
   positions_buffer->destroy();
-}
-
-// void Terrain::set_camera(glm::mat4 *mat) {
-//   this->camera = *mat;
-// }
-
-bool Terrain::is_player_collided(glm::vec2* plr_pos, float player_hitbox_size) {
-  // Define player's AABB (assuming plr_pos is the bottom-left corner)
-  glm::vec2 player_min = *plr_pos;
-  glm::vec2 player_max = *plr_pos + glm::vec2(player_hitbox_size, player_hitbox_size);
-  
-  // Known terrain parameters:
-  float terrainWidth = this->size * 2.0f;
-  float terrainY = -0.800000012f;  // constant y position used in your positions_buffer
-  // Let's assume the terrain instances are arranged in a line along the x-axis.
-  float firstOffset = 0.0f;  // or this->first_offset if you set it elsewhere
-  
-  // for (size_t i = 0; i < render_count; i++) {
-  //     float instanceX = firstOffset + i * terrainWidth;
-  //     glm::vec2 terrain_min = glm::vec2(instanceX, terrainY);
-  //     glm::vec2 terrain_max = terrain_min + glm::vec2(terrainWidth, terrainWidth); // assuming square terrain
-      
-  //     if (player_max.x >= terrain_min.x && player_min.x <= terrain_max.x &&
-  //         player_max.y >= terrain_min.y && player_min.y <= terrain_max.y) {
-  //         return true;
-  //     }
-  if(player_max.x >= this->pos_data[0] && player_min.x <= this->pos_data[1] &&
-     player_max.y >= terrainY && player_min.y <= terrainY + terrainWidth) {
-    return true;
-  }
-  
-  return false;
-}
-
-AABB_Hitbox * Terrain::get_hitbox() {
-  return &this->hitbox;
-}
-
-ShaderProgram *Terrain::get_shader_program(void) {
-  return &this->program;
 }
