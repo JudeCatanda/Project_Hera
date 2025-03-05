@@ -26,20 +26,13 @@ private:
   std::vector<Vertex> texture_positions;
 
   /* PHYSICS RELATED FUNCTIONS AND CAMERA */
-  glm::vec2 velocity; 
-  float horizontal_input_vector = 0.0f;
   float speed = 0.4f; //constant speed no velocity yey!
-  float gravity = 9.8f;
   float size = 0.2f;
-  float max_jump_height = 0.3f;
   float health = 100.0f;
   float cam_z = 2.42085743;//-2.42085743;
   float f_counter = 45.0f;
-  float falling_point = -1.0f;
   glm::vec3 camera_position, target, up_vector;
   AABB_Hitbox hitbox;
-  bool can_jump = false;
-  bool disable_physics = false;
   float delta_time;
   glm::vec2 position;
   glm::mat4 projection;
