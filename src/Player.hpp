@@ -26,7 +26,7 @@ private:
   std::vector<Vertex> texture_positions;
 
   /* PHYSICS RELATED FUNCTIONS AND CAMERA */
-  float speed = 0.4f; //constant speed no velocity yey!
+  float speed = 1.0f; //constant speed no velocity yey!
   float size = 0.2f;
   float health = 100.0f;
   float cam_z = 2.42085743;//-2.42085743;

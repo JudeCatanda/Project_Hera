@@ -47,7 +47,7 @@ void Player::create() {
   glBindBufferBase(GL_UNIFORM_BUFFER, 0, matrices_buffer->get_handle());
 
   texture_positions_buffer->create(this->texture_positions.size() * sizeof(Vertex), this->texture_positions.data(), GL_STATIC_DRAW, GL_ARRAY_BUFFER);
-  vao->enable_and_set_attrib_ptr(2, 2, GL_FLOAT, sizeof(Vertex), (const void*)0);
+  vao->enable_and_set_attrib_ptr(2, 2, GL_FLOAT, 2 * sizeof(float), (const void*)0);
 
   mesh_buffer->create(this->mesh_data.size() * sizeof(Vertex), this->mesh_data.data(), GL_STATIC_DRAW, GL_ARRAY_BUFFER);
   vao->enable_and_set_attrib_ptr(0, 2, GL_FLOAT, sizeof(Vertex), (const void*)0);
@@ -98,8 +98,8 @@ void Player::draw() {
   };
   this->projection = glm::perspective(glm::radians(*zoom), *this->window->get_aspect_ratio(), 0.1f, 100.0f);
   this->view = glm::mat4(1.0f);
-  this->camera_position = glm::vec3(this->position.x, 0.0f, this->cam_z);
-  this->target = glm::vec3(this->position.x, 0.0f, -1.0f);
+  this->camera_position = glm::vec3(this->position.x, this->position.y, this->cam_z);
+  this->target = glm::vec3(this->position.x, this->position.y, -1.0f);
   this->view = glm::lookAt(this->camera_position, this->target, this->up_vector);
   
   program->send_uniform_float2("position", this->position.x, this->position.y);
@@ -139,13 +139,17 @@ void Player::move() {
   Window* window = this->window;
   
   if(window->is_key_pressed(GLFW_KEY_D)) {
-    // this->velocity.x += this->speed;
-    this->position.x += this->speed * this->delta_time;
+    this->position.x += this->speed;
   };
   if(window->is_key_pressed(GLFW_KEY_A)) {
-    // this->velocity.x -= this->speed;
-    this->position.x -= this->speed * this->delta_time;
+    this->position.x -= this->speed;
   };
+  if(window->is_key_pressed(GLFW_KEY_W)) {
+    this->position.y += this->speed;
+  }
+  if(window->is_key_pressed(GLFW_KEY_S)) {
+    this->position.y -= this->speed;
+  }
 }
 
 void Player::set_window(Window *window) {
