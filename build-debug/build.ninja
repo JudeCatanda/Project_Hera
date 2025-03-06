@@ -52,7 +52,7 @@ build cmake_object_order_depends_target_hera: phony || .
 build CMakeFiles/hera.dir/src/AABB.cpp.obj: CXX_COMPILER__hera_unscanned_Debug C$:/Users/User/Documents/C++/Hera/src/AABB.cpp || cmake_object_order_depends_target_hera
   DEFINES = -DDBG_MODE
   DEP_FILE = CMakeFiles\hera.dir\src\AABB.cpp.obj.d
-  FLAGS = -g
+  FLAGS = -Wall -Wextra -g -g
   INCLUDES = -IC:/Users/User/Documents/C++/Hera/./include
   OBJECT_DIR = CMakeFiles\hera.dir
   OBJECT_FILE_DIR = CMakeFiles\hera.dir\src
@@ -60,7 +60,7 @@ build CMakeFiles/hera.dir/src/AABB.cpp.obj: CXX_COMPILER__hera_unscanned_Debug C
 build CMakeFiles/hera.dir/src/Buffer.cpp.obj: CXX_COMPILER__hera_unscanned_Debug C$:/Users/User/Documents/C++/Hera/src/Buffer.cpp || cmake_object_order_depends_target_hera
   DEFINES = -DDBG_MODE
   DEP_FILE = CMakeFiles\hera.dir\src\Buffer.cpp.obj.d
-  FLAGS = -g
+  FLAGS = -Wall -Wextra -g -g
   INCLUDES = -IC:/Users/User/Documents/C++/Hera/./include
   OBJECT_DIR = CMakeFiles\hera.dir
   OBJECT_FILE_DIR = CMakeFiles\hera.dir\src
@@ -68,7 +68,7 @@ build CMakeFiles/hera.dir/src/Buffer.cpp.obj: CXX_COMPILER__hera_unscanned_Debug
 build CMakeFiles/hera.dir/src/Game.cpp.obj: CXX_COMPILER__hera_unscanned_Debug C$:/Users/User/Documents/C++/Hera/src/Game.cpp || cmake_object_order_depends_target_hera
   DEFINES = -DDBG_MODE
   DEP_FILE = CMakeFiles\hera.dir\src\Game.cpp.obj.d
-  FLAGS = -g
+  FLAGS = -Wall -Wextra -g -g
   INCLUDES = -IC:/Users/User/Documents/C++/Hera/./include
   OBJECT_DIR = CMakeFiles\hera.dir
   OBJECT_FILE_DIR = CMakeFiles\hera.dir\src
@@ -76,7 +76,7 @@ build CMakeFiles/hera.dir/src/Game.cpp.obj: CXX_COMPILER__hera_unscanned_Debug C
 build CMakeFiles/hera.dir/src/Layout.cpp.obj: CXX_COMPILER__hera_unscanned_Debug C$:/Users/User/Documents/C++/Hera/src/Layout.cpp || cmake_object_order_depends_target_hera
   DEFINES = -DDBG_MODE
   DEP_FILE = CMakeFiles\hera.dir\src\Layout.cpp.obj.d
-  FLAGS = -g
+  FLAGS = -Wall -Wextra -g -g
   INCLUDES = -IC:/Users/User/Documents/C++/Hera/./include
   OBJECT_DIR = CMakeFiles\hera.dir
   OBJECT_FILE_DIR = CMakeFiles\hera.dir\src
@@ -84,7 +84,7 @@ build CMakeFiles/hera.dir/src/Layout.cpp.obj: CXX_COMPILER__hera_unscanned_Debug
 build CMakeFiles/hera.dir/src/Player.cpp.obj: CXX_COMPILER__hera_unscanned_Debug C$:/Users/User/Documents/C++/Hera/src/Player.cpp || cmake_object_order_depends_target_hera
   DEFINES = -DDBG_MODE
   DEP_FILE = CMakeFiles\hera.dir\src\Player.cpp.obj.d
-  FLAGS = -g
+  FLAGS = -Wall -Wextra -g -g
   INCLUDES = -IC:/Users/User/Documents/C++/Hera/./include
   OBJECT_DIR = CMakeFiles\hera.dir
   OBJECT_FILE_DIR = CMakeFiles\hera.dir\src
@@ -92,7 +92,7 @@ build CMakeFiles/hera.dir/src/Player.cpp.obj: CXX_COMPILER__hera_unscanned_Debug
 build CMakeFiles/hera.dir/src/RenderUtils.cpp.obj: CXX_COMPILER__hera_unscanned_Debug C$:/Users/User/Documents/C++/Hera/src/RenderUtils.cpp || cmake_object_order_depends_target_hera
   DEFINES = -DDBG_MODE
   DEP_FILE = CMakeFiles\hera.dir\src\RenderUtils.cpp.obj.d
-  FLAGS = -g
+  FLAGS = -Wall -Wextra -g -g
   INCLUDES = -IC:/Users/User/Documents/C++/Hera/./include
   OBJECT_DIR = CMakeFiles\hera.dir
   OBJECT_FILE_DIR = CMakeFiles\hera.dir\src
@@ -100,7 +100,7 @@ build CMakeFiles/hera.dir/src/RenderUtils.cpp.obj: CXX_COMPILER__hera_unscanned_
 build CMakeFiles/hera.dir/src/Shader.cpp.obj: CXX_COMPILER__hera_unscanned_Debug C$:/Users/User/Documents/C++/Hera/src/Shader.cpp || cmake_object_order_depends_target_hera
   DEFINES = -DDBG_MODE
   DEP_FILE = CMakeFiles\hera.dir\src\Shader.cpp.obj.d
-  FLAGS = -g
+  FLAGS = -Wall -Wextra -g -g
   INCLUDES = -IC:/Users/User/Documents/C++/Hera/./include
   OBJECT_DIR = CMakeFiles\hera.dir
   OBJECT_FILE_DIR = CMakeFiles\hera.dir\src
@@ -108,7 +108,7 @@ build CMakeFiles/hera.dir/src/Shader.cpp.obj: CXX_COMPILER__hera_unscanned_Debug
 build CMakeFiles/hera.dir/src/Terrain.cpp.obj: CXX_COMPILER__hera_unscanned_Debug C$:/Users/User/Documents/C++/Hera/src/Terrain.cpp || cmake_object_order_depends_target_hera
   DEFINES = -DDBG_MODE
   DEP_FILE = CMakeFiles\hera.dir\src\Terrain.cpp.obj.d
-  FLAGS = -g
+  FLAGS = -Wall -Wextra -g -g
   INCLUDES = -IC:/Users/User/Documents/C++/Hera/./include
   OBJECT_DIR = CMakeFiles\hera.dir
   OBJECT_FILE_DIR = CMakeFiles\hera.dir\src
@@ -116,7 +116,7 @@ build CMakeFiles/hera.dir/src/Terrain.cpp.obj: CXX_COMPILER__hera_unscanned_Debu
 build CMakeFiles/hera.dir/src/Texture.cpp.obj: CXX_COMPILER__hera_unscanned_Debug C$:/Users/User/Documents/C++/Hera/src/Texture.cpp || cmake_object_order_depends_target_hera
   DEFINES = -DDBG_MODE
   DEP_FILE = CMakeFiles\hera.dir\src\Texture.cpp.obj.d
-  FLAGS = -g
+  FLAGS = -Wall -Wextra -g -g
   INCLUDES = -IC:/Users/User/Documents/C++/Hera/./include
   OBJECT_DIR = CMakeFiles\hera.dir
   OBJECT_FILE_DIR = CMakeFiles\hera.dir\src
@@ -124,7 +124,7 @@ build CMakeFiles/hera.dir/src/Texture.cpp.obj: CXX_COMPILER__hera_unscanned_Debu
 build CMakeFiles/hera.dir/src/Window.cpp.obj: CXX_COMPILER__hera_unscanned_Debug C$:/Users/User/Documents/C++/Hera/src/Window.cpp || cmake_object_order_depends_target_hera
   DEFINES = -DDBG_MODE
   DEP_FILE = CMakeFiles\hera.dir\src\Window.cpp.obj.d
-  FLAGS = -g
+  FLAGS = -Wall -Wextra -g -g
   INCLUDES = -IC:/Users/User/Documents/C++/Hera/./include
   OBJECT_DIR = CMakeFiles\hera.dir
   OBJECT_FILE_DIR = CMakeFiles\hera.dir\src
@@ -132,7 +132,7 @@ build CMakeFiles/hera.dir/src/Window.cpp.obj: CXX_COMPILER__hera_unscanned_Debug
 build CMakeFiles/hera.dir/src/glad.cpp.obj: CXX_COMPILER__hera_unscanned_Debug C$:/Users/User/Documents/C++/Hera/src/glad.cpp || cmake_object_order_depends_target_hera
   DEFINES = -DDBG_MODE
   DEP_FILE = CMakeFiles\hera.dir\src\glad.cpp.obj.d
-  FLAGS = -g
+  FLAGS = -Wall -Wextra -g -g
   INCLUDES = -IC:/Users/User/Documents/C++/Hera/./include
   OBJECT_DIR = CMakeFiles\hera.dir
   OBJECT_FILE_DIR = CMakeFiles\hera.dir\src
@@ -140,7 +140,7 @@ build CMakeFiles/hera.dir/src/glad.cpp.obj: CXX_COMPILER__hera_unscanned_Debug C
 build CMakeFiles/hera.dir/src/main.cpp.obj: CXX_COMPILER__hera_unscanned_Debug C$:/Users/User/Documents/C++/Hera/src/main.cpp || cmake_object_order_depends_target_hera
   DEFINES = -DDBG_MODE
   DEP_FILE = CMakeFiles\hera.dir\src\main.cpp.obj.d
-  FLAGS = -g
+  FLAGS = -Wall -Wextra -g -g
   INCLUDES = -IC:/Users/User/Documents/C++/Hera/./include
   OBJECT_DIR = CMakeFiles\hera.dir
   OBJECT_FILE_DIR = CMakeFiles\hera.dir\src
@@ -148,7 +148,7 @@ build CMakeFiles/hera.dir/src/main.cpp.obj: CXX_COMPILER__hera_unscanned_Debug C
 build CMakeFiles/hera.dir/src/stb_image.cpp.obj: CXX_COMPILER__hera_unscanned_Debug C$:/Users/User/Documents/C++/Hera/src/stb_image.cpp || cmake_object_order_depends_target_hera
   DEFINES = -DDBG_MODE
   DEP_FILE = CMakeFiles\hera.dir\src\stb_image.cpp.obj.d
-  FLAGS = -g
+  FLAGS = -Wall -Wextra -g -g
   INCLUDES = -IC:/Users/User/Documents/C++/Hera/./include
   OBJECT_DIR = CMakeFiles\hera.dir
   OBJECT_FILE_DIR = CMakeFiles\hera.dir\src
@@ -162,7 +162,7 @@ build CMakeFiles/hera.dir/src/stb_image.cpp.obj: CXX_COMPILER__hera_unscanned_De
 # Link the executable hera.exe
 
 build hera.exe: CXX_EXECUTABLE_LINKER__hera_Debug CMakeFiles/hera.dir/src/AABB.cpp.obj CMakeFiles/hera.dir/src/Buffer.cpp.obj CMakeFiles/hera.dir/src/Game.cpp.obj CMakeFiles/hera.dir/src/Layout.cpp.obj CMakeFiles/hera.dir/src/Player.cpp.obj CMakeFiles/hera.dir/src/RenderUtils.cpp.obj CMakeFiles/hera.dir/src/Shader.cpp.obj CMakeFiles/hera.dir/src/Terrain.cpp.obj CMakeFiles/hera.dir/src/Texture.cpp.obj CMakeFiles/hera.dir/src/Window.cpp.obj CMakeFiles/hera.dir/src/glad.cpp.obj CMakeFiles/hera.dir/src/main.cpp.obj CMakeFiles/hera.dir/src/stb_image.cpp.obj
-  FLAGS = -g
+  FLAGS = -Wall -Wextra -g -g
   LINK_LIBRARIES = -lopengl32  -lglfw3  -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   LINK_PATH = -LC:/Users/User/Documents/C++/Hera/./lib
   OBJECT_DIR = CMakeFiles\hera.dir

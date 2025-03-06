@@ -67,7 +67,7 @@ void Player::create() {
   vao->unbind();
 
   this->speed = 0.001f; //implicit
-  this->position = glm::vec2(0.0f, 0.0f);
+  this->position = glm::vec2(0.0f, -0.770001531f);
 
   this->camera_position = glm::vec3(0.0f, 0.0f, this->cam_z);
   this->target = glm::vec3(0.0f, 0.0f, -1.0f);
@@ -84,26 +84,22 @@ void Player::draw() {
   def_as_ptr(indices_buffer);
   def_as_ptr(matrices_buffer);
   def_as_ptr(texture);
-  
+
   program->bind();
   texture->bind_and_set_active(GL_TEXTURE0);
   vao->bind();
   indices_buffer->bind();
-  
+
   this->move();
   this->projection = glm::mat4(1.0f);
-  if(!glfwGetWindowAttrib(window->get_handle(), GLFW_FOCUSED)) {
-    this->destroy();
-    return;
-  };
   this->projection = glm::perspective(glm::radians(*zoom), *this->window->get_aspect_ratio(), 0.1f, 100.0f);
   this->view = glm::mat4(1.0f);
-  this->camera_position = glm::vec3(this->position.x, this->position.y, this->cam_z);
-  this->target = glm::vec3(this->position.x, this->position.y, -1.0f);
+  this->camera_position = glm::vec3(0.0f, 0.0f, this->cam_z);
+  this->target = glm::vec3(0.0f, 0.0f, -1.0f);
   this->view = glm::lookAt(this->camera_position, this->target, this->up_vector);
-  
+
   program->send_uniform_float2("position", this->position.x, this->position.y);
-  
+
   matrices_struct msturct;
   msturct.projection = this->projection;
   msturct.view = this->view;
@@ -137,19 +133,15 @@ void Player::destroy() {
 
 void Player::move() {
   Window* window = this->window;
-  
+
   if(window->is_key_pressed(GLFW_KEY_D)) {
     this->position.x += this->speed;
   };
   if(window->is_key_pressed(GLFW_KEY_A)) {
     this->position.x -= this->speed;
   };
-  if(window->is_key_pressed(GLFW_KEY_W)) {
+  if(window->is_key_pressed(GLFW_KEY_0))
     this->position.y += this->speed;
-  }
-  if(window->is_key_pressed(GLFW_KEY_S)) {
-    this->position.y -= this->speed;
-  }
 }
 
 void Player::set_window(Window *window) {

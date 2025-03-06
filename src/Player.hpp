@@ -26,11 +26,11 @@ private:
   std::vector<Vertex> texture_positions;
 
   /* PHYSICS RELATED FUNCTIONS AND CAMERA */
-  float speed = 1.0f; //constant speed no velocity yey!
-  float size = 0.2f;
+  float speed = 0.3f; //constant speed no velocity yey!
+  float size = 0.1f;
   float health = 100.0f;
   float cam_z = 2.42085743;//-2.42085743;
-  float f_counter = 45.0f;
+  float f_counter = 40.0f;
   glm::vec3 camera_position, target, up_vector;
   AABB_Hitbox hitbox;
   float delta_time;

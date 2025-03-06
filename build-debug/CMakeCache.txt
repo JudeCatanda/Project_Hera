@@ -223,7 +223,7 @@ CMAKE_TAPI:FILEPATH=CMAKE_TAPI-NOTFOUND
 CMAKE_VERBOSE_MAKEFILE:BOOL=FALSE
 
 //-- Enable Wall and Wextra
-ENABLE_WALL:BOOL=Off
+ENABLE_WALL:BOOL=On
 
 //Value Computed by CMake
 hera_BINARY_DIR:STATIC=C:/Users/User/Documents/C++/Hera/build-debug
