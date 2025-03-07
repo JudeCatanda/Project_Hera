@@ -55,7 +55,6 @@ public:
   AABB_Hitbox* get_hitbox();
   float get_x_pos();
   float get_y_pos();
-
   void reset_all_stats();
 };
 void scroll_callback(GLFWwindow* window, double xOffset, double yOffset);

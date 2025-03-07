@@ -168,10 +168,11 @@ void scroll_callback(GLFWwindow* window, double xOffset, double yOffset) {
   if((float)yOffset <= -1.0f) {
     *zoom += zoom_strenght;
   }
+
   if(*zoom <= min_zoom)
-  *zoom = min_zoom;
+    *zoom = min_zoom;
   if(*zoom >= max_zoom)
-  *zoom  = max_zoom;
+    *zoom  = max_zoom;
 };
 
 void Player::set_position(glm::vec2 pos) {
