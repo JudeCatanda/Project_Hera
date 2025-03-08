@@ -6,7 +6,7 @@
 #define LOG_DEBUG(fmt, ...) std::printf("[DEBUG] " fmt "\n", ##__VA_ARGS__)
 
 const int max_render_for_x = 25;
-const int max_render_for_y = 1;
+const int max_render_for_y = 3;
 const int render_count = max_render_for_x * max_render_for_y;
 
 void Terrain::create() {
@@ -53,10 +53,10 @@ void Terrain::create() {
   for(int y = 0; y < max_render_for_y; y++) {
     for(int x = 0; x < max_render_for_x; x++) {
       offsets.x += this->size * 2;
-      offsets.y += this->size * 2;
       temp_array[index] = offsets;
       index += 1; //maybe?
     }
+    offsets.y += this->size * 2;
   }
   //for(int y = 0; y < max_render_for_y; y++) {
   //  for(int x = 0; x < max_render_for_x; x++) {
