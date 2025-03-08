@@ -48,16 +48,23 @@ void Terrain::create() {
   vao->unbind();
 
   std::array<glm::vec2, render_count> temp_array = {};
-  glm::vec2 offsets = glm::vec2(0.0f, 0.0f);
   int index = 0;
+  glm::vec2 offsets = glm::vec2(0.0f);
   for(int y = 0; y < max_render_for_y; y++) {
     for(int x = 0; x < max_render_for_x; x++) {
       offsets.x += this->size * 2;
+      offsets.y += this->size * 2;
+      temp_array[index] = offsets;
+      index += 1; //maybe?
     }
-    offsets.y += this->size * 2;
-    temp_array[index] = offsets;
-    index++;
   }
+  //for(int y = 0; y < max_render_for_y; y++) {
+  //  for(int x = 0; x < max_render_for_x; x++) {
+  //    temp_array[index] = glm::vec2((float)x, (float)y);
+  //    index += 1;
+  //  };
+  //};
+
   for(glm::vec2 pos_data : temp_array) {
     LOG_DEBUG("<pos> %2.2f %2.2f", pos_data.x, pos_data.y);
   };
