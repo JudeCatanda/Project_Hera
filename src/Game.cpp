@@ -1,11 +1,6 @@
 #include "Game.hpp"
 
 Game::Game() {
-  this->create();
-  this->update();
-}
-
-void Game::create() {
   def_as_ptr(window);
   def_as_ptr(plr);
   def_as_ptr(main_world);
@@ -16,6 +11,8 @@ void Game::create() {
   plr->set_window(window);
   plr->create();
   main_world->create();
+
+  this->update();
 }
 
 void Game::update() {

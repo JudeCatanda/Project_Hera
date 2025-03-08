@@ -21,11 +21,10 @@ private:
   Window window;
   Player plr;
   Terrain main_world;
-  
   float last, current, delta;
 public:
   Game();
-  void create();
+  //void create();
   void update();
   void destroy();
   ~Game();
