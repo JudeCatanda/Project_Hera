@@ -4,7 +4,7 @@
 #define def_as_ptr(name) typeof(this->name)* name = &this->name
 #undef LOG_DEBUG
 #define LOG_DEBUG(fmt, ...) std::printf("[DEBUG] " fmt "\n", ##__VA_ARGS__)
-static float* zoom, *delta;
+static float *zoom, *delta;
 
 typedef struct matrices_struct {
   glm::mat4 projection;
@@ -91,11 +91,20 @@ void Player::draw() {
   indices_buffer->bind();
 
   this->move();
+
   this->projection = glm::mat4(1.0f);
   this->projection = glm::perspective(glm::radians(*zoom), *this->window->get_aspect_ratio(), 0.1f, 100.0f);
+
   this->view = glm::mat4(1.0f);
+
+  if(this->position.x >= this->target.x) {
+    //clamp?
+    this->target = glm::vec3(this->position.x, this->position.y, -1.0f);
+    this->camera_position = glm::vec3(this->position.x, 0.0f, this->cam_z);
+  }
   this->camera_position = glm::vec3(0.0f, 0.0f, this->cam_z);
   this->target = glm::vec3(0.0f, 0.0f, -1.0f);
+
   this->view = glm::lookAt(this->camera_position, this->target, this->up_vector);
 
   program->send_uniform_float2("position", this->position.x, this->position.y);
@@ -140,8 +149,12 @@ void Player::move() {
   if(window->is_key_pressed(GLFW_KEY_A)) {
     this->position.x -= this->speed;
   };
-  if(window->is_key_pressed(GLFW_KEY_0))
+  if(window->is_key_pressed(GLFW_KEY_W)) {
     this->position.y += this->speed;
+  }
+  if(window->is_key_pressed(GLFW_KEY_S)) {
+    this->position.y -= this->speed;
+  }
 }
 
 void Player::set_window(Window *window) {

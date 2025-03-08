@@ -5,6 +5,7 @@
 #include <glm/matrix.hpp>
 #include <glm/ext.hpp>
 #include <vector>
+#include <array>
 
 #include "Shader.hpp"
 #include "Layout.hpp"
