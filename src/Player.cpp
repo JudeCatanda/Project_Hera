@@ -76,6 +76,7 @@ void Player::create() {
   glfwSetScrollCallback(window->get_handle(),  (GLFWscrollfun)scroll_callback);
   zoom = &this->f_counter;
   delta = &this->delta_time;
+  this->target = glm::vec3(0.0f, 0.0f, -1.0f);
 }
 
 void Player::draw() {
@@ -97,14 +98,14 @@ void Player::draw() {
 
   this->view = glm::mat4(1.0f);
 
-  if(this->position.x >= this->target.x) {
+  if(this->position.x >= this->target.x && this->position.x <= this->target.x) {
     //clamp?
     this->target = glm::vec3(this->position.x, this->position.y, -1.0f);
     this->camera_position = glm::vec3(this->position.x, 0.0f, this->cam_z);
+  } else {
+    this->camera_position = glm::vec3(0.0f, 0.0f, this->cam_z);
+    this->target = glm::vec3(0.0f, 0.0f, -1.0f);
   }
-  this->camera_position = glm::vec3(0.0f, 0.0f, this->cam_z);
-  this->target = glm::vec3(0.0f, 0.0f, -1.0f);
-
   this->view = glm::lookAt(this->camera_position, this->target, this->up_vector);
 
   program->send_uniform_float2("position", this->position.x, this->position.y);

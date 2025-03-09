@@ -33,6 +33,9 @@ void Game::update() {
     plr->set_delta_time(&this->delta);
     plr->draw();
 
+    if(window->is_key_pressed(GLFW_KEY_P)) {
+      main_world->set_pos(glm::vec2(0.1, 0.0f));
+    }
     main_world->draw();
 
     if(window->is_key_pressed(GLFW_KEY_F3)) {

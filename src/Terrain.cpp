@@ -32,15 +32,27 @@ void Terrain::create() {
   this->mesh_data.push_back((Vertex){ .Position = glm::vec2(  this->size,  this->size ) });
   this->mesh_data.push_back((Vertex){ .Position = glm::vec2( -this->size,  this->size ) });
 
-  mesh_buffer->create(this->mesh_data.size() * sizeof(Vertex), this->mesh_data.data(), GL_STATIC_DRAW, GL_ARRAY_BUFFER);
-  vao->enable_and_set_attrib_ptr(0, 2, GL_FLOAT, sizeof(Vertex), (const void*)0);
+  this->bacthed_terrain.resize(8);
+  this->last_write = write_quad(0, this->bacthed_terrain, this->size, glm::vec2(0.0f));
+  this->last_write = write_quad(this->last_write, this->bacthed_terrain, this->size, glm::vec2(1.0f));
+  LOG_DEBUG("%d", this->last_write);
+  for (glm::vec2 pos : this->bacthed_terrain) {
+    LOG_DEBUG("positions: %.2f %.2f", pos.x, pos.y);
+  }
 
-  unsigned int indices[] = {
-    0, 1, 2,
-    0, 3, 2
-  };
+  //mesh_buffer->create(this->mesh_data.size() * sizeof(Vertex), this->mesh_data.data(), GL_STATIC_DRAW, GL_ARRAY_BUFFER);
+  mesh_buffer->create(this->bacthed_terrain.size() * sizeof(glm::vec2), this->bacthed_terrain.data(), GL_DYNAMIC_DRAW, GL_ARRAY_BUFFER);
+  vao->enable_and_set_attrib_ptr(0, 2, GL_FLOAT, sizeof(glm::vec2), (const void*)0);
 
-  indices_buffer->create(sizeof(indices), indices, GL_STATIC_DRAW, GL_ELEMENT_ARRAY_BUFFER);
+  //unsigned int indices[] = {
+  //  0, 1, 2,
+  //  0, 3, 2,
+  //  4, 5, 6,
+  //  4, 7, 6
+  //};
+
+  this->indices = generateIndices(this->bacthed_terrain.size() / 4);
+  indices_buffer->create(sizeof(unsigned int) * this->indices.size(), this->indices.data(), GL_STATIC_DRAW, GL_ELEMENT_ARRAY_BUFFER);
 
   positions_buffer->unbind();
   indices_buffer->unbind();
@@ -64,9 +76,10 @@ void Terrain::create() {
   //    index += 1;
   //  };
   //};
-  for(glm::vec2 pos_data : temp_array) {
-    LOG_DEBUG("<pos> %2.2f %2.2f", pos_data.x, pos_data.y);
-  };
+
+  //for(glm::vec2 pos_data : temp_array) {
+  //  LOG_DEBUG("<pos> %2.2f %2.2f", pos_data.x, pos_data.y);
+  //};
   positions_buffer->set_data(0, render_count * sizeof(glm::vec2), temp_array.data());
 
   // positions_buffer->bind();
@@ -79,6 +92,17 @@ void Terrain::create() {
   //   glUnmapBuffer(GL_ARRAY_BUFFER);
   // }
   // positions_buffer->unbind();
+
+  indices_buffer->bind();
+  void* buffer = glMapBuffer(GL_ELEMENT_ARRAY_BUFFER, GL_READ_ONLY);
+  if(buffer) {
+    unsigned int* gpu_data = (unsigned int*)buffer;
+    for(int i = 0; i < (int)this->indices.size(); i++)
+      LOG_DEBUG("index: %d", gpu_data[i]);
+  }
+  glUnmapBuffer(GL_ELEMENT_ARRAY_BUFFER);
+  this->indices_buffer.unbind();
+
   this->hitbox.size = this->size;
   this->hitbox.maximum =  this->hitbox.origin + this->size * 2;
 }
@@ -96,7 +120,9 @@ void Terrain::draw() {
 
   this->hitbox.size = this->size;
 
-  glDrawElementsInstanced(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0, render_count);
+  //glDrawElementsInstanced(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0, render_count);
+  //glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_INT, 0);
+  glDrawElements(GL_TRIANGLES, this->indices.size(), GL_UNSIGNED_INT, 0);
   // glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 
   program->unbind();
@@ -116,4 +142,36 @@ void Terrain::destroy() {
   mesh_buffer->destroy();
   indices_buffer->destroy();
   positions_buffer->destroy();
+}
+
+int write_point(int first_index, std::vector<glm::vec2>& collection, glm::vec2 data) {
+  int end_offset = first_index;
+  LOG_DEBUG("first index was: %d", first_index);
+  collection.insert(collection.begin() + end_offset, data);
+  end_offset += 1;
+  return end_offset;
+};
+int write_quad(int first_index, std::vector<glm::vec2>& collection, float size, glm::vec2 pos) {
+  collection.at(first_index    ) = pos + glm::vec2(-size, -size);
+  collection.at(first_index + 1) = pos + glm::vec2(size, -size);
+  collection.at(first_index + 2) = pos + glm::vec2(size, size);
+  collection.at(first_index + 3) = pos + glm::vec2(-size, size);
+  return first_index + 4;
+};
+void Terrain::set_pos(glm::vec2 pos) {
+  this->last_write = write_quad(this->last_write - 4, this->bacthed_terrain, this->size, pos); //we decrement 4 to avoid adding a quad at last index
+  this->mesh_buffer.set_data(0, sizeof(glm::vec2) * this->bacthed_terrain.size(), this->bacthed_terrain.data());
+};
+std::vector<unsigned int> generateIndices(int quadCount) {
+    std::vector<unsigned int> indices(quadCount * 6);
+    for (int q = 0; q < quadCount; ++q) {
+        int base = 4 * q;
+        indices[q * 6 + 0] = base;
+        indices[q * 6 + 1] = base + 1;
+        indices[q * 6 + 2] = base + 2;
+        indices[q * 6 + 3] = base;
+        indices[q * 6 + 4] = base + 3;
+        indices[q * 6 + 5] = base + 2;
+    }
+    return indices;
 }
