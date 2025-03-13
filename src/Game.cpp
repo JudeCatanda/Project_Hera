@@ -30,15 +30,13 @@ void Game::update() {
     // glClearColor(0.0, 0.0, 0.0, 1.0);
     glClear(GL_COLOR_BUFFER_BIT);
     
+    //render the world first!
+    main_world->draw();
+
     plr->set_delta_time(&this->delta);
     plr->draw();
 
-    if(window->is_key_pressed(GLFW_KEY_P)) {
-      main_world->set_pos(glm::vec2(0.1, 0.0f));
-    }
-    main_world->draw();
-
-    if(window->is_key_pressed(GLFW_KEY_F3)) {
+    if(window->is_key_pressed(GLFW_KEY_F6)) {
       glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
     };
 
