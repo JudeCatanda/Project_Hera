@@ -17,33 +17,30 @@ void Terrain::create() {
   def_as_ptr(mesh_buffer);
   def_as_ptr(indices_buffer);
   def_as_ptr(positions_buffer);
+  def_as_ptr(texture_positions_buffer);
 
   vertex->create(GET_SHADERS_PATH("terrain.vert.glsl"), GL_VERTEX_SHADER);
   fragment->create(GET_SHADERS_PATH("terrain.frag.glsl"), GL_FRAGMENT_SHADER);
   program->create(vertex, fragment);
 
   vao->create_and_bind();
-  positions_buffer->create(render_count * sizeof(glm::vec2), nullptr,
-                           GL_DYNAMIC_DRAW, GL_ARRAY_BUFFER);
-  vao->enable_and_set_attrib_ptr(2, 2, GL_FLOAT, sizeof(glm::vec2),
-                                 (const void *)0);
+  positions_buffer->create(render_count * sizeof(glm::vec2), nullptr, GL_DYNAMIC_DRAW, GL_ARRAY_BUFFER);
+  vao->enable_and_set_attrib_ptr(2, 2, GL_FLOAT, sizeof(glm::vec2), (const void *)0);
   glVertexAttribDivisor(2, 1);
+  //unique textures for each quad!
+  texture_positions_buffer->create(render_count * 2 * sizeof(glm::vec2), nullptr, GL_DYNAMIC_DRAW, GL_ARRAY_BUFFER); //set up the positions later
+  vao->enable_and_set_attrib_ptr(5, 2, GL_FLOAT, sizeof(glm::vec2), (const void*)0);
+  glVertexAttribDivisor(5, 1);
 
-  this->mesh_data.push_back(
-      (Vertex){.Position = glm::vec2(-this->size, -this->size)});
-  this->mesh_data.push_back(
-      (Vertex){.Position = glm::vec2(this->size, -this->size)});
-  this->mesh_data.push_back(
-      (Vertex){.Position = glm::vec2(this->size, this->size)});
-  this->mesh_data.push_back(
-      (Vertex){.Position = glm::vec2(-this->size, this->size)});
+  this->mesh_data.push_back((Vertex){.Position = glm::vec2(-this->size, -this->size)});
+  this->mesh_data.push_back((Vertex){.Position = glm::vec2(this->size, -this->size)});
+  this->mesh_data.push_back((Vertex){.Position = glm::vec2(this->size, this->size)});
+  this->mesh_data.push_back((Vertex){.Position = glm::vec2(-this->size, this->size)});
 
-  mesh_buffer->create(this->mesh_data.size() * sizeof(Vertex),
-                      this->mesh_data.data(), GL_STATIC_DRAW, GL_ARRAY_BUFFER);
+  mesh_buffer->create(this->mesh_data.size() * sizeof(Vertex), this->mesh_data.data(), GL_STATIC_DRAW, GL_ARRAY_BUFFER);
   // mesh_buffer->create(this->bacthed_terrain.size() * sizeof(glm::vec2),
   // this->bacthed_terrain.data(), GL_DYNAMIC_DRAW, GL_ARRAY_BUFFER);
-  vao->enable_and_set_attrib_ptr(0, 2, GL_FLOAT, sizeof(glm::vec2),
-                                 (const void *)0);
+  vao->enable_and_set_attrib_ptr(0, 2, GL_FLOAT, sizeof(glm::vec2), (const void *)0);
 
   unsigned int indices[] = {0, 1, 2, 0, 3, 2};
 
@@ -67,13 +64,13 @@ void Terrain::create() {
       offset.x += this->size * 2; // Move right
     }
 
-    offset.x = -5.0f;            // Reset x position for next row
+    offset.x = -5.0f;           // Reset x position for next row
     offset.y += this->size * 2; // Move down
   }
 
-  //for (glm::vec2 pos_data : temp_array) {
-  //  LOG_DEBUG("<pos> %2.2f %2.2f", pos_data.x, pos_data.y);
-  //};
+  // for (glm::vec2 pos_data : temp_array) {
+  //   LOG_DEBUG("<pos> %2.2f %2.2f", pos_data.x, pos_data.y);
+  // };
   positions_buffer->set_data(0, render_count * sizeof(glm::vec2),
                              temp_array.data());
 
@@ -169,4 +166,6 @@ std::vector<unsigned int> generateIndices(int quadCount) {
     indices[q * 6 + 5] = base + 2;
   }
   return indices;
+}
+void set_texture_pos(std::vector<glm::vec2> tex_pos, glm::vec2 pos) {
 }

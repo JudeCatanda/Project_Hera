@@ -112,9 +112,16 @@ void Player::draw() {
       glm::radians(*zoom), *this->window->get_aspect_ratio(), 0.1f, 100.0f);
 
   this->view = glm::mat4(1.0f);
+  //clip the camera ?
+  if(this->position.x >= 4.0f || this->position.x <= -4.0f) {
+    this->view = glm::lookAt(this->camera_position, this->target, this->up_vector);
+    this->camera_position = glm::vec3(this->position.x, 0.0f, this->cam_z);
+    this->target = glm::vec3(this->position.x, 0.0f, -1.0f);
+    this->up_vector = glm::vec3(0.0f, 1.0f, 0.0f);
+  }
   this->view = glm::lookAt(this->camera_position, this->target, this->up_vector);
-  this->camera_position = glm::vec3(this->position.x, 0.0f, this->cam_z);
-  this->target = glm::vec3(this->position.x, 0.0f, -1.0f);
+  this->camera_position = glm::vec3(0.0f, 0.0f, this->cam_z);
+  this->target = glm::vec3(0.0f, 0.0f, -1.0f);
   this->up_vector = glm::vec3(0.0f, 1.0f, 0.0f);
 
   program->send_uniform_float2("position", this->position.x, this->position.y);
@@ -165,6 +172,9 @@ void Player::move() {
   if (window->is_key_pressed(GLFW_KEY_S)) {
     this->position.y -= this->speed;
   }
+  if(window->is_key_pressed(GLFW_KEY_R)) {
+    this->position = glm::vec2(0.0f);
+  }
 }
 
 void Player::set_window(Window *window) { this->window = window; }
@@ -211,3 +221,6 @@ void Player::set_y_pos(float y) {
 float Player::get_x_pos() { return this->get_position()->x; }
 
 float Player::get_y_pos() { return this->get_position()->y; }
+void Player::reset_all_stats() {
+  this->position = glm::vec2(0.0f);
+};
