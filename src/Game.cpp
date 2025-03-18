@@ -1,6 +1,7 @@
 #include "Game.hpp"
 
 Game::Game() {
+  LOG_INFO("Welcome!");
   def_as_ptr(window);
   def_as_ptr(plr);
   def_as_ptr(main_world);

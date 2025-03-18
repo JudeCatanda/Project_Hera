@@ -4,10 +4,19 @@
 #define def_as_ptr(name) typeof(this->name) *name = &this->name
 #undef LOG_DEBUG
 #define LOG_DEBUG(fmt, ...) std::printf("[DEBUG] " fmt "\n", ##__VA_ARGS__)
+#undef LOG_ERROR
+#define LOG_ERROR(fmt, ...) std::printf("[ERROR] " fmt "\n", ##__VA_ARGS__); \
+assert(0);
+#define glCall(statement)\
+  statement;\
+  while(GLenum err = glGetError())\
+    LOG_ERROR("AH SHIT!!! %d @line: %d", err, __LINE__);
 
 const int max_render_for_x = 30;
 const int max_render_for_y = 50;
 const int render_count = max_render_for_x * max_render_for_y;
+
+glm::vec2 cell_size;
 
 void Terrain::create() {
   def_as_ptr(vertex);
@@ -19,18 +28,24 @@ void Terrain::create() {
   def_as_ptr(positions_buffer);
   def_as_ptr(texture_positions_buffer);
 
-  vertex->create(GET_SHADERS_PATH("terrain.vert.glsl"), GL_VERTEX_SHADER);
-  fragment->create(GET_SHADERS_PATH("terrain.frag.glsl"), GL_FRAGMENT_SHADER);
-  program->create(vertex, fragment);
+  glCall(vertex->create(GET_SHADERS_PATH("terrain.vert.glsl"), GL_VERTEX_SHADER));
+  glCall(fragment->create(GET_SHADERS_PATH("terrain.frag.glsl"), GL_FRAGMENT_SHADER));
+  glCall(program->create(vertex, fragment));
 
-  vao->create_and_bind();
-  positions_buffer->create(render_count * sizeof(glm::vec2), nullptr, GL_DYNAMIC_DRAW, GL_ARRAY_BUFFER);
-  vao->enable_and_set_attrib_ptr(2, 2, GL_FLOAT, sizeof(glm::vec2), (const void *)0);
-  glVertexAttribDivisor(2, 1);
+  glCall(vao->create_and_bind());
+
+  glCall(this->atlas.create(std::string(GET_TEXTURES_PATH("parts.atlas.png")), GL_TEXTURE_2D, GL_RGB, GL_RGB));
+  glCall(this->atlas.bind_and_set_active(GL_TEXTURE1));
+  glCall(glUniform1i(glGetUniformLocation(program->get_handle(), "tex1"), 1));
+  cell_size = glm::vec2(16.0f);
+
+  glCall(positions_buffer->create(render_count * sizeof(glm::vec2), nullptr, GL_DYNAMIC_DRAW, GL_ARRAY_BUFFER));
+  glCall(vao->enable_and_set_attrib_ptr(2, 2, GL_FLOAT, sizeof(glm::vec2), (const void *)0));
+  glCall(glVertexAttribDivisor(2, 1));
   //unique textures for each quad!
-  texture_positions_buffer->create(render_count * 2 * sizeof(glm::vec2), nullptr, GL_DYNAMIC_DRAW, GL_ARRAY_BUFFER); //set up the positions later
-  vao->enable_and_set_attrib_ptr(5, 2, GL_FLOAT, sizeof(glm::vec2), (const void*)0);
-  glVertexAttribDivisor(5, 1);
+  glCall(texture_positions_buffer->create(render_count * 2 * sizeof(glm::vec2), nullptr, GL_DYNAMIC_DRAW, GL_ARRAY_BUFFER));
+  glCall(vao->enable_and_set_attrib_ptr(5, 2, GL_FLOAT, sizeof(glm::vec2), (const void*)0));
+  glCall(glVertexAttribDivisor(5, 1));
 
   this->mesh_data.push_back((Vertex){.Position = glm::vec2(-this->size, -this->size)});
   this->mesh_data.push_back((Vertex){.Position = glm::vec2(this->size, -this->size)});
@@ -55,16 +70,16 @@ void Terrain::create() {
 
   std::array<glm::vec2, render_count> temp_array = {};
   int index = 0;
-  glm::vec2 offset = glm::vec2(-5.0f, -5.0f);
+  glm::vec2 offset = glm::vec2(-6.0f, -6.0f);
   for (int y = 0; y < max_render_for_y; y++) {
     for (int x = 0; x < max_render_for_x; x++) {
       temp_array[index] = offset; // Store first, then update offset
       index++;
-
+      set_texture_pos(this->atlas, &this->tex_pos, glm::vec2(0.0f, 0.0f));
       offset.x += this->size * 2; // Move right
     }
 
-    offset.x = -5.0f;           // Reset x position for next row
+    offset.x = -6.0f;           // Reset x position for next row
     offset.y += this->size * 2; // Move down
   }
 
@@ -73,6 +88,10 @@ void Terrain::create() {
   // };
   positions_buffer->set_data(0, render_count * sizeof(glm::vec2),
                              temp_array.data());
+  for (auto& positions : this->tex_pos) {
+    LOG_DEBUG("%.2f : %.2f", positions.x, positions.y); //for some reason it is still 0.0, 0.0
+  };
+  texture_positions_buffer->set_data(0, this->tex_pos.size()  * sizeof(glm::vec2), this->tex_pos.data());
 
   // positions_buffer->bind();
   // void* buffer = glMapBuffer(GL_ARRAY_BUFFER, GL_READ_ONLY);
@@ -107,9 +126,14 @@ void Terrain::draw() {
   def_as_ptr(positions_buffer);
 
   program->bind();
+  this->atlas.bind_and_set_active(GL_TEXTURE1);
   vao->bind();
   indices_buffer->bind();
   positions_buffer->bind();
+
+  GLenum err;
+  if((err = glGetError()) != GL_NO_ERROR)
+    LOG_ERROR("Ah shit there's an error in terrain::draw! fuck this i am out! %d", err);
 
   this->hitbox.size = this->size;
 
@@ -167,5 +191,17 @@ std::vector<unsigned int> generateIndices(int quadCount) {
   }
   return indices;
 }
-void set_texture_pos(std::vector<glm::vec2> tex_pos, glm::vec2 pos) {
-}
+void set_texture_pos(Texture& texture, std::vector<glm::vec2>* tex_pos, glm::vec2 pos) {
+  glm::vec2 size = texture.get_size();
+  //LOG_DEBUG("The Size of the texture accessed is %.2f,%.2f", size.x, size.y);
+  float u_min, u_max, v_min, v_max;
+  u_min = (pos.x * cell_size.x) / size.x;
+  u_max = ((pos.x + 1.0f) * cell_size.x) / size.x;
+  v_min = (pos.y * cell_size.y) / size.y;
+  v_max = ((pos.y + 1) * cell_size.y) / size.y;
+
+  tex_pos->push_back(glm::vec2(u_min, v_min));
+  tex_pos->push_back(glm::vec2(u_max, v_min));
+  tex_pos->push_back(glm::vec2(u_max, v_max));
+  tex_pos->push_back(glm::vec2(u_min, v_max));
+};

@@ -39,4 +39,4 @@ public:
 int write_point(int first_index, std::vector<glm::vec2>& collection, glm::vec2 data);
 int write_quad(int first_index, std::vector<glm::vec2>& collection, float size, glm::vec2 pos);
 std::vector<unsigned int> generateIndices(int quadCount);
-void set_texture_pos(std::vector<glm::vec2> tex_pos, glm::vec2 pos);
+void set_texture_pos(Texture& texture, std::vector<glm::vec2>* tex_pos, glm::vec2 pos);

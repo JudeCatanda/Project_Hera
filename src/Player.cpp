@@ -51,6 +51,7 @@ void Player::create() {
   unsigned int block_index =
       glGetUniformBlockIndex(program->get_handle(), "Matrices");
   glUniformBlockBinding(program->get_handle(), block_index, 0);
+  LOG_DEBUG("Works Fine?");
 
   matrices_buffer->create(sizeof(matrices_struct), nullptr, GL_DYNAMIC_DRAW,
                           GL_UNIFORM_BUFFER);
