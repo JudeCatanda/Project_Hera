@@ -5,8 +5,7 @@
 #undef LOG_DEBUG
 #define LOG_DEBUG(fmt, ...) std::printf("[DEBUG] " fmt "\n", ##__VA_ARGS__)
 #undef LOG_ERROR
-#define LOG_ERROR(fmt, ...) std::printf("[ERROR] " fmt "\n", ##__VA_ARGS__); \
-assert(0);
+#define LOG_ERROR(fmt, ...) std::printf("[ERROR] " fmt "\n", ##__VA_ARGS__);
 #define glCall(statement)\
   statement;\
   while(GLenum err = glGetError())\
@@ -34,10 +33,12 @@ void Terrain::create() {
 
   glCall(vao->create_and_bind());
 
-  glCall(this->atlas.create(std::string(GET_TEXTURES_PATH("parts.atlas.png")), GL_TEXTURE_2D, GL_RGB, GL_RGB));
+  glCall(this->atlas.create(std::string(GET_TEXTURES_PATH("parts.atlas.png")), GL_TEXTURE_2D, GL_RGBA, GL_RGBA));
   glCall(this->atlas.bind_and_set_active(GL_TEXTURE1));
   glCall(glUniform1i(glGetUniformLocation(program->get_handle(), "tex1"), 1));
   cell_size = glm::vec2(16.0f);
+  if(!this->atlas.is_image_valid())
+    LOG_DEBUG("the image was invalid for some reason!");
 
   glCall(positions_buffer->create(render_count * sizeof(glm::vec2), nullptr, GL_DYNAMIC_DRAW, GL_ARRAY_BUFFER));
   glCall(vao->enable_and_set_attrib_ptr(2, 2, GL_FLOAT, sizeof(glm::vec2), (const void *)0));
@@ -75,7 +76,7 @@ void Terrain::create() {
     for (int x = 0; x < max_render_for_x; x++) {
       temp_array[index] = offset; // Store first, then update offset
       index++;
-      set_texture_pos(this->atlas, &this->tex_pos, glm::vec2(0.0f, 0.0f));
+      set_texture_pos(this->atlas, &this->tex_pos, glm::vec2(0.0f, 2.0f));
       offset.x += this->size * 2; // Move right
     }
 
@@ -89,7 +90,7 @@ void Terrain::create() {
   positions_buffer->set_data(0, render_count * sizeof(glm::vec2),
                              temp_array.data());
   for (auto& positions : this->tex_pos) {
-    LOG_DEBUG("%.2f : %.2f", positions.x, positions.y); //for some reason it is still 0.0, 0.0
+    //LOG_DEBUG("%.2f : %.2f", positions.x, positions.y); //for some reason it is still 0.0, 0.0
   };
   texture_positions_buffer->set_data(0, this->tex_pos.size()  * sizeof(glm::vec2), this->tex_pos.data());
 
@@ -131,9 +132,9 @@ void Terrain::draw() {
   indices_buffer->bind();
   positions_buffer->bind();
 
-  GLenum err;
-  if((err = glGetError()) != GL_NO_ERROR)
-    LOG_ERROR("Ah shit there's an error in terrain::draw! fuck this i am out! %d", err);
+  //GLenum err;
+  //if((err = glGetError()) != GL_NO_ERROR)
+  //  LOG_ERROR("Ah shit there's an error in terrain::draw! fuck this i am out! %d", err);
 
   this->hitbox.size = this->size;
 

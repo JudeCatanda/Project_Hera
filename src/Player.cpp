@@ -114,10 +114,10 @@ void Player::draw() {
 
   this->view = glm::mat4(1.0f);
   //clip the camera ?
-  if(this->position.x >= 4.0f || this->position.x <= -4.0f) {
+  if(this->position.x >= 4.0f || this->position.x <= -4.0f || this->position.y >= 1.5f || this->position.y <= -1.5f) {
     this->view = glm::lookAt(this->camera_position, this->target, this->up_vector);
-    this->camera_position = glm::vec3(this->position.x, 0.0f, this->cam_z);
-    this->target = glm::vec3(this->position.x, 0.0f, -1.0f);
+    this->camera_position = glm::vec3(this->position.x, this->position.y, this->cam_z);
+    this->target = glm::vec3(this->position.x, this->position.y, -1.0f);
     this->up_vector = glm::vec3(0.0f, 1.0f, 0.0f);
   }
   this->view = glm::lookAt(this->camera_position, this->target, this->up_vector);

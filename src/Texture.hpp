@@ -24,6 +24,7 @@ public:
   void unbind();
   void flip(bool c);
   glm::vec2 get_size();
+  bool is_image_valid();
 
   //it ask's for the file. if false load other ways like fbo's
   bool load_file_already = true;

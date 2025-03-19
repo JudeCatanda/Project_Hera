@@ -46,3 +46,6 @@ void Window::set_viewport() {
   glm::ivec2* vp_size = this->get_size();
   glViewport(0, 0, vp_size->x, vp_size->y);
 }
+bool Window::is_key_released(int key) {
+  return (glfwGetKey(this->handle, key) == GLFW_RELEASE) ? true : false;
+};

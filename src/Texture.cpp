@@ -61,3 +61,6 @@ void write_texture_postions(std::vector<glm::vec2>& tex_pos, glm::vec2 position,
   tex_pos.push_back(uv + glm::vec2(0, uv_size.y)); // Bottom-left
   tex_pos.push_back(uv + uv_size);                 // Bottom-right
 };
+bool Texture::is_image_valid() {
+  return glIsTexture(this->handle);
+};

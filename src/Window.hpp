@@ -19,6 +19,7 @@ public:
   int should_close();
   void destroy();
   bool is_key_pressed(int key);
+  bool is_key_released(int key);
   float* get_aspect_ratio();
   void set_viewport();
 };

@@ -9,10 +9,9 @@ Game::Game() {
   window->create("Hera", 600, 800);
   this->last = (float)glfwGetTime();
 
+  main_world->create();
   plr->set_window(window);
   plr->create();
-  main_world->create();
-
   this->update();
 }
 
@@ -20,6 +19,8 @@ void Game::update() {
   def_as_ptr(window);
   def_as_ptr(plr);
   def_as_ptr(main_world);
+  bool wireframe = false;
+  bool isPressed = false;
   
   while(!window->should_close()) {
     this->current = (float)glfwGetTime();
@@ -37,9 +38,17 @@ void Game::update() {
     plr->set_delta_time(&this->delta);
     plr->draw();
 
-    if(window->is_key_pressed(GLFW_KEY_F6)) {
-      glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+    if(window->is_key_pressed(GLFW_KEY_F6) && !isPressed) {
+      wireframe = !wireframe;
+      isPressed = true;
     };
+    if(window->is_key_released(GLFW_KEY_F6))
+      isPressed = false;
+
+    if(wireframe)
+      glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+    else
+      glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
     glfwSwapBuffers(window->get_handle());
     glfwPollEvents();
