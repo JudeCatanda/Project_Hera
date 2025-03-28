@@ -30,14 +30,6 @@ public:
   ~Game();
 };
 
-
-
-
-
-
-
-
-
 // This functions are for BatchRendering
 // void mesh_create_triangle(std::vector<Vertex>& array, float x, float y, float scale);
 // Vertex* mesh_create_triangle_out(Vertex* target, float x, float y, float scale);

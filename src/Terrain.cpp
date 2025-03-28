@@ -76,7 +76,7 @@ void Terrain::create() {
     for (int x = 0; x < max_render_for_x; x++) {
       temp_array[index] = offset; // Store first, then update offset
       index++;
-      set_texture_pos(this->atlas, &this->tex_pos, glm::vec2(0.0f, 2.0f));
+      set_texture_pos(this->atlas, &this->tex_pos, glm::vec2(0.0f));
       offset.x += this->size * 2; // Move right
     }
 
@@ -115,7 +115,7 @@ void Terrain::create() {
   }
   glUnmapBuffer(GL_ELEMENT_ARRAY_BUFFER);
   this->indices_buffer.unbind();
-
+  //TODO: Fix this shit
   this->hitbox.size = this->size;
   this->hitbox.maximum = this->hitbox.origin + this->size * 2;
 }
@@ -200,6 +200,7 @@ void set_texture_pos(Texture& texture, std::vector<glm::vec2>* tex_pos, glm::vec
   u_max = ((pos.x + 1.0f) * cell_size.x) / size.x;
   v_min = (pos.y * cell_size.y) / size.y;
   v_max = ((pos.y + 1) * cell_size.y) / size.y;
+  LOG_DEBUG("Positions Are Lower left: %f %f\nLower right: %f %f\nUpper right: %f %f\nUpper left: %f %f\n", u_min, v_min, u_max, v_min, u_max, v_max, u_min, v_max);
 
   tex_pos->push_back(glm::vec2(u_min, v_min));
   tex_pos->push_back(glm::vec2(u_max, v_min));

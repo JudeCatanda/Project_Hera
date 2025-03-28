@@ -5,6 +5,7 @@
 #undef LOG_DEBUG
 #define LOG_DEBUG(fmt, ...) std::printf("[DEBUG] " fmt "\n", ##__VA_ARGS__)
 static float *zoom, *delta;
+bool* can_zoom;
 
 typedef struct matrices_struct {
   glm::mat4 projection;
@@ -12,6 +13,7 @@ typedef struct matrices_struct {
 } matrices_struct;
 
 void Player::create() {
+  can_zoom = &m_can_zoom;
   def_as_ptr(vertex);
   def_as_ptr(fragment);
   def_as_ptr(program);
@@ -187,6 +189,9 @@ glm::vec2 *Player::get_position() { return &this->position; }
 AABB_Hitbox *Player::get_hitbox() { return &this->hitbox; }
 
 void scroll_callback(GLFWwindow *window, double xOffset, double yOffset) {
+  if(*can_zoom == false) {
+    return;
+  }
   const float max_zoom = 135.0f, min_zoom = 35.0f;
   const float zoom_strenght = 5.0f;
   if ((float)yOffset >= 1.0f)

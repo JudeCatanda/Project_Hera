@@ -1,7 +1,7 @@
 #include "Game.hpp"
 
 Game::Game() {
-  LOG_INFO("Welcome!");
+  LOG_WARNING("THE CURRENT STATE IS NOT STABLE! MIGHT CRASH!");
   def_as_ptr(window);
   def_as_ptr(plr);
   def_as_ptr(main_world);
@@ -49,6 +49,12 @@ void Game::update() {
       glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
     else
       glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+
+    if(window->is_key_pressed(GLFW_KEY_ESCAPE)) {
+      LOG_ERROR("QUTING ALL JOBS!");
+      this->destroy();
+      break;
+    }
 
     glfwSwapBuffers(window->get_handle());
     glfwPollEvents();
