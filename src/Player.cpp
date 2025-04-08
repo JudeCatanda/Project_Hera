@@ -53,7 +53,7 @@ void Player::create() {
   unsigned int block_index =
       glGetUniformBlockIndex(program->get_handle(), "Matrices");
   glUniformBlockBinding(program->get_handle(), block_index, 0);
-  LOG_DEBUG("Works Fine?");
+  //LOG_DEBUG("Works Fine?");
 
   matrices_buffer->create(sizeof(matrices_struct), nullptr, GL_DYNAMIC_DRAW,
                           GL_UNIFORM_BUFFER);
@@ -65,6 +65,7 @@ void Player::create() {
       this->texture_positions.data(), GL_STATIC_DRAW, GL_ARRAY_BUFFER);
   vao->enable_and_set_attrib_ptr(2, 2, GL_FLOAT, 2 * sizeof(float),
                                  (const void *)0);
+
 
   mesh_buffer->create(this->mesh_data.size() * sizeof(Vertex),
                       this->mesh_data.data(), GL_STATIC_DRAW, GL_ARRAY_BUFFER);

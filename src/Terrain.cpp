@@ -200,7 +200,7 @@ void set_texture_pos(Texture& texture, std::vector<glm::vec2>* tex_pos, glm::vec
   u_max = ((pos.x + 1.0f) * cell_size.x) / size.x;
   v_min = (pos.y * cell_size.y) / size.y;
   v_max = ((pos.y + 1) * cell_size.y) / size.y;
-  LOG_DEBUG("Positions Are Lower left: %f %f\nLower right: %f %f\nUpper right: %f %f\nUpper left: %f %f\n", u_min, v_min, u_max, v_min, u_max, v_max, u_min, v_max);
+  //LOG_DEBUG("Positions Are Lower left: %f %f\nLower right: %f %f\nUpper right: %f %f\nUpper left: %f %f\n", u_min, v_min, u_max, v_min, u_max, v_max, u_min, v_max);
 
   tex_pos->push_back(glm::vec2(u_min, v_min));
   tex_pos->push_back(glm::vec2(u_max, v_min));
