@@ -4,8 +4,10 @@ build/.cmake/*
 build/CMakeFiles
 build/CMakeFiles/*
 build/hera.exe
-assets/*
-assets/
+build/cmake_install.cmake
+build/build.ninja
+build/.ninja_log
+build/.ninja_deps
 build/CMakeCache.txt
 build/.ninja_log
 build/.ninja_deps

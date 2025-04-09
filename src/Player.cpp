@@ -105,7 +105,7 @@ void Player::draw() {
   def_as_ptr(texture);
 
   program->bind();
-  texture->bind_and_set_active(GL_TEXTURE0);
+  texture->bind_and_set_active(GL_TEXTURE1);
   vao->bind();
   indices_buffer->bind();
 

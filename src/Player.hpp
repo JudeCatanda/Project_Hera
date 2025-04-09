@@ -38,7 +38,7 @@ private:
   glm::vec2 position;
   glm::mat4 projection;
   glm::mat4 view;
-  bool m_can_zoom = false;
+  bool m_can_zoom = true;
 
   void move();
 public:
