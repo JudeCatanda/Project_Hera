@@ -41,6 +41,7 @@ void Terrain::create() {
     LOG_DEBUG("the image was invalid for some reason!");
 
   glCall(positions_buffer->create(render_count * sizeof(glm::vec2), nullptr, GL_DYNAMIC_DRAW, GL_ARRAY_BUFFER));
+  this->tg.init_class();
   glCall(vao->enable_and_set_attrib_ptr(2, 2, GL_FLOAT, sizeof(glm::vec2), (const void *)0));
   glCall(glVertexAttribDivisor(2, 1));
   //unique textures for each quad!
@@ -53,10 +54,14 @@ void Terrain::create() {
   this->mesh_data.push_back((Vertex){.Position = glm::vec2(this->size, this->size)});
   this->mesh_data.push_back((Vertex){.Position = glm::vec2(-this->size, this->size)});
 
-  mesh_buffer->create(this->mesh_data.size() * sizeof(Vertex), this->mesh_data.data(), GL_STATIC_DRAW, GL_ARRAY_BUFFER);
+  //mesh_buffer->create(this->mesh_data.size() * sizeof(Vertex), this->mesh_data.data(), GL_STATIC_DRAW, GL_ARRAY_BUFFER);
+  this->tg.push_quad(0.1f, 0.0f, 0.0f);
+  this->tg.push_quad(0.1f, 1.0f, 1.0f);
+  this->tg.update_quad(1, 0.0f, 0.0f, 0.1f);
+  mesh_buffer->create(this->tg.size() * sizeof(float), this->tg.get(), GL_STATIC_DRAW, GL_ARRAY_BUFFER);
+  vao->enable_and_set_attrib_ptr(0, 2, GL_FLOAT, 2 * sizeof(float), (const void *)0);
   // mesh_buffer->create(this->bacthed_terrain.size() * sizeof(glm::vec2),
   // this->bacthed_terrain.data(), GL_DYNAMIC_DRAW, GL_ARRAY_BUFFER);
-  vao->enable_and_set_attrib_ptr(0, 2, GL_FLOAT, sizeof(glm::vec2), (const void *)0);
 
   unsigned int indices[] = {0, 1, 2, 0, 3, 2};
 
@@ -138,7 +143,8 @@ void Terrain::draw() {
 
   this->hitbox.size = this->size;
 
-  glDrawElementsInstanced(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0, render_count);
+  //glDrawElementsInstanced(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0, render_count);
+  glDrawArrays(GL_TRIANGLES, 0, this->tg.get_points());
   // glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_INT, 0);
   // glDrawElements(GL_TRIANGLES, this->indices.size(), GL_UNSIGNED_INT, 0);
   //  glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
@@ -207,3 +213,64 @@ void set_texture_pos(Texture& texture, std::vector<glm::vec2>* tex_pos, glm::vec
   tex_pos->push_back(glm::vec2(u_max, v_max));
   tex_pos->push_back(glm::vec2(u_min, v_max));
 };
+
+void Terrain_Generator::push_back(float wx, float wy) {
+  //class members:
+  //capacity is an uint: default val is 6
+  //data is an float* malloced capacity(6) * sizeof(float)
+  //last_write is an uint: default val is 0
+  if((this->last_write + 2) >= this->capacity) {
+    this->capacity += 6;
+    float* temp = (float*)realloc(this->data, this->capacity * sizeof(float));
+    if(temp == NULL) {
+      LOG_ERROR("[!] Memory allocation failed!\n");
+    }
+    this->data = temp;
+  }
+  this->data[this->last_write++] = wx;
+  this->data[this->last_write++] = wy;
+  LOG_DEBUG("Write @ %.2f, %.2f", this->data[this->last_write - 2], this->data[this->last_write - 1]);
+  this->points += 1;
+};
+
+//void push_quad(float size, float x, float y);
+void Terrain_Generator::push_quad(float size, float x, float y) {
+  this->push_back(x - size, y - size);
+  this->push_back(x + size, y - size);
+  this->push_back(x + size, y + size);
+
+  this->push_back(x + size, y + size);
+  this->push_back(x - size, y + size);
+  this->push_back(x - size, y - size);
+  LOG_DEBUG("[!!!] %d", this->last_write);
+  LOG_DEBUG("[!!!] %d", this->capacity);
+};
+
+void Terrain_Generator::init_class() {
+  this->data = (float*)malloc(this->capacity * sizeof(float));
+};
+float* Terrain_Generator::get(void) const noexcept {
+  return this->data;
+};
+
+unsigned int Terrain_Generator::size(void) const noexcept {
+  return (this->last_write + 1);
+};
+
+unsigned int Terrain_Generator::get_points(void) const noexcept {
+  return this->points;
+}
+
+void Terrain_Generator::update_quad(unsigned int base, float x, float y, float size) {
+  unsigned int i = base * 12; 
+  if(base + 11 >= this->last_write) {
+    LOG_ERROR("Invalid location access!");
+    return;
+  }
+  this->data[i +  0] = x - size; this->data[i +  1] = y - size;
+  this->data[i +  2] = x + size; this->data[i +  3] = y - size;
+  this->data[i +  4] = x + size; this->data[i +  5] = y + size;
+  this->data[i +  6] = x + size; this->data[i +  7] = y + size;
+  this->data[i +  8] = x - size; this->data[i +  9] = y + size;
+  this->data[i + 10] = x - size; this->data[i + 11] = y - size;
+}

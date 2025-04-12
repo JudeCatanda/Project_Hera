@@ -12,6 +12,7 @@ uniform Matrices {
 };
 
 void main() {
-  gl_Position = projection * view * vec4(pos + ins_pos, 0.0, 1.0);
+  //+ins_pos
+  gl_Position = projection * view * vec4(pos, 0.0, 1.0);
   out_ins_tex_pos = ins_tex_pos;
 }

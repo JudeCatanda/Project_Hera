@@ -85,7 +85,8 @@ void Player::create() {
   vao->unbind();
 
   this->speed = 0.001f; // implicit
-  this->position = glm::vec2(0.0f, -0.770001531f);
+  //this->position = glm::vec2(0.0f, -0.770001531f);
+  this->position = glm::vec2(0.0f, 0.0f);
 
   this->camera_position = glm::vec3(this->position.x, 0.0f, this->cam_z);
   this->target = glm::vec3(this->position.x, 0.0f, -1.0f);

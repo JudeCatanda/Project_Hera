@@ -1,24 +1,44 @@
 #pragma once
 
-#include <iostream>
-#include <glad/glad.h>
-#include <glm/glm.hpp>
-#include <glm/common.hpp>
-#include <vector>
 #include "Texture.hpp"
 #include <array>
+#include <glad/glad.h>
+#include <glm/common.hpp>
+#include <glm/glm.hpp>
+#include <iostream>
+#include <vector>
 
-#include "Shader.hpp"
-#include "Layout.hpp"
-#include "Buffer.hpp"
 #include "AABB.hpp"
+#include "Buffer.hpp"
+#include "Layout.hpp"
+#include "Shader.hpp"
+
+class Terrain_Generator {
+private:
+  float *data;
+  unsigned int capacity = 12;
+  unsigned int last_write = 0;
+  unsigned int points = 0;
+  void push_back(float wx, float wy);
+public:
+  Terrain_Generator() : data(nullptr) {};
+  void init_class();
+  void push_quad(float size, float x, float y);
+
+  void update_quad(unsigned int base, float x, float y, float size);
+
+  float* get(void) const noexcept;
+  unsigned int size(void) const noexcept;
+  unsigned int get_points(void) const noexcept;
+};
 
 class Terrain {
 private:
   Shader vertex, fragment;
   ShaderProgram program;
   Layout vao;
-  Buffer mesh_buffer, indices_buffer, positions_buffer, texture_positions_buffer;
+  Buffer mesh_buffer, indices_buffer, positions_buffer,
+      texture_positions_buffer;
   Texture atlas;
   std::vector<Vertex> mesh_data;
   std::vector<glm::vec2> tex_pos;
@@ -28,15 +48,20 @@ private:
 
   float size = 0.2f;
   AABB_Hitbox hitbox;
+  Terrain_Generator tg;
+
 public:
   Terrain() = default;
   void create();
   void draw();
   void destroy();
-  //void set_pos(glm::vec2 pos);
+  // void set_pos(glm::vec2 pos);
 };
 
-int write_point(int first_index, std::vector<glm::vec2>& collection, glm::vec2 data);
-int write_quad(int first_index, std::vector<glm::vec2>& collection, float size, glm::vec2 pos);
+int write_point(int first_index, std::vector<glm::vec2> &collection,
+                glm::vec2 data);
+int write_quad(int first_index, std::vector<glm::vec2> &collection, float size,
+               glm::vec2 pos);
 std::vector<unsigned int> generateIndices(int quadCount);
-void set_texture_pos(Texture& texture, std::vector<glm::vec2>* tex_pos, glm::vec2 pos);
+void set_texture_pos(Texture &texture, std::vector<glm::vec2> *tex_pos,
+                     glm::vec2 pos);
