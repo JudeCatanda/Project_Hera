@@ -58,6 +58,7 @@ void Terrain::create() {
   this->tg.push_quad(0.1f, 0.0f, 0.0f);
   this->tg.push_quad(0.1f, 1.0f, 1.0f);
   this->tg.update_quad(1, 0.0f, 0.0f, 0.1f);
+  //this->tg.pop_quad();
   mesh_buffer->create(this->tg.size() * sizeof(float), this->tg.get(), GL_STATIC_DRAW, GL_ARRAY_BUFFER);
   vao->enable_and_set_attrib_ptr(0, 2, GL_FLOAT, 2 * sizeof(float), (const void *)0);
   // mesh_buffer->create(this->bacthed_terrain.size() * sizeof(glm::vec2),
@@ -273,4 +274,29 @@ void Terrain_Generator::update_quad(unsigned int base, float x, float y, float s
   this->data[i +  6] = x + size; this->data[i +  7] = y + size;
   this->data[i +  8] = x - size; this->data[i +  9] = y + size;
   this->data[i + 10] = x - size; this->data[i + 11] = y - size;
+}
+
+void Terrain_Generator::pop_back() {
+  if(this->last_write < 0)
+    return;
+  this->data[this->last_write--] = 0.0f;
+  if(this->last_write < 0)
+    return;
+  this->data[this->last_write--] = 0.0f;
+  this->points -= 1;
+}
+
+void Terrain_Generator::pop_quad() {
+  this->pop_back();
+  this->pop_back();
+  this->pop_back();
+
+  this->pop_back();
+  this->pop_back();
+  this->pop_back();
+}
+
+
+void Terrain::test_tg(void) {
+  this->tg.update_quad(1, 0.5f, 0.5f, 1.0f);
 }

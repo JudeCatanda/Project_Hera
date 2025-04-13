@@ -1,5 +1,8 @@
 #include "Game.hpp"
 
+static void key_callback(GLFWwindow* win, int key, int scancode, int action, int mods);
+static Terrain* pTerrain;
+
 Game::Game() {
   LOG_WARNING("THE CURRENT STATE IS NOT STABLE! MIGHT CRASH!");
   def_as_ptr(window);
@@ -8,8 +11,11 @@ Game::Game() {
 
   window->create("Hera", 600, 800);
   this->last = (float)glfwGetTime();
+  window->append_key_callback(key_callback);
+  glfwSetInputMode(window->get_handle(), GLFW_STICKY_KEYS, GLFW_TRUE);
 
   main_world->create();
+  pTerrain = &this->main_world;
   plr->set_window(window);
   plr->create();
   this->update();
@@ -21,6 +27,7 @@ void Game::update() {
   def_as_ptr(main_world);
   bool wireframe = false;
   bool isPressed = false;
+  bool isTestCases = false;
   
   while(!window->should_close()) {
     this->current = (float)glfwGetTime();
@@ -44,6 +51,16 @@ void Game::update() {
     };
     if(window->is_key_released(GLFW_KEY_F6))
       isPressed = false;
+
+    if(window->is_key_pressed(GLFW_KEY_LEFT_SHIFT)) { 
+      isTestCases = true;
+    }
+
+    if(isTestCases) {
+      this->main_world.test_tg();
+      isTestCases = false;
+    }
+
 
     if(wireframe)
       glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
@@ -71,3 +88,18 @@ void Game::destroy() {
 Game::~Game() {
   this->destroy();
 }
+
+static void key_callback(GLFWwindow* win, int key, int scancode, int action, int mods) {
+  static bool wasPressed = false;
+
+  if (key == GLFW_KEY_LEFT_SHIFT) {
+    if (action == GLFW_PRESS) {
+      if (!wasPressed) {
+          pTerrain->test_tg();
+          wasPressed = true;
+      }
+    } else if (action == GLFW_RELEASE) {
+      wasPressed = false;
+    }
+  }
+};

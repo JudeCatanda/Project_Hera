@@ -22,4 +22,5 @@ public:
   bool is_key_released(int key);
   float* get_aspect_ratio();
   void set_viewport();
+  void append_key_callback(GLFWkeyfun callback);
 };

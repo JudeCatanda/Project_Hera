@@ -17,13 +17,15 @@ class Terrain_Generator {
 private:
   float *data;
   unsigned int capacity = 12;
-  unsigned int last_write = 0;
+  int last_write = 0;
   unsigned int points = 0;
   void push_back(float wx, float wy);
+  void pop_back();
 public:
   Terrain_Generator() : data(nullptr) {};
   void init_class();
   void push_quad(float size, float x, float y);
+  void pop_quad();
 
   void update_quad(unsigned int base, float x, float y, float size);
 
@@ -55,6 +57,7 @@ public:
   void create();
   void draw();
   void destroy();
+  void test_tg(void);
   // void set_pos(glm::vec2 pos);
 };
 

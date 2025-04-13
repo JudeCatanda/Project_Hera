@@ -49,3 +49,7 @@ void Window::set_viewport() {
 bool Window::is_key_released(int key) {
   return (glfwGetKey(this->handle, key) == GLFW_RELEASE) ? true : false;
 };
+
+void Window::append_key_callback(GLFWkeyfun callback) {
+  glfwSetKeyCallback(this->handle, callback);
+}
