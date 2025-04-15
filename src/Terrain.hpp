@@ -13,6 +13,8 @@
 #include "Layout.hpp"
 #include "Shader.hpp"
 
+const float RET_ERR_VEC2 = -1000000.00f;
+
 class Terrain_Generator {
 private:
   float *data;
@@ -21,6 +23,7 @@ private:
   unsigned int points = 0;
   void push_back(float wx, float wy);
   void pop_back();
+  void set_at(unsigned int index, float xvalue, float yvalue);
 public:
   Terrain_Generator() : data(nullptr) {};
   void init_class();
@@ -28,6 +31,7 @@ public:
   void pop_quad();
 
   void update_quad(unsigned int base, float x, float y, float size);
+  glm::vec2 at(unsigned int index);
 
   float* get(void) const noexcept;
   unsigned int size(void) const noexcept;
