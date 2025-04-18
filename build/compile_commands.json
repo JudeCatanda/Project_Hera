@@ -73,6 +73,12 @@
 },
 {
   "directory": "C:/Users/User/Documents/C++ Projects/Hera/build",
+  "command": "C:\\msys64\\ucrt64\\bin\\g++.exe -DDBG_MODE -I\"C:/Users/User/Documents/C++ Projects/Hera/./include\"  -Wall -Wextra -g -g -o CMakeFiles\\hera.dir\\src\\rdoc.cpp.obj -c \"C:\\Users\\User\\Documents\\C++ Projects\\Hera\\src\\rdoc.cpp\"",
+  "file": "C:\\Users\\User\\Documents\\C++ Projects\\Hera\\src\\rdoc.cpp",
+  "output": "CMakeFiles\\hera.dir\\src\\rdoc.cpp.obj"
+},
+{
+  "directory": "C:/Users/User/Documents/C++ Projects/Hera/build",
   "command": "C:\\msys64\\ucrt64\\bin\\g++.exe -DDBG_MODE -I\"C:/Users/User/Documents/C++ Projects/Hera/./include\"  -Wall -Wextra -g -g -o CMakeFiles\\hera.dir\\src\\stb_image.cpp.obj -c \"C:\\Users\\User\\Documents\\C++ Projects\\Hera\\src\\stb_image.cpp\"",
   "file": "C:\\Users\\User\\Documents\\C++ Projects\\Hera\\src\\stb_image.cpp",
   "output": "CMakeFiles\\hera.dir\\src\\stb_image.cpp.obj"

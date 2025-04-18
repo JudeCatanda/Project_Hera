@@ -12,7 +12,7 @@
     LOG_ERROR("AH SHIT!!! %d @line: %d", err, __LINE__);
 
 const int max_render_for_x = 30;
-const int max_render_for_y = 50;
+const int max_render_for_y = 1;
 const int render_count = max_render_for_x * max_render_for_y;
 
 glm::vec2 cell_size;
@@ -27,6 +27,7 @@ void Terrain::create() {
   def_as_ptr(positions_buffer);
   def_as_ptr(texture_positions_buffer);
 
+  //this->rdoc_api->StartFrameCapture(nullptr, nullptr);
   glCall(vertex->create(GET_SHADERS_PATH("terrain.vert.glsl"), GL_VERTEX_SHADER));
   glCall(fragment->create(GET_SHADERS_PATH("terrain.frag.glsl"), GL_FRAGMENT_SHADER));
   glCall(program->create(vertex, fragment));
@@ -41,7 +42,6 @@ void Terrain::create() {
     LOG_DEBUG("the image was invalid for some reason!");
 
   glCall(positions_buffer->create(render_count * sizeof(glm::vec2), nullptr, GL_DYNAMIC_DRAW, GL_ARRAY_BUFFER));
-  this->tg.init_class();
   glCall(vao->enable_and_set_attrib_ptr(2, 2, GL_FLOAT, sizeof(glm::vec2), (const void *)0));
   glCall(glVertexAttribDivisor(2, 1));
   //unique textures for each quad!
@@ -55,11 +55,11 @@ void Terrain::create() {
   this->mesh_data.push_back((Vertex){.Position = glm::vec2(-this->size, this->size)});
 
   //mesh_buffer->create(this->mesh_data.size() * sizeof(Vertex), this->mesh_data.data(), GL_STATIC_DRAW, GL_ARRAY_BUFFER);
-  this->tg.push_quad(0.1f, 0.0f, 0.0f);
-  this->tg.push_quad(0.1f, 1.0f, 1.0f);
-  this->tg.update_quad(1, 0.0f, 0.0f, 0.1f);
-  //this->tg.pop_quad();
-  mesh_buffer->create(this->tg.size() * sizeof(float), this->tg.get(), GL_DYNAMIC_DRAW, GL_ARRAY_BUFFER);
+
+  this->tg.push_quad(0.1f, glm::vec2(0.0f, 0.0f));
+  this->tg.push_quad(0.1f, glm::vec2(1.0f, 1.0f));
+  //mesh_buffer->create((this->tg.get_points() * 2) * sizeof(float), this->tg.get(), GL_DYNAMIC_DRAW, GL_ARRAY_BUFFER);
+  mesh_buffer->create(this->tg.get_vector()->size() * sizeof(glm::vec2), this->tg.get_vector()->data(), GL_DYNAMIC_DRAW, GL_ARRAY_BUFFER);
   vao->enable_and_set_attrib_ptr(0, 2, GL_FLOAT, 2 * sizeof(float), (const void *)0);
   // mesh_buffer->create(this->bacthed_terrain.size() * sizeof(glm::vec2),
   // this->bacthed_terrain.data(), GL_DYNAMIC_DRAW, GL_ARRAY_BUFFER);
@@ -75,30 +75,44 @@ void Terrain::create() {
   mesh_buffer->unbind();
   vao->unbind();
 
-  std::array<glm::vec2, render_count> temp_array = {};
-  int index = 0;
-  glm::vec2 offset = glm::vec2(-6.0f, -6.0f);
-  for (int y = 0; y < max_render_for_y; y++) {
+  // std::array<glm::vec2, render_count> temp_array = {};
+  // int index = 0;
+  // glm::vec2 offset = glm::vec2(-6.0f, -6.0f);
+  // for (int y = 0; y < max_render_for_y; y++) {
+  //   for (int x = 0; x < max_render_for_x; x++) {
+  //     temp_array[index] = offset; // Store first, then update offset
+  //     this->tg.push_quad(this->size, offset.x, offset.y);
+  //     index++;
+  //     set_texture_pos(this->atlas, &this->tex_pos, glm::vec2(0.0f));
+  //     offset.x += this->size * 2; // Move right
+  //   }
+  //
+  //   offset.x = -6.0f;           // Reset x position for next row
+  //   offset.y += this->size * 2; // Move down
+  // }
+  this->tg.log_class();
+  int idx = 0;
+  glm::vec2 offset2 = glm::vec2(0.0f, 0.0f);
+  for(int y = 0; y < max_render_for_y; y++) {
     for (int x = 0; x < max_render_for_x; x++) {
-      temp_array[index] = offset; // Store first, then update offset
-      this->tg.push_quad(this->size, offset.x, offset.y);
-      index++;
-      set_texture_pos(this->atlas, &this->tex_pos, glm::vec2(0.0f));
-      offset.x += this->size * 2; // Move right
+      this->tg.push_quad(0.2f, offset2);
+      //temp_array[idx] = offset2;
+      idx+=1;
+      offset2.x += this->size * 2;
     }
-
-    offset.x = -6.0f;           // Reset x position for next row
-    offset.y += this->size * 2; // Move down
+    offset2.x = 0.0f;
+    offset2.y += this->size * 2;
   }
 
-  // for (glm::vec2 pos_data : temp_array) {
-  //   LOG_DEBUG("<pos> %2.2f %2.2f", pos_data.x, pos_data.y);
-  // };
-  positions_buffer->set_data(0, render_count * sizeof(glm::vec2),
-                             temp_array.data());
-  for (auto& positions : this->tex_pos) {
-    //LOG_DEBUG("%.2f : %.2f", positions.x, positions.y); //for some reason it is still 0.0, 0.0
-  };
+  for(int i = 0; i < this->tg.get_points(); i++) {
+    //LOG_DEBUG("%2.2f, %2.2f", this->tg.at(i).x ,this->tg.at(i).y);
+  }
+  this->tg.log_class();
+  this->mesh_buffer.set_data(0, this->tg.get_vector()->size() * sizeof(glm::vec2), this->tg.get_vector()->data());
+
+  // positions_buffer->set_data(0, render_count * sizeof(glm::vec2),
+  //                            temp_array.data());
+
   texture_positions_buffer->set_data(0, this->tex_pos.size()  * sizeof(glm::vec2), this->tex_pos.data());
 
   // positions_buffer->bind();
@@ -146,8 +160,12 @@ void Terrain::draw() {
   this->hitbox.size = this->size;
 
   //glDrawElementsInstanced(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0, render_count);
+  this->mesh_buffer.set_data(0, this->tg.get_vector()->size() * sizeof(glm::vec2), this->tg.get_vector()->data());
+
   glDrawArrays(GL_TRIANGLES, 0, this->tg.get_points());
-  this->mesh_buffer.set_data(0, this->tg.size() * sizeof(float), this->tg.get());
+
+  //this->rdoc_api->EndFrameCapture(nullptr, nullptr);
+  //this->rdoc_api->ShowReplayUI();
   // glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_INT, 0);
   // glDrawElements(GL_TRIANGLES, this->indices.size(), GL_UNSIGNED_INT, 0);
   //  glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
@@ -173,9 +191,7 @@ void Terrain::destroy() {
 
 void Terrain::test_tg(void) {
   // int ret = this->tg.update_quads(0, 2.0f, 2.0f, 0.5f);
-  this->tg.update_quad(0, 2.0f, 2.0f, 0.5f);
-  this->tg.update_quad(1, -2.0f, -2.0f, 0.5f);
-  this->tg.update_quad(2, 0.0f, 0.0f, 0.2f);
+  //this->tg.push_quad(0.5f, 3.0f, 3.0f);
 }
 
 int write_point(int first_index, std::vector<glm::vec2> &collection,
@@ -225,26 +241,14 @@ void set_texture_pos(Texture& texture, std::vector<glm::vec2>* tex_pos, glm::vec
 };
 
 void Terrain_Generator::push_back(float wx, float wy) {
-  //class members:
-  //capacity is an uint: default val is 6
-  //data is an float* malloced capacity(6) * sizeof(float)
-  //last_write is an uint: default val is 0
-  if((this->last_write + 2) >= this->capacity) {
-    this->capacity += 6;
-    float* temp = (float*)realloc(this->data, this->capacity * sizeof(float));
-    if(temp == NULL) {
-      LOG_ERROR("[!] Memory allocation failed!\n");
-    }
-    this->data = temp;
-  }
-  this->data[this->last_write++] = wx;
-  this->data[this->last_write++] = wy;
-  // LOG_DEBUG("Write @ %.2f, %.2f", this->data[this->last_write - 2], this->data[this->last_write - 1]);
+  this->data.push_back(glm::vec2(wx, wy));
   this->points += 1;
 };
 
 //void push_quad(float size, float x, float y);
-void Terrain_Generator::push_quad(float size, float x, float y) {
+void Terrain_Generator::push_quad(float size, glm::vec2 pos) {
+  float x = pos.x;
+  float y = pos.y;
   this->push_back(x - size, y - size);
   this->push_back(x + size, y - size);
   this->push_back(x + size, y + size);
@@ -256,43 +260,21 @@ void Terrain_Generator::push_quad(float size, float x, float y) {
   // LOG_DEBUG("[!!!] %d", this->capacity);
 };
 
-void Terrain_Generator::init_class() {
-  this->data = (float*)malloc(this->capacity * sizeof(float));
-};
-float* Terrain_Generator::get(void) const noexcept {
-  return this->data;
-};
-
-unsigned int Terrain_Generator::size(void) const noexcept {
-  return (this->last_write + 1);
-};
-
 unsigned int Terrain_Generator::get_points(void) const noexcept {
   return this->points;
 }
 
 void Terrain_Generator::update_quad(unsigned int base, float x, float y, float size) {
   unsigned int i = base * 12; 
-  if(base + 11 >= this->last_write) {
+  if(base + 11 >= 0) {
     LOG_ERROR("Invalid location access!");
     return;
   }
-  this->data[i +  0] = x - size; this->data[i +  1] = y - size;
-  this->data[i +  2] = x + size; this->data[i +  3] = y - size;
-  this->data[i +  4] = x + size; this->data[i +  5] = y + size;
-  this->data[i +  6] = x + size; this->data[i +  7] = y + size;
-  this->data[i +  8] = x - size; this->data[i +  9] = y + size;
-  this->data[i + 10] = x - size; this->data[i + 11] = y - size;
 }
 
 void Terrain_Generator::pop_back() {
-  if(this->last_write < 0)
-    return;
-  this->data[this->last_write--] = 0.0f;
-  if(this->last_write < 0)
-    return;
-  this->data[this->last_write--] = 0.0f;
-  this->points -= 1;
+  this->data.pop_back();
+  this->data.pop_back();
 }
 
 void Terrain_Generator::pop_quad() {
@@ -305,7 +287,9 @@ void Terrain_Generator::pop_quad() {
   this->pop_back();
 }
 
-
+glm::vec2* Terrain_Generator::get(void) const noexcept {
+  return (glm::vec2*)this->data.data();
+};
 
 // int Terrain_Generator::update_quads(unsigned int index, float x, float y, float size) {
 //   int cpy = index;
@@ -320,16 +304,22 @@ void Terrain_Generator::pop_quad() {
 // };
 
 glm::vec2 Terrain_Generator::at(unsigned int index) {
-  if(index > this->size() || (index + 1) > this->size()) {
-    LOG_ERROR("[!!!] Access at %d is invalid! NULL memory!", index);
-    return glm::vec2(RET_ERR_VEC2);
-  }
-  return glm::vec2(this->data[index], this->data[index + 1]);
+  return this->data[index];
 }
 
 void Terrain_Generator::set_at(unsigned int index, float xvalue, float yvalue) {
   if(this->at(index).x == RET_ERR_VEC2)
     return;
-  this->data[index] = xvalue;
-  this->data[index++] = yvalue;
+};
+
+void Terrain_Generator::log_class(void) {
+  LOG_DEBUG(" [Log Class was called!]\n>  size: %d\n>  get_points: %d\n>  capacity: %d", 0, this->get_points(), 0);
+};
+
+Terrain_Generator::~Terrain_Generator() {
+  this->points = 0;
+}
+
+std::vector<float>* Terrain_Generator::get_vector(void) const noexcept {
+  return (std::vector<float>*)&this->data;
 };

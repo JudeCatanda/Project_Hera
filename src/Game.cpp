@@ -4,6 +4,7 @@ static void key_callback(GLFWwindow* win, int key, int scancode, int action, int
 static Terrain* pTerrain;
 
 Game::Game() {
+  get_render_doc(this->main_world.rdoc_api);
   LOG_WARNING("THE CURRENT STATE IS NOT STABLE! MIGHT CRASH!");
   def_as_ptr(window);
   def_as_ptr(plr);
