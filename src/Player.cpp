@@ -195,8 +195,8 @@ void scroll_callback(GLFWwindow *window, double xOffset, double yOffset) {
     return;
   }
   //135.0f
-  const float max_zoom = 100000000.0f, min_zoom = 35.0f;
-  const float zoom_strenght = 5.0f;
+  const float max_zoom = 140.0f, min_zoom = 35.0f;
+  const float zoom_strenght = 5.0f;//5.0f
   if ((float)yOffset >= 1.0f)
     *zoom -= zoom_strenght;
   if ((float)yOffset <= -1.0f) {

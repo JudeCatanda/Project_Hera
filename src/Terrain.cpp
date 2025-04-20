@@ -12,8 +12,10 @@
     LOG_ERROR("AH SHIT!!! %d @line: %d", err, __LINE__);
 
 const int max_render_for_x = 30;
-const int max_render_for_y = 1;
+const int max_render_for_y = 2;
 const int render_count = max_render_for_x * max_render_for_y;
+
+const unsigned int max_vertex_counts = 1000;
 
 glm::vec2 cell_size;
 
@@ -28,26 +30,27 @@ void Terrain::create() {
   def_as_ptr(texture_positions_buffer);
 
   //this->rdoc_api->StartFrameCapture(nullptr, nullptr);
-  glCall(vertex->create(GET_SHADERS_PATH("terrain.vert.glsl"), GL_VERTEX_SHADER));
-  glCall(fragment->create(GET_SHADERS_PATH("terrain.frag.glsl"), GL_FRAGMENT_SHADER));
-  glCall(program->create(vertex, fragment));
+  vertex->create(GET_SHADERS_PATH("terrain.vert.glsl"), GL_VERTEX_SHADER);
+  fragment->create(GET_SHADERS_PATH("terrain.frag.glsl"), GL_FRAGMENT_SHADER);
+  program->create(vertex, fragment);
 
-  glCall(vao->create_and_bind());
+  vao->create_and_bind();
 
-  glCall(this->atlas.create(std::string(GET_TEXTURES_PATH("parts.atlas.png")), GL_TEXTURE_2D, GL_RGBA, GL_RGBA));
-  glCall(this->atlas.bind_and_set_active(GL_TEXTURE1));
-  glCall(glUniform1i(glGetUniformLocation(program->get_handle(), "tex1"), 1));
+  this->atlas.create(std::string(GET_TEXTURES_PATH("parts.atlas.png")), GL_TEXTURE_2D, GL_RGBA, GL_RGBA);
+  this->atlas.bind_and_set_active(GL_TEXTURE1);
+  glUniform1i(glGetUniformLocation(program->get_handle(), "tex1"), 1);
   cell_size = glm::vec2(16.0f);
   if(!this->atlas.is_image_valid())
     LOG_DEBUG("the image was invalid for some reason!");
 
-  glCall(positions_buffer->create(render_count * sizeof(glm::vec2), nullptr, GL_DYNAMIC_DRAW, GL_ARRAY_BUFFER));
-  glCall(vao->enable_and_set_attrib_ptr(2, 2, GL_FLOAT, sizeof(glm::vec2), (const void *)0));
-  glCall(glVertexAttribDivisor(2, 1));
+  positions_buffer->create(render_count * sizeof(glm::vec2), nullptr, GL_DYNAMIC_DRAW, GL_ARRAY_BUFFER);
+  vao->enable_and_set_attrib_ptr(2, 2, GL_FLOAT, sizeof(glm::vec2), (const void *)0);
+  glVertexAttribDivisor(2, 1);
+
   //unique textures for each quad!
-  glCall(texture_positions_buffer->create(render_count * 2 * sizeof(glm::vec2), nullptr, GL_DYNAMIC_DRAW, GL_ARRAY_BUFFER));
-  glCall(vao->enable_and_set_attrib_ptr(5, 2, GL_FLOAT, sizeof(glm::vec2), (const void*)0));
-  glCall(glVertexAttribDivisor(5, 1));
+  texture_positions_buffer->create(render_count * 2 * sizeof(glm::vec2), nullptr, GL_DYNAMIC_DRAW, GL_ARRAY_BUFFER);
+  vao->enable_and_set_attrib_ptr(5, 2, GL_FLOAT, sizeof(glm::vec2), (const void*)0);
+  glVertexAttribDivisor(5, 1);
 
   this->mesh_data.push_back((Vertex){.Position = glm::vec2(-this->size, -this->size)});
   this->mesh_data.push_back((Vertex){.Position = glm::vec2(this->size, -this->size)});
@@ -56,11 +59,12 @@ void Terrain::create() {
 
   //mesh_buffer->create(this->mesh_data.size() * sizeof(Vertex), this->mesh_data.data(), GL_STATIC_DRAW, GL_ARRAY_BUFFER);
 
-  this->tg.push_quad(0.1f, glm::vec2(0.0f, 0.0f));
+  this->tg.push_quad(0.1f, glm::vec2(0.0f, 0.0f)); //add two "tests" quads
   this->tg.push_quad(0.1f, glm::vec2(1.0f, 1.0f));
   //mesh_buffer->create((this->tg.get_points() * 2) * sizeof(float), this->tg.get(), GL_DYNAMIC_DRAW, GL_ARRAY_BUFFER);
-  mesh_buffer->create(this->tg.get_vector()->size() * sizeof(glm::vec2), this->tg.get_vector()->data(), GL_DYNAMIC_DRAW, GL_ARRAY_BUFFER);
-  vao->enable_and_set_attrib_ptr(0, 2, GL_FLOAT, 2 * sizeof(float), (const void *)0);
+  std::vector<glm::vec2> vec = this->tg.get_vector();
+  mesh_buffer->create(max_vertex_counts * sizeof(glm::vec2), nullptr, GL_DYNAMIC_DRAW, GL_ARRAY_BUFFER);
+  vao->enable_and_set_attrib_ptr(0, 2, GL_FLOAT, sizeof(glm::vec2), (const void *)0);
   // mesh_buffer->create(this->bacthed_terrain.size() * sizeof(glm::vec2),
   // this->bacthed_terrain.data(), GL_DYNAMIC_DRAW, GL_ARRAY_BUFFER);
 
@@ -90,12 +94,12 @@ void Terrain::create() {
   //   offset.x = -6.0f;           // Reset x position for next row
   //   offset.y += this->size * 2; // Move down
   // }
-  this->tg.log_class();
+  this->tg.clear();
   int idx = 0;
   glm::vec2 offset2 = glm::vec2(0.0f, 0.0f);
   for(int y = 0; y < max_render_for_y; y++) {
     for (int x = 0; x < max_render_for_x; x++) {
-      this->tg.push_quad(0.2f, offset2);
+      this->tg.push_quad(0.1f, offset2);
       //temp_array[idx] = offset2;
       idx+=1;
       offset2.x += this->size * 2;
@@ -104,16 +108,13 @@ void Terrain::create() {
     offset2.y += this->size * 2;
   }
 
-  for(int i = 0; i < this->tg.get_points(); i++) {
-    //LOG_DEBUG("%2.2f, %2.2f", this->tg.at(i).x ,this->tg.at(i).y);
-  }
-  this->tg.log_class();
-  this->mesh_buffer.set_data(0, this->tg.get_vector()->size() * sizeof(glm::vec2), this->tg.get_vector()->data());
+  // this->mesh_buffer.set_data(0, vec.size() * sizeof(glm::vec2), vec.data());
+  this->mesh_buffer.set_data(0, this->tg.get_vector().size() * sizeof(glm::vec2), this->tg.get());
 
   // positions_buffer->set_data(0, render_count * sizeof(glm::vec2),
   //                            temp_array.data());
 
-  texture_positions_buffer->set_data(0, this->tex_pos.size()  * sizeof(glm::vec2), this->tex_pos.data());
+  //texture_positions_buffer->set_data(0, this->tex_pos.size()  * sizeof(glm::vec2), this->tex_pos.data());
 
   // positions_buffer->bind();
   // void* buffer = glMapBuffer(GL_ARRAY_BUFFER, GL_READ_ONLY);
@@ -160,7 +161,6 @@ void Terrain::draw() {
   this->hitbox.size = this->size;
 
   //glDrawElementsInstanced(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0, render_count);
-  this->mesh_buffer.set_data(0, this->tg.get_vector()->size() * sizeof(glm::vec2), this->tg.get_vector()->data());
 
   glDrawArrays(GL_TRIANGLES, 0, this->tg.get_points());
 
@@ -192,6 +192,8 @@ void Terrain::destroy() {
 void Terrain::test_tg(void) {
   // int ret = this->tg.update_quads(0, 2.0f, 2.0f, 0.5f);
   //this->tg.push_quad(0.5f, 3.0f, 3.0f);
+  this->tg.update_quad(1, glm::vec2(-1.0f), 1.0f);
+  this->mesh_buffer.set_data(0, this->tg.get_vector().size() * sizeof(glm::vec2), this->tg.get());
 }
 
 int write_point(int first_index, std::vector<glm::vec2> &collection,
@@ -240,51 +242,51 @@ void set_texture_pos(Texture& texture, std::vector<glm::vec2>* tex_pos, glm::vec
   tex_pos->push_back(glm::vec2(u_min, v_max));
 };
 
-void Terrain_Generator::push_back(float wx, float wy) {
-  this->data.push_back(glm::vec2(wx, wy));
-  this->points += 1;
-};
-
 //void push_quad(float size, float x, float y);
 void Terrain_Generator::push_quad(float size, glm::vec2 pos) {
   float x = pos.x;
   float y = pos.y;
-  this->push_back(x - size, y - size);
-  this->push_back(x + size, y - size);
-  this->push_back(x + size, y + size);
 
-  this->push_back(x + size, y + size);
-  this->push_back(x - size, y + size);
-  this->push_back(x - size, y - size);
+  this->data.push_back(glm::vec2(x - size, y - size));
+  this->data.push_back(glm::vec2(x + size, y - size));
+  this->data.push_back(glm::vec2(x + size, y + size));
+  this->points += 3;
+
+  this->data.push_back(glm::vec2(x + size, y + size));
+  this->data.push_back(glm::vec2(x - size, y + size));
+  this->data.push_back(glm::vec2(x - size, y - size));
+  this->points += 3;
+
   // LOG_DEBUG("[!!!] %d", this->last_write);
   // LOG_DEBUG("[!!!] %d", this->capacity);
 };
 
-unsigned int Terrain_Generator::get_points(void) const noexcept {
-  return this->points;
-}
-
-void Terrain_Generator::update_quad(unsigned int base, float x, float y, float size) {
-  unsigned int i = base * 12; 
-  if(base + 11 >= 0) {
+void Terrain_Generator::update_quad(unsigned int base, glm::vec2 pos, float size) {
+  float x = pos.x;
+  float y = pos.y;
+  unsigned int i = base * 6; 
+  if(base + 5 >= this->data.size()) {
     LOG_ERROR("Invalid location access!");
     return;
   }
-}
 
-void Terrain_Generator::pop_back() {
-  this->data.pop_back();
-  this->data.pop_back();
+  this->data[i + 0] = glm::vec2(x - size, y - size);
+  this->data[i + 1] = glm::vec2(x + size, y - size);
+  this->data[i + 2] = glm::vec2(x + size, y + size);
+
+  this->data[i + 3] = glm::vec2(x + size, y + size);
+  this->data[i + 4] = glm::vec2(x - size, y + size);
+  this->data[i + 5] = glm::vec2(x - size, y - size);
 }
 
 void Terrain_Generator::pop_quad() {
-  this->pop_back();
-  this->pop_back();
-  this->pop_back();
+  this->data.pop_back();
+  this->data.pop_back();
+  this->data.pop_back();
 
-  this->pop_back();
-  this->pop_back();
-  this->pop_back();
+  this->data.pop_back();
+  this->data.pop_back();
+  this->data.pop_back();
 }
 
 glm::vec2* Terrain_Generator::get(void) const noexcept {
@@ -307,19 +309,15 @@ glm::vec2 Terrain_Generator::at(unsigned int index) {
   return this->data[index];
 }
 
-void Terrain_Generator::set_at(unsigned int index, float xvalue, float yvalue) {
-  if(this->at(index).x == RET_ERR_VEC2)
-    return;
+const std::vector<glm::vec2>& Terrain_Generator::get_vector(void) const noexcept {
+  return this->data;
 };
 
-void Terrain_Generator::log_class(void) {
-  LOG_DEBUG(" [Log Class was called!]\n>  size: %d\n>  get_points: %d\n>  capacity: %d", 0, this->get_points(), 0);
+unsigned int Terrain_Generator::get_points(void) const noexcept {
+  return this->points;
 };
 
-Terrain_Generator::~Terrain_Generator() {
+void Terrain_Generator::clear(void) noexcept {
+  this->data.clear();
   this->points = 0;
-}
-
-std::vector<float>* Terrain_Generator::get_vector(void) const noexcept {
-  return (std::vector<float>*)&this->data;
 };
