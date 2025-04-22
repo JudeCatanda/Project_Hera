@@ -12,10 +12,11 @@
     LOG_ERROR("AH SHIT!!! %d @line: %d", err, __LINE__);
 
 const int max_render_for_x = 30;
-const int max_render_for_y = 2;
+const int max_render_for_y = 10;
 const int render_count = max_render_for_x * max_render_for_y;
 
 const unsigned int max_vertex_counts = 1000;
+const unsigned int points_per_quad = 6;
 
 glm::vec2 cell_size;
 
@@ -63,7 +64,7 @@ void Terrain::create() {
   this->tg.push_quad(0.1f, glm::vec2(1.0f, 1.0f));
   //mesh_buffer->create((this->tg.get_points() * 2) * sizeof(float), this->tg.get(), GL_DYNAMIC_DRAW, GL_ARRAY_BUFFER);
   std::vector<glm::vec2> vec = this->tg.get_vector();
-  mesh_buffer->create(max_vertex_counts * sizeof(glm::vec2), nullptr, GL_DYNAMIC_DRAW, GL_ARRAY_BUFFER);
+  mesh_buffer->create((max_vertex_counts * points_per_quad) * sizeof(glm::vec2), nullptr, GL_DYNAMIC_DRAW, GL_ARRAY_BUFFER);
   vao->enable_and_set_attrib_ptr(0, 2, GL_FLOAT, sizeof(glm::vec2), (const void *)0);
   // mesh_buffer->create(this->bacthed_terrain.size() * sizeof(glm::vec2),
   // this->bacthed_terrain.data(), GL_DYNAMIC_DRAW, GL_ARRAY_BUFFER);
@@ -96,16 +97,17 @@ void Terrain::create() {
   // }
   this->tg.clear();
   int idx = 0;
+  const float space = 0.01f;
   glm::vec2 offset2 = glm::vec2(0.0f, 0.0f);
   for(int y = 0; y < max_render_for_y; y++) {
     for (int x = 0; x < max_render_for_x; x++) {
-      this->tg.push_quad(0.1f, offset2);
+      this->tg.push_quad(space, offset2);
       //temp_array[idx] = offset2;
       idx+=1;
-      offset2.x += this->size * 2;
+      offset2.x += space * 2;
     }
     offset2.x = 0.0f;
-    offset2.y += this->size * 2;
+    offset2.y += space * 2;
   }
 
   // this->mesh_buffer.set_data(0, vec.size() * sizeof(glm::vec2), vec.data());

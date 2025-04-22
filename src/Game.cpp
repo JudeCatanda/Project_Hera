@@ -14,6 +14,7 @@ Game::Game() {
   this->last = (float)glfwGetTime();
   window->append_key_callback(key_callback);
   glfwSetInputMode(window->get_handle(), GLFW_STICKY_KEYS, GLFW_TRUE);
+  glfwSwapInterval(1);//cap fps
 
   main_world->create();
   pTerrain = &this->main_world;

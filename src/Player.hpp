@@ -28,7 +28,7 @@ private:
 
   /* PHYSICS RELATED FUNCTIONS AND CAMERA */
   float speed = 0.01f; //constant speed no velocity yey!
-  float size = 0.1f;
+  float size = 0.025f;
   float health = 100.0f;
   float cam_z = 2.42085743;//-2.42085743;
   float f_counter = 40.0f;
