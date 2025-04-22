@@ -19,17 +19,21 @@ const float RET_ERR_VEC2 = -1000000.00f;
 class Terrain_Generator {
 private:
   std::vector<glm::vec2> data;
+  std::vector<glm::vec2> texture_pos;
   unsigned int points;
 public:
   Terrain_Generator() : points(0) {};
   void push_quad(float size, glm::vec2 pos);
+  void push_quad_with_sprite(float size, glm::vec2 pos, glm::vec2 image_dimensions, glm::vec2 cell_size, glm::vec2 sprite_pos);
   void pop_quad();
   void update_quad(unsigned int base, glm::vec2 pos, float size);
   void clear(void) noexcept;
 
   glm::vec2 at(unsigned int index);
   const std::vector<glm::vec2>& get_vector(void) const noexcept;
+  const std::vector<glm::vec2>& get_vector_with_sprite(void) const noexcept;
   glm::vec2* get(void) const noexcept;
+  glm::vec2* get_with_sprite(void) const noexcept;
   unsigned int get_points(void) const noexcept;
 
   ~Terrain_Generator() { this->clear(); };

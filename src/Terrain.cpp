@@ -49,7 +49,7 @@ void Terrain::create() {
   glVertexAttribDivisor(2, 1);
 
   //unique textures for each quad!
-  texture_positions_buffer->create(render_count * 2 * sizeof(glm::vec2), nullptr, GL_DYNAMIC_DRAW, GL_ARRAY_BUFFER);
+  texture_positions_buffer->create((max_vertex_counts * points_per_quad) * sizeof(glm::vec2), nullptr, GL_DYNAMIC_DRAW, GL_ARRAY_BUFFER);
   vao->enable_and_set_attrib_ptr(5, 2, GL_FLOAT, sizeof(glm::vec2), (const void*)0);
   glVertexAttribDivisor(5, 1);
 
@@ -101,7 +101,8 @@ void Terrain::create() {
   glm::vec2 offset2 = glm::vec2(0.0f, 0.0f);
   for(int y = 0; y < max_render_for_y; y++) {
     for (int x = 0; x < max_render_for_x; x++) {
-      this->tg.push_quad(space, offset2);
+      //this->tg.push_quad(space, offset2);
+      this->tg.push_quad_with_sprite(space, offset2, this->atlas.get_size(), cell_size, glm::vec2(1.0f));
       //temp_array[idx] = offset2;
       idx+=1;
       offset2.x += space * 2;
@@ -112,6 +113,7 @@ void Terrain::create() {
 
   // this->mesh_buffer.set_data(0, vec.size() * sizeof(glm::vec2), vec.data());
   this->mesh_buffer.set_data(0, this->tg.get_vector().size() * sizeof(glm::vec2), this->tg.get());
+  this->texture_positions_buffer.set_data(0, this->tg.get_vector_with_sprite().size(), this->tg.get_with_sprite());
 
   // positions_buffer->set_data(0, render_count * sizeof(glm::vec2),
   //                            temp_array.data());
@@ -322,4 +324,50 @@ unsigned int Terrain_Generator::get_points(void) const noexcept {
 void Terrain_Generator::clear(void) noexcept {
   this->data.clear();
   this->points = 0;
+};
+
+void Terrain_Generator::push_quad_with_sprite(float size, glm::vec2 pos, glm::vec2 image_dimensions, glm::vec2 cell_size, glm::vec2 sprite_pos) {
+  float x = pos.x;
+  float y = pos.y;
+
+  this->data.push_back(glm::vec2(x - size, y - size));
+  this->data.push_back(glm::vec2(x + size, y - size));
+  this->data.push_back(glm::vec2(x + size, y + size));
+  this->points += 3;
+
+  this->data.push_back(glm::vec2(x + size, y + size));
+  this->data.push_back(glm::vec2(x - size, y + size));
+  this->data.push_back(glm::vec2(x - size, y - size));
+  this->points += 3;
+
+  // sprite sheet cell in (column,row)
+  float tex_x    = sprite_pos.x;
+  float tex_y    = sprite_pos.y;
+  float swidth   = cell_size.x;
+  float sheight  = cell_size.y;
+  float iwidth   = image_dimensions.x;
+  float iheight  = image_dimensions.y;
+  
+  // compute the four corners of this cell in UV‐space
+  glm::vec2 uv0{ ( tex_x    * swidth) / iwidth, ( tex_y    * sheight) / iheight }; // bottom‐left
+  glm::vec2 uv1{ ((tex_x+1) * swidth) / iwidth, ( tex_y    * sheight) / iheight }; // bottom‐right
+  glm::vec2 uv2{ ((tex_x+1) * swidth) / iwidth, ((tex_y+1) * sheight) / iheight }; // top‐right
+  glm::vec2 uv3{ ( tex_x    * swidth) / iwidth, ((tex_y+1) * sheight) / iheight }; // top‐left
+  
+  // now push them in the same triangle‑list order you do for positions:
+  this->texture_pos.push_back(uv0); // tri 1, v0
+  this->texture_pos.push_back(uv1); // tri 1, v1
+  this->texture_pos.push_back(uv2); // tri 1, v2
+  
+  this->texture_pos.push_back(uv2); // tri 2, v0
+  this->texture_pos.push_back(uv3); // tri 2, v1
+  this->texture_pos.push_back(uv0); // tri 2, v2
+}
+
+glm::vec2* Terrain_Generator::get_with_sprite(void) const noexcept {
+  return (glm::vec2*)this->texture_pos.data();
+}
+
+const std::vector<glm::vec2>& Terrain_Generator::get_vector_with_sprite(void) const noexcept {
+  return this->texture_pos;
 };
