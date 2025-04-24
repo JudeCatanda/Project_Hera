@@ -1,4 +1,5 @@
 #include "Terrain.hpp"
+#include <random>
 
 #undef def_as_ptr
 #define def_as_ptr(name) typeof(this->name) *name = &this->name
@@ -11,11 +12,11 @@
   while(GLenum err = glGetError())\
     LOG_ERROR("AH SHIT!!! %d @line: %d", err, __LINE__);
 
-const int max_render_for_x = 30;
-const int max_render_for_y = 10;
+const int max_render_for_x = 100;
+const int max_render_for_y = 20;
 const int render_count = max_render_for_x * max_render_for_y;
 
-const unsigned int max_vertex_counts = 1000;
+const unsigned int max_vertex_counts = 2000;
 const unsigned int points_per_quad = 6;
 
 glm::vec2 cell_size;
@@ -44,25 +45,24 @@ void Terrain::create() {
   if(!this->atlas.is_image_valid())
     LOG_DEBUG("the image was invalid for some reason!");
 
-  positions_buffer->create(render_count * sizeof(glm::vec2), nullptr, GL_DYNAMIC_DRAW, GL_ARRAY_BUFFER);
-  vao->enable_and_set_attrib_ptr(2, 2, GL_FLOAT, sizeof(glm::vec2), (const void *)0);
-  glVertexAttribDivisor(2, 1);
+  // positions_buffer->create(render_count * sizeof(glm::vec2), nullptr, GL_DYNAMIC_DRAW, GL_ARRAY_BUFFER);
+  // vao->enable_and_set_attrib_ptr(2, 2, GL_FLOAT, sizeof(glm::vec2), (const void *)0);
+  // glVertexAttribDivisor(2, 1);
+  //not doing instancing anymore
 
   //unique textures for each quad!
   texture_positions_buffer->create((max_vertex_counts * points_per_quad) * sizeof(glm::vec2), nullptr, GL_DYNAMIC_DRAW, GL_ARRAY_BUFFER);
   vao->enable_and_set_attrib_ptr(5, 2, GL_FLOAT, sizeof(glm::vec2), (const void*)0);
-  glVertexAttribDivisor(5, 1);
+  //glVertexAttribDivisor(5, 1); //hehe you fucking bitch this was the reason why i only used the same uv
 
-  this->mesh_data.push_back((Vertex){.Position = glm::vec2(-this->size, -this->size)});
-  this->mesh_data.push_back((Vertex){.Position = glm::vec2(this->size, -this->size)});
-  this->mesh_data.push_back((Vertex){.Position = glm::vec2(this->size, this->size)});
-  this->mesh_data.push_back((Vertex){.Position = glm::vec2(-this->size, this->size)});
+  //below code is useless
+  //this->mesh_data.push_back((Vertex){.Position = glm::vec2(-this->size, -this->size)});
+  //this->mesh_data.push_back((Vertex){.Position = glm::vec2(this->size, -this->size)});
+  //this->mesh_data.push_back((Vertex){.Position = glm::vec2(this->size, this->size)});
+  //this->mesh_data.push_back((Vertex){.Position = glm::vec2(-this->size, this->size)});
 
   //mesh_buffer->create(this->mesh_data.size() * sizeof(Vertex), this->mesh_data.data(), GL_STATIC_DRAW, GL_ARRAY_BUFFER);
 
-  this->tg.push_quad(0.1f, glm::vec2(0.0f, 0.0f)); //add two "tests" quads
-  this->tg.push_quad(0.1f, glm::vec2(1.0f, 1.0f));
-  //mesh_buffer->create((this->tg.get_points() * 2) * sizeof(float), this->tg.get(), GL_DYNAMIC_DRAW, GL_ARRAY_BUFFER);
   std::vector<glm::vec2> vec = this->tg.get_vector();
   mesh_buffer->create((max_vertex_counts * points_per_quad) * sizeof(glm::vec2), nullptr, GL_DYNAMIC_DRAW, GL_ARRAY_BUFFER);
   vao->enable_and_set_attrib_ptr(0, 2, GL_FLOAT, sizeof(glm::vec2), (const void *)0);
@@ -71,7 +71,7 @@ void Terrain::create() {
 
   unsigned int indices[] = {0, 1, 2, 0, 3, 2};
 
-  // this->indices = generateIndices(this->bacthed_terrain.size() / 4);
+  // this->indices = generateIndices(this->bacthed_terrain.size() / 4); //do batched index buffers soon
   indices_buffer->create(sizeof(indices), indices, GL_STATIC_DRAW,
                          GL_ELEMENT_ARRAY_BUFFER);
 
@@ -80,40 +80,36 @@ void Terrain::create() {
   mesh_buffer->unbind();
   vao->unbind();
 
-  // std::array<glm::vec2, render_count> temp_array = {};
-  // int index = 0;
-  // glm::vec2 offset = glm::vec2(-6.0f, -6.0f);
-  // for (int y = 0; y < max_render_for_y; y++) {
-  //   for (int x = 0; x < max_render_for_x; x++) {
-  //     temp_array[index] = offset; // Store first, then update offset
-  //     this->tg.push_quad(this->size, offset.x, offset.y);
-  //     index++;
-  //     set_texture_pos(this->atlas, &this->tex_pos, glm::vec2(0.0f));
-  //     offset.x += this->size * 2; // Move right
-  //   }
-  //
-  //   offset.x = -6.0f;           // Reset x position for next row
-  //   offset.y += this->size * 2; // Move down
-  // }
   this->tg.clear();
   int idx = 0;
-  const float space = 0.01f;
-  glm::vec2 offset2 = glm::vec2(0.0f, 0.0f);
+  const float space = 0.05f;
+  const float x_starter = -6.0f;
+  glm::vec2 offset = glm::vec2(x_starter, 0.0f);
+  // srand(time(NULL));
+  std::random_device rand_device;
+  std::mt19937 engine(rand_device());
+  std::uniform_int_distribution<int> dist(0, 3);
+  // int rand_pos = 0;
+  int sprite_x = 0;
+  int sprite_y = 0;
   for(int y = 0; y < max_render_for_y; y++) {
     for (int x = 0; x < max_render_for_x; x++) {
-      //this->tg.push_quad(space, offset2);
-      this->tg.push_quad_with_sprite(space, offset2, this->atlas.get_size(), cell_size, glm::vec2(1.0f));
-      //temp_array[idx] = offset2;
+      int rand_pos = dist(engine);
+      sprite_x = rand_pos % 2;
+      sprite_y = rand_pos / 2;
+      this->tg.push_quad_with_sprite(space, offset, glm::vec2(32.0f), cell_size, glm::vec2((float)sprite_x, (float)sprite_y)); //get randome texture
+      LOG_DEBUG("%d", rand_pos);
       idx+=1;
-      offset2.x += space * 2;
+      offset.x += space * 2;
     }
-    offset2.x = 0.0f;
-    offset2.y += space * 2;
+    offset.x = x_starter;
+    offset.y += space * 2;
   }
+  LOG_DEBUG("vector size: %lld", this->tg.get_vector().size());
 
   // this->mesh_buffer.set_data(0, vec.size() * sizeof(glm::vec2), vec.data());
   this->mesh_buffer.set_data(0, this->tg.get_vector().size() * sizeof(glm::vec2), this->tg.get());
-  this->texture_positions_buffer.set_data(0, this->tg.get_vector_with_sprite().size(), this->tg.get_with_sprite());
+  this->texture_positions_buffer.set_data(0, this->tg.get_vector_with_sprite().size() * sizeof(glm::vec2), this->tg.get_with_sprite());
 
   // positions_buffer->set_data(0, render_count * sizeof(glm::vec2),
   //                            temp_array.data());
@@ -166,7 +162,8 @@ void Terrain::draw() {
 
   //glDrawElementsInstanced(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0, render_count);
 
-  glDrawArrays(GL_TRIANGLES, 0, this->tg.get_points());
+  // glDrawArrays(GL_TRIANGLES, 0, this->tg.get_points());
+  glDrawArrays(GL_TRIANGLES, 0, (max_vertex_counts * points_per_quad));
 
   //this->rdoc_api->EndFrameCapture(nullptr, nullptr);
   //this->rdoc_api->ShowReplayUI();
@@ -348,13 +345,11 @@ void Terrain_Generator::push_quad_with_sprite(float size, glm::vec2 pos, glm::ve
   float iwidth   = image_dimensions.x;
   float iheight  = image_dimensions.y;
   
-  // compute the four corners of this cell in UV‐space
   glm::vec2 uv0{ ( tex_x    * swidth) / iwidth, ( tex_y    * sheight) / iheight }; // bottom‐left
   glm::vec2 uv1{ ((tex_x+1) * swidth) / iwidth, ( tex_y    * sheight) / iheight }; // bottom‐right
   glm::vec2 uv2{ ((tex_x+1) * swidth) / iwidth, ((tex_y+1) * sheight) / iheight }; // top‐right
   glm::vec2 uv3{ ( tex_x    * swidth) / iwidth, ((tex_y+1) * sheight) / iheight }; // top‐left
   
-  // now push them in the same triangle‑list order you do for positions:
   this->texture_pos.push_back(uv0); // tri 1, v0
   this->texture_pos.push_back(uv1); // tri 1, v1
   this->texture_pos.push_back(uv2); // tri 1, v2
