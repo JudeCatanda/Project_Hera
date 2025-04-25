@@ -20,6 +20,7 @@ class Terrain_Generator {
 private:
   std::vector<glm::vec2> data;
   std::vector<glm::vec2> texture_pos;
+  std::vector<unsigned int> indices;
   unsigned int points;
 public:
   Terrain_Generator() : points(0) {};
@@ -28,13 +29,17 @@ public:
   void pop_quad();
   void update_quad(unsigned int base, glm::vec2 pos, float size);
   void clear(void) noexcept;
+  void gen_indices(int index);
 
   glm::vec2 at(unsigned int index);
   const std::vector<glm::vec2>& get_vector(void) const noexcept;
   const std::vector<glm::vec2>& get_vector_with_sprite(void) const noexcept;
+  const std::vector<unsigned int>& get_vector_with_indices_buffer(void) const noexcept;
   glm::vec2* get(void) const noexcept;
   glm::vec2* get_with_sprite(void) const noexcept;
+  unsigned int* get_with_indices_buffer(void) const noexcept;
   unsigned int get_points(void) const noexcept;
+  unsigned int get_rendered_quads(void) const noexcept;
 
   ~Terrain_Generator() { this->clear(); };
 };
