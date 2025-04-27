@@ -132,7 +132,9 @@ void Terrain::destroy() {
 
 void Terrain::test_tg(void) {
   //test the functions
-  this->tg.update_quad(1, glm::vec2(-1.0f), 1.0f);
+  //this->tg.update_quad(1, glm::vec2(-1.0f), 1.0f);
+  this->tg.push_quad(0.1f, glm::vec2(2.0));
+  LOG_DEBUG("We are rendering %d quads", this->tg.get_rendered_quads());
   this->mesh_buffer.set_data(0, this->tg.get_vector().size() * sizeof(glm::vec2), this->tg.get());
 }
 

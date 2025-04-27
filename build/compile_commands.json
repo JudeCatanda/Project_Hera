@@ -19,6 +19,12 @@
 },
 {
   "directory": "C:/Users/User/Documents/C++ Projects/Hera/build",
+  "command": "C:\\msys64\\ucrt64\\bin\\g++.exe -DDBG_MODE -I\"C:/Users/User/Documents/C++ Projects/Hera/./include\"  -Wall -Wextra -g -g -o CMakeFiles\\hera.dir\\src\\InputManager.cpp.obj -c \"C:\\Users\\User\\Documents\\C++ Projects\\Hera\\src\\InputManager.cpp\"",
+  "file": "C:\\Users\\User\\Documents\\C++ Projects\\Hera\\src\\InputManager.cpp",
+  "output": "CMakeFiles\\hera.dir\\src\\InputManager.cpp.obj"
+},
+{
+  "directory": "C:/Users/User/Documents/C++ Projects/Hera/build",
   "command": "C:\\msys64\\ucrt64\\bin\\g++.exe -DDBG_MODE -I\"C:/Users/User/Documents/C++ Projects/Hera/./include\"  -Wall -Wextra -g -g -o CMakeFiles\\hera.dir\\src\\Layout.cpp.obj -c \"C:\\Users\\User\\Documents\\C++ Projects\\Hera\\src\\Layout.cpp\"",
   "file": "C:\\Users\\User\\Documents\\C++ Projects\\Hera\\src\\Layout.cpp",
   "output": "CMakeFiles\\hera.dir\\src\\Layout.cpp.obj"

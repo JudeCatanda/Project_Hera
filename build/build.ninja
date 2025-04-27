@@ -73,6 +73,14 @@ build CMakeFiles/hera.dir/src/Game.cpp.obj: CXX_COMPILER__hera_unscanned_Debug C
   OBJECT_DIR = CMakeFiles\hera.dir
   OBJECT_FILE_DIR = CMakeFiles\hera.dir\src
 
+build CMakeFiles/hera.dir/src/InputManager.cpp.obj: CXX_COMPILER__hera_unscanned_Debug C$:/Users/User/Documents/C++$ Projects/Hera/src/InputManager.cpp || cmake_object_order_depends_target_hera
+  DEFINES = -DDBG_MODE
+  DEP_FILE = CMakeFiles\hera.dir\src\InputManager.cpp.obj.d
+  FLAGS = -Wall -Wextra -g -g
+  INCLUDES = -I"C:/Users/User/Documents/C++ Projects/Hera/./include"
+  OBJECT_DIR = CMakeFiles\hera.dir
+  OBJECT_FILE_DIR = CMakeFiles\hera.dir\src
+
 build CMakeFiles/hera.dir/src/Layout.cpp.obj: CXX_COMPILER__hera_unscanned_Debug C$:/Users/User/Documents/C++$ Projects/Hera/src/Layout.cpp || cmake_object_order_depends_target_hera
   DEFINES = -DDBG_MODE
   DEP_FILE = CMakeFiles\hera.dir\src\Layout.cpp.obj.d
@@ -169,7 +177,7 @@ build CMakeFiles/hera.dir/src/stb_image.cpp.obj: CXX_COMPILER__hera_unscanned_De
 #############################################
 # Link the executable hera.exe
 
-build hera.exe: CXX_EXECUTABLE_LINKER__hera_Debug CMakeFiles/hera.dir/src/AABB.cpp.obj CMakeFiles/hera.dir/src/Buffer.cpp.obj CMakeFiles/hera.dir/src/Game.cpp.obj CMakeFiles/hera.dir/src/Layout.cpp.obj CMakeFiles/hera.dir/src/Player.cpp.obj CMakeFiles/hera.dir/src/RenderUtils.cpp.obj CMakeFiles/hera.dir/src/Shader.cpp.obj CMakeFiles/hera.dir/src/Terrain.cpp.obj CMakeFiles/hera.dir/src/Texture.cpp.obj CMakeFiles/hera.dir/src/Window.cpp.obj CMakeFiles/hera.dir/src/glad.cpp.obj CMakeFiles/hera.dir/src/main.cpp.obj CMakeFiles/hera.dir/src/rdoc.cpp.obj CMakeFiles/hera.dir/src/stb_image.cpp.obj
+build hera.exe: CXX_EXECUTABLE_LINKER__hera_Debug CMakeFiles/hera.dir/src/AABB.cpp.obj CMakeFiles/hera.dir/src/Buffer.cpp.obj CMakeFiles/hera.dir/src/Game.cpp.obj CMakeFiles/hera.dir/src/InputManager.cpp.obj CMakeFiles/hera.dir/src/Layout.cpp.obj CMakeFiles/hera.dir/src/Player.cpp.obj CMakeFiles/hera.dir/src/RenderUtils.cpp.obj CMakeFiles/hera.dir/src/Shader.cpp.obj CMakeFiles/hera.dir/src/Terrain.cpp.obj CMakeFiles/hera.dir/src/Texture.cpp.obj CMakeFiles/hera.dir/src/Window.cpp.obj CMakeFiles/hera.dir/src/glad.cpp.obj CMakeFiles/hera.dir/src/main.cpp.obj CMakeFiles/hera.dir/src/rdoc.cpp.obj CMakeFiles/hera.dir/src/stb_image.cpp.obj
   FLAGS = -Wall -Wextra -g -g
   LINK_LIBRARIES = -lopengl32  -lglfw3  -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   LINK_PATH = -LC:/Users/User/DOCUME~1/C__PRO~1/Hera/./lib

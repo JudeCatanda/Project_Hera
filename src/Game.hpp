@@ -8,6 +8,7 @@
 #include "Player.hpp"
 #include "Terrain.hpp"
 #include "AABB.hpp"
+#include "InputManager.hpp"
 
 #define LOG_DEBUG(fmt, ...) std::printf("[DEBUG] " fmt "\n", ##__VA_ARGS__)
 #define LOG_ERROR(fmt, ...) std::printf("[ERROR] " fmt "\n", ##__VA_ARGS__); \
@@ -22,6 +23,7 @@ private:
   Player plr;
   Terrain main_world;
   float last, current, delta;
+  Keyboard keyboard;
 public:
   Game();
   //void create();
