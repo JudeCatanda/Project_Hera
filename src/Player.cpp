@@ -113,8 +113,9 @@ void Player::draw() {
   this->move();
 
   this->projection = glm::mat4(1.0f);
-  this->projection = glm::perspective(
-      glm::radians(*zoom), *this->window->get_aspect_ratio(), 0.1f, 100.0f);
+  //this->projection = glm::perspective(
+      //glm::radians(*zoom), *this->window->get_aspect_ratio(), 0.1f, 100.0f);
+  this->projection = glm::ortho(0.0f, (float)this->window->get_size()->x, 0.0f, (float)this->window->get_size()->y, 0.1f, 100.0f);
 
   this->view = glm::mat4(1.0f);
   //clip the camera ?

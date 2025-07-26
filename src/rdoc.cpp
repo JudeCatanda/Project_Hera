@@ -6,7 +6,7 @@
 #define LOG_ERROR(fmt, ...) std::printf("[ERROR] " fmt "\n", ##__VA_ARGS__);
 
 void get_render_doc(RENDERDOC_API_1_5_0* rdoc_api) {
-  HMODULE hmod = LoadLibraryA("C:\\Users\\User\\Documents\\C++ Projects\\Hera\\build\\renderdoc.dll");
+  HMODULE hmod = LoadLibraryA(".//renderdoc.dll");
   if(!hmod)
     LOG_ERROR("Cannot load the dll");
   auto GetAPI = (pRENDERDOC_GetAPI)GetProcAddress(hmod, "RENDERDOC_GetAPI");

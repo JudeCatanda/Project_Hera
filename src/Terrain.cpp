@@ -63,7 +63,7 @@ void Terrain::create() {
 
   this->tg.clear();
   int idx = 0;
-  const float space = 0.05f;
+  const float space = 0.5f;
   const float x_starter = -1.0f;
   glm::vec2 offset = glm::vec2(x_starter, -0.1f);
 
