@@ -7,10 +7,10 @@ Game::Game() {
   def_as_ptr(plr);
   def_as_ptr(main_world);
 
-  window->create("Hera", 600, 800);
+  window->Create("Hera", 600, 800);
   this->last = (float)glfwGetTime();
-  glfwSetInputMode(window->get_handle(), GLFW_STICKY_KEYS, GLFW_TRUE);
-  this->keyboard.attach_window(window->get_handle());
+  glfwSetInputMode(window->GetHandle(), GLFW_STICKY_KEYS, GLFW_TRUE);
+  this->keyboard.attach_window(window->GetHandle());
   glfwSwapInterval(0);//uncap fps
 
   main_world->create();
@@ -25,12 +25,12 @@ void Game::update() {
   def_as_ptr(main_world);
   bool wireframe = false;
   
-  while(!window->should_close()) {
+  while(!window->ShouldClose()) {
     this->current = (float)glfwGetTime();
     this->delta = this->current - this->last;
     this->last = this->current;
 
-    window->set_viewport();
+    window->SetViewport();
     glClearColor(0.2, 0.5, 0.9, 1.0);
     // glClearColor(0.0, 0.0, 0.0, 1.0);
     glClear(GL_COLOR_BUFFER_BIT);
@@ -52,7 +52,7 @@ void Game::update() {
       break;
     }
 
-    glfwSwapBuffers(window->get_handle());
+    glfwSwapBuffers(window->GetHandle());
     glfwPollEvents();
     if(this->keyboard.check_state(GLFW_KEY_LEFT_SHIFT)) {
       this->main_world.test_tg();
@@ -64,7 +64,7 @@ void Game::update() {
 }
 
 void Game::destroy() {
-  this->window.destroy();
+  this->window.Destroy();
   this->plr.destroy();
   this->main_world.destroy();
   LOG_INFO("Exiting...");

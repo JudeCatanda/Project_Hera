@@ -22,9 +22,9 @@ void Shader::read_file(std::string file_name) {
 void Shader::create(std::string file_name, GLenum type) {
   this->read_file(file_name);
   const char* data = this->source_code.c_str(); // also bad???
-  this->handle = glCreateShader(type);
-  glShaderSource(this->handle, 1, &data, NULL);
-  glCompileShader(this->handle);
+  this->m_Handle = glCreateShader(type);
+  glShaderSource(this->m_Handle, 1, &data, NULL);
+  glCompileShader(this->m_Handle);
   this->type = type;
   this->check_errors();
 }
@@ -33,73 +33,77 @@ GLenum Shader::get_type() {
   return this->type;
 }
 
-unsigned int Shader::get_handle() {
-  return this->handle;
+unsigned int Shader::GetHandle() {
+  return this->m_Handle;
 }
 
 void Shader::check_errors() {
   int success;
   char err_out[1024];
-  glGetShaderiv(this->handle, GL_COMPILE_STATUS, &success);
+  glGetShaderiv(this->m_Handle, GL_COMPILE_STATUS, &success);
   if(!success) {
-    glGetShaderInfoLog(this->handle, 1024, NULL, err_out);
+    glGetShaderInfoLog(this->m_Handle, 1024, NULL, err_out);
     std::fprintf(stderr, "[SHADER ERROR] %s\n", err_out);
   }
 }
 
 void Shader::destroy() {
-  glDeleteShader(this->handle);
+  glDeleteShader(this->m_Handle);
 }
 
-void ShaderProgram::create(Shader* vertex, Shader* fragment) {
-  this->handle = glCreateProgram();
-  glAttachShader(this->handle, vertex->get_handle());
-  glAttachShader(this->handle, fragment->get_handle());
-  glLinkProgram(this->handle);
-  this->check_errors();
+void ShaderProgram::CreateProgram(Shader* vertex, Shader* fragment) {
+  this->m_Handle = glCreateProgram();
+  glAttachShader(this->m_Handle, vertex->GetHandle());
+  glAttachShader(this->m_Handle, fragment->GetHandle());
+  glLinkProgram(this->m_Handle);
+  this->CheckErrors();
   vertex->destroy();
   fragment->destroy();
-  this->bind(); //basically use_program!
+  this->BindProgram(); //basically use_program!
 }
 
-void ShaderProgram::bind() {
-  glUseProgram(this->handle);
+void ShaderProgram::BindProgram() {
+  glUseProgram(this->m_Handle);
 }
 
-void ShaderProgram::unbind() {
+void ShaderProgram::UnbindProgram() {
   glUseProgram(0);
 }
 
-unsigned int ShaderProgram::get_handle() {
-  return this->handle;
+unsigned int ShaderProgram::GetHandle() {
+  return this->m_Handle;
 }
 
-void ShaderProgram::check_errors() {
+void ShaderProgram::CheckErrors() {
   int success;
   char err_out[1024];
-  glGetShaderiv(this->handle, GL_LINK_STATUS, &success);
+  glGetShaderiv(this->m_Handle, GL_LINK_STATUS, &success);
   if(!success) {
-    glGetShaderInfoLog(this->handle, 1024, NULL, err_out);
+    glGetShaderInfoLog(this->m_Handle, 1024, NULL, err_out);
     std::fprintf(stderr, "[SHADER PROGRAM ERROR] %s\n", err_out);
   }
 }
 
-void ShaderProgram::destroy() {
-  this->unbind();
-  glDeleteProgram(this->handle);
+void ShaderProgram::Destroy() {
+  this->UnbindProgram();
+  glDeleteProgram(this->m_Handle);
 }
 
 void ShaderProgram::send_uniform_float(std::string uniform, float data) {
-  glUniform1f(glGetUniformLocation(this->handle, uniform.c_str()), data);
+  glUniform1f(glGetUniformLocation(this->m_Handle, uniform.c_str()), data);
 }
 void ShaderProgram::send_uniform_float2(std::string uniform, float x, float y) {
-  glUniform2f(glGetUniformLocation(this->handle, uniform.c_str()), x, y);
+  glUniform2f(glGetUniformLocation(this->m_Handle, uniform.c_str()), x, y);
 }
 
 void ShaderProgram::send_uniform_float3(std::string uniform, float x, float y, float z) {
-  glUniform3f(glGetUniformLocation(this->handle, uniform.c_str()), x, y, z);
+  glUniform3f(glGetUniformLocation(this->m_Handle, uniform.c_str()), x, y, z);
 }
 
 void ShaderProgram::send_uniform_float4(std::string uniform, float x, float y, float z, float w) {
-  glUniform4f(glGetUniformLocation(this->handle, uniform.c_str()), x, y, z, w);
+  glUniform4f(glGetUniformLocation(this->m_Handle, uniform.c_str()), x, y, z, w);
 }
+
+void ShaderProgram::CreateUniformBlock(const std::string& block_name) {
+
+};

@@ -4,33 +4,36 @@
 #include <sstream>
 #include <glad/glad.h>
 
-class Shader {
+class CShader {
 private:
-  unsigned int handle;
-  GLenum type;
-  std::string source_code;
-  void read_file(std::string file_name);
+  unsigned int m_Handle;
+  GLenum m_ShaderType;
+  std::string m_ShaderSourceCode;
+  void readFile(std::string fileName);
 public:
-  Shader() = default;
-  void create(std::string file_name, GLenum type);
-  GLenum get_type();
-  unsigned int get_handle();
-  void check_errors();
-  void destroy();
+  CShader() = default;
+  void Create(std::string fileName, GLenum type);
+  GLenum Type() const;
+  unsigned int Handle() const;
+  void CheckErrors();
+  void Destroy();
 };
 
-class ShaderProgram {
+class CShaderProgram {
 private:
-  unsigned int handle;
+  unsigned int m_Handle;
+  unsigned int m_BlockIndex;
 public:
-  ShaderProgram() = default;
-  void create(Shader* vertex, Shader* fragment);
+  CShaderProgram() = default;
+  void CreateProgram(CShader* vertex, CShader* fragment);
   /// @brief its just use program
-  void bind();
-  void unbind();
-  unsigned int get_handle();
-  void check_errors();
-  void destroy();
+  void BindProgram();
+  void UnbindProgram();
+  unsigned int Handle() const;
+  void CheckErrors();
+  void Destroy();
+
+  void CreateUniformBlock(const std::string& block_name);
 
   void send_uniform_float(std::string uniform, float data);
   void send_uniform_float2(std::string uniform, float x, float y);

@@ -92,7 +92,7 @@ void Player::create() {
   this->target = glm::vec3(this->position.x, 0.0f, -1.0f);
   this->up_vector = glm::vec3(0.0f, 1.0f, 0.0f);
 
-  glfwSetScrollCallback(window->get_handle(), (GLFWscrollfun)scroll_callback);
+  glfwSetScrollCallback(window->GetHandle(), (GLFWscrollfun)scroll_callback);
   zoom = &this->f_counter;
   delta = &this->delta_time;
   this->target = glm::vec3(0.0f, 0.0f, -1.0f);
@@ -115,7 +115,8 @@ void Player::draw() {
   this->projection = glm::mat4(1.0f);
   //this->projection = glm::perspective(
       //glm::radians(*zoom), *this->window->get_aspect_ratio(), 0.1f, 100.0f);
-  this->projection = glm::ortho(0.0f, (float)this->window->get_size()->x, 0.0f, (float)this->window->get_size()->y, 0.1f, 100.0f);
+  //this->projection = glm::ortho(0.0f, (float)this->window->GetSize()->x, 0.0f, (float)this->window->GetSize()->y, 0.1f, 100.0f);
+  this->projection = glm::ortho(0.0f, 800.0f, 0.0f, 600.0f, 0.1f, 100.f);
 
   this->view = glm::mat4(1.0f);
   //clip the camera ?
