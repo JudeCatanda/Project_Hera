@@ -31,7 +31,7 @@ void Player::create() {
   fragment->create(GET_SHADERS_PATH("main.frag.glsl"), GL_FRAGMENT_SHADER);
   program->create(vertex, fragment);
 
-  vao->create_and_bind();
+  vao->CreateAndBind();
   this->mesh_data.push_back(
       (Vertex){.Position = glm::vec2(-this->size, -this->size)});
   this->mesh_data.push_back(
@@ -55,34 +55,34 @@ void Player::create() {
   glUniformBlockBinding(program->get_handle(), block_index, 0);
   //LOG_DEBUG("Works Fine?");
 
-  matrices_buffer->create(sizeof(matrices_struct), nullptr, GL_DYNAMIC_DRAW,
+  matrices_buffer->Create(sizeof(matrices_struct), nullptr, GL_DYNAMIC_DRAW,
                           GL_UNIFORM_BUFFER);
-  matrices_buffer->unbind();
-  glBindBufferBase(GL_UNIFORM_BUFFER, 0, matrices_buffer->get_handle());
+  matrices_buffer->Unbind();
+  glBindBufferBase(GL_UNIFORM_BUFFER, 0, matrices_buffer->GetHandle());
 
-  texture_positions_buffer->create(
+  texture_positions_buffer->Create(
       this->texture_positions.size() * sizeof(Vertex),
       this->texture_positions.data(), GL_STATIC_DRAW, GL_ARRAY_BUFFER);
-  vao->enable_and_set_attrib_ptr(2, 2, GL_FLOAT, 2 * sizeof(float),
+  vao->SetVertexAttrib(2, 2, GL_FLOAT, 2 * sizeof(float),
                                  (const void *)0);
 
 
-  mesh_buffer->create(this->mesh_data.size() * sizeof(Vertex),
+  mesh_buffer->Create(this->mesh_data.size() * sizeof(Vertex),
                       this->mesh_data.data(), GL_STATIC_DRAW, GL_ARRAY_BUFFER);
-  vao->enable_and_set_attrib_ptr(0, 2, GL_FLOAT, sizeof(Vertex),
+  vao->SetVertexAttrib(0, 2, GL_FLOAT, sizeof(Vertex),
                                  (const void *)0);
 
   unsigned int indices[] = {0, 1, 2, 0, 3, 2};
 
   glUniform1i(glGetUniformLocation(program->get_handle(), "asset"), 0);
 
-  texture_positions_buffer->unbind();
-  indices_buffer->create(sizeof(indices), indices, GL_STATIC_DRAW,
+  texture_positions_buffer->Unbind();
+  indices_buffer->Create(sizeof(indices), indices, GL_STATIC_DRAW,
                          GL_ELEMENT_ARRAY_BUFFER);
 
-  indices_buffer->unbind();
-  mesh_buffer->unbind();
-  vao->unbind();
+  indices_buffer->Unbind();
+  mesh_buffer->Unbind();
+  vao->Unbind();
 
   this->speed = 0.001f; // implicit
   //this->position = glm::vec2(0.0f, -0.770001531f);
@@ -107,8 +107,8 @@ void Player::draw() {
 
   program->bind();
   texture->bind_and_set_active(GL_TEXTURE1);
-  vao->bind();
-  indices_buffer->bind();
+  vao->Bind();
+  indices_buffer->Bind();
 
   this->move();
 
@@ -135,7 +135,7 @@ void Player::draw() {
   matrices_struct msturct;
   msturct.projection = this->projection;
   msturct.view = this->view;
-  matrices_buffer->set_data(0, sizeof(matrices_struct), &msturct);
+  matrices_buffer->UpdateData(0, sizeof(matrices_struct), &msturct);
 
   zoom = &this->f_counter;
   delta = &this->delta_time;
@@ -146,8 +146,8 @@ void Player::draw() {
 
   glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 
-  indices_buffer->unbind();
-  vao->unbind();
+  indices_buffer->Unbind();
+  vao->Unbind();
   program->unbind();
 }
 
@@ -158,9 +158,9 @@ void Player::destroy() {
   def_as_ptr(indices_buffer);
 
   program->destroy();
-  vao->destroy();
-  mesh_buffer->destroy();
-  indices_buffer->destroy();
+  vao->Destroy();
+  mesh_buffer->Destroy();
+  indices_buffer->Destroy();
 }
 
 void Player::move() {

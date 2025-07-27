@@ -1,32 +1,32 @@
 #include "Buffer.hpp"
 
-void Buffer::create(GLsizeiptr size, GLvoid *data, GLenum usage, GLenum target) {
-  glGenBuffers(1, &this->handle);
-  glBindBuffer(target, this->handle);
+void Buffer::Create(GLsizeiptr size, GLvoid *data, GLenum usage, GLenum target) {
+  glGenBuffers(1, &this->m_Handle);
+  glBindBuffer(target, this->m_Handle);
   glBufferData(target, size, data, usage);
-  this->size = size;
-  this->data = data;
-  this->target = target;
+  this->m_Size = size;
+  this->m_Data = data;
+  this->m_BufferTarget = target;
 }
 
-void Buffer::bind() {
-  glBindBuffer(this->target, this->handle);
+void Buffer::Bind() {
+  glBindBuffer(this->m_BufferTarget, this->m_Handle);
 }
 
-void Buffer::unbind() {
-  glBindBuffer(this->target, 0);
+void Buffer::Unbind() {
+  glBindBuffer(this->m_BufferTarget, 0);
 }
 
-void Buffer::set_data(GLintptr offset, GLsizeiptr size, GLvoid *new_data) {
-  this->bind();
-  glBufferSubData(this->target, offset, size, new_data);
-  this->unbind();
+void Buffer::UpdateData(GLintptr offset, GLsizeiptr size, GLvoid *new_data) {
+  this->Bind();
+  glBufferSubData(this->m_BufferTarget, offset, size, new_data);
+  this->Unbind();
 }
 
-unsigned int Buffer::get_handle() {
-  return this->handle;
+unsigned int Buffer::GetHandle() {
+  return this->m_Handle;
 }
 
-void Buffer::destroy() {
-  glDeleteBuffers(1, &this->handle);
+void Buffer::Destroy() {
+  glDeleteBuffers(1, &this->m_Handle);
 }

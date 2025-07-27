@@ -21,18 +21,18 @@
 
 class Buffer {
 private:
-  unsigned int handle;
-  GLsizeiptr size;
-  GLvoid* data;
-  GLenum target;
+  unsigned int m_Handle;
+  GLsizeiptr m_Size;
+  GLvoid* m_Data;
+  GLenum m_BufferTarget;
 public:
   Buffer() = default;
-  void create(GLsizeiptr size, GLvoid* data, GLenum usage, GLenum target);
-  void bind();
-  void unbind();
-  void set_data(GLintptr offset, GLsizeiptr size, GLvoid* new_data);
-  unsigned int get_handle();
-  void destroy();
+  void Create(GLsizeiptr size, GLvoid* data, GLenum usage, GLenum target);
+  void Bind();
+  void Unbind();
+  void UpdateData(GLintptr offset, GLsizeiptr size, GLvoid* new_data);
+  unsigned int GetHandle();
+  void Destroy();
 };
 
 typedef struct Vertex {

@@ -7,20 +7,23 @@
 
 class Window {
 private:
-  GLFWwindow* handle;
-  glm::ivec2 size;
-  float aspect_ratio;
+  GLFWwindow* m_Handle;
+  glm::ivec2 m_Size;
+  float m_AspectRatio;
 public:
   // Window(std::string title, int width, int height); my compiler sucks my dick with this...
   Window() = default;
-  void create(std::string title, int width, int height);
-  GLFWwindow* get_handle(void);
-  glm::ivec2* get_size();
-  int should_close();
-  void destroy();
+  void Create(std::string title, int width, int height);
+  GLFWwindow* GetHandle(void);
+  glm::ivec2* GetSize();
+  int ShouldClose();
+  void Destroy();
+
   bool is_key_pressed(int key);
   bool is_key_released(int key);
-  float* get_aspect_ratio();
-  void set_viewport();
-  void append_key_callback(GLFWkeyfun callback);
+
+  float* GetAspectRatio();
+  void SetViewport();
+
+  void SubmitKeyCallback(GLFWkeyfun callback);
 };

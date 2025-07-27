@@ -3,17 +3,17 @@
 
 class Layout {
 private:
-  unsigned int handle;
+  unsigned int m_Handle;
 public:
   Layout() = default;
-  void create();
-  void create_and_bind();
-  void bind();
-  void unbind();
-  unsigned int get_handle();
-  void destroy();
+  void Create();
+  void CreateAndBind();
+  void Bind();
+  void Unbind();
+  unsigned int GetHandle();
+  void Destroy();
 
-  void enable_attrib_ptr(int index);
-  void set_attrib_ptr(int index, GLint size, GLenum type, GLsizei stride, const GLvoid* offset);
-  void enable_and_set_attrib_ptr(int index, GLint size, GLenum type, GLsizei stride, const GLvoid* offset);
+  void EnableVertexAttrib(int index);
+  void EditVertexAttrib(int index, GLint size, GLenum type, GLsizei stride, const GLvoid* offset);
+  void SetVertexAttrib(int index, GLint size, GLenum type, GLsizei stride, const GLvoid* offset);
 };

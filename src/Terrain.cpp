@@ -37,7 +37,7 @@ void Terrain::create() {
   fragment->create(GET_SHADERS_PATH("terrain.frag.glsl"), GL_FRAGMENT_SHADER);
   program->create(vertex, fragment);
 
-  vao->create_and_bind();
+  vao->CreateAndBind();
 
   this->atlas.create(std::string(GET_TEXTURES_PATH("parts.atlas.png")), GL_TEXTURE_2D, GL_RGBA, GL_RGBA);
   this->atlas.bind_and_set_active(GL_TEXTURE1);
@@ -46,20 +46,20 @@ void Terrain::create() {
   if(!this->atlas.is_image_valid())
     LOG_DEBUG("the image was invalid for some reason!");
 
-  texture_positions_buffer->create((max_vertex_counts * points_per_quad) * sizeof(glm::vec2), nullptr, GL_DYNAMIC_DRAW, GL_ARRAY_BUFFER);
-  vao->enable_and_set_attrib_ptr(5, 2, GL_FLOAT, sizeof(glm::vec2), (const void*)0);
+  texture_positions_buffer->Create((max_vertex_counts * points_per_quad) * sizeof(glm::vec2), nullptr, GL_DYNAMIC_DRAW, GL_ARRAY_BUFFER);
+  vao->SetVertexAttrib(5, 2, GL_FLOAT, sizeof(glm::vec2), (const void*)0);
 
   std::vector<glm::vec2> vec = this->tg.get_vector();
-  mesh_buffer->create((max_vertex_counts * points_per_quad) * sizeof(glm::vec2), nullptr, GL_DYNAMIC_DRAW, GL_ARRAY_BUFFER);
-  vao->enable_and_set_attrib_ptr(0, 2, GL_FLOAT, sizeof(glm::vec2), (const void *)0);
+  mesh_buffer->Create((max_vertex_counts * points_per_quad) * sizeof(glm::vec2), nullptr, GL_DYNAMIC_DRAW, GL_ARRAY_BUFFER);
+  vao->SetVertexAttrib(0, 2, GL_FLOAT, sizeof(glm::vec2), (const void *)0);
 
-  indices_buffer->create((max_vertex_counts * indices_per_quad) * sizeof(unsigned int), nullptr, GL_DYNAMIC_DRAW,
+  indices_buffer->Create((max_vertex_counts * indices_per_quad) * sizeof(unsigned int), nullptr, GL_DYNAMIC_DRAW,
                          GL_ELEMENT_ARRAY_BUFFER);
 
-  positions_buffer->unbind();
-  indices_buffer->unbind();
-  mesh_buffer->unbind();
-  vao->unbind();
+  positions_buffer->Unbind();
+  indices_buffer->Unbind();
+  mesh_buffer->Unbind();
+  vao->Unbind();
 
   this->tg.clear();
   int idx = 0;
@@ -87,9 +87,9 @@ void Terrain::create() {
   }
 
   this->tg.gen_indices(this->tg.get_rendered_quads());
-  this->mesh_buffer.set_data(0, this->tg.get_vector().size() * sizeof(glm::vec2), this->tg.get());
-  this->texture_positions_buffer.set_data(0, this->tg.get_vector_with_sprite().size() * sizeof(glm::vec2), this->tg.get_with_sprite());
-  this->indices_buffer.set_data(0, this->tg.get_vector_with_indices_buffer().size(), this->tg.get_with_indices_buffer());
+  this->mesh_buffer.UpdateData(0, this->tg.get_vector().size() * sizeof(glm::vec2), this->tg.get());
+  this->texture_positions_buffer.UpdateData(0, this->tg.get_vector_with_sprite().size() * sizeof(glm::vec2), this->tg.get_with_sprite());
+  this->indices_buffer.UpdateData(0, this->tg.get_vector_with_indices_buffer().size(), this->tg.get_with_indices_buffer());
 
   LOG_DEBUG("We are rendering %d quads", this->tg.get_rendered_quads());
 }
@@ -102,9 +102,9 @@ void Terrain::draw() {
 
   program->bind();
   this->atlas.bind_and_set_active(GL_TEXTURE1);
-  vao->bind();
-  indices_buffer->bind();
-  positions_buffer->bind();
+  vao->Bind();
+  indices_buffer->Bind();
+  positions_buffer->Bind();
 
   this->hitbox.size = this->size; //fix this later
 
@@ -112,8 +112,8 @@ void Terrain::draw() {
   glDrawElements(GL_TRIANGLES, (max_vertex_counts * points_per_quad), GL_UNSIGNED_INT, nullptr);
   
   program->unbind();
-  vao->unbind();
-  indices_buffer->unbind();
+  vao->Unbind();
+  indices_buffer->Unbind();
 }
 
 void Terrain::destroy() {
@@ -124,10 +124,10 @@ void Terrain::destroy() {
   def_as_ptr(positions_buffer);
 
   program->destroy();
-  vao->destroy();
-  mesh_buffer->destroy();
-  indices_buffer->destroy();
-  positions_buffer->destroy();
+  vao->Destroy();
+  mesh_buffer->Destroy();
+  indices_buffer->Destroy();
+  positions_buffer->Destroy();
 }
 
 void Terrain::test_tg(void) {
@@ -135,7 +135,7 @@ void Terrain::test_tg(void) {
   //this->tg.update_quad(1, glm::vec2(-1.0f), 1.0f);
   this->tg.push_quad(0.1f, glm::vec2(2.0));
   LOG_DEBUG("We are rendering %d quads", this->tg.get_rendered_quads());
-  this->mesh_buffer.set_data(0, this->tg.get_vector().size() * sizeof(glm::vec2), this->tg.get());
+  this->mesh_buffer.UpdateData(0, this->tg.get_vector().size() * sizeof(glm::vec2), this->tg.get());
 }
 
 // std::vector<unsigned int> generateIndices(int quadCount) {
