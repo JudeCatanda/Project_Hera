@@ -18,8 +18,8 @@ class Player {
 private:
   /* OPENGL RELATED FUNCTIONS */
   Window* window;
-  Shader vertex, fragment;
-  ShaderProgram program;
+  CShader m_Vertex, m_Fragment;
+  CShaderProgram m_ProgramShader;
   Layout vao;
   Buffer mesh_buffer, indices_buffer, matrices_buffer, texture_positions_buffer;
   Texture texture;
