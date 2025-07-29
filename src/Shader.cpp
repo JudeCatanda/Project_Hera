@@ -1,22 +1,22 @@
 #include "Shader.hpp"
 
-void CShader::readFile(std::string fileName) {
-    std::string shader_souce;
-    std::ifstream shader_file;
-    shader_file.open(fileName);
+void CShader::readFile(std::string szFileName) {
+    std::string szSource;
+    std::ifstream pFile;
+    pFile.open(szFileName);
     
-    if(!shader_file.is_open()) {
-        std::fprintf(stderr, "[ERROR] file not found: %s\n", fileName.c_str());
+    if(!pFile.is_open()) {
+        std::fprintf(stderr, "[ERROR] file not found: %s\n", szFileName.c_str());
         return;
     }
     
-    std::stringstream shader_stream;
-    shader_stream << shader_file.rdbuf();
+    std::stringstream pShaderStream;
+    pShaderStream << pFile.rdbuf();
     
-    shader_file.close();
+    pFile.close();
     
-    shader_souce = shader_stream.str();
-    m_szShaderSourceCode =  shader_souce; //bad??
+    szSource = pShaderStream.str();
+    m_szShaderSourceCode =  szSource; //bad??
 }
 
 void CShader::Create(std::string szFileName, GLenum nType) {
