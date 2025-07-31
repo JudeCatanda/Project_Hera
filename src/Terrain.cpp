@@ -61,8 +61,8 @@ void Terrain::create() {
   this->tg.clear();
   int idx = 0;
   const float space = 0.5f;
-  const float x_starter = -1.0f;
-  glm::vec2 offset = glm::vec2(x_starter, -0.1f);
+  const float x_starter = 0.0f;
+  glm::vec2 offset = glm::vec2(x_starter, 0.0f);
 
   std::random_device rand_device;
   std::mt19937 engine(rand_device());
@@ -75,7 +75,7 @@ void Terrain::create() {
       int rand_pos = dist(engine);
       sprite_x = rand_pos % 2;
       sprite_y = rand_pos / 2;
-      this->tg.push_quad_with_sprite(space, offset, glm::vec2(32.0f), cell_size, glm::vec2((float)sprite_x, (float)sprite_y)); //get randome texture
+      this->tg.push_quad_with_sprite(16.f, offset, glm::vec2(32.0f), cell_size, glm::vec2((float)sprite_x, (float)sprite_y)); //get randome texture
       idx+=1;
       offset.x += space * 2;
     }
