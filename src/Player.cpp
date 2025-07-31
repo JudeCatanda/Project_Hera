@@ -209,20 +209,17 @@ void scroll_callback(GLFWwindow *window, double xOffset, double yOffset) {
 
 void Player::set_position(glm::vec2 pos) {
   this->position = pos;
-  this->program.send_uniform_float2("position", this->position.x,
-                                    this->position.y);
+  glUniform2f(glGetUniformLocation(m_ProgramShader.GetHandle(), "position"), position.x, position.y);
 }
 
 void Player::set_x_pos(float x) {
   this->position.x = x;
-  this->program.send_uniform_float2("position", this->position.x,
-                                    this->position.y);
+  glUniform2f(glGetUniformLocation(m_ProgramShader.GetHandle(), "position"), position.x, position.y);
 }
 
 void Player::set_y_pos(float y) {
   this->position.y = y;
-  this->program.send_uniform_float2("position", this->position.x,
-                                    this->position.y);
+  glUniform2f(glGetUniformLocation(m_ProgramShader.GetHandle(), "position"), position.x, position.y);
 }
 
 float Player::get_x_pos() { return this->get_position()->x; }

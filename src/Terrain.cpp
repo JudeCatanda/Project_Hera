@@ -23,9 +23,6 @@ const unsigned int indices_per_quad = 6;
 glm::vec2 cell_size;
 
 void Terrain::create() {
-  def_as_ptr(vertex);
-  def_as_ptr(fragment);
-  def_as_ptr(program);
   def_as_ptr(vao);
   def_as_ptr(mesh_buffer);
   def_as_ptr(indices_buffer);
@@ -33,15 +30,15 @@ void Terrain::create() {
   def_as_ptr(texture_positions_buffer);
 
   //this->rdoc_api->StartFrameCapture(nullptr, nullptr);
-  vertex->create(GET_SHADERS_PATH("terrain.vert.glsl"), GL_VERTEX_SHADER);
-  fragment->create(GET_SHADERS_PATH("terrain.frag.glsl"), GL_FRAGMENT_SHADER);
-  program->create(vertex, fragment);
+  m_Vertex.Create(GET_SHADERS_PATH("terrain.vert.glsl"), GL_VERTEX_SHADER);
+  m_Fragment.Create(GET_SHADERS_PATH("terrain.frag.glsl"), GL_FRAGMENT_SHADER);
+  m_ShaderProgram.CreateProgram(&m_Vertex, &m_Fragment);
 
   vao->CreateAndBind();
 
   this->atlas.create(std::string(GET_TEXTURES_PATH("parts.atlas.png")), GL_TEXTURE_2D, GL_RGBA, GL_RGBA);
   this->atlas.bind_and_set_active(GL_TEXTURE1);
-  glUniform1i(glGetUniformLocation(program->get_handle(), "tex1"), 1);
+  glUniform1i(glGetUniformLocation(m_ShaderProgram.GetHandle(), "tex1"), 1);
   cell_size = glm::vec2(16.0f);
   if(!this->atlas.is_image_valid())
     LOG_DEBUG("the image was invalid for some reason!");
@@ -95,12 +92,11 @@ void Terrain::create() {
 }
 
 void Terrain::draw() {
-  def_as_ptr(program);
   def_as_ptr(vao);
   def_as_ptr(indices_buffer);
   def_as_ptr(positions_buffer);
 
-  program->bind();
+  m_ShaderProgram.BindProgram();
   this->atlas.bind_and_set_active(GL_TEXTURE1);
   vao->Bind();
   indices_buffer->Bind();
@@ -111,19 +107,18 @@ void Terrain::draw() {
   //glDrawArrays(GL_TRIANGLES, 0, (max_vertex_counts * points_per_quad)); //if not using indices
   glDrawElements(GL_TRIANGLES, (max_vertex_counts * points_per_quad), GL_UNSIGNED_INT, nullptr);
   
-  program->unbind();
+  m_ShaderProgram.UnbindProgram();
   vao->Unbind();
   indices_buffer->Unbind();
 }
 
 void Terrain::destroy() {
-  def_as_ptr(program);
   def_as_ptr(vao);
   def_as_ptr(mesh_buffer);
   def_as_ptr(indices_buffer);
   def_as_ptr(positions_buffer);
 
-  program->destroy();
+  m_ShaderProgram.Destroy();
   vao->Destroy();
   mesh_buffer->Destroy();
   indices_buffer->Destroy();

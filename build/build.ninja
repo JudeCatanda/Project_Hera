@@ -195,7 +195,7 @@ build CMakeFiles/hera.dir/src/stb_image.cpp.obj: CXX_COMPILER__hera_unscanned_De
 build hera.exe: CXX_EXECUTABLE_LINKER__hera_Debug CMakeFiles/hera.dir/src/AABB.cpp.obj CMakeFiles/hera.dir/src/Buffer.cpp.obj CMakeFiles/hera.dir/src/Game.cpp.obj CMakeFiles/hera.dir/src/InputManager.cpp.obj CMakeFiles/hera.dir/src/Layout.cpp.obj CMakeFiles/hera.dir/src/Player.cpp.obj CMakeFiles/hera.dir/src/RenderUtils.cpp.obj CMakeFiles/hera.dir/src/Shader.cpp.obj CMakeFiles/hera.dir/src/Terrain.cpp.obj CMakeFiles/hera.dir/src/Texture.cpp.obj CMakeFiles/hera.dir/src/Window.cpp.obj CMakeFiles/hera.dir/src/glad.cpp.obj CMakeFiles/hera.dir/src/main.cpp.obj CMakeFiles/hera.dir/src/rdoc.cpp.obj CMakeFiles/hera.dir/src/stb_image.cpp.obj
   CONFIG = Debug
   FLAGS = -Wall -Wextra -g -g
-  LINK_LIBRARIES = -lopengl32  -lglfw3  -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
+  LINK_LIBRARIES = -lopengl32  -lglfw3  -static-libgcc  -static-libstdc++  -static  -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   LINK_PATH = -LC:/Users/User/Documents/Hera/./lib
   OBJECT_DIR = CMakeFiles\hera.dir
   POST_BUILD = cd .

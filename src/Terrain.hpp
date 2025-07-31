@@ -46,8 +46,8 @@ public:
 
 class Terrain {
 private:
-  Shader vertex, fragment;
-  ShaderProgram program;
+    CShader m_Vertex, m_Fragment;
+    CShaderProgram m_ShaderProgram;
   Layout vao;
   Buffer mesh_buffer, indices_buffer, positions_buffer,
       texture_positions_buffer;
