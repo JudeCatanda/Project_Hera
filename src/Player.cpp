@@ -81,9 +81,9 @@ void Player::create() {
   mesh_buffer->Unbind();
   vao->Unbind();
 
-  this->speed = 0.01f; // implicit
+  this->speed = 0.01f;//???
   //this->position = glm::vec2(0.0f, -0.770001531f);
-  this->position = glm::vec2(0.0f, 0.0f);
+  this->position = glm::vec2((float)this->window->GetSize()->x/2.0f, (float)this->window->GetSize()->y/2.0f);
 
   this->camera_position = glm::vec3(this->position.x, 0.0f, this->cam_z);
   this->target = glm::vec3(this->position.x, 0.0f, -1.0f);

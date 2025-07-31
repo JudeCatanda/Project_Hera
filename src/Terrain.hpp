@@ -58,7 +58,7 @@ private:
   std::vector<glm::vec2> bacthed_terrain;
   std::vector<unsigned int> indices;
 
-  float size = 0.2f;
+  float size = 16.0f;
   AABB_Hitbox hitbox;
   Terrain_Generator tg;
 

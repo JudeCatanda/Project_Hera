@@ -5,6 +5,7 @@ void Window::Create(std::string title, int width, int height) {
     std::fprintf(stderr, "cannot initialize glfw\n");
 
   this->m_Handle = glfwCreateWindow(height, width, title.c_str(), nullptr, nullptr);
+  this->m_Size = glm::ivec2(width, height);
 
   if(this->m_Handle == nullptr)
     std::fprintf(stderr, "cannot create window\n");
@@ -20,7 +21,13 @@ GLFWwindow* Window::GetHandle(void) {
 }
 
 glm::ivec2* Window::GetSize() {
-  glfwGetWindowSize(this->m_Handle, &this->m_Size.x, &this->m_Size.y);
+  glm::ivec2 local = glm::ivec2(0);
+  glfwGetWindowSize(this->m_Handle, &local.x, &local.y);
+  if(local.x == this->m_Size.x) { //we assume the last size was never changed so we return original or last size
+    return &this->m_Size;
+  } else {
+    glfwGetWindowSize(this->m_Handle, &this->m_Size.x, &this->m_Size.y);
+  }
   return &this->m_Size;
 }
 
