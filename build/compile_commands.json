@@ -13,6 +13,12 @@
 },
 {
   "directory": "C:/Users/User/Documents/Hera/build",
+  "command": "C:\\msys64\\mingw64\\bin\\g++.exe -DDBG_MODE -IC:/Users/User/Documents/Hera/./include  -Wall -Wextra -g -g -o CMakeFiles\\hera.dir\\src\\Camera.cpp.obj -c C:\\Users\\User\\Documents\\Hera\\src\\Camera.cpp",
+  "file": "C:/Users/User/Documents/Hera/src/Camera.cpp",
+  "output": "C:/Users/User/Documents/Hera/build/CMakeFiles/hera.dir/src/Camera.cpp.obj"
+},
+{
+  "directory": "C:/Users/User/Documents/Hera/build",
   "command": "C:\\msys64\\mingw64\\bin\\g++.exe -DDBG_MODE -IC:/Users/User/Documents/Hera/./include  -Wall -Wextra -g -g -o CMakeFiles\\hera.dir\\src\\Game.cpp.obj -c C:\\Users\\User\\Documents\\Hera\\src\\Game.cpp",
   "file": "C:/Users/User/Documents/Hera/src/Game.cpp",
   "output": "C:/Users/User/Documents/Hera/build/CMakeFiles/hera.dir/src/Game.cpp.obj"
