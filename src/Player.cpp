@@ -112,7 +112,8 @@ void Player::draw() {
   //this->projection = glm::perspective(
       //glm::radians(*zoom), *this->window->get_aspect_ratio(), 0.1f, 100.0f);
   //this->projection = glm::ortho(0.0f, (float)this->window->GetSize()->x, 0.0f, (float)this->window->GetSize()->y, 0.1f, 100.0f);
-  this->projection = glm::ortho(0.0f, 800.0f, 0.0f, 600.0f, 0.1f, 100.f);
+  //this->projection = glm::ortho(0.0f, 800.0f, 0.0f, 600.0f, 0.1f, 100.f);
+  projection = glm::ortho(800.0f/2.f, 800.f, 600.0f/2.f, 600.f, 0.1f, 10.0f);
 
   this->view = glm::mat4(1.0f);
   //clip the camera ?
@@ -123,8 +124,8 @@ void Player::draw() {
     this->up_vector = glm::vec3(0.0f, 1.0f, 0.0f);
   }
   this->view = glm::lookAt(this->camera_position, this->target, this->up_vector);
-  this->camera_position = glm::vec3(0.0f, 0.0f, this->cam_z);
-  this->target = glm::vec3(0.0f, 0.0f, -1.0f);
+  this->camera_position = glm::vec3(this->position.x, this->position.y, this->cam_z);
+  this->target = glm::vec3(this->position.x, this->position.y, -1.0f);
   this->up_vector = glm::vec3(0.0f, 1.0f, 0.0f);
 
   unsigned int nPlayerPosLocation = glGetUniformLocation(m_ProgramShader.GetHandle(), "position");
