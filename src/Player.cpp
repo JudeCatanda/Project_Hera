@@ -81,7 +81,7 @@ void Player::create() {
   mesh_buffer->Unbind();
   vao->Unbind();
 
-  this->speed = 0.001f; // implicit
+  this->speed = 0.01f; // implicit
   //this->position = glm::vec2(0.0f, -0.770001531f);
   this->position = glm::vec2(0.0f, 0.0f);
 
@@ -111,9 +111,7 @@ void Player::draw() {
   this->projection = glm::mat4(1.0f);
   //this->projection = glm::perspective(
       //glm::radians(*zoom), *this->window->get_aspect_ratio(), 0.1f, 100.0f);
-  //this->projection = glm::ortho(0.0f, (float)this->window->GetSize()->x, 0.0f, (float)this->window->GetSize()->y, 0.1f, 100.0f);
-  //this->projection = glm::ortho(0.0f, 800.0f, 0.0f, 600.0f, 0.1f, 100.f);
-  projection = glm::ortho(800.0f/2.f, 800.f, 600.0f/2.f, 600.f, 0.1f, 10.0f);
+  this->projection = glm::ortho(0.0f, (float)this->window->GetSize()->x, 0.0f, (float)this->window->GetSize()->y, 0.1f, 100.0f);
 
   this->view = glm::mat4(1.0f);
   //clip the camera ?
