@@ -4,7 +4,7 @@ Current State: **The fucking renderer is borken again**
 <br>
 Todo's:
 - [ ] Save/Load the level to a bin file
-- [ ] Fix The Fucking Camera Projection Matrix
+- [X] Fix The Fucking Camera Projection Matrix
 - [ ] Optimize The fucking renderer
 
 ## 🛠️ Build Instructions (CMake + Ninja)
