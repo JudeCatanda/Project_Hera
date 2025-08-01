@@ -36,7 +36,7 @@ private:
   glm::vec2 m_Position;
   glm::vec2 m_Velocity;
   float m_flAcceleration = 32.0f;
-  float m_flJumpForce = 16.0f;
+  float m_flJumpForce = 200.0f;
   float m_flGravity = -300.0f;
   const float m_flMaxSpeedX = 128.0f;
 

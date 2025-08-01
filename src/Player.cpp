@@ -148,7 +148,7 @@ void CPlayer::move() {
   bool bIsSpacePressed = m_Window->is_key_pressed(GLFW_KEY_SPACE);
 
   if(bIsSpacePressed && !sbWasSpacePressed && bIsOnGround) {
-    m_Velocity.y = m_flJumpForce;
+    m_Velocity.y += m_flJumpForce;
   }
 
   sbWasSpacePressed = bIsSpacePressed;
