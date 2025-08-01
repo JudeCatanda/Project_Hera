@@ -82,7 +82,8 @@ void Player::create() {
   vao->Unbind();
 
   //this->speed = 0.01f;
-  this->position = glm::vec2((float)this->window->GetSize()->x/2.0f, (float)this->window->GetSize()->y/2.0f);
+  //this->position = glm::vec2((float)this->window->GetSize()->x/2.0f, (float)this->window->GetSize()->y/2.0f);
+  m_vecPosition = glm::vec2(0.0f, 0.0f);
 
   this->camera_position = glm::vec3(this->position.x, 0.0f, this->cam_z);
   this->target = glm::vec3(this->position.x, 0.0f, -1.0f);
@@ -110,7 +111,18 @@ void Player::draw() {
   this->projection = glm::mat4(1.0f);
   //this->projection = glm::perspective(
       //glm::radians(*zoom), *this->window->get_aspect_ratio(), 0.1f, 100.0f);
-  this->projection = glm::ortho(0.0f, (float)this->window->GetSize()->x, 0.0f, (float)this->window->GetSize()->y, 0.1f, 100.0f);
+  //this->projection = glm::ortho(-50.0f, 50.0f, -50.0f, 50.0f, 0.1f, 100.0f);
+
+
+  float flAspect = *window->GetAspectRatio(); // width / height
+  float flHalfHeight = 50.0f; // half of vertical view range
+  
+  float flLeft   = -flHalfHeight * flAspect;
+  float flRight  =  flHalfHeight * flAspect;
+  float flBottom = -flHalfHeight;
+  float flTop    =  flHalfHeight;
+
+  this->projection = glm::ortho(flLeft, flRight, flBottom, flTop, 0.1f, 100.0f);
 
   this->view = glm::mat4(1.0f);
   //clip the camera ?

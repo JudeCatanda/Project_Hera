@@ -36,7 +36,12 @@ private:
   glm::vec3 camera_position, target, up_vector;
   AABB_Hitbox hitbox;
   float delta_time;
-  glm::vec2 position;
+
+  glm::vec2 m_vecPosition;
+  glm::vec2 m_vecVelocity;
+  float m_flAcceleration;
+
+  //refactor to use class soon!
   glm::mat4 projection;
   glm::mat4 view;
   bool m_can_zoom = true;
