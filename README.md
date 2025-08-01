@@ -1,6 +1,10 @@
 <h1 align="center">Hera</h1>
 
 Current State: **The fucking renderer is borken again**
+Todo's:
+* Save/Load the level to a bin file
+* Fix The Fucking Camera Projection Matrix
+* Optimize The fucking renderer
 
 ## 🛠️ Build Instructions (CMake + Ninja)
 
