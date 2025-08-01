@@ -1,8 +1,7 @@
 #include "Game.hpp"
 
-Game::Game() {
+CGame::CGame() {
   get_render_doc(this->main_world.rdoc_api);
-  LOG_WARNING("THE CURRENT STATE IS NOT STABLE! MIGHT CRASH!");
   def_as_ptr(main_world);
 
   m_Window.Create("Hera", 600, 800);
@@ -16,10 +15,10 @@ Game::Game() {
   main_world->create();
   m_Player.SetWindow(&m_Window);
   m_Player.Create();
-  this->update();
+  Update();
 }
 
-void Game::update() {
+void CGame::Update() {
   def_as_ptr(main_world);
   bool wireframe = false;
   
@@ -45,8 +44,7 @@ void Game::update() {
       glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
     if(m_Window.is_key_pressed(GLFW_KEY_ESCAPE)) {
-      LOG_ERROR("QUTING ALL JOBS!");
-      this->destroy();
+      Destroy();
       break;
     }
 
@@ -61,13 +59,12 @@ void Game::update() {
   }
 }
 
-void Game::destroy() {
+void CGame::Destroy() {
   m_Window.Destroy();
   m_Player.Destroy();
   this->main_world.destroy();
-  LOG_INFO("Exiting...");
 }
 
-Game::~Game() {
-  this->destroy();
+CGame::~CGame() {
+  Destroy();
 }

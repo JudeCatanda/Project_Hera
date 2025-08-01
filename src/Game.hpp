@@ -17,7 +17,7 @@ assert(0);
 #define LOG_INFO(fmt, ...) std::printf("[INFO] " fmt "\n", ##__VA_ARGS__)
 #define def_as_ptr(name) typeof(this->name)* name = &this->name;
 
-class Game {
+class CGame {
 private:
   CWindow m_Window;
   CPlayer m_Player;
@@ -25,13 +25,8 @@ private:
   float m_flLastFrame, m_flCurrentFrame, m_flDeltaTime;
   Keyboard keyboard;
 public:
-  Game();
-  //void create();
-  void update();
-  void destroy();
-  ~Game();
+  CGame();
+  void Update();
+  void Destroy();
+  ~CGame();
 };
-
-// This functions are for BatchRendering
-// void mesh_create_triangle(std::vector<Vertex>& array, float x, float y, float scale);
-// Vertex* mesh_create_triangle_out(Vertex* target, float x, float y, float scale);

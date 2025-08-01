@@ -1,6 +1,5 @@
 #include "Game.hpp"
 
 int main() {
-  Game game;
-  return 0;
+  CGame game;
 }
