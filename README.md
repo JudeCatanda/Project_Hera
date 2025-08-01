@@ -1,6 +1,8 @@
 <h1 align="center">Hera</h1>
 
-# 🛠️ Build Instructions (CMake + Ninja)
+Current State: **The fucking renderer is borken again**
+
+## 🛠️ Build Instructions (CMake + Ninja)
 
 This project uses **CMake** with the **Ninja** build system.
 
