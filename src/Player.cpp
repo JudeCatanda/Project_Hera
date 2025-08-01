@@ -83,7 +83,7 @@ void Player::create() {
 
   //this->speed = 0.01f;
   //this->position = glm::vec2((float)this->window->GetSize()->x/2.0f, (float)this->window->GetSize()->y/2.0f);
-  m_Position = glm::vec2(0.0f, 0.0f);
+  m_Position = glm::vec2(0.0f, 232.0f);
 
   // this->camera_position = glm::vec3(this->position.x, 0.0f, this->cam_z);
   // this->target = glm::vec3(this->position.x, 0.0f, -1.0f);
@@ -185,6 +185,7 @@ void Player::move() {
   Window *window = this->window;
 
   bool bHasHorizontalInput = false;
+  bool bIsOnGround = (m_Position.y <= 0.0f);
 
   if (window->is_key_pressed(GLFW_KEY_D)) {
     m_Velocity.x += m_flAcceleration * delta_time;
@@ -195,8 +196,6 @@ void Player::move() {
     bHasHorizontalInput = true;
   };
 
-
-
   if(!bHasHorizontalInput) {
     m_Velocity.x = 0.0f;
   }
@@ -205,6 +204,21 @@ void Player::move() {
     m_Velocity.x = m_flMaxSpeedX;
   } else if(m_Velocity.x < -m_flMaxSpeedX) {
     m_Velocity.x = -m_flMaxSpeedX;
+  }
+
+  static bool sbWasSpacePressed = false;
+  bool bIsSpacePressed = window->is_key_pressed(GLFW_KEY_SPACE);
+
+  if(bIsSpacePressed && !sbWasSpacePressed && bIsOnGround) {
+    m_Velocity.y = m_flJumpForce;
+  }
+
+  sbWasSpacePressed = bIsSpacePressed;
+  m_Velocity.y += m_flGravity * delta_time;
+
+  if(m_Position.y <= 0.0f && m_Velocity.y < 0) {
+    m_Position.y = 0.0f;
+    m_Velocity.y = 0.0f;
   }
 }
 
