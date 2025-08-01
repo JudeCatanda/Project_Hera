@@ -30,7 +30,7 @@ private:
   /* PHYSICS RELATED FUNCTIONS AND CAMERA */
   float speed = 0.6f; //constant speed no velocity yey!
   //float size = 0.025f;
-  float size = 16.0f; //test
+  float size = 8.0f; //test
   float health = 100.0f;
   float cam_z = 2.42085743;//-2.42085743;
   float f_counter = 40.0f;
@@ -38,9 +38,13 @@ private:
   AABB_Hitbox hitbox;
   float delta_time;
 
+  //PHYSICS BASED MEMBERS
   glm::vec2 m_Position;
   glm::vec2 m_Velocity;
-  float m_flAcceleration;
+  float m_flAcceleration = 32.0f;
+  float m_flJumpForce = 16.0f;
+  float m_flGravity = -300.0f;
+  const float m_flMaxSpeedX = 128.0f;
 
   //refactor to use class soon!
   glm::mat4 projection;

@@ -60,7 +60,7 @@ void Terrain::create() {
 
   this->tg.clear();
   int idx = 0;
-  const float space = 0.5f;
+  const float space = 4.0f;
   const float x_starter = 0.0f;
   glm::vec2 offset = glm::vec2(x_starter, 0.0f);
 
@@ -76,6 +76,7 @@ void Terrain::create() {
       sprite_x = rand_pos % 2;
       sprite_y = rand_pos / 2;
       this->tg.push_quad_with_sprite(space, offset, glm::vec2(32.0f), cell_size, glm::vec2((float)sprite_x, (float)sprite_y)); //get randome texture
+      // LOG_DEBUG("%f, %f @ Quad", offset.x, offset.y);
       idx+=1;
       offset.x += space * 2;
     }

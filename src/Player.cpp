@@ -96,6 +96,7 @@ void Player::create() {
   zoom = &this->f_counter;
   delta = &this->delta_time;
   this->target = glm::vec3(0.0f, 0.0f, -1.0f);
+  m_Velocity = glm::vec2(0.0f);
 }
 
 void Player::draw() {
@@ -110,6 +111,7 @@ void Player::draw() {
   indices_buffer->Bind();
 
   this->move();
+  m_Position += m_Velocity * delta_time;
 
   this->projection = glm::mat4(1.0f);
   //this->projection = glm::perspective(
@@ -182,21 +184,28 @@ void Player::destroy() {
 void Player::move() {
   Window *window = this->window;
 
-//   if (window->is_key_pressed(GLFW_KEY_D)) {
-//     this->position.x += this->speed;
-//   };
-//   if (window->is_key_pressed(GLFW_KEY_A)) {
-//     this->position.x -= this->speed;
-//   };
-//   if (window->is_key_pressed(GLFW_KEY_W)) {
-//     this->position.y += this->speed;
-//   }
-//   if (window->is_key_pressed(GLFW_KEY_S)) {
-//     this->position.y -= this->speed;
-//   }
-//   if(window->is_key_pressed(GLFW_KEY_R)) {
-//     this->position = glm::vec2(0.0f);
-//   }
+  bool bHasHorizontalInput = false;
+
+  if (window->is_key_pressed(GLFW_KEY_D)) {
+    m_Velocity.x += m_flAcceleration * delta_time;
+    bHasHorizontalInput = true;
+  };
+  if (window->is_key_pressed(GLFW_KEY_A)) {
+    m_Velocity.x -= m_flAcceleration * delta_time;
+    bHasHorizontalInput = true;
+  };
+
+
+
+  if(!bHasHorizontalInput) {
+    m_Velocity.x = 0.0f;
+  }
+
+  if(m_Velocity.x > m_flMaxSpeedX) {
+    m_Velocity.x = m_flMaxSpeedX;
+  } else if(m_Velocity.x < -m_flMaxSpeedX) {
+    m_Velocity.x = -m_flMaxSpeedX;
+  }
 }
 
 void Player::set_window(Window *window) { this->window = window; }
