@@ -84,7 +84,7 @@ void CPlayer::Draw() {
   move();
   m_Position += m_Velocity * m_flDeltaTime;
 
-  float flAspect = *window->GetAspectRatio();
+  float flAspect = *m_Window->GetAspectRatio();
   float flHalfHeight = 50.0f;
   
   float flLeft   = -flHalfHeight * flAspect;
@@ -122,16 +122,14 @@ void CPlayer::Destroy() {
 }
 
 void CPlayer::move() {
-  Window *window = this->window;
-
   bool bHasHorizontalInput = false;
   bool bIsOnGround = (m_Position.y <= 0.0f);
 
-  if (window->is_key_pressed(GLFW_KEY_D)) {
+  if (m_Window->is_key_pressed(GLFW_KEY_D)) {
     m_Velocity.x += m_flAcceleration * m_flDeltaTime;
     bHasHorizontalInput = true;
   };
-  if (window->is_key_pressed(GLFW_KEY_A)) {
+  if (m_Window->is_key_pressed(GLFW_KEY_A)) {
     m_Velocity.x -= m_flAcceleration * m_flDeltaTime;
     bHasHorizontalInput = true;
   };
@@ -147,7 +145,7 @@ void CPlayer::move() {
   }
 
   static bool sbWasSpacePressed = false;
-  bool bIsSpacePressed = window->is_key_pressed(GLFW_KEY_SPACE);
+  bool bIsSpacePressed = m_Window->is_key_pressed(GLFW_KEY_SPACE);
 
   if(bIsSpacePressed && !sbWasSpacePressed && bIsOnGround) {
     m_Velocity.y = m_flJumpForce;

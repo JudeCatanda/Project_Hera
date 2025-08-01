@@ -5,25 +5,25 @@
 #include <glfw/glfw3.h>
 #include <glm/glm.hpp>
 
-class Window {
+class CWindow {
 private:
   GLFWwindow* m_Handle;
   glm::ivec2 m_Size;
-  float m_AspectRatio;
+  float m_flAspectRatio;
 public:
-  // Window(std::string title, int width, int height); my compiler sucks my dick with this...
-  Window() = default;
-  void Create(std::string title, int width, int height);
-  GLFWwindow* GetHandle(void);
-  glm::ivec2* GetSize();
-  int ShouldClose();
-  void Destroy();
+  CWindow() = default;
+  void                       Create(const char* szTitle, int nWidth, int nHeight);
+  GLFWwindow*                GetHandle(void);
+  glm::ivec2*                GetSize();
+  int                        ShouldClose();
+  void                       Destroy();
+  
+  //dont touch yet... this functions is used everywhere
+  bool                       is_key_pressed(int key);
+  bool                       is_key_released(int key);
 
-  bool is_key_pressed(int key);
-  bool is_key_released(int key);
+  float*                     GetAspectRatio();
+  void                       SetViewport();
 
-  float* GetAspectRatio();
-  void SetViewport();
-
-  void SubmitKeyCallback(GLFWkeyfun callback);
+  void                       SubmitKeyCallback(GLFWkeyfun callback);
 };

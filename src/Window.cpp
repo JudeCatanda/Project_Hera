@@ -1,63 +1,63 @@
 #include "Window.hpp"
 
-void Window::Create(std::string title, int width, int height) {
+void CWindow::Create(const char* szTitle, int nWidth, int nHeight) {
   if(!glfwInit())
     std::fprintf(stderr, "cannot initialize glfw\n");
 
-  this->m_Handle = glfwCreateWindow(height, width, title.c_str(), nullptr, nullptr);
-  this->m_Size = glm::ivec2(width, height);
+  m_Handle = glfwCreateWindow(nHeight, nWidth, szTitle, nullptr, nullptr);
+  m_Size = glm::ivec2(nWidth, nHeight);
 
-  if(this->m_Handle == nullptr)
+  if(m_Handle == nullptr)
     std::fprintf(stderr, "cannot create window\n");
 
-  glfwMakeContextCurrent(this->m_Handle);
+  glfwMakeContextCurrent(m_Handle);
 
   if(!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
     std::fprintf(stderr, "cannot use opengl!\n");
 };
 
-GLFWwindow* Window::GetHandle(void) {
-  return this->m_Handle;
+GLFWwindow* CWindow::GetHandle(void) {
+  return m_Handle;
 }
 
-glm::ivec2* Window::GetSize() {
+glm::ivec2* CWindow::GetSize() {
   glm::ivec2 local = glm::ivec2(0);
-  glfwGetWindowSize(this->m_Handle, &local.x, &local.y);
-  if(local.x == this->m_Size.x) { //we assume the last size was never changed so we return original or last size
-    return &this->m_Size;
+  glfwGetWindowSize(m_Handle, &local.x, &local.y);
+  if(local.x == m_Size.x) { //we assume the last size was never changed so we return original or last size
+    return &m_Size;
   } else {
-    glfwGetWindowSize(this->m_Handle, &this->m_Size.x, &this->m_Size.y);
+    glfwGetWindowSize(m_Handle, &m_Size.x, &m_Size.y);
   }
-  return &this->m_Size;
+  return &m_Size;
 }
 
-int Window::ShouldClose() {
-  return glfwWindowShouldClose(this->m_Handle);
+int CWindow::ShouldClose() {
+  return glfwWindowShouldClose(m_Handle);
 };
 
-void Window::Destroy() {
-  glfwDestroyWindow(this->m_Handle);
+void CWindow::Destroy() {
+  glfwDestroyWindow(m_Handle);
 }
 
-bool Window::is_key_pressed(int key) {
-  return (glfwGetKey(this->m_Handle, key) == GLFW_PRESS) ? true : false;
+bool CWindow::is_key_pressed(int key) {
+  return (glfwGetKey(m_Handle, key) == GLFW_PRESS) ? true : false;
 }
 
-float *Window::GetAspectRatio() {
-  glfwGetWindowSize(this->m_Handle, &this->m_Size.x, &this->m_Size.y);
-  this->m_AspectRatio = (float)this->m_Size.x / (float)this->m_Size.y;
-  return &this->m_AspectRatio;
+float *CWindow::GetAspectRatio() {
+  glfwGetWindowSize(m_Handle, &m_Size.x, &m_Size.y);
+  m_flAspectRatio = (float)m_Size.x / (float)m_Size.y;
+  return &m_flAspectRatio;
 }
 
-void Window::SetViewport() {
-  glm::ivec2* vp_size = this->GetSize();
-  glViewport(0, 0, vp_size->x, vp_size->y);
+void CWindow::SetViewport() {
+  glm::ivec2* ViewportSize = GetSize();
+  glViewport(0, 0, ViewportSize->x, ViewportSize->y);
 }
 
-bool Window::is_key_released(int key) {
-  return (glfwGetKey(this->m_Handle, key) == GLFW_RELEASE) ? true : false;
+bool CWindow::is_key_released(int key) {
+  return (glfwGetKey(m_Handle, key) == GLFW_RELEASE) ? true : false;
 };
 
-void Window::SubmitKeyCallback(GLFWkeyfun callback) {
-  glfwSetKeyCallback(this->m_Handle, callback);
+void CWindow::SubmitKeyCallback(GLFWkeyfun callback) {
+  glfwSetKeyCallback(m_Handle, callback);
 }

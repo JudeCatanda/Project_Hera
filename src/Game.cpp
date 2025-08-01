@@ -3,34 +3,32 @@
 Game::Game() {
   get_render_doc(this->main_world.rdoc_api);
   LOG_WARNING("THE CURRENT STATE IS NOT STABLE! MIGHT CRASH!");
-  def_as_ptr(window);
   def_as_ptr(main_world);
 
-  window->Create("Hera", 600, 800);
+  m_Window.Create("Hera", 600, 800);
 
   m_flLastFrame = (float)glfwGetTime();
 
-  glfwSetInputMode(window->GetHandle(), GLFW_STICKY_KEYS, GLFW_TRUE);
-  this->keyboard.attach_window(window->GetHandle());
+  glfwSetInputMode(m_Window.GetHandle(), GLFW_STICKY_KEYS, GLFW_TRUE);
+  this->keyboard.attach_window(m_Window.GetHandle());
   glfwSwapInterval(0);//uncap fps
 
   main_world->create();
-  m_Player.SetWindow(window);
+  m_Player.SetWindow(&m_Window);
   m_Player.Create();
   this->update();
 }
 
 void Game::update() {
-  def_as_ptr(window);
   def_as_ptr(main_world);
   bool wireframe = false;
   
-  while(!window->ShouldClose()) {
+  while(!m_Window.ShouldClose()) {
     m_flCurrentFrame = (float)glfwGetTime();
     m_flDeltaTime = m_flCurrentFrame - m_flLastFrame;
     m_flLastFrame = m_flCurrentFrame;
 
-    window->SetViewport();
+    m_Window.SetViewport();
     glClearColor(0.2, 0.5, 0.9, 1.0);
     // glClearColor(0.0, 0.0, 0.0, 1.0);
     glClear(GL_COLOR_BUFFER_BIT);
@@ -46,13 +44,13 @@ void Game::update() {
     else
       glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
-    if(window->is_key_pressed(GLFW_KEY_ESCAPE)) {
+    if(m_Window.is_key_pressed(GLFW_KEY_ESCAPE)) {
       LOG_ERROR("QUTING ALL JOBS!");
       this->destroy();
       break;
     }
 
-    glfwSwapBuffers(window->GetHandle());
+    glfwSwapBuffers(m_Window.GetHandle());
     glfwPollEvents();
     if(this->keyboard.check_state(GLFW_KEY_LEFT_SHIFT)) {
       this->main_world.test_tg();
@@ -64,7 +62,7 @@ void Game::update() {
 }
 
 void Game::destroy() {
-  this->window.Destroy();
+  m_Window.Destroy();
   m_Player.Destroy();
   this->main_world.destroy();
   LOG_INFO("Exiting...");

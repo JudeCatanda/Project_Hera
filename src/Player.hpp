@@ -18,7 +18,7 @@
 class CPlayer {
 private:
   /* OPENGL RELATED MEMBERS */
-  Window* window;
+  CWindow* m_Window;
   CShader m_Vertex, m_Fragment;
   CShaderProgram m_ProgramShader;
   Layout vao;
@@ -49,7 +49,7 @@ public:
   void                            Draw();
   void                            Destroy();
 
-  void                            SetWindow(Window* Window) { window = Window; } //we are fucked if nullptr
+  void                            SetWindow(CWindow* Window) { m_Window = Window; } //we are fucked if nullptr
   void                            SetDeltaTime(float* flDeltaTime) { m_flDeltaTime = *flDeltaTime; }
   void                            SetPosition(glm::vec2 Position);
   

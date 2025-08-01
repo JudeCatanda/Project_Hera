@@ -19,7 +19,7 @@ assert(0);
 
 class Game {
 private:
-  Window window;
+  CWindow m_Window;
   CPlayer m_Player;
   Terrain main_world;
   float m_flLastFrame, m_flCurrentFrame, m_flDeltaTime;
