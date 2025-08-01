@@ -22,8 +22,16 @@ private:
 public:
     CCamera() = default;
 
-    void                Create(float flTop, float flRight);
-    void                SetAspectRatio(float flAspectRatio) { m_flAspectRatio = flAspectRatio; };
-    glm::mat4           GetMatrix(void) const { return m_ViewMatrix * m_ProjectionMatrix; };
-    CameraMatrices_t*   GetMatrices(void) { return &m_Matrices; }; //returns the m_Matrices (for ubo)
+    void                Create(void);
+
+    void                SetAspectRatio(float flAspectRatio) { m_flAspectRatio = flAspectRatio; }
+    void                SetPosition(glm::vec3 vecPosition) { m_CamPosition = vecPosition; }
+    void                SetLookAtTarget(glm::vec3 vecTarget) { m_CamLookAtTarget = vecTarget; }
+
+    void                Update(float flLeft, float flBottom, float flTop, float flRight);
+    void                UpdateView(void);
+    void                UpdateMatricesBuffer(void);
+
+    glm::mat4           GetMatrix(void) const { return m_ViewMatrix * m_ProjectionMatrix; }
+    CameraMatrices_t*   GetMatrices(void) { return &m_Matrices; }  //returns the m_Matrices (for ubo)
 };

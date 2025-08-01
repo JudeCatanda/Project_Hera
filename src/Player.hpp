@@ -13,6 +13,7 @@
 #include "Window.hpp"
 #include "Texture.hpp"
 #include "AABB.hpp"
+#include "Camera.hpp"
 
 class Player {
 private:
@@ -37,14 +38,15 @@ private:
   AABB_Hitbox hitbox;
   float delta_time;
 
-  glm::vec2 m_vecPosition;
-  glm::vec2 m_vecVelocity;
+  glm::vec2 m_Position;
+  glm::vec2 m_Velocity;
   float m_flAcceleration;
 
   //refactor to use class soon!
   glm::mat4 projection;
   glm::mat4 view;
   bool m_can_zoom = true;
+  CCamera m_Camera;
 
   void move();
 public:

@@ -52,7 +52,7 @@ void Player::create() {
   glUniformBlockBinding(m_ProgramShader.GetHandle(), block_index, 0);
   //LOG_DEBUG("Works Fine?");
 
-  matrices_buffer->Create(sizeof(matrices_struct), nullptr, GL_DYNAMIC_DRAW,
+  matrices_buffer->Create(sizeof(CameraMatrices_t), nullptr, GL_DYNAMIC_DRAW,
                           GL_UNIFORM_BUFFER);
   matrices_buffer->Unbind();
   glBindBufferBase(GL_UNIFORM_BUFFER, 0, matrices_buffer->GetHandle());
@@ -83,11 +83,14 @@ void Player::create() {
 
   //this->speed = 0.01f;
   //this->position = glm::vec2((float)this->window->GetSize()->x/2.0f, (float)this->window->GetSize()->y/2.0f);
-  m_vecPosition = glm::vec2(0.0f, 0.0f);
+  m_Position = glm::vec2(0.0f, 0.0f);
 
-  this->camera_position = glm::vec3(this->position.x, 0.0f, this->cam_z);
-  this->target = glm::vec3(this->position.x, 0.0f, -1.0f);
-  this->up_vector = glm::vec3(0.0f, 1.0f, 0.0f);
+  // this->camera_position = glm::vec3(this->position.x, 0.0f, this->cam_z);
+  // this->target = glm::vec3(this->position.x, 0.0f, -1.0f);
+  // this->up_vector = glm::vec3(0.0f, 1.0f, 0.0f);
+  m_Camera.SetPosition(glm::vec3(m_Position.x, 0.0f, cam_z));
+  m_Camera.SetLookAtTarget(glm::vec3(m_Position.x, 0.0f, -1.0f));
+  m_Camera.Create();
 
   glfwSetScrollCallback(window->GetHandle(), (GLFWscrollfun)scroll_callback);
   zoom = &this->f_counter;
@@ -123,32 +126,38 @@ void Player::draw() {
   float flTop    =  flHalfHeight;
 
   this->projection = glm::ortho(flLeft, flRight, flBottom, flTop, 0.1f, 100.0f);
+  m_Camera.Update(flLeft, flBottom, flTop, flRight);
 
   this->view = glm::mat4(1.0f);
   //clip the camera ?
-  if(this->position.x >= 4.0f || this->position.x <= -4.0f || this->position.y >= 1.5f || this->position.y <= -1.5f) {
-    this->view = glm::lookAt(this->camera_position, this->target, this->up_vector);
-    this->camera_position = glm::vec3(this->position.x, this->position.y, this->cam_z);
-    this->target = glm::vec3(this->position.x, this->position.y, -1.0f);
-    this->up_vector = glm::vec3(0.0f, 1.0f, 0.0f);
-  }
-  this->view = glm::lookAt(this->camera_position, this->target, this->up_vector);
-  this->camera_position = glm::vec3(this->position.x, this->position.y, this->cam_z);
-  this->target = glm::vec3(this->position.x, this->position.y, -1.0f);
-  this->up_vector = glm::vec3(0.0f, 1.0f, 0.0f);
+  // if(this->position.x >= 4.0f || this->position.x <= -4.0f || this->position.y >= 1.5f || this->position.y <= -1.5f) {
+  //   this->view = glm::lookAt(this->camera_position, this->target, this->up_vector);
+  //   this->camera_position = glm::vec3(this->position.x, this->position.y, this->cam_z);
+  //   this->target = glm::vec3(this->position.x, this->position.y, -1.0f);
+  //   this->up_vector = glm::vec3(0.0f, 1.0f, 0.0f);
+  // }
+  // this->view = glm::lookAt(this->camera_position, this->target, this->up_vector);
+  // this->camera_position = glm::vec3(this->position.x, this->position.y, this->cam_z);
+  // this->target = glm::vec3(this->position.x, this->position.y, -1.0f);
+  // this->up_vector = glm::vec3(0.0f, 1.0f, 0.0f);
+
+  m_Camera.SetPosition(glm::vec3(m_Position.x, m_Position.y, cam_z));
+  m_Camera.SetLookAtTarget(glm::vec3(m_Position.x, m_Position.y, -1.0f));
+  m_Camera.UpdateView();
+  m_Camera.UpdateMatricesBuffer();
 
   unsigned int nPlayerPosLocation = glGetUniformLocation(m_ProgramShader.GetHandle(), "position");
-  glUniform2f(nPlayerPosLocation, position.x, position.y);
+  glUniform2f(nPlayerPosLocation, m_Position.x, m_Position.y);
 
   matrices_struct msturct;
   msturct.projection = this->projection;
   msturct.view = this->view;
-  matrices_buffer->UpdateData(0, sizeof(matrices_struct), &msturct);
+  matrices_buffer->UpdateData(0, sizeof(CameraMatrices_t), m_Camera.GetMatrices());
 
   zoom = &this->f_counter;
   delta = &this->delta_time;
 
-  hitbox.origin = this->position;
+  hitbox.origin = this->m_Position;
   hitbox.size = this->size;
   hitbox.maximum = hitbox.origin + (this->size * 2);
 
@@ -173,28 +182,28 @@ void Player::destroy() {
 void Player::move() {
   Window *window = this->window;
 
-  if (window->is_key_pressed(GLFW_KEY_D)) {
-    this->position.x += this->speed;
-  };
-  if (window->is_key_pressed(GLFW_KEY_A)) {
-    this->position.x -= this->speed;
-  };
-  if (window->is_key_pressed(GLFW_KEY_W)) {
-    this->position.y += this->speed;
-  }
-  if (window->is_key_pressed(GLFW_KEY_S)) {
-    this->position.y -= this->speed;
-  }
-  if(window->is_key_pressed(GLFW_KEY_R)) {
-    this->position = glm::vec2(0.0f);
-  }
+//   if (window->is_key_pressed(GLFW_KEY_D)) {
+//     this->position.x += this->speed;
+//   };
+//   if (window->is_key_pressed(GLFW_KEY_A)) {
+//     this->position.x -= this->speed;
+//   };
+//   if (window->is_key_pressed(GLFW_KEY_W)) {
+//     this->position.y += this->speed;
+//   }
+//   if (window->is_key_pressed(GLFW_KEY_S)) {
+//     this->position.y -= this->speed;
+//   }
+//   if(window->is_key_pressed(GLFW_KEY_R)) {
+//     this->position = glm::vec2(0.0f);
+//   }
 }
 
 void Player::set_window(Window *window) { this->window = window; }
 
 void Player::set_delta_time(float *dt) { this->delta_time = *dt; }
 
-glm::vec2 *Player::get_position() { return &this->position; }
+glm::vec2 *Player::get_position() { return &this->m_Position; }
 
 AABB_Hitbox *Player::get_hitbox() { return &this->hitbox; }
 
@@ -218,23 +227,23 @@ void scroll_callback(GLFWwindow *window, double xOffset, double yOffset) {
 };
 
 void Player::set_position(glm::vec2 pos) {
-  this->position = pos;
-  glUniform2f(glGetUniformLocation(m_ProgramShader.GetHandle(), "position"), position.x, position.y);
+  this->m_Position = pos;
+  glUniform2f(glGetUniformLocation(m_ProgramShader.GetHandle(), "position"), m_Position.x, m_Position.y);
 }
 
 void Player::set_x_pos(float x) {
-  this->position.x = x;
-  glUniform2f(glGetUniformLocation(m_ProgramShader.GetHandle(), "position"), position.x, position.y);
+  this->m_Position.x = x;
+  glUniform2f(glGetUniformLocation(m_ProgramShader.GetHandle(), "position"), m_Position.x, m_Position.y);
 }
 
 void Player::set_y_pos(float y) {
-  this->position.y = y;
-  glUniform2f(glGetUniformLocation(m_ProgramShader.GetHandle(), "position"), position.x, position.y);
+  this->m_Position.y = y;
+  glUniform2f(glGetUniformLocation(m_ProgramShader.GetHandle(), "position"), m_Position.x, m_Position.y);
 }
 
 float Player::get_x_pos() { return this->get_position()->x; }
 
 float Player::get_y_pos() { return this->get_position()->y; }
 void Player::reset_all_stats() {
-  this->position = glm::vec2(0.0f);
+  this->m_Position = glm::vec2(0.0f);
 };
