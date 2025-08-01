@@ -15,7 +15,7 @@
 #include "AABB.hpp"
 #include "Camera.hpp"
 
-class Player {
+class CPlayer {
 private:
   /* OPENGL RELATED MEMBERS */
   Window* window;
@@ -27,16 +27,10 @@ private:
   std::vector<Vertex> mesh_data;
   std::vector<Vertex> texture_positions;
 
-  /* PHYSICS RELATED FUNCTIONS AND CAMERA */
-  float speed = 0.6f; //constant speed no velocity yey!
-  //float size = 0.025f;
-  float size = 8.0f; //test
-  float health = 100.0f;
-  float cam_z = 2.42085743;//-2.42085743;
-  float f_counter = 40.0f;
-  glm::vec3 camera_position, target, up_vector;
+  float size = 8.0f;
   AABB_Hitbox hitbox;
-  float delta_time;
+
+  float m_flDeltaTime;
 
   //PHYSICS BASED MEMBERS
   glm::vec2 m_Position;
@@ -46,29 +40,19 @@ private:
   float m_flGravity = -300.0f;
   const float m_flMaxSpeedX = 128.0f;
 
-  //refactor to use class soon!
-  glm::mat4 projection;
-  glm::mat4 view;
-  bool m_can_zoom = true;
   CCamera m_Camera;
 
   void move();
 public:
-  Player() = default;
-  void create();
-  void draw();
-  void destroy();
+  CPlayer() = default;
+  void                            Create();
+  void                            Draw();
+  void                            Destroy();
 
-  void set_window(Window* window);
-  void set_delta_time(float* dt);
-  void set_position(glm::vec2 pos);
-  void set_x_pos(float x);
-  void set_y_pos(float y);
+  void                            SetWindow(Window* Window) { window = Window; } //we are fucked if nullptr
+  void                            SetDeltaTime(float* flDeltaTime) { m_flDeltaTime = *flDeltaTime; }
+  void                            SetPosition(glm::vec2 Position);
   
-  glm::vec2* get_position();
-  AABB_Hitbox* get_hitbox();
-  float get_x_pos();
-  float get_y_pos();
-  void reset_all_stats();
+  glm::vec2                       GetPosition() const { return m_Position; }
+  AABB_Hitbox*                    GetHitBox() { return &hitbox; }
 };
-void scroll_callback(GLFWwindow* window, double xOffset, double yOffset);

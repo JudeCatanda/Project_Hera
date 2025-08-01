@@ -6,7 +6,7 @@
 #include <glm/ext.hpp>
 
 #include "Window.hpp"
-
+#define DEFAULT_CAMERA_Z 2.5
 
 struct CameraMatrices_t { //memory layout for shader!
   glm::mat4 projection;

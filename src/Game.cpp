@@ -4,31 +4,31 @@ Game::Game() {
   get_render_doc(this->main_world.rdoc_api);
   LOG_WARNING("THE CURRENT STATE IS NOT STABLE! MIGHT CRASH!");
   def_as_ptr(window);
-  def_as_ptr(plr);
   def_as_ptr(main_world);
 
   window->Create("Hera", 600, 800);
-  this->last = (float)glfwGetTime();
+
+  m_flLastFrame = (float)glfwGetTime();
+
   glfwSetInputMode(window->GetHandle(), GLFW_STICKY_KEYS, GLFW_TRUE);
   this->keyboard.attach_window(window->GetHandle());
   glfwSwapInterval(0);//uncap fps
 
   main_world->create();
-  plr->set_window(window);
-  plr->create();
+  m_Player.SetWindow(window);
+  m_Player.Create();
   this->update();
 }
 
 void Game::update() {
   def_as_ptr(window);
-  def_as_ptr(plr);
   def_as_ptr(main_world);
   bool wireframe = false;
   
   while(!window->ShouldClose()) {
-    this->current = (float)glfwGetTime();
-    this->delta = this->current - this->last;
-    this->last = this->current;
+    m_flCurrentFrame = (float)glfwGetTime();
+    m_flDeltaTime = m_flCurrentFrame - m_flLastFrame;
+    m_flLastFrame = m_flCurrentFrame;
 
     window->SetViewport();
     glClearColor(0.2, 0.5, 0.9, 1.0);
@@ -38,8 +38,8 @@ void Game::update() {
     //render the world first!
     main_world->draw();
 
-    plr->set_delta_time(&this->delta);
-    plr->draw();
+    m_Player.SetDeltaTime(&m_flDeltaTime);
+    m_Player.Draw();
 
     if(wireframe)
       glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
@@ -65,7 +65,7 @@ void Game::update() {
 
 void Game::destroy() {
   this->window.Destroy();
-  this->plr.destroy();
+  m_Player.Destroy();
   this->main_world.destroy();
   LOG_INFO("Exiting...");
 }

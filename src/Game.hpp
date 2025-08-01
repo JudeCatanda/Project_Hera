@@ -20,9 +20,9 @@ assert(0);
 class Game {
 private:
   Window window;
-  Player plr;
+  CPlayer m_Player;
   Terrain main_world;
-  float last, current, delta;
+  float m_flLastFrame, m_flCurrentFrame, m_flDeltaTime;
   Keyboard keyboard;
 public:
   Game();
