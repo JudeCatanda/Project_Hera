@@ -97,7 +97,7 @@ void Terrain::create() {
   //   offset.y += space * 2;
   // }
 
-  this->tg.gen_indices(this->tg.get_rendered_quads());
+  this->tg.gen_indices(m_Reader.GetLineCount());
   this->mesh_buffer.UpdateData(0, this->tg.get_vector().size() * sizeof(glm::vec2), this->tg.get());
   this->texture_positions_buffer.UpdateData(0, this->tg.get_vector_with_sprite().size() * sizeof(glm::vec2), this->tg.get_with_sprite());
   this->indices_buffer.UpdateData(0, this->tg.get_vector_with_indices_buffer().size(), this->tg.get_with_indices_buffer());
