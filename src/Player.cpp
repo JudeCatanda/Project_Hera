@@ -85,7 +85,7 @@ void CPlayer::Draw() {
   m_Position += m_Velocity * m_flDeltaTime;
 
   float flAspect = *m_Window->GetAspectRatio();
-  float flHalfHeight = 50.0f;
+  float flHalfHeight = 80.0f;
   
   float flLeft   = -flHalfHeight * flAspect;
   float flRight  =  flHalfHeight * flAspect;
@@ -123,7 +123,8 @@ void CPlayer::Destroy() {
 
 void CPlayer::move() {
   bool bHasHorizontalInput = false;
-  bool bIsOnGround = (m_Position.y <= 0.0f);
+  constexpr float kflGroundLevel = 12.0f;
+  bool bIsOnGround = (m_Position.y <= kflGroundLevel);
 
   if (m_Window->is_key_pressed(GLFW_KEY_D)) {
     m_Velocity.x += m_flAcceleration * m_flDeltaTime;
@@ -154,8 +155,8 @@ void CPlayer::move() {
   sbWasSpacePressed = bIsSpacePressed;
   m_Velocity.y += m_flGravity * m_flDeltaTime;
 
-  if(m_Position.y <= 0.0f && m_Velocity.y < 0) {
-    m_Position.y = 0.0f;
+  if(m_Position.y <= kflGroundLevel && m_Velocity.y < 0) {
+    m_Position.y = kflGroundLevel;
     m_Velocity.y = 0.0f;
   }
 }

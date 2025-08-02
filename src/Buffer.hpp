@@ -7,6 +7,7 @@
 #define SHADERS_DIR "shaders/"
 #define TEST_BUILD_DIR "test_build/"
 #define TEXTURES_DIR "textures/"
+#define MAPS_DIR "maps/"
 
 //SPECIAL MACROS
 
@@ -18,6 +19,7 @@
 #define GET_SHADERS_PATH(f_n) GET_ASSETS_PATH(SHADERS_DIR) f_n
 /// @brief returns the f_n (file) in the textures folder... parent: assets
 #define GET_TEXTURES_PATH(f_n) GET_ASSETS_PATH(TEXTURES_DIR) f_n
+#define GET_PATH_FROM_MAPS_DIR(fileName) GET_ASSETS_PATH(MAPS_DIR) fileName
 
 class Buffer {
 private:

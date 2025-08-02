@@ -7,6 +7,7 @@
 #include <glm/glm.hpp>
 #include <iostream>
 #include <vector>
+#include <fstream>
 
 #include "AABB.hpp"
 #include "Buffer.hpp"
@@ -15,6 +16,19 @@
 #include "rdoc.hpp"
 
 const float RET_ERR_VEC2 = -1000000.00f;
+
+class CBaseMapReader {
+private:
+    //read and write to file
+    std::vector<std::string> m_MapFileBuffer;
+    int m_nLines = 0;
+    std::vector<glm::vec2> m_QuadCoords;
+public:
+    void                                    DumpMap(const char* szFileName);
+    void                                    ReadMap(const char* szFileName);
+    std::vector<glm::vec2>*                 GetBuffer(void) { return &m_QuadCoords; };
+    int                                     GetLineCount(void) const { return m_nLines; };
+};
 
 class Terrain_Generator {
 private:
@@ -48,6 +62,7 @@ class Terrain {
 private:
     CShader m_Vertex, m_Fragment;
     CShaderProgram m_ShaderProgram;
+    CBaseMapReader m_Reader;
   Layout vao;
   Buffer mesh_buffer, indices_buffer, positions_buffer,
       texture_positions_buffer;

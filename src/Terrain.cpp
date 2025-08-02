@@ -12,9 +12,9 @@
   while(GLenum err = glGetError())\
     LOG_ERROR("AH SHIT!!! %d @line: %d", err, __LINE__);
 
-const int max_render_for_x = 200;
-const int max_render_for_y = 200;
-const int render_count = max_render_for_x * max_render_for_y;
+int max_render_for_x = 200;
+int max_render_for_y = 200;
+int render_count = max_render_for_x * max_render_for_y;
 
 const unsigned int max_vertex_counts = 50000;//renamed soon to max_quads_count
 const unsigned int points_per_quad = 4;
@@ -59,6 +59,8 @@ void Terrain::create() {
   vao->Unbind();
 
   this->tg.clear();
+  m_Reader.ReadMap(GET_PATH_FROM_MAPS_DIR("level0")"//test.map");
+  render_count = m_Reader.GetLineCount();
   int idx = 0;
   const float space = 4.0f;
   const float x_starter = 0.0f;
@@ -67,22 +69,33 @@ void Terrain::create() {
   std::random_device rand_device;
   std::mt19937 engine(rand_device());
   std::uniform_int_distribution<int> dist(0, 3);
+  int nIterationCount = 0;
 
   int sprite_x = 0;
   int sprite_y = 0;
-  for(int y = 0; y < max_render_for_y; y++) {
-    for (int x = 0; x < max_render_for_x; x++) {
-      int rand_pos = dist(engine);
-      sprite_x = rand_pos % 2;
-      sprite_y = rand_pos / 2;
-      this->tg.push_quad_with_sprite(space, offset, glm::vec2(32.0f), cell_size, glm::vec2((float)sprite_x, (float)sprite_y)); //get randome texture
-      // LOG_DEBUG("%f, %f @ Quad", offset.x, offset.y);
-      idx+=1;
-      offset.x += space * 2;
-    }
-    offset.x = x_starter;
-    offset.y += space * 2;
+
+  for (glm::vec2& QuadPos : *m_Reader.GetBuffer()) {
+    tg.push_quad_with_sprite(space, QuadPos, glm::vec2(32.0f), cell_size, glm::vec2(0.0f));
+    LOG_DEBUG("Positions: %.2f , %.2f", QuadPos.x, QuadPos.y);
   }
+
+  // for(int y = 0; y < max_render_for_y; y++) {
+  //   for (int x = 0; x < max_render_for_x; x++) {
+  //     int rand_pos = dist(engine);
+  //     sprite_x = rand_pos % 2;
+  //     sprite_y = rand_pos / 2;
+  //     this->tg.push_quad_with_sprite(space, offset, glm::vec2(32.0f), cell_size, glm::vec2((float)sprite_x, (float)sprite_y)); //get randome texture
+  //     // LOG_DEBUG("%f, %f @ Quad", offset.x, offset.y);
+  //     if(nIterationCount < 4) {
+  //       LOG_DEBUG("%4.4f, %.4f @ QUAD_POS", offset.x, offset.y);
+  //     }
+  //     nIterationCount += 1;
+  //     idx+=1;
+  //     offset.x += space * 2;
+  //   }
+  //   offset.x = x_starter;
+  //   offset.y += space * 2;
+  // }
 
   this->tg.gen_indices(this->tg.get_rendered_quads());
   this->mesh_buffer.UpdateData(0, this->tg.get_vector().size() * sizeof(glm::vec2), this->tg.get());
@@ -106,7 +119,7 @@ void Terrain::draw() {
   this->hitbox.size = this->size; //fix this later
 
   //glDrawArrays(GL_TRIANGLES, 0, (max_vertex_counts * points_per_quad)); //if not using indices
-  glDrawElements(GL_TRIANGLES, (max_vertex_counts * points_per_quad), GL_UNSIGNED_INT, nullptr);
+  glDrawElements(GL_TRIANGLES, (render_count * points_per_quad), GL_UNSIGNED_INT, nullptr);
   
   m_ShaderProgram.UnbindProgram();
   vao->Unbind();
@@ -272,4 +285,47 @@ const std::vector<unsigned int>& Terrain_Generator::get_vector_with_indices_buff
 
 unsigned int* Terrain_Generator::get_with_indices_buffer(void) const noexcept {
   return (unsigned int*)this->indices.data();
+};
+
+void CBaseMapReader::DumpMap(const char* szFileName) {
+    LOG_ERROR("No implementation yet");
+    return;
+};
+
+void CBaseMapReader::ReadMap(const char* szFileName) {
+  std::ifstream Handle(szFileName);
+  std::string CurrentLine;
+  std::size_t CommaLocation;
+  std::string NumBuffX, NumBuffY;
+  
+
+  if (!Handle.is_open()) {
+    LOG_ERROR("Cannot load map name %s, does not exist", szFileName);
+  }
+
+  while(std::getline(Handle, CurrentLine)) {
+    bool CurrentLineClosed = false;
+    CurrentLineClosed = (CurrentLine.find(';') == std::string::npos) ? false : true;
+    if(!CurrentLineClosed) {
+      LOG_ERROR("Expected \";\"");
+      return;
+    }
+    CurrentLine = CurrentLine.substr(0, CurrentLine.find(';'));
+    CommaLocation = CurrentLine.find(',');
+    if(CommaLocation == std::string::npos) {
+      LOG_ERROR("Map loading Error! comma was not found!");
+      return;
+    }
+    NumBuffX = CurrentLine.substr(0, CommaLocation);
+    NumBuffY = CurrentLine.substr(CommaLocation + 1);
+
+    float PosX = static_cast<float>(std::stoi(NumBuffX)); //convert str to fl
+    float PosY = static_cast<float>(std::stoi(NumBuffY));
+
+    LOG_DEBUG("Parsed: x = %f, y = %f", PosX, PosY);
+    m_QuadCoords.push_back(glm::vec2(PosX, PosY));
+
+    ++m_nLines;
+  }
+  LOG_DEBUG("We are expected to render %d quads", m_nLines);
 };
