@@ -1,7 +1,7 @@
 #include "Terrain.hpp"
-#include <random>
 
 #undef def_as_ptr
+//This function will be removed soon... remove all instance of it
 #define def_as_ptr(name) typeof(this->name) *name = &this->name
 #undef LOG_DEBUG
 #define LOG_DEBUG(fmt, ...) std::printf("[DEBUG] " fmt "\n", ##__VA_ARGS__)
@@ -40,7 +40,7 @@ void Terrain::create() {
   if(!this->atlas.is_image_valid())
     LOG_DEBUG("the image was invalid for some reason!");
 
-  //SHADER LAYOUT:
+  //SHADER LAYOUT: (OLD CODE... USE SAME SHADER LAYOUT)
   //5 (vec2) tex_pos
   //0 (vec2) mesh_buffer
   // texture_positions_buffer->Create((max_vertex_counts * points_per_quad) * sizeof(glm::vec2), nullptr, GL_DYNAMIC_DRAW, GL_ARRAY_BUFFER);
@@ -74,9 +74,6 @@ void Terrain::create() {
   const float x_starter = 0.0f;
   glm::vec2 offset = glm::vec2(x_starter, 0.0f);
 
-  std::random_device rand_device;
-  std::mt19937 engine(rand_device());
-  std::uniform_int_distribution<int> dist(0, 3);
   int nIterationCount = 0;
 
   int sprite_x = 0;
@@ -119,8 +116,8 @@ void Terrain::draw() {
   m_ShaderProgram.BindProgram();
   this->atlas.bind_and_set_active(GL_TEXTURE1);
   m_VertexArray.Bind();
-  indices_buffer->Bind();
-  positions_buffer->Bind();
+  // indices_buffer->Bind();
+  // positions_buffer->Bind();
 
   this->hitbox.size = this->size; //fix this later
 
