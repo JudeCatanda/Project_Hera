@@ -17,17 +17,27 @@
 
 const float RET_ERR_VEC2 = -1000000.00f;
 
+typedef struct Tile {
+    glm::vec2 Position;
+    glm::vec2 TexturePosition;
+} Tile_t;
+
 class CBaseMapReader {
 private:
     //read and write to file
     std::vector<std::string> m_MapFileBuffer;
     int m_nLines = 0;
     std::vector<glm::vec2> m_QuadCoords;
+    std::vector<Tile_t> m_Tiles;
+    float m_flTileSize = 4.0f;
+    void setTilesOnMapRead(void);
 public:
     void                                    DumpMap(const char* szFileName);
     void                                    ReadMap(const char* szFileName);
     std::vector<glm::vec2>*                 GetBuffer(void) { return &m_QuadCoords; };
+    std::vector<Tile_t>*                    GetTiles(void) { return &m_Tiles; };
     int                                     GetLineCount(void) const { return m_nLines; };
+    float                                   TileSize(void) const noexcept { return m_flTileSize; };
 };
 
 class Terrain_Generator {
@@ -60,14 +70,15 @@ public:
 
 class Terrain {
 private:
+    int render_count; //moved here
     CShader m_Vertex, m_Fragment;
     CShaderProgram m_ShaderProgram;
     CBaseMapReader m_Reader;
-  Layout vao;
-  Buffer mesh_buffer, indices_buffer, positions_buffer,
+  Layout m_VertexArray;
+  Buffer m_VertexBuffer, indices_buffer, positions_buffer,
       texture_positions_buffer;
   Texture atlas;
-  std::vector<Vertex> mesh_data;
+  std::vector<Vertex> m_MeshData;
   std::vector<glm::vec2> tex_pos;
 
   std::vector<glm::vec2> bacthed_terrain;
