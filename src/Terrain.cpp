@@ -87,6 +87,7 @@ void CBaseMapReader::ReadMap(const char* szFileName) {
   std::string CurrentLine;
   std::size_t CommaLocation;
   std::string NumBuffX, NumBuffY;
+  const float kflTileSpace = 8.0f;
   
 
   if (!Handle.is_open()) {
@@ -109,8 +110,8 @@ void CBaseMapReader::ReadMap(const char* szFileName) {
     NumBuffX = CurrentLine.substr(0, CommaLocation);
     NumBuffY = CurrentLine.substr(CommaLocation + 1);
 
-    float PosX = static_cast<float>(std::stoi(NumBuffX)); //convert str to fl
-    float PosY = static_cast<float>(std::stoi(NumBuffY));
+    float PosX = static_cast<float>(std::stoi(NumBuffX)) * kflTileSpace; //convert str to fl
+    float PosY = static_cast<float>(std::stoi(NumBuffY)) * kflTileSpace;
 
     LOG_DEBUG("Parsed: x = %f, y = %f", PosX, PosY);
     m_QuadCoords.push_back(glm::vec2(PosX, PosY));
