@@ -1,39 +1,39 @@
 #include "Layout.hpp"
 
-void Layout::Create() {
-  glGenVertexArrays(1, &this->m_Handle);
+void CLayout::Create() {
+  glGenVertexArrays(1, &m_nHandle);
 }
 
-void Layout::CreateAndBind() {
-  this->Create();
-  this->Bind();
+void CLayout::CreateAndBind() {
+  Create();
+  Bind();
 }
 
-void Layout::Bind() {
-  glBindVertexArray(this->m_Handle);
+void CLayout::Bind() {
+  glBindVertexArray(m_nHandle);
 }
 
-void Layout::Unbind() {
+void CLayout::Unbind() {
   glBindVertexArray(0);
 }
 
-unsigned int Layout::GetHandle() {
-  return this->m_Handle;
+void CLayout::Destroy() {
+  glDeleteVertexArrays(1, &m_nHandle);
 }
 
-void Layout::Destroy() {
-  glDeleteVertexArrays(1, &this->m_Handle);
-}
-
-void Layout::EnableVertexAttrib(int index) {
+void CLayout::EnableVertexAttrib(int index) {
   glEnableVertexAttribArray(index);
 }
 
-void Layout::EditVertexAttrib(int index, GLint size, GLenum type, GLsizei stride, const GLvoid *offset) {
+void CLayout::EditVertexAttrib(int index, GLint size, GLenum type, GLsizei stride, const GLvoid *offset) {
   glVertexAttribPointer(index, size, type, GL_FALSE, stride, offset);
 }
 
-void Layout::SetVertexAttrib(int index, GLint size, GLenum type, GLsizei stride, const GLvoid *offset) {
-  this->EnableVertexAttrib(index);
-  this->EditVertexAttrib(index, size, type, stride, offset);
+void CLayout::SetVertexAttrib(int index, GLint size, GLenum type, GLsizei stride, const GLvoid *offset) {
+  EnableVertexAttrib(index);
+  EditVertexAttrib(index, size, type, stride, offset);
 }
+
+void CLayout::SetDivisor(int index, int divisor) {
+  glVertexAttribDivisor(index, divisor);
+};

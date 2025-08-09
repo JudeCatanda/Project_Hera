@@ -15,8 +15,6 @@
 #include "Shader.hpp"
 #include "rdoc.hpp"
 
-const float RET_ERR_VEC2 = -1000000.00f;
-
 typedef struct Tile {
     glm::vec2 Position;
     glm::vec2 TexturePosition;
@@ -43,14 +41,19 @@ public:
 
 class Terrain {
 private:
-    int render_count; //moved here
+    int render_count; //moved here what appropriate name would i be?
+                      
     CShader m_Vertex, m_Fragment;
     CShaderProgram m_ShaderProgram;
     CBaseMapReader m_Reader;
-    Layout m_VertexArray;
-    Buffer m_VertexBuffer, m_IndexBuffer;
+    CLayout m_VertexArray;
+    Buffer m_TilePositionsGPU, m_VertexBuffer, m_IndexBuffer;
     Texture atlas;
+
+    //CPU SIDE BUFFERS
     std::vector<float> m_MeshData;
+    std::vector<unsigned int> m_MeshIndices;
+    std::vector<glm::vec2> m_TilePositions;
 
     float size = 16.0f;
     AABB_Hitbox hitbox;
