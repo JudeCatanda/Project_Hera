@@ -45,10 +45,11 @@ void Terrain::create() {
     m_TilePositions.push_back(tile.Position);
   }
   m_TilePositionsGPU.Create(m_TilePositions.size() * sizeof(glm::vec2), m_TilePositions.data(), GL_DYNAMIC_DRAW, GL_ARRAY_BUFFER);
-  m_VertexBuffer.Create(m_MeshData.size() * sizeof(float), m_MeshData.data(), GL_STATIC_DRAW, GL_ARRAY_BUFFER);
+  m_VertexArray.SetVertexAttrib(3, 2, GL_FLOAT, 2 * sizeof(float), (const void*)0);
 
-  m_VertexArray.SetVertexAttrib(0, 2, GL_FLOAT, 4 * sizeof(float), (const void*)0);
-  m_VertexArray.SetVertexAttrib(3, 2, GL_FLOAT, 4 * sizeof(float), (const void*)(2 * sizeof(float)));
+  m_VertexBuffer.Create(m_MeshData.size() * sizeof(float), m_MeshData.data(), GL_STATIC_DRAW, GL_ARRAY_BUFFER);
+  m_VertexArray.SetVertexAttrib(0, 2, GL_FLOAT, 2 * sizeof(float), (const void*)0);
+
 
   m_VertexArray.SetDivisor(3, 1);
 
@@ -65,7 +66,6 @@ void Terrain::draw() {
 
   this->hitbox.size = this->size; //fix this later
 
-  //glDrawArraysInstanced(GL_TRIANGLES, 0, (m_MeshData.size() / 2), render_count);
   glDrawElementsInstanced(GL_TRIANGLES, m_MeshIndices.size(), GL_UNSIGNED_INT, 0, render_count);
   
   m_ShaderProgram.UnbindProgram();

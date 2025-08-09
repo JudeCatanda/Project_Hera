@@ -59,7 +59,7 @@ private:
     AABB_Hitbox hitbox;
 
 public:
-  RENDERDOC_API_1_5_0 * rdoc_api = nullptr;
+  RENDERDOC_API_1_5_0 * rdoc_api = nullptr; //to be removed soon
   Terrain() = default;
   void create();
   void draw();
