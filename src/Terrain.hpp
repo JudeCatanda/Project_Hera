@@ -39,10 +39,8 @@ public:
     float                                   GetTileSize(void) const noexcept { return m_flTileSize; };
 };
 
-class Terrain {
+class CGridMap {
 private:
-    int render_count; //moved here what appropriate name would i be?
-                      
     CShader m_Vertex, m_Fragment;
     CShaderProgram m_ShaderProgram;
     CBaseMapReader m_Reader;
@@ -54,16 +52,19 @@ private:
     std::vector<float> m_MeshData;
     std::vector<unsigned int> m_MeshIndices;
     std::vector<glm::vec2> m_TilePositions;
+    std::vector<Hitbox> m_TileHitboxes;
 
     float size = 16.0f;
-    AABB_Hitbox hitbox;
 
+    int m_nTileToRender;
+
+    void createTileHitboxes(void) noexcept;
 public:
   RENDERDOC_API_1_5_0 * rdoc_api = nullptr; //to be removed soon
-  Terrain() = default;
-  void create();
-  void draw();
-  void destroy();
-  void test_tg(void);
-  // void set_pos(glm::vec2 pos);
+  CGridMap() = default;
+  void Create();
+  void Draw();
+  void Destroy();
+
+  bool IsColliding(Hitbox& object);
 };

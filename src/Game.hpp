@@ -21,7 +21,7 @@ class CGame {
 private:
   CWindow m_Window;
   CPlayer m_Player;
-  Terrain main_world;
+  CGridMap m_Level0;
   float m_flLastFrame, m_flCurrentFrame, m_flDeltaTime;
   Keyboard keyboard;
 public:

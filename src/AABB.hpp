@@ -4,11 +4,11 @@
 // #include <glm/matrix.hpp>
 #include <glm/ext.hpp>
 
-typedef struct AABB_Hitbox {
-public:
+struct Hitbox {
   glm::vec2 origin;
   glm::vec2 maximum;
   float size;
-} AABB_Hitbox;
+};
 
-bool is_collided(AABB_Hitbox a, AABB_Hitbox b);
+Hitbox CreateHitbox(glm::vec2 Position, float flSize);
+bool isCollided(Hitbox a, Hitbox b);

@@ -71,6 +71,8 @@ void CPlayer::Create() {
   m_Camera.SetLookAtTarget(glm::vec3(m_Position.x, 0.0f, -1.0f));
   m_Camera.Create();
 
+  m_Hitbox = CreateHitbox(m_Position, size);
+
   m_Velocity = glm::vec2(0.0f);
 }
 
@@ -81,6 +83,7 @@ void CPlayer::Draw() {
   vao.Bind();
   indices_buffer.Bind();
 
+  m_Hitbox = CreateHitbox(m_Position, size);
   move();
   m_Position += m_Velocity * m_flDeltaTime;
 
@@ -102,10 +105,6 @@ void CPlayer::Draw() {
 
   unsigned int nPlayerPosLocation = glGetUniformLocation(m_ProgramShader.GetHandle(), "position");
   glUniform2f(nPlayerPosLocation, m_Position.x, m_Position.y);
-
-  hitbox.origin = this->m_Position;
-  hitbox.size = this->size;
-  hitbox.maximum = hitbox.origin + (this->size * 2);
 
   glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 
@@ -159,6 +158,9 @@ void CPlayer::move() {
     m_Position.y = kflGroundLevel;
     m_Velocity.y = 0.0f;
   }
+
+  if(m_pCurrentGridLevel->IsColliding(m_Hitbox))
+      LOG_DEBUG("Colliding!");
 }
 
 void CPlayer::SetPosition(glm::vec2 Position) {

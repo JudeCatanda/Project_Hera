@@ -14,6 +14,7 @@
 #include "Texture.hpp"
 #include "AABB.hpp"
 #include "Camera.hpp"
+#include "Terrain.hpp"
 
 class CPlayer {
 private:
@@ -28,7 +29,6 @@ private:
   std::vector<Vertex> texture_positions;
 
   float size = 8.0f;
-  AABB_Hitbox hitbox;
 
   float m_flDeltaTime;
 
@@ -39,8 +39,11 @@ private:
   float m_flJumpForce = 200.0f;
   float m_flGravity = -300.0f;
   const float m_flMaxSpeedX = 128.0f;
+  Hitbox m_Hitbox;
 
   CCamera m_Camera;
+
+  CGridMap* m_pCurrentGridLevel;
 
   void move();
 public:
@@ -52,7 +55,8 @@ public:
   void                            SetWindow(CWindow* Window) { m_Window = Window; } //we are fucked if nullptr
   void                            SetDeltaTime(float* flDeltaTime) { m_flDeltaTime = *flDeltaTime; }
   void                            SetPosition(glm::vec2 Position);
+  void                            SetCurrentGridLevel(CGridMap& Gridmap) noexcept { m_pCurrentGridLevel = &Gridmap; };
   
   glm::vec2                       GetPosition() const { return m_Position; }
-  AABB_Hitbox*                    GetHitBox() { return &hitbox; }
+  CGridMap*                       GetCurrentGridLevel(void) const noexcept { return m_pCurrentGridLevel; };
 };

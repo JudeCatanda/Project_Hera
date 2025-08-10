@@ -1,8 +1,7 @@
 #include "Game.hpp"
 
 CGame::CGame() {
-  get_render_doc(this->main_world.rdoc_api);
-  def_as_ptr(main_world);
+  get_render_doc(m_Level0.rdoc_api); //wtf??
 
   m_Window.Create("Hera", 600, 800);
 
@@ -12,14 +11,13 @@ CGame::CGame() {
   this->keyboard.attach_window(m_Window.GetHandle());
   glfwSwapInterval(0);//uncap fps
 
-  main_world->create();
+  m_Level0.Create();
   m_Player.SetWindow(&m_Window);
   m_Player.Create();
   Update();
 }
 
 void CGame::Update() {
-  def_as_ptr(main_world);
   bool wireframe = false;
   
   while(!m_Window.ShouldClose()) {
@@ -29,13 +27,12 @@ void CGame::Update() {
 
     m_Window.SetViewport();
     glClearColor(0.2, 0.5, 0.9, 1.0);
-    // glClearColor(0.0, 0.0, 0.0, 1.0);
     glClear(GL_COLOR_BUFFER_BIT);
     
     //render the world first!
-    main_world->draw();
-
+    m_Level0.Draw();
     m_Player.SetDeltaTime(&m_flDeltaTime);
+    m_Player.SetCurrentGridLevel(m_Level0);
     m_Player.Draw();
 
     if(wireframe)
@@ -50,19 +47,18 @@ void CGame::Update() {
 
     glfwSwapBuffers(m_Window.GetHandle());
     glfwPollEvents();
-    if(this->keyboard.check_state(GLFW_KEY_LEFT_SHIFT)) {
-      this->main_world.test_tg();
-    }
+
     if(this->keyboard.check_state(GLFW_KEY_F6)) {
       wireframe = !wireframe;
     }
+
   }
 }
 
 void CGame::Destroy() {
   m_Window.Destroy();
   m_Player.Destroy();
-  this->main_world.destroy();
+  m_Level0.Destroy();
 }
 
 CGame::~CGame() {

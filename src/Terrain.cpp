@@ -5,15 +5,12 @@
 #undef LOG_ERROR
 #define LOG_ERROR(fmt, ...) std::printf("[ERROR] " fmt "\n", ##__VA_ARGS__);
 
-const unsigned int points_per_quad = 4;
-const unsigned int indices_per_quad = 6;
-
 glm::vec2 cell_size;
 
-void Terrain::create() {
+void CGridMap::Create() {
 
   m_Reader.ReadMap(GET_PATH_FROM_MAPS_DIR("level0")"//test.map");
-  render_count = m_Reader.GetLineCount();
+  m_nTileToRender = m_Reader.GetLineCount();
 
   m_Vertex.Create(GET_SHADERS_PATH("terrain.vert.glsl"), GL_VERTEX_SHADER);
   m_Fragment.Create(GET_SHADERS_PATH("terrain.frag.glsl"), GL_FRAGMENT_SHADER);
@@ -56,30 +53,37 @@ void Terrain::create() {
   m_IndexBuffer.Create(m_MeshIndices.size() * sizeof(unsigned int), m_MeshIndices.data(), GL_STATIC_DRAW, GL_ELEMENT_ARRAY_BUFFER);
 
   m_VertexArray.Unbind();
+
+  createTileHitboxes();
 }
 
-void Terrain::draw() {
+void CGridMap::createTileHitboxes(void) noexcept {
+  m_TileHitboxes.clear();
+  const float kflTileSize = m_Reader.GetTileSize();
+  
+  for(const glm::vec2& position : m_TilePositions) {
+    Hitbox hitbox = CreateHitbox(position, kflTileSize);
+    m_TileHitboxes.push_back(hitbox);
+  }
+  return;
+};
+
+void CGridMap::Draw() {
   m_ShaderProgram.BindProgram();
   this->atlas.bind_and_set_active(GL_TEXTURE1);
 
   m_VertexArray.Bind();
 
-  this->hitbox.size = this->size; //fix this later
-
-  glDrawElementsInstanced(GL_TRIANGLES, m_MeshIndices.size(), GL_UNSIGNED_INT, 0, render_count);
+  glDrawElementsInstanced(GL_TRIANGLES, m_MeshIndices.size(), GL_UNSIGNED_INT, 0, m_nTileToRender);
   
   m_ShaderProgram.UnbindProgram();
   m_VertexArray.Unbind();
 }
 
-void Terrain::destroy() {
+void CGridMap::Destroy() {
   m_ShaderProgram.Destroy();
   m_VertexArray.Destroy();
   m_VertexBuffer.Destroy();
-}
-
-void Terrain::test_tg(void) {
-  //for testing
 }
 
 void CBaseMapReader::ReadMap(const char* szFileName) {
@@ -113,7 +117,6 @@ void CBaseMapReader::ReadMap(const char* szFileName) {
     float PosX = static_cast<float>(std::stoi(NumBuffX)) * kflTileSpace; //convert str to fl
     float PosY = static_cast<float>(std::stoi(NumBuffY)) * kflTileSpace;
 
-    LOG_DEBUG("Parsed: x = %f, y = %f", PosX, PosY);
     m_QuadCoords.push_back(glm::vec2(PosX, PosY));
 
     ++m_nLines;
@@ -127,3 +130,11 @@ void CBaseMapReader::setTilesOnMapRead(void) {
         m_Tiles.push_back({ .Position = vecPosition, .TexturePosition = glm::vec2(0.0f) });
     };
 };
+
+bool CGridMap::IsColliding(Hitbox& object) {
+  for(const Hitbox& tile : m_TileHitboxes) {
+    if(isCollided(object, tile))
+      return true;
+  }
+  return false;
+}
