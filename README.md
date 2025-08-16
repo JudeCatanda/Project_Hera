@@ -3,9 +3,9 @@
 Current State: **✅**
 <br>
 Todo's:
-- [X] Save/Load the level to a bin file (loading map file only)
-- [X] Fix The Fucking Camera Projection Matrix
-- [X] Optimize The fucking renderer (now instancing but buggy)
+- [ ] Ability to load multiple maps and switch maps
+- [ ] Textured tiles and character texture
+- [ ] Fullscreen
 
 ## 🛠️ Build Instructions (CMake + Ninja)
 
