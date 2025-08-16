@@ -124,7 +124,7 @@ void CPlayer::move() {
   bool bHasHorizontalInput = false;
   constexpr float kflGroundLevel = 12.0f;
   bool bIsOnGround = (m_Position.y <= kflGroundLevel);
-
+  
   if (m_Window->is_key_pressed(GLFW_KEY_D)) {
     m_Velocity.x += m_flAcceleration * m_flDeltaTime;
     bHasHorizontalInput = true;
@@ -133,34 +133,34 @@ void CPlayer::move() {
     m_Velocity.x -= m_flAcceleration * m_flDeltaTime;
     bHasHorizontalInput = true;
   };
-
   if(!bHasHorizontalInput) {
     m_Velocity.x = 0.0f;
   }
-
   if(m_Velocity.x > m_flMaxSpeedX) {
     m_Velocity.x = m_flMaxSpeedX;
   } else if(m_Velocity.x < -m_flMaxSpeedX) {
     m_Velocity.x = -m_flMaxSpeedX;
   }
-
+  
   static bool sbWasSpacePressed = false;
   bool bIsSpacePressed = m_Window->is_key_pressed(GLFW_KEY_SPACE);
-
   if(bIsSpacePressed && !sbWasSpacePressed && bIsOnGround) {
     m_Velocity.y += m_flJumpForce;
   }
-
   sbWasSpacePressed = bIsSpacePressed;
+  
   m_Velocity.y += m_flGravity * m_flDeltaTime;
-
+  
   if(m_Position.y <= kflGroundLevel && m_Velocity.y < 0) {
     m_Position.y = kflGroundLevel;
     m_Velocity.y = 0.0f;
   }
-
-  if(m_pCurrentGridLevel->IsColliding(m_Hitbox))
-      LOG_DEBUG("Colliding!");
+  
+  if(m_pCurrentGridLevel->IsColliding(m_Hitbox)) {
+    LOG_DEBUG("Colliding!");
+    m_Velocity.x = 0.0f;
+    m_Velocity.y = 0.0f;
+  }
 }
 
 void CPlayer::SetPosition(glm::vec2 Position) {
