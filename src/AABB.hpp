@@ -7,6 +7,7 @@
 struct Hitbox {
   glm::vec2 origin;
   glm::vec2 maximum;
+  glm::vec2 minimum;
   float size;
 };
 
