@@ -59,10 +59,11 @@ private:
     int m_nTileToRender;
 
     void createTileHitboxes(void) noexcept;
+    bool bEnableTesting = false;
 public:
   RENDERDOC_API_1_5_0 * rdoc_api = nullptr; //to be removed soon
   CGridMap() = default;
-  void Create();
+  void Create(const char* szMapName);
   void Draw();
   void Destroy();
 

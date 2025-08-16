@@ -11,7 +11,7 @@ CGame::CGame() {
   this->keyboard.attach_window(m_Window.GetHandle());
   glfwSwapInterval(0);//uncap fps
 
-  m_Level0.Create();
+  m_Level0.Create("level1");
   m_Player.SetWindow(&m_Window);
   m_Player.Create();
   Update();

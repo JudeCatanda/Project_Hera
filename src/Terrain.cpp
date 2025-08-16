@@ -7,9 +7,19 @@
 
 glm::vec2 cell_size;
 
-void CGridMap::Create() {
+void CGridMap::Create(const char* szMapName) {
 
-  m_Reader.ReadMap(GET_PATH_FROM_MAPS_DIR("level0")"//test.map");
+  if(bEnableTesting)
+    m_Reader.ReadMap(GetMapFromMapsDir("default").c_str());
+
+  if(szMapName != NULL || szMapName != nullptr) {
+    m_Reader.ReadMap(GetMapFromMapsDir(szMapName).c_str());
+  }
+
+  if(bEnableTesting && (szMapName == NULL || szMapName == nullptr))
+    m_Reader.ReadMap(GetMapFromMapsDir("default").c_str());
+
+
   m_nTileToRender = m_Reader.GetLineCount();
 
   m_Vertex.Create(GET_SHADERS_PATH("terrain.vert.glsl"), GL_VERTEX_SHADER);

@@ -1,6 +1,7 @@
 #pragma once
 #include <glad/glad.h>
 #include <glm/glm.hpp>
+#include <string>
 
 #define CURRENT_DIR "./"
 #define ASSETS_DIR "assets/"
@@ -40,3 +41,5 @@ public:
 typedef struct Vertex {
   glm::vec2 Position;
 } Vertex;
+
+std::string GetMapFromMapsDir(const char* LevelName);

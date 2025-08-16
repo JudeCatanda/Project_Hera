@@ -30,3 +30,7 @@ unsigned int Buffer::GetHandle() {
 void Buffer::Destroy() {
   glDeleteBuffers(1, &this->m_Handle);
 }
+
+std::string GetMapFromMapsDir(const char* LevelName) {
+  return std::string(CURRENT_DIR ASSETS_DIR MAPS_DIR) + LevelName+ "/" + LevelName + ".map"; //wtf i am confused too
+};

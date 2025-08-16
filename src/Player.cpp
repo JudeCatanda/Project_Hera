@@ -83,9 +83,9 @@ void CPlayer::Draw() {
   vao.Bind();
   indices_buffer.Bind();
 
-  m_Hitbox = CreateHitbox(m_Position, size);
   move();
   m_Position += m_Velocity * m_flDeltaTime;
+  m_Hitbox = CreateHitbox(m_Position, size);
 
   float flAspect = *m_Window->GetAspectRatio();
   float flHalfHeight = 80.0f;
@@ -122,25 +122,43 @@ void CPlayer::Destroy() {
 
 void CPlayer::move() {
   bool bHasHorizontalInput = false;
-  constexpr float kflGroundLevel = 12.0f;
-  bool bIsOnGround = (m_Position.y <= kflGroundLevel);
+  
+  // Calculate potential horizontal velocity
+  glm::vec2 potentialVelocity = m_Velocity;
   
   if (m_Window->is_key_pressed(GLFW_KEY_D)) {
-    m_Velocity.x += m_flAcceleration * m_flDeltaTime;
+    potentialVelocity.x += m_flAcceleration * m_flDeltaTime;
     bHasHorizontalInput = true;
   };
   if (m_Window->is_key_pressed(GLFW_KEY_A)) {
-    m_Velocity.x -= m_flAcceleration * m_flDeltaTime;
+    potentialVelocity.x -= m_flAcceleration * m_flDeltaTime;
     bHasHorizontalInput = true;
   };
   if(!bHasHorizontalInput) {
+    potentialVelocity.x = 0.0f;
+  }
+  if(potentialVelocity.x > m_flMaxSpeedX) {
+    potentialVelocity.x = m_flMaxSpeedX;
+  } else if(potentialVelocity.x < -m_flMaxSpeedX) {
+    potentialVelocity.x = -m_flMaxSpeedX;
+  }
+  
+  // Test horizontal movement only
+  glm::vec2 testPosX = m_Position;
+  testPosX.x += potentialVelocity.x * m_flDeltaTime;
+  Hitbox testHitboxX = CreateHitbox(testPosX, size);
+  
+  if(!m_pCurrentGridLevel->IsColliding(testHitboxX)) {
+    m_Velocity.x = potentialVelocity.x;
+  } else {
     m_Velocity.x = 0.0f;
   }
-  if(m_Velocity.x > m_flMaxSpeedX) {
-    m_Velocity.x = m_flMaxSpeedX;
-  } else if(m_Velocity.x < -m_flMaxSpeedX) {
-    m_Velocity.x = -m_flMaxSpeedX;
-  }
+  
+  // Check if player is on ground (test small downward movement)
+  glm::vec2 groundTestPos = m_Position;
+  groundTestPos.y -= 0.1f; // Small downward test
+  Hitbox groundTestHitbox = CreateHitbox(groundTestPos, size);
+  bool bIsOnGround = m_pCurrentGridLevel->IsColliding(groundTestHitbox);
   
   static bool sbWasSpacePressed = false;
   bool bIsSpacePressed = m_Window->is_key_pressed(GLFW_KEY_SPACE);
@@ -149,16 +167,15 @@ void CPlayer::move() {
   }
   sbWasSpacePressed = bIsSpacePressed;
   
+  // Apply gravity
   m_Velocity.y += m_flGravity * m_flDeltaTime;
   
-  if(m_Position.y <= kflGroundLevel && m_Velocity.y < 0) {
-    m_Position.y = kflGroundLevel;
-    m_Velocity.y = 0.0f;
-  }
+  // Test vertical movement only
+  glm::vec2 testPosY = m_Position;
+  testPosY.y += m_Velocity.y * m_flDeltaTime;
+  Hitbox testHitboxY = CreateHitbox(testPosY, size);
   
-  if(m_pCurrentGridLevel->IsColliding(m_Hitbox)) {
-    LOG_DEBUG("Colliding!");
-    m_Velocity.x = 0.0f;
+  if(m_pCurrentGridLevel->IsColliding(testHitboxY)) {
     m_Velocity.y = 0.0f;
   }
 }
