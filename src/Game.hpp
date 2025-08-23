@@ -22,6 +22,7 @@ private:
   CWindow m_Window;
   CPlayer m_Player;
   CGridMap m_Level0;
+  CGridMap m_LevelDefault;
   float m_flLastFrame, m_flCurrentFrame, m_flDeltaTime;
   Keyboard keyboard;
 public:

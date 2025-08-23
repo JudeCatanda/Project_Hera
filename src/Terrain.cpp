@@ -9,16 +9,13 @@ glm::vec2 cell_size;
 
 void CGridMap::Create(const char* szMapName) {
 
-  if(bEnableTesting)
-    m_Reader.ReadMap(GetMapFromMapsDir("default").c_str());
 
   if(szMapName != NULL || szMapName != nullptr) {
+    m_Reader.ReadMap(GetMapFromMapsDir("default").c_str());
+    LOG_DEBUG("Loading map NULL");
+  } else {
     m_Reader.ReadMap(GetMapFromMapsDir(szMapName).c_str());
   }
-
-  if(bEnableTesting && (szMapName == NULL || szMapName == nullptr))
-    m_Reader.ReadMap(GetMapFromMapsDir("default").c_str());
-
 
   m_nTileToRender = m_Reader.GetLineCount();
 

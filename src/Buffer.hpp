@@ -11,6 +11,7 @@
 #define MAPS_DIR "maps/"
 
 //SPECIAL MACROS
+//THESE SPECIAL MACROS BELOW NEEDED TO BE REMOVED... CONSIDER USING FUNCTIONS BELLOW
 
 /// @brief returns the f_n (file) in the assets folder... parent: ./
 #define GET_ASSETS_PATH(f_n) CURRENT_DIR ASSETS_DIR f_n
@@ -42,4 +43,5 @@ typedef struct Vertex {
   glm::vec2 Position;
 } Vertex;
 
-std::string GetMapFromMapsDir(const char* LevelName);
+std::string GetMapFromMapsDir(const char* szLevelName);
+std::string GetShaderFromMapDir(const char* szLevelName);

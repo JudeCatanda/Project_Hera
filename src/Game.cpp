@@ -12,6 +12,7 @@ CGame::CGame() {
   glfwSwapInterval(0);//uncap fps
 
   m_Level0.Create("level1");
+  m_LevelDefault.Create(NULL);
   m_Player.SetWindow(&m_Window);
   m_Player.Create();
   Update();
@@ -19,6 +20,7 @@ CGame::CGame() {
 
 void CGame::Update() {
   bool wireframe = false;
+  bool bRenderingDefault = false;
   
   while(!m_Window.ShouldClose()) {
     m_flCurrentFrame = (float)glfwGetTime();
@@ -43,6 +45,15 @@ void CGame::Update() {
     if(m_Window.is_key_pressed(GLFW_KEY_ESCAPE)) {
       Destroy();
       break;
+    }
+
+    if(m_Window.is_key_pressed(GLFW_KEY_SEMICOLON))
+      bRenderingDefault = true;
+
+    if(bRenderingDefault) {
+      m_Player.SetPosition(glm::vec2(0.0, 232.0f));
+      m_LevelDefault.Draw();
+      m_Level0.Destroy();
     }
 
     glfwSwapBuffers(m_Window.GetHandle());
