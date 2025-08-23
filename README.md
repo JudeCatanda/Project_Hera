@@ -1,4 +1,4 @@
-<h1 align="center">Hera</h1>
+<h1 align="center">Project: Hera</h1>
 
 Current State: **✅**
 <br>
