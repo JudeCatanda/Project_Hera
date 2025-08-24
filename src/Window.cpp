@@ -78,8 +78,9 @@ void CWindow::proccessFullScreen() {
   }
   if(!m_bFullScreen) {
     glfwSetWindowAttrib(m_Handle, GLFW_DECORATED, GLFW_TRUE);
-    glfwSetWindowSize(m_Handle, LastSizeW, LastSizeH);
-    glfwSetWindowPos(m_Handle, LastPosX, LastPosY);
+    glfwSetWindowAttrib(m_Handle, GLFW_FOCUSED, GLFW_TRUE);
+    glfwSetWindowSize(m_Handle, LastSizeH, LastSizeW);
+    glfwSetWindowPos(m_Handle, LastPosY, LastPosX);
   }
 };
 
