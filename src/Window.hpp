@@ -18,7 +18,7 @@ private:
   GLFWwindow* m_Handle;
   glm::ivec2 m_Size;
   float m_flAspectRatio;
-  bool m_bFullScreen;
+  bool m_bFullScreen = false; //for fuck sake dont fullscreen yet(epilepsy warning btw)
 
   //INPUT: KEYBOARD
   KeyState m_KeyboardState;
