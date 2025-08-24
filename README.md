@@ -1,11 +1,11 @@
 <h1 align="center">Project: Hera</h1>
 
-Current State: **✅**
+Current State: **Fucked on fullscreen and it uses the 50% the cpu**
 <br>
 Todo's:
 - [ ] Ability to load multiple maps and switch maps
 - [ ] Textured tiles and character texture
-- [ ] Fullscreen
+- [X] Fullscreen (FUCKED)
 
 ## 🛠️ Build Instructions (CMake + Ninja)
 
