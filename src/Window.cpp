@@ -14,6 +14,8 @@ void CWindow::Create(const char* szTitle, int nWidth, int nHeight) {
 
   if(!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
     std::fprintf(stderr, "cannot use opengl!\n");
+
+  m_KeyboardState.Init();
 };
 
 GLFWwindow* CWindow::GetHandle(void) {
@@ -39,8 +41,8 @@ void CWindow::Destroy() {
   glfwDestroyWindow(m_Handle);
 }
 
-bool CWindow::is_key_pressed(int key) {
-  return (glfwGetKey(m_Handle, key) == GLFW_PRESS) ? true : false;
+bool CWindow::IsKeyPressed(int nKey) {
+  return (glfwGetKey(m_Handle, nKey) == GLFW_PRESS) ? true : false;
 }
 
 float *CWindow::GetAspectRatio() {
@@ -54,10 +56,38 @@ void CWindow::SetViewport() {
   glViewport(0, 0, ViewportSize->x, ViewportSize->y);
 }
 
-bool CWindow::is_key_released(int key) {
-  return (glfwGetKey(m_Handle, key) == GLFW_RELEASE) ? true : false;
-};
+bool CWindow::IsKeyReleased(int nKey) {
+  return (glfwGetKey(m_Handle, nKey) == GLFW_RELEASE) ? true : false;
+}
 
 void CWindow::SubmitKeyCallback(GLFWkeyfun callback) {
   glfwSetKeyCallback(m_Handle, callback);
 }
+  
+void CWindow::proccessFullScreen() {
+  const GLFWvidmode* VideoMode = glfwGetVideoMode(glfwGetPrimaryMonitor());  //(returns int)
+  int LastSizeW, LastSizeH, LastPosX, LastPosY; //implement later
+
+  if(m_bFullScreen) {
+    glfwGetWindowPos(m_Handle, &LastPosX, &LastPosY);
+    glfwGetWindowSize(m_Handle, &LastSizeW, &LastSizeH);
+
+    glfwSetWindowAttrib(m_Handle, GLFW_DECORATED, GLFW_FALSE);
+    glfwSetWindowSize(m_Handle, VideoMode->width, VideoMode->height);
+    glfwSetWindowPos(m_Handle, 0, 0);
+  }
+  if(!m_bFullScreen) {
+    glfwSetWindowAttrib(m_Handle, GLFW_DECORATED, GLFW_TRUE);
+    glfwSetWindowSize(m_Handle, LastSizeW, LastSizeH);
+    glfwSetWindowPos(m_Handle, LastPosX, LastPosY);
+  }
+};
+
+bool CWindow::CheckKeyState(int nKey) {
+  m_KeyboardState.Current = glfwGetKey(m_Handle, nKey);
+  bool retValue = false;
+  if(m_KeyboardState.Current == GLFW_PRESS && m_KeyboardState.Prev[nKey] == GLFW_RELEASE)
+    retValue = true;
+  m_KeyboardState.Prev[nKey] = m_KeyboardState.Current;
+  return retValue;
+};

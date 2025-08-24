@@ -126,11 +126,11 @@ void CPlayer::move() {
   // Calculate potential horizontal velocity
   glm::vec2 potentialVelocity = m_Velocity;
   
-  if (m_Window->is_key_pressed(GLFW_KEY_D)) {
+  if (m_Window->IsKeyPressed(GLFW_KEY_D)) {
     potentialVelocity.x += m_flAcceleration * m_flDeltaTime;
     bHasHorizontalInput = true;
   };
-  if (m_Window->is_key_pressed(GLFW_KEY_A)) {
+  if (m_Window->IsKeyPressed(GLFW_KEY_A)) {
     potentialVelocity.x -= m_flAcceleration * m_flDeltaTime;
     bHasHorizontalInput = true;
   };
@@ -161,7 +161,7 @@ void CPlayer::move() {
   bool bIsOnGround = m_pCurrentGridLevel->IsColliding(groundTestHitbox);
   
   static bool sbWasSpacePressed = false;
-  bool bIsSpacePressed = m_Window->is_key_pressed(GLFW_KEY_SPACE);
+  bool bIsSpacePressed = m_Window->IsKeyPressed(GLFW_KEY_SPACE);
   if(bIsSpacePressed && !sbWasSpacePressed && bIsOnGround) {
     m_Velocity.y += m_flJumpForce;
   }
