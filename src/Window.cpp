@@ -72,18 +72,13 @@ void CWindow::SetFullScreen(bool bFullScreen) {
   glfwGetWindowSize(m_Handle, &LastSizeW, &LastSizeH);
 
   if(bFullScreen) {
-    glfwSetWindowAttrib(m_Handle, GLFW_DECORATED, GLFW_FALSE);
-    glfwSetWindowSize(m_Handle, VideoMode->width, VideoMode->height);
-    glfwSetWindowPos(m_Handle, 0, 0);
+    glfwSetWindowMonitor(m_Handle, glfwGetPrimaryMonitor(), 0, 0, VideoMode->width, VideoMode->height, VideoMode->refreshRate);
   }
-  if(!bFullScreen) {
-    glfwSetWindowAttrib(m_Handle, GLFW_DECORATED, GLFW_TRUE);
-    glfwSetWindowAttrib(m_Handle, GLFW_FOCUSED, GLFW_TRUE);
-    glfwSetWindowSize(m_Handle, LastSizeW, LastSizeH);
-    glfwSetWindowPos(m_Handle, LastPosX, LastPosY);
+  if(!bFullScreen) {        
+    glfwSetWindowMonitor(m_Handle, nullptr, LastPosX, LastPosY, LastSizeW, LastSizeH, GLFW_DONT_CARE);
   }
 
-  m_bFullScreen = bFullScreen; //why? idk aswel
+  m_bFullScreen = bFullScreen;
 };
 
 bool CWindow::CheckKeyState(int nKey) {
