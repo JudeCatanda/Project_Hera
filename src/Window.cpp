@@ -64,11 +64,11 @@ void CWindow::SubmitKeyCallback(GLFWkeyfun callback) {
   glfwSetKeyCallback(m_Handle, callback);
 }
   
-void CWindow::proccessFullScreen() {
+void CWindow::SetFullScreen(bool bFullScreen) {
   const GLFWvidmode* VideoMode = glfwGetVideoMode(glfwGetPrimaryMonitor());  //(returns int)
   int LastSizeW, LastSizeH, LastPosX, LastPosY; //implement later
 
-  if(m_bFullScreen) {
+  if(bFullScreen) {
     glfwGetWindowPos(m_Handle, &LastPosX, &LastPosY);
     glfwGetWindowSize(m_Handle, &LastSizeW, &LastSizeH);
 
@@ -76,12 +76,14 @@ void CWindow::proccessFullScreen() {
     glfwSetWindowSize(m_Handle, VideoMode->width, VideoMode->height);
     glfwSetWindowPos(m_Handle, 0, 0);
   }
-  if(!m_bFullScreen) {
+  if(!bFullScreen) {
     glfwSetWindowAttrib(m_Handle, GLFW_DECORATED, GLFW_TRUE);
     glfwSetWindowAttrib(m_Handle, GLFW_FOCUSED, GLFW_TRUE);
     glfwSetWindowSize(m_Handle, LastSizeH, LastSizeW);
     glfwSetWindowPos(m_Handle, LastPosY, LastPosX);
   }
+
+  m_bFullScreen = bFullScreen; //why? idk aswel
 };
 
 bool CWindow::CheckKeyState(int nKey) {

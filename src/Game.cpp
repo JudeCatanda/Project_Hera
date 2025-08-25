@@ -27,7 +27,6 @@ void CGame::Update() {
     m_flDeltaTime = m_flCurrentFrame - m_flLastFrame;
     m_flLastFrame = m_flCurrentFrame;
 
-    m_Window.Update();
     m_Window.SetViewport();
 
     glClearColor(0.2, 0.5, 0.9, 1.0);
@@ -53,6 +52,9 @@ void CGame::Update() {
       m_Window.SetFullScreen(!m_Window.IsFullScreen());
     if (m_Window.IsKeyPressed(GLFW_KEY_SEMICOLON))
       bRenderingDefault = true;
+
+    if(m_Window.CheckKeyState(GLFW_KEY_G))
+      LOG_DEBUG("Key G!");
 
     if (bRenderingDefault) {
       m_Player.SetPosition(glm::vec2(0.0, 232.0f));

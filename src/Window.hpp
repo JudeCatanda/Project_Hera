@@ -23,11 +23,9 @@ private:
   //INPUT: KEYBOARD
   KeyState m_KeyboardState;
 
-  void proccessFullScreen();
 public:
   CWindow() = default;
   void                       Create(const char* szTitle, int nWidth, int nHeight);
-  void                       Update(void) { proccessFullScreen(); };
   int                        ShouldClose();
   void                       Destroy();
   
@@ -39,7 +37,7 @@ public:
   glm::ivec2*                GetSize();
   float*                     GetAspectRatio();
   void                       SetViewport();
-  void                       SetFullScreen(bool bFullScreen) { m_bFullScreen = bFullScreen; };
+  void                       SetFullScreen(bool bFullScreen);
   bool                       IsFullScreen(void) const { return m_bFullScreen; };
 
   void                       SubmitKeyCallback(GLFWkeyfun callback);
